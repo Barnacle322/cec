@@ -1,0 +1,124 @@
+{% extends "/layout.html" %} {% block title %}О нас{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mt-5 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-36">
+        <article class="text-start">
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">О Нас</h2>
+            <p class="text-lg sm:w-1/2 sm:text-2xl">
+                Центр Дополнительного Образования - это место, где вы можете научиться чему-то новому, а также улучшить
+                свои навыки в различных сферах. Мы предлагаем курсы по английскому языку, а также подготовку к экзаменам
+                TOEFL и IELTS.
+            </p>
+        </article>
+        <img
+            class="mt-20 h-40 w-full rounded-xl object-cover object-center sm:h-96"
+            src="/static/elements/auca.jpeg"
+            alt=""
+        />
+    </section>
+    <section
+        class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-5 px-6 sm:mt-36 sm:justify-between lg:flex-row"
+    >
+        <h2 class="text-4xl font-medium sm:text-5xl">При поддержке АУЦА</h2>
+        <div class="mt-5 flex items-center">
+            <img class="h-16 sm:h-32" src="/static/elements/logo.png" alt="" />
+            <span class="text-xl sm:text-5xl">🤝</span>
+            <img class="h-16 sm:h-32" src="/static/elements/auca-logo.png" alt="" />
+        </div>
+    </section>
+    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-36">
+        <h2 class="w-full text-4xl font-medium sm:text-5xl">Команда</h2>
+
+        <div class="mt-5 flex flex-wrap justify-center gap-x-8 gap-y-3">
+            {% for member in range(6) %}
+            <div class="flex max-w-[280px] flex-col gap-2">
+                <img class="h-[250px] w-[290px] rounded-xl bg-gray-200 object-cover" src="" alt="" />
+                <p class="flex flex-col">
+                    <span class="text-xl font-medium">Человек Человеков</span>
+                    <span class="flex max-w-fit">Позиция</span>
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="mt-5 flex w-full flex-col items-center justify-center rounded-t-3xl bg-[#eff0f5] pt-20 sm:mt-36">
+        <article class="w-full max-w-7xl px-6 text-start">
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Наши партнёры</h2>
+            <p class="text-lg sm:w-1/2 sm:text-2xl">
+                Мы сотрудничаем с различными организациями, чтобы предоставить вам лучшие условия для обучения.
+            </p>
+        </article>
+        <div class="mt-10 flex w-full flex-col items-center justify-center rounded-3xl bg-[#1fbbff] p-8 sm:p-16">
+            <div
+                class="flex w-full max-w-7xl flex-wrap items-center justify-center gap-x-4 gap-y-6 rounded-2xl bg-white px-5 py-12"
+            >
+                {% for partner in range(6) %}
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/who.png" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/undp.svg" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/embassy.png" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/usaid.svg" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/kicb.svg" alt="" />
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section
+        id="contacts"
+        class="flex w-full flex-col items-center justify-center gap-4 bg-[#eff0f5] px-6 pt-20 sm:pt-36"
+    >
+        <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+            <article class="text-start">
+                <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Контакты</h2>
+                <p class="text-lg sm:w-1/2 sm:text-2xl">
+                    Мы работаем с понедельника по пятницу с 9:00 до 18:00. Если у вас есть вопросы, пожалуйста,
+                    свяжитесь с нами.
+                </p>
+            </article>
+        </div>
+        <div class="mt-10 flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+            <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
+                <a href="tel:+996502915022" class="text-4xl font-medium">+996 502 915 022</a>
+                <span class="text-xl">Телефон</span>
+            </div>
+            <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
+                <a href="tel:+996550915022" class="text-4xl font-medium">+996 550 915 022</a>
+                <span class="text-xl">Телефон</span>
+            </div>
+        </div>
+
+        <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+            <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
+                <a href="tel:+996772915022" class="text-4xl font-medium">+996 772 915 022</a>
+                <span class="text-xl">Телефон</span>
+            </div>
+            <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
+                <a href="mailto:cec@auca.kg" class="text-4xl font-medium">cec@auca.kg</a>
+                <span class="text-xl">Электронная почта</span>
+            </div>
+        </div>
+
+        <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
+            <div
+                class="flex w-full max-w-7xl flex-col items-center justify-center gap-4 rounded-3xl bg-white p-6 sm:w-1/2"
+            >
+                <div class="flex w-full flex-col">
+                    <span class="text-4xl font-medium">Как к нам добраться?</span>
+                    <span class="text-xl">Мы находимся на втором этаже здания АУЦА</span>
+                </div>
+                <iframe
+                    class="w-full rounded-3xl border-0"
+                    height="450"
+                    loading="lazy"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB35Ebq8gL0lrddfrsSzRiTe2YRhWI2tmY&q=AUCA"
+                >
+                </iframe>
+            </div>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: "GT Walsheim Pro", "Ubuntu", sans-serif;
+}
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-UltraLight.ttf");
+    font-weight: 100; /* Ultra Light */
+}
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-Thin.ttf");
+    font-weight: 200; /* Thin */
+}
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-Light.ttf");
+    font-weight: 300; /* Light */
+}
+
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-Regular.ttf");
+    font-weight: 400; /* Regular */
+}
+
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-Medium.ttf");
+    font-weight: 500; /* Medium */
+}
+
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-Bold.ttf");
+    font-weight: 700; /* Bold */
+}
+
+@font-face {
+    font-family: "GT Walsheim Pro";
+    src: url("/static/elements/fonts/GTWalsheimPro-UltraBold.ttf");
+    font-weight: 800; /* Ultra Bold */
+}
