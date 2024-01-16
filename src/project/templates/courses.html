@@ -15,25 +15,30 @@ content %}
     <section class="mt-5 flex w-full max-w-7xl flex-col items-start justify-start px-6">
         <div class="flex flex-wrap gap-3">
             <a
-                class="w-max rounded-lg bg-white px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
+                class="{{ 'bg-sky-500 text-white' if request.args.get('course_group') == None else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
                 href="/courses"
                 >Все</a
             >
             {% for course_group in course_groups %}
             <a
-                class="w-max rounded-lg bg-white px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
+                class="{{ 'bg-sky-500 text-white' if request.args.get('course_group') == course_group.link else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
                 href="?course_group={{ course_group.link }}"
                 >{{ course_group.name }}</a
             >
             {% endfor %}
         </div>
-        <div class="mt-10 flex flex-wrap items-center justify-center gap-5">
+
+        <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for course in courses %}
-            <article class="flex max-w-96 flex-col gap-3 rounded-xl bg-white p-9">
+            <article class="flex flex-col gap-3 rounded-xl bg-white p-9">
                 <img class="rounded-lg" src="{{ course.picture }}" alt="" />
                 <h2 class="text-3xl font-medium">{{ course.name }}</h2>
                 <p class="text-lg">{{ course.description }}</p>
-                <a class="text-lg font-medium text-blue-600" href="course/{{ course.link }}">Подробнее...</a>
+                <a
+                    class="text-lg font-medium text-blue-600 transition-colors ease-in-out hover:text-blue-500"
+                    href="course/{{ course.link }}"
+                    >Подробнее...</a
+                >
             </article>
             {% endfor %}
         </div>

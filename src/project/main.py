@@ -1,14 +1,10 @@
 import calendar
 import datetime
 
-from flask import (
-    Blueprint,
-    jsonify,
-    render_template,
-)
+from flask import Blueprint, jsonify, render_template, request
 
 from .extenstions import login_manager
-from .models import Course, CourseGroup, Event, Teacher, User
+from .models import Course, CourseGroup, Event, Staff, Teacher, User
 
 main = Blueprint("main", __name__)
 
@@ -52,14 +48,16 @@ def index():
 
 @main.route("/courses")
 def courses():
-    courses = Course.get_all()
     course_groups = CourseGroup.get_all()
+    query = request.args.get("course_group")
+    course_group = CourseGroup.get_by_link(query) if query else None
+    courses = Course.get_by_course_group(course_group)
+
     return render_template("courses.html", courses=courses, course_groups=course_groups)
 
 
 @main.route("/course/<course_name>")
 def course(course_name):
-    print(course_name)
     return render_template("course.html", course_name=course_name)
 
 
@@ -70,12 +68,14 @@ def send_calendar(month, year):
 
 @main.route("/about")
 def about():
-    return render_template("about.html")
+    staff = Staff.get_all()
+    return render_template("about.html", staff=staff)
 
 
 @main.route("/teachers")
 def teachers():
-    return render_template("teachers.html", teachers=Teacher.get_all())
+    teachers = Teacher.get_all()
+    return render_template("teachers.html", teachers=teachers)
 
 
 @main.route("/events/<int:month>/<int:year>")

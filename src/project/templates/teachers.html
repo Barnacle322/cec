@@ -1,0 +1,55 @@
+{% extends "/layout.html" %} {% block title %}О нас{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden bg-[#eff0f5] leading-normal tracking-tight"
+>
+    <section class="mt-5 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-36">
+        <article class="text-start">
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">О преподавателях</h2>
+            <p class="text-lg sm:w-1/2 sm:text-2xl">
+                Наши преподаватели - это люди, которые имеют большой опыт в преподавании английского языка, а также
+                подготовке к экзаменам TOEFL и IELTS. Они помогут вам достичь ваших целей и дадут много полезных советов
+                по изучению английского языка.
+            </p>
+        </article>
+        <img
+            class="mt-10 h-40 w-full rounded-xl object-cover object-center sm:mt-20 sm:h-96"
+            src="/static/elements/auca.jpeg"
+            alt=""
+        />
+    </section>
+    <!-- <section class="mt-20 flex w-full max-w-7xl flex-wrap items-center justify-center px-6 sm:mt-36 gap-10">
+        {% for teacher in teachers %}
+        <article class="text-start flex gap-5 max-w-[500px]">
+            <img
+                class="sm:h-[350px] sm:w-[280px] h-[225px] w-[140px] rounded-xl bg-gray-200 object-cover"
+                src="{{ teacher.picture }}"
+                alt=""
+            />
+            <div>
+                <h3 class="sm:text-3xl text-2xl font-semibold">{{ teacher.name }}</h3>
+                <p class="text-lg">{{ teacher.bio }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </section> -->
+    <section
+        class="mt-20 grid w-full max-w-7xl grid-cols-1 items-start justify-center gap-10 px-6 sm:mt-36 sm:grid-cols-2"
+    >
+        {% for teacher in teachers %}
+        <article class="flex max-w-[500px] gap-5 text-start">
+            <img
+                class="h-[225px] w-[140px] rounded-xl bg-gray-200 object-cover sm:h-[350px] sm:w-[280px]"
+                src="{{ teacher.picture }}"
+                alt=""
+            />
+            <div class="flex flex-col gap-1">
+                <h3 class="text-2xl font-semibold sm:text-3xl">{{ teacher.name }}</h3>
+                <p class="text-lg">{{ teacher.bio }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </section>
+</main>
+
+{% endblock %}

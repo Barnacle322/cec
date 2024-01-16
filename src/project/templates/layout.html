@@ -13,13 +13,14 @@
         {% endblock %}
     </head>
     <body class="w-full">
-        <nav class="absolute left-0 top-0 flex h-24 w-full items-center justify-center text-slate-900">
+        <nav class="absolute left-0 top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white">
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
-                <a href="/"><img class="w-40" src="/static/elements/logo.png" /></a>
-                <ul class="hidden gap-7 font-medium *:transition-colors *:ease-in-out hover:*:text-slate-700 md:flex">
+                <a href="/"><img class="w-40" src="/static/elements/logo_light.png" /></a>
+                <ul class="hidden gap-7 font-medium *:transition-colors *:ease-in-out hover:*:text-slate-200 md:flex">
                     <a href="/courses">Курсы</a>
                     <a href="/about">О нас</a>
                     <a href="/toefl">TOEFL</a>
+                    <a href="/teachers">Учителя</a>
                     <a href="/about#contacts">Связаться с нами</a>
                 </ul>
                 <a
@@ -54,7 +55,7 @@
                         <span class="sr-only">Globalify</span>
                         <img class="w-40" src="/static/elements/logo.png" alt="" />
                     </a>
-                    <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" onclick="closeMenu()">
+                    <button type="button" class="mr-3 rounded-md text-gray-700" onclick="closeMenu()">
                         <span class="sr-only">Close menu</span>
                         <svg
                             class="h-6 w-6"
@@ -64,7 +65,7 @@
                             stroke="currentColor"
                             aria-hidden="true"
                         >
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L1s8 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
@@ -87,6 +88,11 @@
                                 >TOEFL</a
                             >
                             <a
+                                href="/teachers"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                >Учителя</a
+                            >
+                            <a
                                 href="/about#contacts"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
                                 onclick="closeMenu()"
@@ -107,7 +113,7 @@
         {% block content %} {% endblock %}
         <footer class="bg-[#eff0f5] text-sm text-slate-900" aria-labelledby="footer-heading">
             <h2 id="footer-heading" class="sr-only">Footer</h2>
-            <div class="mx-auto max-w-7xl px-8 pb-8 sm:pt-24 lg:px-8 lg:pt-32">
+            <div class="mx-auto max-w-7xl px-8 pb-8 pt-24 lg:pt-32">
                 <div class="grid xl:grid-cols-3 xl:gap-8">
                     <div class="space-y-8">
                         <img

@@ -110,6 +110,10 @@ class CourseGroup(db.Model):
         return db.session.scalar(db.select(CourseGroup).where(CourseGroup.id == id))
 
     @staticmethod
+    def get_by_link(link: str) -> CourseGroup | None:
+        return db.session.scalar(db.select(CourseGroup).where(CourseGroup.link == link))
+
+    @staticmethod
     def populate():
         programming = CourseGroup(
             name="Кодинг",
@@ -121,31 +125,31 @@ class CourseGroup(db.Model):
             name="Детская академия роста",
             description="Дайте ребенку возможность развиваться вместе с нами!",
             link="dar",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+            picture="http://127.0.0.1:5000/static/elements/dar.jpg",
         )
         language = CourseGroup(
             name="Иностранные языки",
             description="Изучайте английский, немецкий, французский и другие языки",
             link="language",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+            picture="http://127.0.0.1:5000/static/elements/languages.jpg",
         )
         business = CourseGroup(
             name="Бизнес",
             description="Научитесь создавать и развивать свой бизнес",
             link="business",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+            picture="http://127.0.0.1:5000/static/elements/business.jpg",
         )
         preparation = CourseGroup(
             name="Подготовительные курсы",
             description="Мы поможем вам подготовиться к школе, ВУЗу или экзаменам",
             link="preparation",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+            picture="http://127.0.0.1:5000/static/elements/preparation.jpg",
         )
         chess = CourseGroup(
             name="Шахматы",
             description="Изучайте шахматы с нами",
             link="chess",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+            picture="http://127.0.0.1:5000/static/elements/chess.jpg",
         )
         db.session.add_all([programming, dar, language, business, preparation, chess])
         db.session.commit()
@@ -174,9 +178,13 @@ class Course(db.Model):
         return db.session.scalars(db.select(Course)).all()
 
     @staticmethod
-    def get_by_course_group(course_group_link: str) -> Sequence[Course]:
+    def get_by_course_group(
+        course_group: CourseGroup | None = None,
+    ) -> Sequence[Course]:
+        if not course_group:
+            return Course.get_all()
         return db.session.scalars(
-            db.select(Course).where(Course.course_group.link == course_group_link)
+            db.select(Course).where(Course.course_group == course_group)
         ).all()
 
     @staticmethod
@@ -231,6 +239,7 @@ class Teacher(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
+    bio: Mapped[str] = mapped_column(String, nullable=False)
     picture: Mapped[str] = mapped_column(String, nullable=False)
 
     def __init__(self, **kwargs):
@@ -245,28 +254,109 @@ class Teacher(db.Model):
 
     @staticmethod
     def populate():
-        teacher1 = Teacher(
-            name="Иванов Иван Иванович",
-            description="Иванов Иван Иванович - преподаватель по математике",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+        alisa = Teacher(
+            name="Алыбаева Алиса",
+            description="Алыбаева Алиса - преподаватель по математике",
+            bio="Алыбаева Алиса - преподаватель по математике.",
+            picture="/static/elements/teachers/Алыбаева Алиса.jpg",
         )
-        teacher2 = Teacher(
-            name="Петров Петр Петрович",
-            description="Петров Петр Петрович - преподаватель по физике",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+        mira = Teacher(
+            name="Алыбаева Мира",
+            description="Алыбаева Мира - преподаватель по физике",
+            bio="Алыбаева Мира - преподаватель по физике.",
+            picture="/static/elements/teachers/Алыбаева Мира.jpg",
         )
-        teacher3 = Teacher(
-            name="Сидоров Сидор Сидорович",
-            description="Сидоров Сидор Сидорович - преподаватель по химии",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+        mariya = Teacher(
+            name="ДеКастл Мария",
+            description="ДеКастл Мария - преподаватель по химии",
+            bio="ДеКастл Мария - преподаватель по химии.",
+            picture="/static/elements/teachers/ДеКастл Мария.jpg",
         )
-        teacher4 = Teacher(
-            name="Алексеев Алексей Алексеевич",
-            description="Алексеев Алексей Алексеевич - преподаватель по биологии",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
+        asem = Teacher(
+            name="Жунусова Асем",
+            description="Жунусова Асем - преподаватель по биологии",
+            bio="Жунусова Асем - преподаватель по биологии.",
+            picture="/static/elements/teachers/Жунусова Асем.jpg",
+        )
+        aigul = Teacher(
+            name="Каримова Айгуль",
+            description="Каримова Айгуль - преподаватель по математике",
+            bio="Каримова Айгуль - преподаватель по математике.",
+            picture="/static/elements/teachers/Каримова Айгуль.jpg",
+        )
+        gulmira = Teacher(
+            name="Молдомусаева Гульмира",
+            description="Молдомусаева Гульмира - преподаватель по математике",
+            bio="Молдомусаева Гульмира - преподаватель по математике.",
+            picture="/static/elements/teachers/Молдомусаева Гульмира.jpg",
+        )
+        angela = Teacher(
+            name="Пак Анжела",
+            description="Пак Анжела - преподаватель по математике",
+            bio="Пак Анжела - преподаватель по математике.",
+            picture="/static/elements/teachers/Пак Анжела.jpg",
+        )
+        valentina = Teacher(
+            name="Рындина Валентина",
+            description="Рындина Валентина - преподаватель по математике",
+            bio="Рындина Валентина - преподаватель по математике.",
+            picture="/static/elements/teachers/Рындина Валентина.jpg",
+        )
+        liana = Teacher(
+            name="Семенова Лиана",
+            description="Семенова Лиана - преподаватель по математике",
+            bio="Семенова Лиана - преподаватель по математике.",
+            picture="/static/elements/teachers/Семенова Лиана.jpg",
+        )
+        leyla = Teacher(
+            name="Серикова Лейла",
+            description="Серикова Лейла - преподаватель по математике",
+            bio="Серикова Лейла - преподаватель по математике.",
+            picture="/static/elements/teachers/Серикова Лейла.jpg",
+        )
+        olga = Teacher(
+            name="Скрипник Ольга",
+            description="Скрипник Ольга - преподаватель по математике",
+            bio="Скрипник Ольга - преподаватель по математике.",
+            picture="/static/elements/teachers/Скрипник Ольга.jpg",
+        )
+        narisa = Teacher(
+            name="Турдиева Нариса",
+            description="Турдиева Нариса - преподаватель по математике",
+            bio="Турдиева Нариса - преподаватель по математике.",
+            picture="/static/elements/teachers/Турдиева Нариса.jpg",
+        )
+        anna = Teacher(
+            name="Шевцова Анна",
+            description="Шевцова Анна - преподаватель по математике",
+            bio="Шевцова Анна - преподаватель по математике.",
+            picture="/static/elements/teachers/Шевцова Анна.jpg",
+        )
+        gulkaiyr = Teacher(
+            name="Эмилбекова Гулкайыр",
+            description="Эмилбекова Гулкайыр - преподаватель по математике",
+            bio="Эмилбекова Гулкайыр - преподаватель по математике.",
+            picture="/static/elements/teachers/Эмилбекова Гулкайыр.jpg",
         )
 
-        db.session.add_all([teacher1, teacher2, teacher3, teacher4])
+        db.session.add_all(
+            [
+                alisa,
+                mira,
+                mariya,
+                asem,
+                aigul,
+                gulmira,
+                angela,
+                valentina,
+                liana,
+                leyla,
+                olga,
+                narisa,
+                anna,
+                gulkaiyr,
+            ]
+        )
         db.session.commit()
 
 
@@ -289,29 +379,29 @@ class Staff(db.Model):
     @staticmethod
     def populate():
         staff1 = Staff(
-            name="Иванов Иван Иванович",
-            description="Иванов Иван Иванович - преподаватель по математике",
-            picture="/static/elements/coding.jpg",
+            name="Турдиева Нариса",
+            description="Позиция",
+            picture="/static/elements/teachers/Турдиева Нариса.jpg",
         )
         staff2 = Staff(
-            name="Петров Петр Петрович",
-            description="Петров Петр Петрович - преподаватель по физике",
-            picture="/static/elements/coding.jpg",
+            name="Турдиева Нариса",
+            description="Позиция",
+            picture="/static/elements/teachers/Турдиева Нариса.jpg",
         )
         staff3 = Staff(
-            name="Сидоров Сидор Сидорович",
-            description="Сидоров Сидор Сидорович - преподаватель по химии",
-            picture="/static/elements/coding.jpg",
+            name="Турдиева Нариса",
+            description="Позиция",
+            picture="/static/elements/teachers/Турдиева Нариса.jpg",
         )
         staff4 = Staff(
-            name="Алексеев Алексей Алексеевич",
-            description="Алексеев Алексей Алексеевич - преподаватель по биологии",
-            picture="/static/elements/coding.jpg",
+            name="Турдиева Нариса",
+            description="Позиция",
+            picture="/static/elements/teachers/Турдиева Нариса.jpg",
         )
         staff5 = Staff(
-            name="Иванов Иван Иванович",
-            description="Иванов Иван Иванович - преподаватель по математике",
-            picture="/static/elements/coding.jpg",
+            name="Турдиева Нариса",
+            description="Позиция",
+            picture="/static/elements/teachers/Турдиева Нариса.jpg",
         )
 
         db.session.add_all([staff1, staff2, staff3, staff4, staff5])

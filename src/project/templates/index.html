@@ -74,7 +74,7 @@ endblock %} {% block content %}
             <div
                 class="group flex w-full flex-col justify-between gap-3 rounded-3xl bg-white p-5 text-black transition-transform duration-300 ease-in-out hover:scale-[1.02] sm:flex-row xl:max-w-xl"
             >
-                <div class="flex flex-col justify-between gap-3 text-2xl font-medium">
+                <div class="flex flex-col justify-between gap-3 text-2xl font-medium sm:w-1/2">
                     <span class="">{{ course.name }}</span>
                     <p class="text-base">{{ course.description }}</p>
                     <a
@@ -203,9 +203,6 @@ endblock %} {% block content %}
             </div>
             {% endfor %}
         </div>
-    </section>
-    <section class="mt-36 flex w-full flex-col items-center justify-center bg-[#f4f5f6] px-6">
-        <div class="h-96 w-full max-w-4xl rounded-xl bg-[#1fbbff]"></div>
     </section>
 </main>
 {% endblock %}

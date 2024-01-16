@@ -1,9 +1,16 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body></body>
-</html>
+{% extends "/layout.html" %} {% block title %}О нас{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden bg-[#eff0f5] leading-normal tracking-tight"
+>
+    <section class="mt-5 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-32">
+        <article class="text-start">
+            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">Курсы на ваш выбор под ваши цели</h1>
+            <p class="text-lg sm:w-1/2 sm:text-2xl">
+                Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, используя уроки по самым
+                актуальным темам.
+            </p>
+        </article>
+    </section>
+</main>
+{% endblock %}

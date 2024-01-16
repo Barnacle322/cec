@@ -842,6 +842,12 @@ select {
 .mt-6 {
   margin-top: 1.5rem;
 }
+.mr-6 {
+  margin-right: 1.5rem;
+}
+.mr-3 {
+  margin-right: 0.75rem;
+}
 .block {
   display: block;
 }
@@ -867,6 +873,10 @@ select {
 .size-10 {
   width: 2.5rem;
   height: 2.5rem;
+}
+.size-6 {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 .h-1\/2 {
   height: 50%;
@@ -910,6 +920,15 @@ select {
 .h-\[350px\] {
   height: 350px;
 }
+.h-full {
+  height: 100%;
+}
+.h-\[225\] {
+  height: 225;
+}
+.h-\[225px\] {
+  height: 225px;
+}
 .w-10 {
   width: 2.5rem;
 }
@@ -946,6 +965,15 @@ select {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+.w-\[230px\] {
+  width: 230px;
+}
+.w-1\/2 {
+  width: 50%;
+}
+.w-\[140px\] {
+  width: 140px;
 }
 .min-w-max {
   min-width: -moz-max-content;
@@ -985,6 +1013,9 @@ select {
 .grid-cols-5 {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 .flex-row {
   flex-direction: row;
 }
@@ -1018,6 +1049,9 @@ select {
 .justify-between {
   justify-content: space-between;
 }
+.justify-items-center {
+  justify-items: center;
+}
 .gap-1 {
   gap: 0.25rem;
 }
@@ -1041,6 +1075,12 @@ select {
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-10 {
+  gap: 2.5rem;
+}
+.gap-16 {
+  gap: 4rem;
 }
 .gap-x-1 {
   -moz-column-gap: 0.25rem;
@@ -1230,6 +1270,13 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(161 161 170 / var(--tw-bg-opacity));
 }
+.bg-\[1f3058\] {
+  background-color: 1f3058;
+}
+.bg-\[\#1f3058\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 48 88 / var(--tw-bg-opacity));
+}
 .bg-\[url\(https\:\/\/cdn-user30887\.skyeng\.ru\/uploads\/main-pic-62d745eb5f651187871720-1-63174e002efe7489718791\.webp\)\] {
   background-image: url(https://cdn-user30887.skyeng.ru/uploads/main-pic-62d745eb5f651187871720-1-63174e002efe7489718791.webp);
 }
@@ -1335,14 +1382,14 @@ select {
 .pb-8 {
   padding-bottom: 2rem;
 }
-.pt-14 {
-  padding-top: 3.5rem;
-}
 .pt-20 {
   padding-top: 5rem;
 }
 .pt-8 {
   padding-top: 2rem;
+}
+.pt-24 {
+  padding-top: 6rem;
 }
 .text-center {
   text-align: center;
@@ -1580,6 +1627,11 @@ body {
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
+.hover\:text-blue-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
+}
+
 .hover\:text-slate-900:hover {
   --tw-text-opacity: 1;
   color: rgb(15 23 42 / var(--tw-text-opacity));
@@ -1593,6 +1645,16 @@ body {
 .hover\:\*\:text-slate-700 > *:hover {
   --tw-text-opacity: 1;
   color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
+.hover\:\*\:text-slate-100 > *:hover {
+  --tw-text-opacity: 1;
+  color: rgb(241 245 249 / var(--tw-text-opacity));
+}
+
+.hover\:\*\:text-slate-200 > *:hover {
+  --tw-text-opacity: 1;
+  color: rgb(226 232 240 / var(--tw-text-opacity));
 }
 
 .group:hover .group-hover\:scale-\[\.98\] {
@@ -1649,6 +1711,10 @@ body {
     height: 500px;
   }
 
+  .sm\:h-\[350px\] {
+    height: 350px;
+  }
+
   .sm\:w-1\/2 {
     width: 50%;
   }
@@ -1657,8 +1723,16 @@ body {
     width: 75%;
   }
 
+  .sm\:w-\[280px\] {
+    width: 280px;
+  }
+
   .sm\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
@@ -1705,6 +1779,11 @@ body {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .sm\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1737,6 +1816,10 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .md\:gap-8 {
     gap: 2rem;
   }
@@ -1754,6 +1837,14 @@ body {
 
   .lg\:w-1\/2 {
     width: 50%;
+  }
+
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:flex-row {
