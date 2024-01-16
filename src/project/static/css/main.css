@@ -848,6 +848,9 @@ select {
 .mr-3 {
   margin-right: 0.75rem;
 }
+.mt-64 {
+  margin-top: 16rem;
+}
 .block {
   display: block;
 }
@@ -928,6 +931,9 @@ select {
 }
 .h-\[225px\] {
   height: 225px;
+}
+.h-\[400px\] {
+  height: 400px;
 }
 .w-10 {
   width: 2.5rem;
@@ -1129,6 +1135,11 @@ select {
   margin-top: calc(2rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(2rem * var(--tw-space-y-reverse));
 }
+.space-y-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1.25rem * var(--tw-space-y-reverse));
+}
 .divide-y > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
@@ -1277,6 +1288,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(31 48 88 / var(--tw-bg-opacity));
 }
+.bg-\[\#fad800\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(250 216 0 / var(--tw-bg-opacity));
+}
 .bg-\[url\(https\:\/\/cdn-user30887\.skyeng\.ru\/uploads\/main-pic-62d745eb5f651187871720-1-63174e002efe7489718791\.webp\)\] {
   background-image: url(https://cdn-user30887.skyeng.ru/uploads/main-pic-62d745eb5f651187871720-1-63174e002efe7489718791.webp);
 }
@@ -1317,6 +1332,12 @@ select {
 }
 .p-9 {
   padding: 2.25rem;
+}
+.p-10 {
+  padding: 2.5rem;
+}
+.p-12 {
+  padding: 3rem;
 }
 .px-2 {
   padding-left: 0.5rem;
@@ -1369,6 +1390,14 @@ select {
 .py-8 {
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+.py-16 {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 .pb-1 {
   padding-bottom: 0.25rem;
@@ -1627,6 +1656,15 @@ body {
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-\[ffe22e\]:hover {
+  background-color: ffe22e;
+}
+
+.hover\:bg-\[\#ffe22e\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 226 46 / var(--tw-bg-opacity));
+}
+
 .hover\:text-blue-500:hover {
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
@@ -1737,6 +1775,10 @@ body {
 
   .sm\:flex-row {
     flex-direction: row;
+  }
+
+  .sm\:flex-col {
+    flex-direction: column;
   }
 
   .sm\:justify-between {
