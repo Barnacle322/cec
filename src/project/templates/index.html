@@ -1,5 +1,4 @@
 {% extends "/layout.html" %} {% block additional_scripts %}
-<script src="/static/scripts/fade.js" defer></script>
 <script src="/static/scripts/calendar.js" defer></script>
 {% endblock %} {% block title %}Центр Дополнительного Образования{% endblock %} {% block head %} {{ super() }} {%
 endblock %} {% block content %}
@@ -7,19 +6,19 @@ endblock %} {% block content %}
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section id="toelf_banner" class="flex h-14 w-full items-center justify-center gap-3 bg-[#08559a] px-6">
-        <span class="text-xl font-bold text-white">Результаты TOEFL тут</span>
+        <span class="text-xl font-bold text-white">Результаты TOEFL</span>
         <a class="rounded-full bg-white px-2 py-1 text-sm transition-colors ease-in-out hover:bg-gray-100" href="/toefl"
             >Смотреть</a
         >
     </section>
     <section
-        class="flex h-[300px] w-full justify-center bg-zinc-400 bg-[url(https://cdn-user30887.skyeng.ru/uploads/main-pic-62d745eb5f651187871720-1-63174e002efe7489718791.webp)] bg-cover bg-top px-6 sm:h-[500px]"
+        class="flex h-[300px] w-full justify-center bg-zinc-400 bg-[url(/static/elements/hero.webp)] bg-cover bg-top px-6 sm:h-[500px]"
         id="hero"
     >
         <div class="flex w-full max-w-5xl justify-center">
             <div class="mt-10 flex max-w-7xl flex-col gap-2 sm:mt-20">
-                <h1 class="text-3xl font-medium text-white sm:w-1/2 sm:text-6xl">Учитесь новым навыкам вместе с ЦДО</h1>
-                <h2 class="text-lg font-medium text-gray-300 sm:text-2xl">Научитесь чему-то новому за 3 месяца!</h2>
+                <h1 class="text-3xl font-medium text-white sm:w-1/2 sm:text-6xl">Учитесь новым навыкам вместе с ЦДО! </h1>
+                <h2 class="text-lg font-medium text-gray-300 sm:text-2xl">Научитесь чему-то новому всего за 3 месяца</h2>
             </div>
         </div>
     </section>
@@ -29,32 +28,21 @@ endblock %} {% block content %}
             <div class="element opacity-100 transition-opacity duration-[1500ms] ease-in-out" id="element1">
                 <div class="mt-14 grid grid-cols-1 place-items-center gap-20 sm:grid-cols-2 xl:grid-cols-4">
                     <div class="w-52">
-                        <h3 class="text-4xl">10 лет</h3>
+                        <h3 class="text-4xl">15+ лет</h3>
                         <span>На образовательном рынке</span>
                     </div>
                     <div class="w-52">
-                        <h3 class="text-4xl">1000+</h3>
+                        <h3 class="text-4xl">5000+</h3>
                         <span>Довольных учеников</span>
                     </div>
                     <div class="w-52">
-                        <h3 class="text-4xl">25</h3>
+                        <h3 class="text-4xl">65</h3>
                         <span>Высококвалифицированных преподавателей</span>
                     </div>
                     <div class="w-52">
                         <h3 class="text-4xl">100+</h3>
                         <span>Различных методик образования</span>
                     </div>
-                </div>
-            </div>
-            <div
-                class="element pointer-events-none absolute left-0 top-0 opacity-0 transition-opacity duration-[1500ms] ease-in-out"
-                id="element2"
-            >
-                <div class="mt-14 grid grid-cols-1 place-items-center gap-20 sm:grid-cols-2 xl:grid-cols-4">
-                    <img class="aspect-auto h-20" src="/static/elements/logos/who.png" alt="" />
-                    <img class="aspect-auto h-20" src="/static/elements/logos/undp.svg" alt="" />
-                    <img class="aspect-auto h-20" src="/static/elements/logos/embassy.png" alt="" />
-                    <img class="aspect-auto h-20" src="/static/elements/logos/usaid.svg" alt="" />
                 </div>
             </div>
         </div>
@@ -91,6 +79,7 @@ endblock %} {% block content %}
             {% endfor %}
         </div>
     </section>
+    <section>Chess</section>
     <section class="mt-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Календарь</h2>
         <div class="flex w-full flex-wrap-reverse justify-center lg:justify-between">
@@ -186,27 +175,13 @@ endblock %} {% block content %}
             <!-- End Calendar -->
         </div>
     </section>
-    <section class="mt-36 flex w-full max-w-7xl flex-col items-center justify-center px-6">
-        <h2 class="w-full text-4xl font-medium sm:text-5xl">Преподаватели</h2>
-        <div class="mt-10 flex flex-wrap justify-center gap-5">
-            {% for teacher in teachers %}
-            <div class="flex max-w-[280px] flex-col gap-2">
-                <img
-                    class="h-[350px] w-[280px] rounded-xl bg-gray-200 object-cover"
-                    src="{{ teacher.picture }}"
-                    alt=""
-                />
-                <p class="flex flex-col">
-                    <span class="text-xl font-medium">{{ teacher.name }}</span>
-                    <span class="flex max-w-fit">{{ teacher.description }}</span>
-                </p>
-            </div>
-            {% endfor %}
-        </div>
-    </section>
+    <section>Testimonials</section>
+    <section>Payment process</section>
+    <section>FAQ</section>
+
     <section class="mt-20 flex w-full flex-col items-center justify-center rounded-t-3xl bg-[#eff0f5] px-6 py-16">
         <div class="flex w-full max-w-5xl flex-col gap-10 rounded-2xl bg-[#1fbbff] p-10">
-            <h2 class="text-4xl font-medium text-white sm:w-1/2">Сделайте первый шаг для выхода на новый уровень!</h2>
+            <h2 class="text-4xl font-medium text-white sm:w-1/2">Самое сложное - это начать. Оставьте заявку, и мы поможем вам со всем!</h2>
             <div class="flex flex-col gap-10 sm:flex-row">
                 <form class="flex w-full flex-col gap-3 sm:w-1/2" action="">
                     <input

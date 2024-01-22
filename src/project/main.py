@@ -38,11 +38,9 @@ def load_user(user_id: int) -> User | None:
 @main.route("/")
 def index():
     course_groups = CourseGroup.get_all()
-    teachers = Teacher.get_all(max=4)
     return render_template(
         "index.html",
         courses=course_groups,
-        teachers=teachers,
     )
 
 
