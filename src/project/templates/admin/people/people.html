@@ -1,0 +1,78 @@
+{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Люди{% endblock %} {%
+block head %} {{ super() }} {% endblock %} {% block content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mt-8 flex w-full max-w-7xl flex-col justify-center px-6 sm:mt-32">
+        <article class="text-start">
+            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Люди</h1>
+            <p class="text-xl sm:text-2xl">Здесь вы можете изменить информацию о людях, которые работают в центре.</p>
+        </article>
+    </section>
+    <section class="sm:mt-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex justify-start items-center gap-5">
+            Учителя
+            <a class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400" href="/admin/teacher/add"
+                >Добавить +</a
+            >
+        </h2>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for teacher in teachers %}
+            <article class="flex flex-col gap-3 rounded-xl bg-gray-200 p-9 justify-center items-center">
+                <img class="rounded-xl bg-gray-200 object-cover" src="{{ teacher.picture_url }}" alt="" />
+                <div class="flex flex-col gap-1 w-full">
+                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ teacher.name }}</h3>
+                    <p class="text-lg">{{ teacher.bio }}</p>
+                </div>
+                <form
+                    action="/admin/teacher/delete/{{ teacher.id }}"
+                    method="POST"
+                    onsubmit="return confirm('Вы уверены, что хотите удалить этого учителя?');"
+                    class="w-full flex justify-evenly items-center"
+                >
+                    <a
+                        class="bg-sky-500 text-white py-2 px-5 rounded-lg hover:bg-sky-400"
+                        href="/admin/teacher/edit/{{ teacher.id }}"
+                        >Редактировать</a
+                    >
+                    <button type="submit" class="text-red-500 hover:text-red-600">Удалить</button>
+                </form>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="sm:mt-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mb-36">
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex justify-start items-center gap-5">
+            Стафф
+            <a class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400" href="/admin/staff/add"
+                >Добавить +</a
+            >
+        </h2>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for member in staff %}
+            <article class="flex flex-col gap-3 rounded-xl bg-gray-200 p-9 justify-center items-center">
+                <img class="rounded-xl bg-gray-200 object-cover" src="{{ member.picture_url }}" alt="" />
+                <div class="flex flex-col gap-1 w-full">
+                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ member.name }}</h3>
+                    <p class="text-lg">{{ member.description }}</p>
+                </div>
+                <form
+                    action="/admin/staff/delete/{{ member.id }}"
+                    method="POST"
+                    onsubmit="return confirm('Вы уверены, что хотите удалить этого человека?');"
+                    class="w-full flex justify-evenly items-center"
+                >
+                    <a
+                        class="bg-sky-500 text-white py-2 px-5 rounded-lg hover:bg-sky-400"
+                        href="/admin/staff/edit/{{ member.id }}"
+                        >Редактировать</a
+                    >
+                    <button type="submit" class="text-red-500 hover:text-red-600">Удалить</button>
+                </form>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}

@@ -4,6 +4,7 @@ from datetime import timedelta
 from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+from .admin import admin
 from .extenstions import db, login_manager
 from .main import main
 
@@ -16,6 +17,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
     app.secret_key = os.getenv("SECRET_KEY", "18c2ff95-83a1-4998-8bee-0c6a2170497c")
 
     app.register_blueprint(main)
+    app.register_blueprint(admin, url_prefix="/admin")
 
     db.init_app(app)
     login_manager.init_app(app)

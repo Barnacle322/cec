@@ -1,0 +1,120 @@
+{% extends "admin/layout.html" %}
+<span></span>
+{% block additional_scripts %}
+<script src="/static/scripts/calendar.js" defer></script>
+{% endblock %}
+<span></span>
+{% block title %}Курсы{% endblock %}
+<span></span>
+{% block head %} {{ super() }} {% endblock %}
+<span></span>
+{% block content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mt-8 flex w-full max-w-7xl flex-col justify-center px-6 sm:mt-32">
+        <article class="flex-col flex items-start justify-center">
+            <h1 class="mb-5 w-full text-start text-6xl font-medium sm:text-7xl flex justify-start items-center gap-5">
+                События
+            </h1>
+            <p class="text-xl sm:text-2xl">Здесь вы можете изменить информацию о событиях</p>
+        </article>
+    </section>
+
+    <section class="sm:mt-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mb-36">
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Календарь</h2>
+        <div class="flex w-full flex-wrap-reverse justify-center lg:justify-between">
+            <!-- Events -->
+            <div class="flex w-[430px] flex-col gap-7 lg:w-1/2">
+                <h3 class="text-lg font-semibold text-gray-700">Предстоящие события</h3>
+                <ul id="events" class="flex flex-col gap-3">
+                    <div class="hidden border-emerald-300 bg-emerald-300"></div>
+                    <div class="hidden border-indigo-300 bg-indigo-300"></div>
+                    <div class="hidden border-fuchsia-300 bg-fuchsia-300"></div>
+                    <div class="hidden border-rose-300 bg-rose-300"></div>
+                    <div class="hidden border-amber-300 bg-amber-300"></div>
+                </ul>
+            </div>
+            <!-- End Events -->
+
+            <!-- Calendar -->
+            <div class="mb-4 space-y-1">
+                <!-- Months -->
+                <div class="mx-1.5 grid grid-cols-5 items-center gap-x-3 pb-3">
+                    <!-- Prev Button -->
+                    <div class="col-span-1">
+                        <button
+                            type="button"
+                            class="flex h-8 w-8 items-center justify-center rounded-full text-gray-800 hover:bg-gray-100"
+                            onclick="prevMonth()"
+                        >
+                            <svg
+                                class="h-4 w-4 flex-shrink-0"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="m15 18-6-6 6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- End Prev Button -->
+
+                    <!-- Month -->
+                    <div
+                        id="month-name"
+                        class="col-span-3 flex items-center justify-center gap-x-1 text-base sm:text-2xl"
+                    ></div>
+                    <!-- End Month -->
+
+                    <!-- Next Button -->
+                    <div class="col-span-1 flex justify-end">
+                        <button
+                            type="button"
+                            class="flex h-8 w-8 items-center justify-center rounded-full text-gray-800 hover:bg-gray-100"
+                            onclick="nextMonth()"
+                        >
+                            <svg
+                                class="h-4 w-4 flex-shrink-0"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- End Next Button -->
+                </div>
+                <!-- Months -->
+
+                <!-- Weeks -->
+                <div class="flex pb-1.5">
+                    {% for weekday in ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс") %}
+                    <span class="m-px block w-10 text-center text-sm text-gray-500 sm:m-3 sm:text-xl">
+                        {{ weekday }}
+                    </span>
+                    {% endfor %}
+                </div>
+                <!-- Weeks -->
+
+                <!-- Days -->
+                <div id="month-matrix"></div>
+                <!-- Days -->
+            </div>
+            <!-- End Calendar -->
+        </div>
+    </section>
+</main>
+{% endblock %}

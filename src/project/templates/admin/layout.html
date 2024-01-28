@@ -1,0 +1,113 @@
+<!doctype html>
+<html class="scroll-smooth" lang="ru">
+    <head>
+        {% block head %}
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/css/main.css" />
+        <script src="/static/scripts/menu.js" defer></script>
+
+        {% block additional_scripts %}{% endblock %}
+
+        <title>{% block title %}{% endblock %} | ЦДО</title>
+        {% endblock %}
+    </head>
+    <body class="w-full">
+        <nav class="absolute left-0 top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white">
+            <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
+                <a href="/admin"><img class="w-40" src="/static/elements/logo_light.png" /></a>
+                <ul class="hidden gap-7 font-medium *:transition-colors *:ease-in-out hover:*:text-slate-200 md:flex">
+                    <a href="/">Сайт</a>
+                    <a href="/admin/courses">Курсы</a>
+                    <a href="/admin/people">Люди</a>
+                    <a href="/admin/events">События</a>
+                </ul>
+                <a
+                    href="/login"
+                    class="mr-9 hidden min-w-max rounded-xl bg-sky-500 px-3 py-2 text-center text-white transition-colors ease-in-out hover:bg-sky-400 md:block"
+                    >Войти</a
+                >
+            </div>
+            <button class="mr-9 block md:hidden" onclick="openMenu()">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-7 w-7"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                </svg>
+            </button>
+        </nav>
+        <div id="menu" class="hidden md:hidden" role="dialog" aria-modal="true">
+            <div
+                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-4 md:max-w-md md:ring-gray-900/10"
+            >
+                <div class="flex items-center justify-between">
+                    <a href="#" class="-m-1.5 p-1.5">
+                        <span class="sr-only">Globalify</span>
+                        <img class="w-40" src="/static/elements/logo.png" alt="" />
+                    </a>
+                    <button type="button" class="mr-3 rounded-md text-gray-700" onclick="closeMenu()">
+                        <span class="sr-only">Close menu</span>
+                        <svg
+                            class="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="mt-6 flow-root">
+                    <div class="-my-6 divide-y divide-gray-500/10">
+                        <div class="space-y-2 py-4">
+                            <a
+                                href="/admin/courses"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                >Курсы</a
+                            >
+                            <a
+                                href="/admin/people"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                >Люди</a
+                            >
+                            <a
+                                href="/admin/events"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                >События</a
+                            >
+                            <a
+                                href="/TOEFL/teachers"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                >TOEFL</a
+                            >
+                            <a
+                                href="/"
+                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                >Сайт</a
+                            >
+                        </div>
+                        <div class="py-6">
+                            <a
+                                href="/waitlist"
+                                class="flex items-center justify-center rounded-xl bg-sky-500 px-3 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
+                                >Войти</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% block content %} {% endblock %}
+    </body>
+</html>

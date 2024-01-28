@@ -4,6 +4,7 @@ import datetime
 from collections.abc import Sequence
 from enum import Enum
 
+from flask import current_app
 from flask_login import UserMixin
 from sqlalchemy import Boolean, Date, DateTime, Integer, String, event, extract
 from sqlalchemy import Enum as SQLEnum
@@ -11,6 +12,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .extenstions import db
+from .utils.storage import delete_blob_from_url
 
 
 class OauthProvider(Enum):
@@ -88,14 +90,17 @@ class CourseGroup(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
-    link: Mapped[str] = mapped_column(String, nullable=False)
-    picture: Mapped[str] = mapped_column(String, nullable=False)
+    link: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    picture_url: Mapped[str] = mapped_column(String, nullable=False)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def __repr__(self) -> str:
         return super().__repr__()
+
+    def get_courses(self) -> Sequence[Course]:
+        return Course.get_by_course_group(self)
 
     @staticmethod
     def get_all() -> Sequence[CourseGroup]:
@@ -110,57 +115,35 @@ class CourseGroup(db.Model):
         return db.session.scalar(db.select(CourseGroup).where(CourseGroup.id == id))
 
     @staticmethod
+    def delete_by_id(id: int) -> None:
+        if course_group := CourseGroup.get_by_id(id):
+            try:
+                delete_blob_from_url(course_group.picture_url)
+            except Exception:
+                current_app.logger.warning(
+                    f"Failed to delete blob from URL {course_group.picture_url}"
+                )
+            db.session.delete(course_group)
+            db.session.commit()
+        else:
+            raise ValueError(f"Course group with id {id} does not exist")
+
+    @staticmethod
     def get_by_link(link: str) -> CourseGroup | None:
         return db.session.scalar(db.select(CourseGroup).where(CourseGroup.link == link))
 
     @staticmethod
-    def populate():
-        programming = CourseGroup(
-            name="Кодинг",
-            description="Научитесь программировать на Python, Java, C++ и других языках программирования",
-            link="coding",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-        )
-        dar = CourseGroup(
-            name="Детская академия роста",
-            description="Дайте ребенку возможность развиваться вместе с нами!",
-            link="dar",
-            picture="http://127.0.0.1:5000/static/elements/dar.jpg",
-        )
-        language = CourseGroup(
-            name="Иностранные языки",
-            description="Изучайте английский, немецкий, французский и другие языки",
-            link="language",
-            picture="http://127.0.0.1:5000/static/elements/languages.jpg",
-        )
-        business = CourseGroup(
-            name="Бизнес",
-            description="Научитесь создавать и развивать свой бизнес",
-            link="business",
-            picture="http://127.0.0.1:5000/static/elements/business.jpg",
-        )
-        preparation = CourseGroup(
-            name="Подготовительные курсы",
-            description="Мы поможем вам подготовиться к школе, ВУЗу или экзаменам",
-            link="preparation",
-            picture="http://127.0.0.1:5000/static/elements/preparation.jpg",
-        )
-        chess = CourseGroup(
-            name="Шахматы",
-            description="Изучайте шахматы с нами",
-            link="chess",
-            picture="http://127.0.0.1:5000/static/elements/chess.jpg",
-        )
-        db.session.add_all([programming, dar, language, business, preparation, chess])
-        db.session.commit()
+    def get_courses_by_link(link: str) -> Sequence[Course]:
+        course_group = CourseGroup.get_by_link(link)
+        return Course.get_by_course_group(course_group)
 
 
 class Course(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
-    link: Mapped[str] = mapped_column(String, nullable=False)
-    picture: Mapped[str] = mapped_column(String, nullable=False)
+    link: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    picture_url: Mapped[str] = mapped_column(String, nullable=False)
     course_group_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course_group.id")
     )
@@ -178,6 +161,24 @@ class Course(db.Model):
         return db.session.scalars(db.select(Course)).all()
 
     @staticmethod
+    def get_by_id(id: int) -> Course | None:
+        return db.session.scalar(db.select(Course).where(Course.id == id))
+
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if course := Course.get_by_id(id):
+            try:
+                delete_blob_from_url(course.picture_url)
+            except Exception:
+                current_app.logger.warning(
+                    f"Failed to delete blob from URL {course.picture_url}"
+                )
+            db.session.delete(course)
+            db.session.commit()
+        else:
+            raise ValueError(f"Course with id {id} does not exist")
+
+    @staticmethod
     def get_by_course_group(
         course_group: CourseGroup | None = None,
     ) -> Sequence[Course]:
@@ -187,60 +188,13 @@ class Course(db.Model):
             db.select(Course).where(Course.course_group == course_group)
         ).all()
 
-    @staticmethod
-    def populate():
-        programming = Course(
-            name="Python",
-            description="На этом курсе вы научитесь программировать на Python",
-            link="python",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-            course_group=CourseGroup.get_by_id(1),
-        )
-        dar = Course(
-            name="C++",
-            description="На этом курсе вы научитесь программировать на C++",
-            link="cplusplus",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-            course_group=CourseGroup.get_by_id(1),
-        )
-        language = Course(
-            name="Cisco",
-            description="На этом курсе вы узнаете про Cisco",
-            link="cisco",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-            course_group=CourseGroup.get_by_id(1),
-        )
-        business = Course(
-            name="Data Science",
-            description="На этом курсе вы узнаете про Data Science",
-            link="datascience",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-            course_group=CourseGroup.get_by_id(1),
-        )
-        preparation = Course(
-            name="Курсы английского языка",
-            description="На этом курсе вы узнаете про английский язык",
-            link="english",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-            course_group=CourseGroup.get_by_id(3),
-        )
-        chess = Course(
-            name="Создай свою компьютерную игру",
-            description="На этом курсе вы узнаете про создание компьютерных игр",
-            link="computergame",
-            picture="http://127.0.0.1:5000/static/elements/coding.jpg",
-            course_group=CourseGroup.get_by_id(2),
-        )
-        db.session.add_all([programming, dar, language, business, preparation, chess])
-        db.session.commit()
-
 
 class Teacher(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
-    bio: Mapped[str] = mapped_column(String, nullable=False)
-    picture: Mapped[str] = mapped_column(String, nullable=False)
+    description: Mapped[str] = mapped_column(String, nullable=True)
+    bio: Mapped[str] = mapped_column(String, nullable=True)
+    picture_url: Mapped[str] = mapped_column(String, nullable=True)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -253,118 +207,29 @@ class Teacher(db.Model):
         return db.session.scalars(db.select(Teacher).limit(max)).all()
 
     @staticmethod
-    def populate():
-        alisa = Teacher(
-            name="Алыбаева Алиса",
-            description="Алыбаева Алиса - преподаватель по математике",
-            bio="Алыбаева Алиса - преподаватель по математике.",
-            picture="/static/elements/teachers/Алыбаева Алиса.jpg",
-        )
-        mira = Teacher(
-            name="Алыбаева Мира",
-            description="Алыбаева Мира - преподаватель по физике",
-            bio="Алыбаева Мира - преподаватель по физике.",
-            picture="/static/elements/teachers/Алыбаева Мира.jpg",
-        )
-        mariya = Teacher(
-            name="ДеКастл Мария",
-            description="ДеКастл Мария - преподаватель по химии",
-            bio="ДеКастл Мария - преподаватель по химии.",
-            picture="/static/elements/teachers/ДеКастл Мария.jpg",
-        )
-        asem = Teacher(
-            name="Жунусова Асем",
-            description="Жунусова Асем - преподаватель по биологии",
-            bio="Жунусова Асем - преподаватель по биологии.",
-            picture="/static/elements/teachers/Жунусова Асем.jpg",
-        )
-        aigul = Teacher(
-            name="Каримова Айгуль",
-            description="Каримова Айгуль - преподаватель по математике",
-            bio="Каримова Айгуль - преподаватель по математике.",
-            picture="/static/elements/teachers/Каримова Айгуль.jpg",
-        )
-        gulmira = Teacher(
-            name="Молдомусаева Гульмира",
-            description="Молдомусаева Гульмира - преподаватель по математике",
-            bio="Молдомусаева Гульмира - преподаватель по математике.",
-            picture="/static/elements/teachers/Молдомусаева Гульмира.jpg",
-        )
-        angela = Teacher(
-            name="Пак Анжела",
-            description="Пак Анжела - преподаватель по математике",
-            bio="Пак Анжела - преподаватель по математике.",
-            picture="/static/elements/teachers/Пак Анжела.jpg",
-        )
-        valentina = Teacher(
-            name="Рындина Валентина",
-            description="Рындина Валентина - преподаватель по математике",
-            bio="Рындина Валентина - преподаватель по математике.",
-            picture="/static/elements/teachers/Рындина Валентина.jpg",
-        )
-        liana = Teacher(
-            name="Семенова Лиана",
-            description="Семенова Лиана - преподаватель по математике",
-            bio="Семенова Лиана - преподаватель по математике.",
-            picture="/static/elements/teachers/Семенова Лиана.jpg",
-        )
-        leyla = Teacher(
-            name="Серикова Лейла",
-            description="Серикова Лейла - преподаватель по математике",
-            bio="Серикова Лейла - преподаватель по математике.",
-            picture="/static/elements/teachers/Серикова Лейла.jpg",
-        )
-        olga = Teacher(
-            name="Скрипник Ольга",
-            description="Скрипник Ольга - преподаватель по математике",
-            bio="Скрипник Ольга - преподаватель по математике.",
-            picture="/static/elements/teachers/Скрипник Ольга.jpg",
-        )
-        narisa = Teacher(
-            name="Турдиева Нариса",
-            description="Турдиева Нариса - преподаватель по математике",
-            bio="Турдиева Нариса - преподаватель по математике.",
-            picture="/static/elements/teachers/Турдиева Нариса.jpg",
-        )
-        anna = Teacher(
-            name="Шевцова Анна",
-            description="Шевцова Анна - преподаватель по математике",
-            bio="Шевцова Анна - преподаватель по математике.",
-            picture="/static/elements/teachers/Шевцова Анна.jpg",
-        )
-        gulkaiyr = Teacher(
-            name="Эмилбекова Гулкайыр",
-            description="Эмилбекова Гулкайыр - преподаватель по математике",
-            bio="Эмилбекова Гулкайыр - преподаватель по математике.",
-            picture="/static/elements/teachers/Эмилбекова Гулкайыр.jpg",
-        )
+    def get_by_id(id: int) -> Teacher | None:
+        return db.session.scalar(db.select(Teacher).where(Teacher.id == id))
 
-        db.session.add_all(
-            [
-                alisa,
-                mira,
-                mariya,
-                asem,
-                aigul,
-                gulmira,
-                angela,
-                valentina,
-                liana,
-                leyla,
-                olga,
-                narisa,
-                anna,
-                gulkaiyr,
-            ]
-        )
-        db.session.commit()
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if teacher := Teacher.get_by_id(id):
+            try:
+                delete_blob_from_url(teacher.picture_url)
+            except Exception:
+                current_app.logger.warning(
+                    f"Failed to delete blob from URL {teacher.picture_url}"
+                )
+            db.session.delete(teacher)
+            db.session.commit()
+        else:
+            raise ValueError(f"Teacher with id {id} does not exist")
 
 
 class Staff(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
-    picture: Mapped[str] = mapped_column(String, nullable=False)
+    description: Mapped[str] = mapped_column(String, nullable=True)
+    picture_url: Mapped[str] = mapped_column(String, nullable=True)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -377,35 +242,22 @@ class Staff(db.Model):
         return db.session.scalars(db.select(Staff).limit(max)).all()
 
     @staticmethod
-    def populate():
-        staff1 = Staff(
-            name="Турдиева Нариса",
-            description="Позиция",
-            picture="/static/elements/teachers/Турдиева Нариса.jpg",
-        )
-        staff2 = Staff(
-            name="Турдиева Нариса",
-            description="Позиция",
-            picture="/static/elements/teachers/Турдиева Нариса.jpg",
-        )
-        staff3 = Staff(
-            name="Турдиева Нариса",
-            description="Позиция",
-            picture="/static/elements/teachers/Турдиева Нариса.jpg",
-        )
-        staff4 = Staff(
-            name="Турдиева Нариса",
-            description="Позиция",
-            picture="/static/elements/teachers/Турдиева Нариса.jpg",
-        )
-        staff5 = Staff(
-            name="Турдиева Нариса",
-            description="Позиция",
-            picture="/static/elements/teachers/Турдиева Нариса.jpg",
-        )
+    def get_by_id(id: int) -> Staff | None:
+        return db.session.scalar(db.select(Staff).where(Staff.id == id))
 
-        db.session.add_all([staff1, staff2, staff3, staff4, staff5])
-        db.session.commit()
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if staff := Staff.get_by_id(id):
+            try:
+                delete_blob_from_url(staff.picture_url)
+            except Exception:
+                current_app.logger.warning(
+                    f"Failed to delete blob from URL {staff.picture_url}"
+                )
+            db.session.delete(staff)
+            db.session.commit()
+        else:
+            raise ValueError(f"Staff with id {id} does not exist")
 
 
 class EventType(db.Model):
@@ -606,16 +458,6 @@ class Feedback(db.Model):
             db.session.commit()
 
 
-@event.listens_for(CourseGroup.__table__, "after_create")  # type: ignore
-def populate_courselink(*args, **kwargs):
-    CourseGroup.populate()
-
-
-@event.listens_for(Course.__table__, "after_create")  # type: ignore
-def populate_course(*args, **kwargs):
-    Course.populate()
-
-
 @event.listens_for(EventType.__table__, "after_create")  # type: ignore
 def populate_event_type(*args, **kwargs):
     EventType.populate()
@@ -624,8 +466,3 @@ def populate_event_type(*args, **kwargs):
 @event.listens_for(Event.__table__, "after_create")  # type: ignore
 def populate_event(*args, **kwargs):
     Event.populate()
-
-
-@event.listens_for(Teacher.__table__, "after_create")  # type: ignore
-def populate_teacher(*args, **kwargs):
-    Teacher.populate()

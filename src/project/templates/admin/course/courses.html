@@ -1,0 +1,71 @@
+{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Курсы{% endblock %} {%
+block head %} {{ super() }} {% endblock %} {% block content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mt-8 flex w-full max-w-7xl flex-col justify-center px-6 sm:mt-32">
+        <article class="flex-col flex items-start justify-center">
+            <h1 class="mb-5 w-full text-start text-6xl font-medium sm:text-7xl flex justify-start items-center gap-5">
+                Курсы
+                <a
+                    class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400"
+                    href="/admin/course_group/add"
+                    >Добавить группу +</a
+                >
+            </h1>
+            <p class="text-xl sm:text-2xl">Здесь вы можете изменить информацию о курсах</p>
+        </article>
+    </section>
+
+    <section class="flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mb-36">
+        {% for course_group, courses in course_dict.items() %}
+        <div class="flex flex-col w-full flex-colsm:mt-20 mt-10">
+            <h2
+                class="hover:text-gray-800 mb-5 w-full text-4xl font-medium sm:text-5xl flex justify-start items-baseline gap-5"
+            >
+                <a class="underline" href="/admin/course_group/edit/{{ course_group.id }}">{{ course_group.name }}</a>
+                <a
+                    class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400"
+                    href="/admin/course/add/{{ course_group.id }}"
+                    >Добавить курс +</a
+                >
+            </h2>
+
+            <p class="mb-5 w-full text-xl sm:text-2xl flex justify-start items-center gap-5">
+                {{ course_group.description }}
+            </p>
+            <!-- <img
+                class="max-h-32 object-contain object-left rounded-md w-min"
+                src="{{ course_group.picture_url }}"
+                alt=""
+            /> -->
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for course in courses %}
+            <article class="flex flex-col gap-3 rounded-xl bg-gray-200 p-9 justify-center items-center">
+                <img class="rounded-xl bg-gray-200 object-cover" src="{{ course.picture_url }}" alt="" />
+                <div class="flex flex-col gap-1 w-full">
+                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ course.name }}</h3>
+                    <p class="text-lg">{{ course.description }}</p>
+                </div>
+                <form
+                    action="/admin/course/delete/{{ course.id }}"
+                    method="POST"
+                    onsubmit="return confirm('Вы уверены, что хотите удалить этого учителя?');"
+                    class="w-full flex justify-evenly items-center"
+                >
+                    <a
+                        class="bg-sky-500 text-white py-2 px-5 rounded-lg hover:bg-sky-400"
+                        href="/admin/course/edit/{{ course.id }}"
+                        >Редактировать</a
+                    >
+                    <button type="submit" class="text-red-500 hover:text-red-600">Удалить</button>
+                </form>
+            </article>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}
