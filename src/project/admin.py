@@ -39,8 +39,6 @@ def courses():
         courses = course_group.get_courses()
         course_dict[course_group] = courses
 
-    for course_group, course in course_dict.items():
-        print(course_group, course)
     return render_template("admin/course/courses.html", course_dict=course_dict)
 
 

@@ -97,7 +97,7 @@ class CourseGroup(db.Model):
         super().__init__(**kwargs)
 
     def __repr__(self) -> str:
-        return super().__repr__()
+        return f"<CourseGroup '{self.name}'>"
 
     def get_courses(self) -> Sequence[Course]:
         return Course.get_by_course_group(self)
@@ -458,11 +458,11 @@ class Feedback(db.Model):
             db.session.commit()
 
 
-@event.listens_for(EventType.__table__, "after_create")  # type: ignore
-def populate_event_type(*args, **kwargs):
-    EventType.populate()
+# @event.listens_for(EventType.__table__, "after_create")  # type: ignore
+# def populate_event_type(*args, **kwargs):
+#     EventType.populate()
 
 
-@event.listens_for(Event.__table__, "after_create")  # type: ignore
-def populate_event(*args, **kwargs):
-    Event.populate()
+# @event.listens_for(Event.__table__, "after_create")  # type: ignore
+# def populate_event(*args, **kwargs):
+#     Event.populate()
