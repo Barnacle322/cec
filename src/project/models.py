@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import datetime
+import stat
 from collections.abc import Sequence
 from enum import Enum
 
 from flask import current_app
 from flask_login import UserMixin
-from sqlalchemy import Boolean, Date, DateTime, Integer, String, event, extract
+from sqlalchemy import Boolean, Date, DateTime, Integer, String, extract
 from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -272,6 +273,13 @@ class EventType(db.Model):
     def __repr__(self) -> str:
         return super().__repr__()
 
+    def get_events(self) -> Sequence[Event]:
+        return Event.get_by_event_type(self)
+
+    @staticmethod
+    def get_all() -> Sequence[EventType]:
+        return db.session.scalars(db.select(EventType)).all()
+
     @staticmethod
     def get_by_name(name: str) -> EventType | None:
         event_type = db.session.scalar(
@@ -282,6 +290,14 @@ class EventType(db.Model):
     @staticmethod
     def get_by_id(id: int) -> EventType | None:
         return db.session.scalar(db.select(EventType).where(EventType.id == id))
+
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if event_type := EventType.get_by_id(id):
+            db.session.delete(event_type)
+            db.session.commit()
+        else:
+            raise ValueError(f"Event type with id {id} does not exist")
 
     @staticmethod
     def populate():
@@ -373,6 +389,28 @@ class Event(db.Model):
         return db.session.scalars(db.select(Event).where(Event.date == date)).all()
 
     @staticmethod
+    def get_by_id(id: int) -> Event | None:
+        return db.session.scalar(db.select(Event).where(Event.id == id))
+
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if event_ := Event.get_by_id(id):
+            db.session.delete(event_)
+            db.session.commit()
+        else:
+            raise ValueError(f"Event with id {id} does not exist")
+
+    @staticmethod
+    def get_by_event_type(
+        event_type: EventType | None = None,
+    ) -> Sequence[Event]:
+        if not event_type:
+            return Event.get_all()
+        return db.session.scalars(
+            db.select(Event).where(Event.event_type == event_type).order_by(Event.date)
+        ).all()
+
+    @staticmethod
     def populate():
         event1 = Event(
             name="Мастер-класс по английскому языку",
@@ -456,13 +494,3 @@ class Feedback(db.Model):
         if feedback := Feedback.get_by_id(id):
             db.session.delete(feedback)
             db.session.commit()
-
-
-# @event.listens_for(EventType.__table__, "after_create")  # type: ignore
-# def populate_event_type(*args, **kwargs):
-#     EventType.populate()
-
-
-# @event.listens_for(Event.__table__, "after_create")  # type: ignore
-# def populate_event(*args, **kwargs):
-#     Event.populate()

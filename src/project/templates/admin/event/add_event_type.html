@@ -1,0 +1,67 @@
+{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Добавить тип события{%
+endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
+        <article class="text-start">
+            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Тип события</h1>
+            <p class="text-xl sm:text-2xl">Здесь вы можете добавить тип события</p>
+        </article>
+    </section>
+    <section class="sm:mt-20 mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3">
+        <form class="w-full flex flex-col gap-4" method="POST" action="/admin/event_type/add">
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Мастер класс"
+                    required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description"
+                    id="description"
+                    placeholder="Асан Асанов"
+                    required
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Цвет</label>
+                <div class="flex justify-evenly items-center flex-wrap gap-3">
+                    <div class="hidden">
+                        <span
+                            class="bg-neutral-300 bg-red-300 bg-orange-300 bg-amber-300 bg-yellow-300 bg-lime-300 bg-green-300 bg-emerald-300 bg-teal-300 bg-cyan-300 bg-sky-300 bg-blue-300 bg-indigo-300 bg-violet-300 bg-purple-300 bg-fuchsia-300 bg-pink-300 bg-rose-300"
+                        ></span>
+                        <span
+                            class="text-neutral-300 text-red-300 text-orange-300 text-amber-300 text-yellow-300 text-lime-300 text-green-300 text-emerald-300 text-teal-300 text-cyan-300 text-sky-300 text-blue-300 text-indigo-300 text-violet-300 text-purple-300 text-fuchsia-300 text-pink-300 text-rose-300"
+                        ></span>
+                    </div>
+                    {% for color in colors %}
+                    <input
+                        class="size-6 bg-{{ color }} text-{{ color }}"
+                        type="radio"
+                        name="color"
+                        value="{{ color }}"
+                        id="{{ color }}"
+                    />
+                    {% endfor %}
+                </div>
+            </div>
+            <button
+                class="mt-5 hover:bg-sky-400 flex py-2 bg-sky-500 text-white justify-center items-center rounded-lg"
+                type="submit"
+            >
+                Добавить
+            </button>
+        </form>
+    </section>
+</main>
+{% endblock %}

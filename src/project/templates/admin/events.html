@@ -15,14 +15,19 @@
     <section class="mt-8 flex w-full max-w-7xl flex-col justify-center px-6 sm:mt-32">
         <article class="flex-col flex items-start justify-center">
             <h1 class="mb-5 w-full text-start text-6xl font-medium sm:text-7xl flex justify-start items-center gap-5">
-                События
+                Ивенты
+                <a
+                    class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400"
+                    href="/admin/event_type/add"
+                    >Добавить тип +</a
+                >
             </h1>
             <p class="text-xl sm:text-2xl">Здесь вы можете изменить информацию о событиях</p>
         </article>
     </section>
 
-    <section class="sm:mt-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mb-36">
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Календарь</h2>
+    <section class="sm:mt-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex justify-start items-center gap-5">Календарь</h2>
         <div class="flex w-full flex-wrap-reverse justify-center lg:justify-between">
             <!-- Events -->
             <div class="flex w-[430px] flex-col gap-7 lg:w-1/2">
@@ -115,6 +120,54 @@
             </div>
             <!-- End Calendar -->
         </div>
+    </section>
+
+    <section class="flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mb-36">
+        {% for event_type, events in event_dict.items() %}
+        <div class="flex flex-col w-full flex-colsm:mt-20 mt-10">
+            <h2
+                class="hover:text-gray-800 mb-5 w-full text-4xl font-medium sm:text-5xl flex justify-start items-baseline gap-5"
+            >
+                <a class="underline" href="/admin/event_type/edit/{{ event_type.id }}">{{ event_type.name }}</a>
+                <a
+                    class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400"
+                    href="/admin/event/add?event_type_id={{ event_type.id }}"
+                    >Добавить событие +</a
+                >
+            </h2>
+
+            <p class="mb-5 w-full text-xl sm:text-2xl flex justify-start items-center gap-5">
+                {{ event_type.description }}
+            </p>
+        </div>
+
+        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for event in events %}
+            <article class="flex flex-col gap-3 rounded-xl bg-gray-200 p-9 justify-center items-center">
+                <img class="rounded-xl bg-gray-200 object-cover" src="{{ event.picture_url }}" alt="" />
+                <div class="flex flex-col gap-1 w-full">
+                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ event.name }}</h3>
+                    <p class="text-lg">{{ event.description }}</p>
+                    <p class="text-lg">{{ event.date }}</p>
+                    
+                </div>
+                <form
+                    action="/admin/event/delete/{{ event.id }}"
+                    method="POST"
+                    onsubmit="return confirm('Вы уверены, что хотите удалить это событие?');"
+                    class="w-full flex justify-evenly items-center"
+                >
+                    <a
+                        class="bg-sky-500 text-white py-2 px-5 rounded-lg hover:bg-sky-400"
+                        href="/admin/event/edit/{{ event.id }}"
+                        >Редактировать</a
+                    >
+                    <button type="submit" class="text-red-500 hover:text-red-600">Удалить</button>
+                </form>
+            </article>
+            {% endfor %}
+        </div>
+        {% endfor %}
     </section>
 </main>
 {% endblock %}

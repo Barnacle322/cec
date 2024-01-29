@@ -14,7 +14,7 @@ block head %} {{ super() }} {% endblock %} {% block content %}
             class="w-full flex flex-col gap-4"
             method="POST"
             enctype="multipart/form-data"
-            action="/admin/course/add/{{ course_group.id }}"
+            action="/admin/course/add"
         >
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Название</label>

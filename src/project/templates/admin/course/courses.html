@@ -26,7 +26,7 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                 <a class="underline" href="/admin/course_group/edit/{{ course_group.id }}">{{ course_group.name }}</a>
                 <a
                     class="bg-sky-500 text-white rounded-lg py-2 px-3 text-base hover:bg-sky-400"
-                    href="/admin/course/add/{{ course_group.id }}"
+                    href="/admin/course/add?course_group_id={{ course_group.id }}"
                     >Добавить курс +</a
                 >
             </h2>
