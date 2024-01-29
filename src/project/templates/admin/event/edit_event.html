@@ -1,16 +1,16 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Добавить тип события{%
+{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Изменить событие{%
 endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
         <article class="text-start">
-            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Тип события</h1>
-            <p class="text-xl sm:text-2xl">Здесь вы можете изменить тип события</p>
+            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Событие</h1>
+            <p class="text-xl sm:text-2xl">Здесь вы можете отредактировать событие</p>
         </article>
     </section>
     <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
-        <form class="flex w-full flex-col gap-4" method="POST" action="/admin/event_type/edit/{{ event_type.id }}">
+        <form class="flex w-full flex-col gap-4" method="POST" action="/admin/event/edit/{{ event.id }}">
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Название</label>
                 <input
@@ -20,7 +20,7 @@ endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
                     id="name"
                     placeholder="Мастер класс"
                     required
-                    value="{{ event_type.name }}"
+                    value="{{ event.name }}"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -33,30 +33,34 @@ endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
                     placeholder="Асан Асанов"
                     required
                 >
-{{ event_type.description }}</textarea
+{{ event.description }}</textarea
                 >
             </div>
             <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Цвет</label>
-                <div class="flex flex-wrap items-center justify-evenly gap-3">
-                    <input
-                        class="size-6 bg-{{ event_type.color }} text-{{ event_type.color }}"
-                        type="radio"
-                        name="color"
-                        value="{{ event_type.color }}"
-                        id="{{ event_type.color }}"
-                        checked="checked"
-                    />
-                    {% for color in colors %}
-                    <input
-                        class="size-6 bg-{{ color }} text-{{ color }}"
-                        type="radio"
-                        name="color"
-                        value="{{ color }}"
-                        id="{{ color }}"
-                    />
+                <label class="font-medium" for="">Тип события</label>
+                <select
+                    id="event_type_id"
+                    name="event_type_id"
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    required
+                >
+                    <option value="{{ event.event_type.id }}">{{ event.event_type.name }}</option>
+                    {% for event_type in event_types %}
+                    <option value="{{ event_type.id }}">{{ event_type.name }}</option>
                     {% endfor %}
-                </div>
+                </select>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Дата</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="date"
+                    name="date"
+                    id="date"
+                    placeholder=""
+                    required
+                    value="{{ event.date }}"
+                />
             </div>
             <button
                 class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
