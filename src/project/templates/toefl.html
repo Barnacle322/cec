@@ -1,0 +1,74 @@
+{% extends "/layout.html" %} {% block title %}TOEFL{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
+<div class="flex flex-col justify-center items-center w-full mt-24 bg-[#eff0f5] pb-36">
+    <header class="flex items-center justify-center bg-blue-500 w-full">
+        <div class="w-full max-w-7xl px-9 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="size-6 sm:size-8 text-white"
+                >
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                <div class="ml-2 sm:ml-3">
+                    <h1 class="text-xl sm:text-2xl font-semibold text-white">TOEFL Results</h1>
+                    <p class="text-sm sm:text-base text-white">January 29, 2024</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center gap-3">
+                <button
+                    class="rounded-md font-medium bg-black px-4 py-2 text-xs sm:text-base text-white hover:underline"
+                >
+                    Previous
+                </button>
+                <button
+                    class="rounded-md font-medium bg-black px-4 py-2 text-xs sm:text-base text-white hover:underline"
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    </header>
+    <main class="w-full flex flex-1 flex-col px-9 py-6 overflow-auto max-w-7xl">
+        <h2 class="text-lg sm:text-xl font-bold text-blue-500 mb-4">Test Taker's Scores</h2>
+        <div class="relative w-full overflow-auto">
+            <table class="w-full caption-bottom text-sm bg-white shadow-lg rounded-lg overflow-hidden">
+                <thead class="bg-blue-500 text-white">
+                    <tr class="border-b h-12 *:px-4 *:text-left">
+                        <th>ID</th>
+                        <th>Reading</th>
+                        <th>Listening</th>
+                        <th>Speaking</th>
+                        <th>Writing</th>
+                        <th>Total Score</th>
+                        <th>AUCA Score</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    {% for i in range(20) %}
+                    <tr class="border-b *:p-4 odd:bg-slate-50 ">
+                        <td class="font-medium">ID3362</td>
+                        <td>27</td>
+                        <td>29</td>
+                        <td>28</td>
+                        <td>30</td>
+                        <td class="font-bold text-blue-500">114</td>
+                        <td class="font-bold text-blue-500">114</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+</div>
+
+{% endblock %}

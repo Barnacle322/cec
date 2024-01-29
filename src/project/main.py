@@ -91,3 +91,8 @@ def send_events(month, year):
             }
         )
     return jsonify(events_serialized)
+
+
+@main.route("/toefl")
+def toefl():
+    return render_template("toefl.html")
