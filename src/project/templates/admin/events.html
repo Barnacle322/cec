@@ -119,13 +119,14 @@
         {% for event_type, events in event_dict.items() %}
         <div class="flex-colsm:mt-20 mt-10 flex w-full flex-col">
             <h2
-                class="mb-5 flex w-full items-baseline justify-start gap-5 text-4xl font-medium hover:text-gray-800 sm:text-5xl"
+                class="mb-5 flex w-full items-baseline justify-start gap-5 text-4xl font-medium hover:text-gray-800 sm:text-5xl break-words hyphens-auto"
             >
                 <a class="underline" href="/admin/event_type/edit/{{ event_type.id }}">{{ event_type.name }}</a>
                 <a
-                    class="rounded-lg bg-sky-500 px-3 py-2 text-base text-white hover:bg-sky-400"
+                    class="rounded-lg bg-sky-500 px-3 py-2 text-base text-white hover:bg-sky-400 break-normal min-w-fit"
                     href="/admin/event/add?event_type_id={{ event_type.id }}"
-                    >Добавить событие +</a
+                >
+                    Событие +</a
                 >
             </h2>
 
@@ -136,18 +137,21 @@
 
         <div class="mt-5 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for event in events %}
-            <article class="flex w-full flex-col items-center justify-center gap-3 rounded-xl bg-gray-200 p-9">
-                <img class="rounded-xl bg-gray-200 object-cover" src="{{ event.picture_url }}" alt="" />
+            <article
+                class="rounded-lg shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] py-5 w-full px-2 flex justify-between flex-col border-l-8 border-{{ event_type.color }}"
+            >
                 <div class="flex w-full flex-col gap-1">
-                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ event.name }}</h3>
-                    <p class="text-lg">{{ event.description }}</p>
-                    <p class="text-lg">{{ event.date }}</p>
+                    <p>
+                        <span class="text-lg font-semibold break-words hyphens-auto">{{ event.name }}</span>
+                        <span class="text-gray-400">{{ event.date }}</span>
+                    </p>
+                    <span>{{ event.description }}</span>
                 </div>
                 <form
                     action="/admin/event/delete/{{ event.id }}"
                     method="POST"
                     onsubmit="return confirm('Вы уверены, что хотите удалить это событие?');"
-                    class="flex w-full items-center justify-evenly"
+                    class="flex w-full items-center justify-evenly mt-4"
                 >
                     <a
                         class="rounded-lg bg-sky-500 px-5 py-2 text-white hover:bg-sky-400"

@@ -11,16 +11,25 @@ endblock %} {% block content %}
             >Смотреть</a
         >
     </section>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-1.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-2.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-3.jpg')]"
+    ></span>
     <section
-        class="flex h-[300px] w-full justify-center bg-zinc-400 bg-[url(/static/elements/hero.webp)] bg-cover bg-top px-6 sm:h-[500px]"
+        class="flex h-[300px] w-full justify-center bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/{{ random_hero }}')] bg-cover bg-right px-6 sm:h-[500px]"
         id="hero"
     >
         <div class="flex w-full max-w-5xl justify-center">
             <div class="mt-10 flex max-w-7xl flex-col gap-2 sm:mt-20">
-                <h1 class="text-3xl font-medium text-white sm:w-1/2 sm:text-6xl">
-                    Учитесь новым навыкам вместе с ЦДО!
+                <h1 class="text-4xl font-medium text-white w-4/6 sm:w-1/2 sm:text-6xl text-pretty">
+                    Учитесь новым навыкам с ЦДО!
                 </h1>
-                <h2 class="text-lg font-medium text-gray-300 sm:text-2xl">
+                <h2 class="text-lg font-medium text-neutral-200 sm:text-2xl">
                     Научитесь чему-то новому всего за 3 месяца
                 </h2>
             </div>
@@ -209,7 +218,64 @@ endblock %} {% block content %}
         </div>
     </section>
     <section>Payment process</section>
-    <section>FAQ</section>
+    <section class="mt-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">ЧАВО</h2>
+
+        <div class="grid w-full sm:grid-cols-3 gap-6 md:gap-12">
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">Can I cancel at anytime?</h3>
+                <p class="mt-2 text-gray-600">
+                    Yes, you can cancel anytime no questions are asked while you cancel but we would highly appreciate
+                    if you will give us some feedback.
+                </p>
+            </div>
+            <!-- End Col -->
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">My team has credits. How do we use them?</h3>
+                <p class="mt-2 text-gray-600">
+                    Once your team signs up for a subscription plan. This is where we sit down, grab a cup of coffee and
+                    dial in the details.
+                </p>
+            </div>
+            <!-- End Col -->
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">How does Preline's pricing work?</h3>
+                <p class="mt-2 text-gray-600">
+                    Our subscriptions are tiered. Understanding the task at hand and ironing out the wrinkles is key.
+                </p>
+            </div>
+            <!-- End Col -->
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">How secure is Preline?</h3>
+                <p class="mt-2 text-gray-600">
+                    Protecting the data you trust to Preline is our first priority. This part is really crucial in
+                    keeping the project in line to completion.
+                </p>
+            </div>
+            <!-- End Col -->
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">Do you offer discounts?</h3>
+                <p class="mt-2 text-gray-600">
+                    We've built in discounts at each tier for teams. The time has come to bring those ideas and plans to
+                    life.
+                </p>
+            </div>
+            <!-- End Col -->
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">What is your refund policy?</h3>
+                <p class="mt-2 text-gray-600">
+                    We offer refunds. We aim high at being focused on building relationships with our clients and
+                    community.
+                </p>
+            </div>
+            <!-- End Col -->
+        </div>
+    </section>
 
     <section class="mt-20 flex w-full flex-col items-center justify-center rounded-t-3xl bg-[#eff0f5] px-6 py-16">
         <div class="flex w-full max-w-5xl flex-col gap-10 rounded-2xl bg-[#1fbbff] p-10">

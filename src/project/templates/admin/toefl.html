@@ -73,6 +73,13 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                 <table class="w-full caption-bottom overflow-hidden rounded-lg bg-white text-sm shadow-lg">
                     <thead class="bg-blue-500 text-white">
                         <tr class="h-12 border-b *:px-4 *:text-left">
+                            <th>
+                                <input
+                                    name="select_all"
+                                    class="shrink-0 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                    type="checkbox"
+                                />
+                            </th>
                             <th>ID</th>
                             <th>Reading</th>
                             <th>Listening</th>
@@ -84,22 +91,47 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                         </tr>
                     </thead>
                     <tbody class="">
-                        {% for result in results %}
-                        <tr class="border-b *:p-4 odd:bg-slate-50">
-                            <td class="font-medium">{{ result.test_taker_id }}</td>
-                            <td>{{ result.reading }}</td>
-                            <td>{{ result.listening }}</td>
-                            <td>{{ result.speaking }}</td>
-                            <td>{{ result.writing }}</td>
-                            <td class="font-bold text-blue-500">{{ result.total }}</td>
-                            <td class="font-bold text-blue-500">{{ result.auca_total }}</td>
-                            <td class="font-bold text-blue-500">{{ result.is_published }}</td>
-                        </tr>
-                        {% endfor %}
+                        <form action="/admin/toefl/publish" method="POST">
+                            {% for result in results %}
+                            <tr class="border-b *:p-4 odd:bg-slate-50">
+                                <td>
+                                    <input
+                                        name="selected"
+                                        class="shrink-0 border-gray-200 rounded-sm text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"
+                                        type="checkbox"
+                                        value="{{ result.id }}"
+                                    />
+                                </td>
+                                <td class="font-medium">{{ result.test_taker_id }}</td>
+                                <td>{{ result.reading }}</td>
+                                <td>{{ result.listening }}</td>
+                                <td>{{ result.speaking }}</td>
+                                <td>{{ result.writing }}</td>
+                                <td class="font-bold text-blue-500">{{ result.total }}</td>
+                                <td class="font-bold text-blue-500">{{ result.auca_total }}</td>
+                                <td class="font-bold text-blue-500">{{ result.is_published }}</td>
+                            </tr>
+                            {% endfor %}
+                            <button
+                                type="submit"
+                                class="mb-4 rounded-md bg-black px-4 py-2 text-xs font-medium text-white hover:underline sm:text-base"
+                            >
+                                Publish
+                            </button>
+                        </form>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </main>
+<script>
+    const selectAll = document.querySelector("input[name=select_all]");
+    const checkboxes = document.querySelectorAll("input[name=selected]");
+    selectAll.addEventListener("change", (e) => {
+        checkboxes.forEach((checkbox) => {
+            checkbox.checked = e.target.checked;
+        });
+    });
+</script>
 {% endblock %}

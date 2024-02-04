@@ -171,6 +171,30 @@ def toefl_add():
     return render_template("admin/toefl/add_toefl.html")
 
 
+@admin.post("/toefl/publish")
+@admin_required
+def toefl_publish():
+    checkboxes = request.form.getlist("selected")
+    if not checkboxes:
+        status = Status(
+            StatusType.ERROR, "Пожалуйста, выберите хотя бы один результат TOEFL."
+        ).get_status()
+        return redirect(url_for("admin.toefl", _external=False, **status))
+
+    for checkbox in checkboxes:
+        result = Toefl.get_by_id(int(checkbox))
+        if not result:
+            status = Status(
+                StatusType.ERROR,
+                f"Результат TOEFL с ID {checkbox} не найден. Возможно, он был удален.",
+            ).get_status()
+            return redirect(url_for("admin.toefl", _external=False, **status))
+        result.is_published = True
+        db.session.commit()
+
+    return redirect(url_for("admin.toefl"))
+
+
 @admin.get("/toefl/check/<date>")
 @admin_required
 def toefl_check(date):

@@ -1,5 +1,6 @@
 import calendar
 import datetime
+import random
 
 from flask import Blueprint, jsonify, render_template, request
 
@@ -39,7 +40,14 @@ def load_user(user_id: int) -> User | None:
 def index():
     course_groups = CourseGroup.get_all()
     feedbacks = Feedback.get_all()
-    return render_template("index.html", courses=course_groups, feedbacks=feedbacks)
+    hero_list = ["hero-1.jpg", "hero-2.jpg", "hero-3.jpg"]
+    random_hero = random.choice(hero_list)
+    return render_template(
+        "index.html",
+        courses=course_groups,
+        feedbacks=feedbacks,
+        random_hero=random_hero,
+    )
 
 
 @main.route("/courses")
