@@ -1,5 +1,6 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Курсы{% endblock %} {%
-block head %} {{ super() }} {% endblock %} {% block content %}
+{% extends "admin/layout.html" %} {% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+{% endblock %} {% block title %}Курсы{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
@@ -79,6 +80,19 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                 type="submit"
             >
                 Сохранить
+            </button>
+        </form>
+        <form
+            class="flex w-full flex-col gap-4"
+            method="post"
+            action="/admin/course_group/delete/{{ course_group.id }}"
+            onsubmit="return confirm('Вы уверены, что хотите удалить эту группу курсов?');"
+        >
+            <button
+                class="mt-5 flex items-center justify-center rounded-lg bg-red-500 py-2 text-white hover:bg-red-400"
+                type="submit"
+            >
+                Удалить
             </button>
         </form>
     </section>

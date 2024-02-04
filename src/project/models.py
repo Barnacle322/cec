@@ -467,12 +467,14 @@ class Event(db.Model):
 
 class Feedback(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
+    created_at: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     email: Mapped[str] = mapped_column(String, nullable=False)
     message: Mapped[str] = mapped_column(String, nullable=False)
-    number: Mapped[int] = mapped_column(Integer, nullable=False)
+    number: Mapped[str] = mapped_column(String, nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    picture_url: Mapped[str] = mapped_column(String, nullable=True)
+    course: Mapped[str] = mapped_column(String, nullable=True)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -493,3 +495,153 @@ class Feedback(db.Model):
         if feedback := Feedback.get_by_id(id):
             db.session.delete(feedback)
             db.session.commit()
+
+
+class Toefl(db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    test_taker_id: Mapped[str] = mapped_column(String, nullable=False)
+    date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
+    reading: Mapped[int] = mapped_column(Integer, nullable=True)
+    listening: Mapped[int] = mapped_column(Integer, nullable=True)
+    speaking: Mapped[int] = mapped_column(Integer, nullable=True)
+    writing: Mapped[int] = mapped_column(Integer, nullable=True)
+    is_published: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def __repr__(self) -> str:
+        return super().__repr__()
+
+    @property
+    def total(self) -> int:
+        return self.reading + self.listening + self.speaking + self.writing
+
+    @property
+    def auca_total(self) -> int:
+        return self.reading + self.listening + self.writing
+
+    @staticmethod
+    def get_all() -> Sequence[Toefl]:
+        return db.session.scalars(db.select(Toefl)).all()
+
+    @staticmethod
+    def get_by_id(id: int) -> Toefl | None:
+        return db.session.scalar(db.select(Toefl).where(Toefl.id == id))
+
+    @staticmethod
+    def get_all_by_date(date: datetime.date) -> Sequence[Toefl]:
+        return db.session.scalars(
+            db.select(Toefl)
+            .where(Toefl.date == date)
+            .order_by(Toefl.is_published, Toefl.test_taker_id)
+        ).all()
+
+    @staticmethod
+    def get_latest_results() -> Sequence[Toefl] | None:
+        return db.session.scalars(
+            db.select(Toefl)
+            .where(Toefl.date == db.select(db.func.max(Toefl.date)).scalar_subquery())
+            .order_by(Toefl.is_published, Toefl.test_taker_id)
+        ).all()
+
+    @staticmethod
+    def get_pagination_dates(
+        date: datetime.date,
+    ) -> tuple[datetime.date, datetime.date]:
+        next_date = db.session.scalar(
+            db.select(Toefl.date).where(Toefl.date > date).order_by(Toefl.date).limit(1)
+        )
+        previous_date = db.session.scalar(
+            db.select(Toefl.date)
+            .where(Toefl.date < date)
+            .order_by(Toefl.date.desc())
+            .limit(1)
+        )
+        return previous_date, next_date
+
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if toefl := Toefl.get_by_id(id):
+            db.session.delete(toefl)
+            db.session.commit()
+
+    @staticmethod
+    def delete_by_date(date: datetime.date) -> None:
+        print(date)
+        toefls = Toefl.get_all_by_date(date)
+        print(toefls)
+        for toefl in toefls:
+            db.session.delete(toefl)
+        db.session.commit()
+
+    @staticmethod
+    def populate():
+        toefl_results = (
+            Toefl(
+                test_taker_id="123456",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123457",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123458",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123459",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123460",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123461",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123462",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+            Toefl(
+                test_taker_id="123463",
+                reading=30,
+                writing=30,
+                speaking=30,
+                listening=30,
+                date=datetime.date(2024, 1, 1),
+            ),
+        )
+        db.session.add_all(toefl_results)
+        db.session.commit()

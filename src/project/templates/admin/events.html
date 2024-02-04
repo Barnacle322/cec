@@ -1,14 +1,7 @@
-{% extends "admin/layout.html" %}
-<span></span>
-{% block additional_scripts %}
+{% extends "admin/layout.html" %} {% block additional_scripts %}
 <script src="/static/scripts/calendar.js" defer></script>
-{% endblock %}
-<span></span>
-{% block title %}Курсы{% endblock %}
-<span></span>
-{% block head %} {{ super() }} {% endblock %}
-<span></span>
-{% block content %}
+<script src="/static/scripts/idempotency.js" defer></script>
+{% endblock %} {% block title %}Курсы{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
@@ -141,9 +134,9 @@
             </p>
         </div>
 
-        <div class="w-full mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-5 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for event in events %}
-            <article class="w-full flex flex-col items-center justify-center gap-3 rounded-xl bg-gray-200 p-9">
+            <article class="flex w-full flex-col items-center justify-center gap-3 rounded-xl bg-gray-200 p-9">
                 <img class="rounded-xl bg-gray-200 object-cover" src="{{ event.picture_url }}" alt="" />
                 <div class="flex w-full flex-col gap-1">
                     <h3 class="text-2xl font-semibold sm:text-3xl">{{ event.name }}</h3>

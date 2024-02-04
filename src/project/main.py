@@ -4,7 +4,7 @@ import datetime
 from flask import Blueprint, jsonify, render_template, request
 
 from .extenstions import login_manager
-from .models import Course, CourseGroup, Event, Staff, Teacher, User
+from .models import Course, CourseGroup, Event, Feedback, Staff, Teacher, Toefl, User
 
 main = Blueprint("main", __name__)
 
@@ -38,10 +38,8 @@ def load_user(user_id: int) -> User | None:
 @main.route("/")
 def index():
     course_groups = CourseGroup.get_all()
-    return render_template(
-        "index.html",
-        courses=course_groups,
-    )
+    feedbacks = Feedback.get_all()
+    return render_template("index.html", courses=course_groups, feedbacks=feedbacks)
 
 
 @main.route("/courses")
@@ -95,4 +93,18 @@ def send_events(month, year):
 
 @main.route("/toefl")
 def toefl():
-    return render_template("toefl.html")
+    if (date_str := request.args.get("date", type=str)) != "None" and date_str != None:
+        try:
+            date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+            results = Toefl.get_all_by_date(date)
+        except ValueError:
+            date = datetime.date.today()
+            results = Toefl.get_latest_results()
+    else:
+        results = Toefl.get_latest_results()
+        date = results[0].date if results else datetime.date.today()
+
+    pagination = Toefl.get_pagination_dates(date)
+    return render_template(
+        "toefl.html", date=date, results=results, pagination=pagination
+    )

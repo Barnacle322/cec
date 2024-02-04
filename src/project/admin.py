@@ -1,7 +1,14 @@
-from flask import Blueprint, render_template
+import csv
+import datetime
+import os
 
-from .models import CourseGroup, EventType, Staff, Teacher
+from flask import Blueprint, redirect, render_template, request, url_for
+from xlsx2csv import Xlsx2csv
+
+from .extenstions import db
+from .models import CourseGroup, EventType, Feedback, Staff, Teacher, Toefl
 from .utils.decor import admin_required
+from .utils.status_enum import Status, StatusType
 from .views.course import (
     AddCourseGroupView,
     AddCourseView,
@@ -75,8 +82,109 @@ def people():
 
 
 @admin.route("/toefl")
+@admin_required
 def toefl():
-    return render_template("admin/toefl.html")
+    if (date_str := request.args.get("date", type=str)) != "None" and date_str != None:
+        try:
+            date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+            results = Toefl.get_all_by_date(date)
+        except ValueError:
+            date = datetime.date.today()
+            results = Toefl.get_latest_results()
+    else:
+        results = Toefl.get_latest_results()
+        date = results[0].date if results else datetime.date.today()
+
+    pagination = Toefl.get_pagination_dates(date)
+    return render_template(
+        "admin/toefl.html", pagination=pagination, results=results, date=date
+    )
+
+
+@admin.route("/toefl/add", methods=["GET", "POST"])
+def toefl_add():
+    if request.method == "POST":
+        file = request.files.get("file")
+        date_str = request.form.get("date")
+        if not date_str or not file:
+            status = Status(
+                StatusType.ERROR,
+                "Пожалуйста, укажите дату и загрузите файл с результатами TOEFL.",
+            ).get_status()
+            return redirect(url_for("admin.toefl", _external=False, **status))
+
+        date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+
+        if file.filename.split(".")[-1] in ["xlsx", "xls"]:  # type: ignore
+            file.save("./src/project/static/toefl/toefl.xlsx")
+            Xlsx2csv(
+                "./src/project/static/toefl/toefl.xlsx", outputencoding="utf-8"
+            ).convert("./src/project/static/toefl/toefl.csv")
+            os.remove("./src/project/static/toefl/toefl.xlsx")
+
+            with open(
+                "./src/project/static/toefl/toefl.csv", newline="", encoding="utf-8"
+            ) as f:
+                reader = csv.reader(f, dialect="excel")
+
+                header = [x.upper() for x in next(reader)]
+                if header != [
+                    "ID",
+                    "READING",
+                    "WRITING",
+                    "SPEAKING",
+                    "LISTENING",
+                ]:
+                    status = Status(
+                        StatusType.ERROR,
+                        "Неверный формат файла. Первая строка должна содержать заголовки столбцов: ID, READING, WRITING, LISTENING, SPEAKING.",
+                    ).get_status()
+                    return redirect(url_for("admin.toefl", _external=False, **status))
+                toefl_results = []
+                print("before delete")
+                Toefl.delete_by_date(date)
+                for line in reader:
+                    toefl_results.append(
+                        Toefl(
+                            test_taker_id=line[0],
+                            reading=int(line[1]),
+                            writing=int(line[2]),
+                            speaking=int(line[3]),
+                            listening=int(line[4]),
+                            date=date,
+                        )
+                    )
+                db.session.add_all(toefl_results)
+                db.session.commit()
+
+                status = Status(
+                    StatusType.SUCCESS, "Результаты TOEFL успешно добавлены."
+                ).get_status()
+                return redirect(url_for("admin.toefl", _external=False, **status))
+        else:
+            status = Status(
+                StatusType.ERROR,
+                "Неверный формат файла. Пожалуйста, загрузите файл в формате .xlsx или .xls",
+            ).get_status()
+            return redirect(url_for("admin.toefl", _external=False, **status))
+
+    return render_template("admin/toefl/add_toefl.html")
+
+
+@admin.get("/toefl/check/<date>")
+@admin_required
+def toefl_check(date):
+    date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+    results = Toefl.get_all_by_date(date)
+
+    return "1" if results else "0"
+
+
+@admin.get("/feedback")
+@admin_required
+def feedback():
+    feedbacks = Feedback.get_all()
+    return render_template("admin/feedback.html", feedbacks=feedbacks)
 
 
 admin.add_url_rule(

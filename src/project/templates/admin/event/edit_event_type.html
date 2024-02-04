@@ -1,5 +1,7 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Добавить тип события{%
-endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+{% extends "admin/layout.html" %} {% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+{% endblock %} {% block title %}Добавить тип события{% endblock %} {% block head %} {{ super() }} {% endblock %} {%
+block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
@@ -63,6 +65,19 @@ endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
                 type="submit"
             >
                 Сохранить
+            </button>
+        </form>
+        <form
+            class="flex w-full flex-col gap-4"
+            method="POST"
+            action="/admin/event_type/delete/{{ event_type.id }}"
+            onsubmit="return confirm('Вы уверены, что хотите удалить этот события?');"
+        >
+            <button
+                class="mt-5 flex items-center justify-center rounded-lg bg-red-500 py-2 text-white hover:bg-red-400"
+                type="submit"
+            >
+                Удалить
             </button>
         </form>
     </section>

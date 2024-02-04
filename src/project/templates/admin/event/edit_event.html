@@ -1,5 +1,7 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %} {% endblock %} {% block title %}Изменить событие{%
-endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+{% extends "admin/layout.html" %} {% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+{% endblock %} {% block title %}Изменить событие{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
