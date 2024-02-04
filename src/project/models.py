@@ -388,6 +388,14 @@ class Event(db.Model):
         return db.session.scalars(db.select(Event).where(Event.date == date)).all()
 
     @staticmethod
+    def get_by_date_range(
+        start_date: datetime.date, end_date: datetime.date
+    ) -> Sequence[Event]:
+        return db.session.scalars(
+            db.select(Event).where(Event.date.between(start_date, end_date))
+        ).all()
+
+    @staticmethod
     def get_by_id(id: int) -> Event | None:
         return db.session.scalar(db.select(Event).where(Event.id == id))
 

@@ -10,9 +10,33 @@ from .models import Course, CourseGroup, Event, Feedback, Staff, Teacher, Toefl,
 main = Blueprint("main", __name__)
 
 
+# def generate_month_matrix(month: int, year: int) -> dict:
+#     month_data = {"month": month, "year": year, "matrix": []}
+#     month_calendar = calendar.monthcalendar(year, month)
+#     for week in month_calendar:
+#         week_matrix = []
+#         for day in week:
+#             if day == 0:
+#                 week_matrix.append({"day": "", "events": []})
+#             else:
+#                 date = datetime.date(year, month, day)
+#                 event_colors = list(
+#                     {event.event_type.color for event in Event.get_by_date(date)}
+#                 )[0:3]
+#                 week_matrix.append({"day": day, "events": event_colors})
+#         month_data["matrix"].append(week_matrix)
+#     return month_data
+
+
 def generate_month_matrix(month: int, year: int) -> dict:
     month_data = {"month": month, "year": year, "matrix": []}
     month_calendar = calendar.monthcalendar(year, month)
+
+    # Fetch all events for the given month at once
+    start_date = datetime.date(year, month, 1)
+    end_date = datetime.date(year, month, calendar.monthrange(year, month)[1])
+    all_events = Event.get_by_date_range(start_date, end_date)
+
     for week in month_calendar:
         week_matrix = []
         for day in week:
@@ -20,8 +44,13 @@ def generate_month_matrix(month: int, year: int) -> dict:
                 week_matrix.append({"day": "", "events": []})
             else:
                 date = datetime.date(year, month, day)
+                # Look up the events for the day from the pre-fetched events
                 event_colors = list(
-                    {event.event_type.color for event in Event.get_by_date(date)}
+                    {
+                        event.event_type.color
+                        for event in all_events
+                        if event.date == date
+                    }
                 )[0:3]
                 week_matrix.append({"day": day, "events": event_colors})
         month_data["matrix"].append(week_matrix)
