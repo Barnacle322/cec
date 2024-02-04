@@ -22,11 +22,11 @@
         {% for course_group, courses in course_dict.items() %}
         <div class="flex-colsm:mt-20 mt-10 flex w-full flex-col">
             <h2
-                class="mb-5 flex w-full items-baseline justify-start gap-5 text-4xl font-medium hover:text-gray-800 sm:text-5xl break-words hyphens-auto"
+                class="mb-5 flex w-full items-baseline justify-start gap-5 hyphens-auto break-words text-4xl font-medium hover:text-gray-800 sm:text-5xl"
             >
                 <a class="underline" href="/admin/course_group/edit/{{ course_group.id }}">{{ course_group.name }}</a>
                 <a
-                    class="rounded-lg bg-sky-500 px-3 py-2 text-base text-white hover:bg-sky-400 break-normal min-w-fit"
+                    class="min-w-fit break-normal rounded-lg bg-sky-500 px-3 py-2 text-base text-white hover:bg-sky-400"
                     href="/admin/course/add?course_group_id={{ course_group.id }}"
                     >Курс +</a
                 >
@@ -45,7 +45,7 @@
         <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for course in courses %}
             <article
-                class="flex flex-col items-center justify-center gap-3 rounded-xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px] p-6"
+                class="flex flex-col items-center justify-center gap-3 rounded-xl p-6 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"
             >
                 <img class="rounded-xl bg-gray-200 object-cover" src="{{ course.picture_url }}" alt="" />
                 <div class="flex w-full flex-col gap-1">
