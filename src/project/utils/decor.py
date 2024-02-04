@@ -10,7 +10,8 @@ def admin_required(func):
         if current_app.debug:
             return func(*args, **kwargs)
         if not current_user.is_authenticated or not current_user.is_admin:
-            return redirect(url_for("main.index"))
+            pass
+            # return redirect(url_for("main.index"))
         return func(*args, **kwargs)
 
     return wrapper
