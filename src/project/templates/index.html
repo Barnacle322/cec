@@ -37,63 +37,67 @@ endblock %} {% block content %}
     </section>
     <section class="mt-14 flex max-w-7xl flex-col items-center justify-center px-6">
         <h2 class="text-center text-4xl sm:text-5xl">Что такое Центр Дополнительного Образования?</h2>
-        <div class="fade-container relative flex">
-            <div class="element opacity-100 transition-opacity duration-[1500ms] ease-in-out" id="element1">
-                <div class="mt-14 grid grid-cols-1 place-items-center gap-20 sm:grid-cols-2 xl:grid-cols-4">
-                    <div class="w-52">
-                        <h3 class="text-4xl">15+ лет</h3>
-                        <span>На образовательном рынке</span>
-                    </div>
-                    <div class="w-52">
-                        <h3 class="text-4xl">5000+</h3>
-                        <span>Довольных учеников</span>
-                    </div>
-                    <div class="w-52">
-                        <h3 class="text-4xl">65</h3>
-                        <span>Высококвалифицированных преподавателей</span>
-                    </div>
-                    <div class="w-52">
-                        <h3 class="text-4xl">100+</h3>
-                        <span>Различных методик образования</span>
-                    </div>
+        <div class="element opacity-100 transition-opacity duration-[1500ms] ease-in-out">
+            <div class="mt-14 grid grid-cols-1 place-items-center gap-20 sm:grid-cols-2 xl:grid-cols-4">
+                <div class="w-52">
+                    <h3 class="text-4xl">15+ лет</h3>
+                    <span>На образовательном рынке</span>
+                </div>
+                <div class="w-52">
+                    <h3 class="text-4xl">5000+</h3>
+                    <span>Довольных учеников</span>
+                </div>
+                <div class="w-52">
+                    <h3 class="text-4xl">65</h3>
+                    <span>Высококвалифицированных преподавателей</span>
+                </div>
+                <div class="w-52">
+                    <h3 class="text-4xl">100+</h3>
+                    <span>Различных методик образования</span>
                 </div>
             </div>
         </div>
     </section>
-    <section
-        class="mt-24 flex w-full max-w-7xl flex-col items-start justify-start rounded-3xl bg-black px-6 py-10 text-white"
-    >
+    <section class="mt-28 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <div class="flex w-full flex-row flex-wrap justify-between">
-            <h2 class="mb-3 text-4xl font-bold sm:text-5xl">Курсы</h2>
-            <div class="max-w-[500px] text-xl tracking-normal">
-                Все наши курсы проверены временем и помогли многим людям достичь успеха в своей жизни. Вы можете выбрать
-                любой курс, который вам нравится и начать обучение прямо сейчас!
-            </div>
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Курсы</h2>
         </div>
-        <div class="mt-10 flex w-full flex-wrap items-center justify-center gap-8">
+        <div class="w-full flex-wrap items-center justify-center gap-8 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1">
             {% for course in courses %}
-            <div
-                class="group flex w-full flex-col justify-between gap-3 rounded-3xl bg-white p-5 text-black transition-transform duration-300 ease-in-out hover:scale-[1.02] sm:flex-row xl:max-w-xl"
-            >
-                <div class="flex flex-col justify-between gap-3 text-2xl font-medium sm:w-1/2">
-                    <span class="">{{ course.name }}</span>
-                    <p class="text-base">{{ course.description }}</p>
-                    <a
-                        class="rounded-md bg-sky-500 py-2 text-center text-sm text-white transition-colors ease-in-out hover:bg-sky-400"
-                        href="/courses?course_group={{ course.link }}"
-                        >Подробнее</a
-                    >
+            <div class="group flex w-full h-full flex-col border gap-3 rounded-3xl overflow-hidden items-center">
+                <div class="min-h-1/2 aspect-video">
+                    <img class="aspect-video object-cover" src="{{ course.picture_url }}" />
                 </div>
-                <img
-                    class="h-1/2 rounded-xl bg-slate-300 object-cover transition-transform duration-300 ease-in-out group-hover:scale-[.98] sm:w-1/2"
-                    src="{{ course.picture_url }}"
-                />
+                <div class="flex flex-col items-center gap-3 text-center p-5 h-full">
+                    <span class="font-bold text-2xl">{{ course.name }}</span>
+                    <p class="text-gray-500">{{ course.description }}</p>
+                </div>
+                <a
+                    class="rounded-md bg-sky-500 mb-6 py-2 text-center text-sm text-white transition-colors ease-in-out hover:bg-sky-400 w-1/3"
+                    href="/courses?course_group={{ course.link }}"
+                    >Подробнее</a
+                >
             </div>
             {% endfor %}
         </div>
     </section>
-    <section>Chess</section>
-    <section class="mt-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Клубы</h2>
+        <div class="border rounded-xl shadow-sm flex flex-col sm:flex-row w-full overflow-hidden">
+            <div class="relative sm:max-w-[40%]">
+                <img class="object-cover" src="/static/elements/chess.jpg" />
+            </div>
+            <div class="flex flex-wrap">
+                <div class="p-4 flex flex-col h-full">
+                    <h3 class="text-3xl font-bold text-gray-800">Шахматы</h3>
+                    <p class="mt-1 text-gray-500">
+                        Шахматы - игра, которая точно прошла тест на время. Подходит как и взрослым, так и детям.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Календарь</h2>
         <div class="flex w-full flex-wrap-reverse justify-center lg:justify-between">
             <!-- Events -->
@@ -188,11 +192,11 @@ endblock %} {% block content %}
             <!-- End Calendar -->
         </div>
     </section>
-    <section class="mt-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Отзывы</h2>
         <div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {% for feedback in feedbacks %}
-            <article class="flex flex-col rounded-xl p-4 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+            <article class="flex flex-col rounded-2xl p-4 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                 <div class="flex gap-3">
                     <div class="flex aspect-square h-full items-center justify-center rounded-full bg-gray-300">
                         <svg width="24" height="32" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -218,60 +222,65 @@ endblock %} {% block content %}
         </div>
     </section>
     <section>Payment process</section>
-    <section class="mt-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">ЧАВО</h2>
 
         <div class="grid w-full gap-6 sm:grid-cols-3 md:gap-12">
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">Can I cancel at anytime?</h3>
+                <h3 class="text-lg font-semibold text-gray-800">Как я могу узнать, какой курс мне подходит?</h3>
                 <p class="mt-2 text-gray-600">
-                    Yes, you can cancel anytime no questions are asked while you cancel but we would highly appreciate
-                    if you will give us some feedback.
+                    Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы можете связаться с нами по
+                    телефону или электронной почте, и наши консультанты помогут вам выбрать курс, который соответствует
+                    вашим целям и уровню подготовки.
                 </p>
             </div>
             <!-- End Col -->
 
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">My team has credits. How do we use them?</h3>
+                <h3 class="text-lg font-semibold text-gray-800">Как я могу записаться на курс?</h3>
                 <p class="mt-2 text-gray-600">
-                    Once your team signs up for a subscription plan. This is where we sit down, grab a cup of coffee and
-                    dial in the details.
+                    Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также вы можете связаться с нами
+                    по телефону или прийти к нам в офис.
                 </p>
             </div>
             <!-- End Col -->
 
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">How does Preline's pricing work?</h3>
+                <h3 class="text-lg font-semibold text-gray-800">
+                    Как я могу записаться на пробное тестирование TOEFL?
+                </h3>
                 <p class="mt-2 text-gray-600">
-                    Our subscriptions are tiered. Understanding the task at hand and ironing out the wrinkles is key.
+                    Перейдите в нужную секцию на сайте и оставьте свои контактные данные, с вами свяжуться в ближайшее
+                    время.
                 </p>
             </div>
             <!-- End Col -->
 
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">How secure is Preline?</h3>
+                <h3 class="text-lg font-semibold text-gray-800">
+                    Я сдал пробное тестирование, где я могу узнать свой результат?
+                </h3>
                 <p class="mt-2 text-gray-600">
-                    Protecting the data you trust to Preline is our first priority. This part is really crucial in
-                    keeping the project in line to completion.
+                    Результаты пробного тестирования можете найти <a class="underline" href="/toefl">тут</a>. Также
+                    сверху этой страницы есть ссылка на результаты.
                 </p>
             </div>
             <!-- End Col -->
 
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">Do you offer discounts?</h3>
+                <h3 class="text-lg font-semibold text-gray-800">Нужен ли мне компьютер для обучения?</h3>
                 <p class="mt-2 text-gray-600">
-                    We've built in discounts at each tier for teams. The time has come to bring those ideas and plans to
-                    life.
+                    Для некоторых курсов вам понадобится компьютер с доступом в Интернет. Для других курсов компьютер не
+                    требуется.
                 </p>
             </div>
             <!-- End Col -->
 
             <div>
-                <h3 class="text-lg font-semibold text-gray-800">What is your refund policy?</h3>
-                <p class="mt-2 text-gray-600">
-                    We offer refunds. We aim high at being focused on building relationships with our clients and
-                    community.
-                </p>
+                <h3 class="text-lg font-semibold text-gray-800">
+                    Могу ли я вернуть деньги, если я не буду доволен курсом?
+                </h3>
+                <p class="mt-2 text-gray-600">Да, мы предлагаем гарантию возврата денег.</p>
             </div>
             <!-- End Col -->
         </div>
