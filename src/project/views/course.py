@@ -37,7 +37,9 @@ class AddCourseGroupView(MethodView):
             status = Status(
                 StatusType.ERROR, f"Ошибка при загрузке изображения: {e}"
             ).get_status()
-            return redirect(url_for("admin.add_staff", _external=False, **status))
+            return redirect(
+                url_for("admin.add_course_group", _external=False, **status)
+            )
 
         try:
             course_group = CourseGroup(
@@ -272,7 +274,10 @@ class EditCourseView(MethodView):
             course.link = link
             if picture:
                 picture_url = upload_picture(picture)
-                delete_blob_from_url(course.picture_url)
+                try:
+                    delete_blob_from_url(course.picture_url)
+                except Exception as e:
+                    print(e)
                 course.picture_url = picture_url
             db.session.commit()
         except Exception as e:

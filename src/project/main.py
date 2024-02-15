@@ -73,7 +73,7 @@ def index():
     random_hero = random.choice(hero_list)
     return render_template(
         "index.html",
-        courses=course_groups,
+        course_groups=course_groups,
         feedbacks=feedbacks,
         random_hero=random_hero,
     )

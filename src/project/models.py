@@ -117,6 +117,7 @@ class CourseGroup(db.Model):
     @staticmethod
     def delete_by_id(id: int) -> None:
         if course_group := CourseGroup.get_by_id(id):
+            print("here")
             try:
                 delete_blob_from_url(course_group.picture_url)
             except Exception:

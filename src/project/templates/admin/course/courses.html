@@ -4,58 +4,59 @@
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
-    <section class="mt-8 flex w-full max-w-7xl flex-col justify-center px-6 sm:mt-32">
-        <article class="flex flex-col items-start justify-center">
-            <h1 class="mb-5 flex w-full items-center justify-start gap-5 text-start text-6xl font-medium sm:text-7xl">
-                Курсы
-                <a
-                    class="rounded-lg bg-sky-500 px-3 py-2 text-base text-white hover:bg-sky-400"
-                    href="/admin/course_group/add"
-                    >Добавить группу +</a
-                >
-            </h1>
-            <p class="text-xl sm:text-2xl">Здесь вы можете изменить информацию о курсах</p>
-        </article>
-    </section>
-
-    <section class="mb-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
-        {% for course_group, courses in course_dict.items() %}
-        <div class="flex-colsm:mt-20 mt-10 flex w-full flex-col">
-            <h2
-                class="mb-5 flex w-full items-baseline justify-start gap-5 hyphens-auto break-words text-4xl font-medium hover:text-gray-800 sm:text-5xl"
+    <section class="flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mt-8 sm:mt-32">
+        <h1 class="flex w-full items-center justify-start gap-5 text-start text-xl font-medium sm:text-3xl">
+            Группы Курсов
+            <a
+                class="rounded-lg bg-sky-500 px-3 py-2 text-sm text-white hover:bg-sky-400"
+                href="/admin/course_group/add"
+                >Добавить +</a
             >
-                <a class="underline" href="/admin/course_group/edit/{{ course_group.id }}">{{ course_group.name }}</a>
-                <a
-                    class="min-w-fit break-normal rounded-lg bg-sky-500 px-3 py-2 text-base text-white hover:bg-sky-400"
-                    href="/admin/course/add?course_group_id={{ course_group.id }}"
-                    >Курс +</a
-                >
-            </h2>
+        </h1>
 
-            <p class="mb-5 flex w-full items-center justify-start gap-5 text-xl sm:text-2xl">
-                {{ course_group.description }}
-            </p>
-            <!-- <img
-                class="max-h-32 object-contain object-left rounded-md w-min"
-                src="{{ course_group.picture_url }}"
-                alt=""
-            /> -->
-        </div>
-
-        <div class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {% for course in courses %}
-            <article
-                class="flex flex-col items-center justify-center gap-3 rounded-xl p-6 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]"
-            >
-                <img class="rounded-xl bg-gray-200 object-cover" src="{{ course.picture_url }}" alt="" />
-                <div class="flex w-full flex-col gap-1">
-                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ course.name }}</h3>
-                    <p class="text-lg">{{ course.description }}</p>
+        <div
+            class="w-full flex-wrap items-center justify-center gap-8 grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-5"
+        >
+            {% for course_group, courses in course_dict.items() %}
+            <div class="group flex w-full h-full flex-col border gap-3 rounded-3xl overflow-hidden items-center">
+                <div class="min-h-1/2 aspect-video">
+                    <img class="aspect-video object-cover" src="{{ course_group.picture_url }}" />
                 </div>
+                <div class="flex flex-col items-center gap-3 text-center p-5 h-full">
+                    <span class="font-bold text-2xl">{{ course_group.name }}</span>
+                    <p class="text-gray-500">{{ course_group.description }}</p>
+                    <a href="/courses?course_group={{ course_group.link }}" class="underline"
+                        >/courses?course_group={{ course_group.link }}</a
+                    >
+                </div>
+                <div class="flex w-full items-center justify-evenly mb-6">
+                    <a
+                        class="rounded-lg bg-sky-500 px-5 py-2 text-white hover:bg-sky-400"
+                        href="/admin/course_group/edit/{{ course_group.id }}"
+                        >Редактировать</a
+                    >
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="mb-36 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mt-10">
+        <h1 class="flex w-full items-center justify-start gap-5 text-start text-xl font-medium sm:text-3xl">
+            Курсы
+            <a class="rounded-lg bg-sky-500 px-3 py-2 text-sm text-white hover:bg-sky-400" href="/admin/course/add"
+                >Добавить +</a
+            >
+        </h1>
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {% for course_group, courses in course_dict.items() %} {% for course in courses %}
+            <article class="flex flex-col gap-3 rounded-xl bg-white p-9">
+                <img class="rounded-lg" src="{{ course.picture_url }}" alt="" />
+                <h2 class="text-3xl font-medium">{{ course.name }}</h2>
+                <p class="text-lg">{{ course.description }}</p>
                 <form
                     action="/admin/course/delete/{{ course.id }}"
                     method="POST"
-                    onsubmit="return confirm('Вы уверены, что хотите удалить этого учителя?');"
+                    onsubmit="return confirm('Вы уверены, что хотите удалить этот элемент?');"
                     class="flex w-full items-center justify-evenly"
                 >
                     <a
@@ -66,9 +67,8 @@
                     <button type="submit" class="text-red-500 hover:text-red-600">Удалить</button>
                 </form>
             </article>
-            {% endfor %}
+            {% endfor %} {% endfor %}
         </div>
-        {% endfor %}
     </section>
 </main>
 {% endblock %}
