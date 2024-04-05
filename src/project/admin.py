@@ -25,6 +25,7 @@ from .views.event import (
     EditEventTypeView,
     EditEventView,
 )
+from .views.feedback import AddFeedbackView, DeleteFeedbackView, EditFeedbackView
 from .views.people import (
     AddStaffView,
     AddTeacherView,
@@ -128,6 +129,7 @@ def toefl_add():
                 reader = csv.reader(f, dialect="excel")
 
                 header = [x.upper() for x in next(reader)]
+                header = [x.strip() for x in header if x != ""]
                 if header != [
                     "ID",
                     "READING",
@@ -137,23 +139,25 @@ def toefl_add():
                 ]:
                     status = Status(
                         StatusType.ERROR,
-                        "Неверный формат файла. Первая строка должна содержать заголовки столбцов: ID, READING, WRITING, LISTENING, SPEAKING.",
+                        "Неверный формат файла. Первая строка должна содержать заголовки столбцов: ID, READING, WRITING, SPEAKING, LISTENING",
                     ).get_status()
                     return redirect(url_for("admin.toefl", _external=False, **status))
+
                 toefl_results = []
-                print("before delete")
                 Toefl.delete_by_date(date)
                 for line in reader:
-                    toefl_results.append(
-                        Toefl(
-                            test_taker_id=line[0],
-                            reading=int(line[1]),
-                            writing=int(line[2]),
-                            speaking=int(line[3]),
-                            listening=int(line[4]),
-                            date=date,
+                    line = [x.strip() for x in line if x != ""]
+                    if len(line) != 0:
+                        toefl_results.append(
+                            Toefl(
+                                test_taker_id=line[0],
+                                reading=int(line[1]),
+                                writing=int(line[2]),
+                                speaking=int(line[3]),
+                                listening=int(line[4]),
+                                date=date,
+                            )
                         )
-                    )
                 db.session.add_all(toefl_results)
                 db.session.commit()
 
@@ -274,4 +278,15 @@ admin.add_url_rule(
 admin.add_url_rule(
     "/event/delete/<int:event_id>",
     view_func=DeleteEventView.as_view("delete_event"),
+)
+
+
+admin.add_url_rule("/feedback/add", view_func=AddFeedbackView.as_view("add_feedback"))
+admin.add_url_rule(
+    "/feedback/edit/<int:feedback_id>",
+    view_func=EditFeedbackView.as_view("edit_feedback"),
+)
+admin.add_url_rule(
+    "/feedback/delete/<int:feedback_id>",
+    view_func=DeleteFeedbackView.as_view("delete_feedback"),
 )

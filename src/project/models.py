@@ -117,7 +117,6 @@ class CourseGroup(db.Model):
     @staticmethod
     def delete_by_id(id: int) -> None:
         if course_group := CourseGroup.get_by_id(id):
-            print("here")
             try:
                 delete_blob_from_url(course_group.picture_url)
             except Exception:
@@ -478,9 +477,9 @@ class Feedback(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     created_at: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
-    email: Mapped[str] = mapped_column(String, nullable=False)
     message: Mapped[str] = mapped_column(String, nullable=False)
-    number: Mapped[str] = mapped_column(String, nullable=False)
+    email: Mapped[str] = mapped_column(String, nullable=True)
+    number: Mapped[str] = mapped_column(String, nullable=True)
     is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     picture_url: Mapped[str] = mapped_column(String, nullable=True)
     course: Mapped[str] = mapped_column(String, nullable=True)
@@ -577,9 +576,7 @@ class Toefl(db.Model):
 
     @staticmethod
     def delete_by_date(date: datetime.date) -> None:
-        print(date)
         toefls = Toefl.get_all_by_date(date)
-        print(toefls)
         for toefl in toefls:
             db.session.delete(toefl)
         db.session.commit()

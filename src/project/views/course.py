@@ -101,7 +101,10 @@ class EditCourseGroupView(MethodView):
             course_group.link = link
             if picture:
                 picture_url = upload_picture(picture)
-                delete_blob_from_url(course_group.picture_url)
+                try:
+                    delete_blob_from_url(course_group.picture_url)
+                except Exception as e:
+                    print(e)
                 course_group.picture_url = picture_url
             db.session.commit()
         except Exception as e:

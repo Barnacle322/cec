@@ -145,3 +145,8 @@ def toefl():
     return render_template(
         "toefl.html", date=date, results=results, pagination=pagination
     )
+
+
+@main.route("/toefl/register")
+def toefl_register():
+    return render_template("toefl_register.html")

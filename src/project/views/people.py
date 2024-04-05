@@ -47,7 +47,10 @@ class AddTeacherView(MethodView):
                 StatusType.ERROR, f"Ошибка при создании учителя: {e}"
             ).get_status()
             if picture_url:
-                delete_blob_from_url(picture_url)
+                try:
+                    delete_blob_from_url(picture_url)
+                except Exception as e:
+                    print(f"Error deleting picture: {e}")
             return redirect(url_for("admin.add_teacher", _external=False, **status))
 
         status = Status(StatusType.SUCCESS, "Учитель добавлен успешно").get_status()
@@ -92,7 +95,10 @@ class EditTeacherView(MethodView):
             teacher.bio = bio
             if picture:
                 picture_url = upload_picture(picture)
-                delete_blob_from_url(teacher.picture_url)
+                try:
+                    delete_blob_from_url(teacher.picture_url)
+                except Exception as e:
+                    print(f"Error deleting picture: {e}")
                 teacher.picture_url = picture_url
             db.session.commit()
         except Exception as e:
@@ -166,7 +172,10 @@ class AddStaffView(MethodView):
                 StatusType.ERROR, f"Ошибка при создании сотрудника: {e}"
             ).get_status()
             if picture_url:
-                delete_blob_from_url(picture_url)
+                try:
+                    delete_blob_from_url(picture_url)
+                except Exception as e:
+                    print(f"Error deleting picture: {e}")
             return redirect(url_for("admin.add_staff", _external=False, **status))
 
         status = Status(StatusType.SUCCESS, "Сотрудник добавлен успешно").get_status()
@@ -209,7 +218,10 @@ class EditStaffView(MethodView):
             staff.description = description
             if picture:
                 picture_url = upload_picture(picture)
-                delete_blob_from_url(staff.picture_url)
+                try:
+                    delete_blob_from_url(staff.picture_url)
+                except Exception as e:
+                    print(f"Error deleting picture: {e}")
                 staff.picture_url = picture_url
             db.session.commit()
         except Exception as e:
