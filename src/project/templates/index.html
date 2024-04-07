@@ -38,7 +38,7 @@ endblock %} {% block content %}
     <section class="mt-14 flex max-w-7xl flex-col items-center justify-center px-6">
         <h2 class="text-center text-4xl sm:text-5xl">Что такое Центр Дополнительного Образования?</h2>
         <div class="element opacity-100 transition-opacity duration-[1500ms] ease-in-out">
-            <div class="mt-14 grid grid-cols-1 place-items-center gap-20 sm:grid-cols-2 xl:grid-cols-4">
+            <div class="mt-14 grid min-[967px]:grid-cols-4 place-items-center gap-20 mx-10 min-[550px]:grid-cols-2 grid-cols-1">
                 <div class="w-52">
                     <h3 class="text-4xl">15+ лет</h3>
                     <span>На образовательном рынке</span>
@@ -203,7 +203,14 @@ endblock %} {% block content %}
             {% for feedback in feedbacks %}
             <article class="flex flex-col rounded-2xl p-4 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
                 <div class="flex gap-3">
-                    <div class="flex aspect-square h-full items-center justify-center rounded-full bg-gray-300">
+                    {% if feedback.picture_url %}
+                    <img
+                        class="flex aspect-square h-12 items-center justify-center rounded-full bg-gray-300"
+                        src="{{ feedback.picture_url }}"
+                        alt=""
+                    />
+                    {% else %}
+                    <div class="flex aspect-square h-12 items-center justify-center rounded-full bg-gray-300">
                         <svg width="24" height="32" viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 fill-rule="evenodd"
@@ -213,6 +220,7 @@ endblock %} {% block content %}
                             />
                         </svg>
                     </div>
+                    {% endif %}
                     <div class="flex flex-col">
                         <span class="text-xl font-medium">{{ feedback.name }}</span>
                         <span class="text-gray-400">{{ feedback.created_at }}</span>

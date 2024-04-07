@@ -18,7 +18,12 @@
         </article>
     </section>
     <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-10">
-        <form class="flex w-full flex-col gap-4" method="POST" action="/admin/feedback/add">
+        <form
+            class="flex w-full flex-col gap-4"
+            method="POST"
+            enctype="multipart/form-data"
+            action="/admin/feedback/edit/{{ feedback.id }}"
+        >
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="name">Имя*</label>
                 <input
@@ -27,6 +32,7 @@
                     name="name"
                     id="name"
                     placeholder="Асан Асанов"
+                    value="{{ feedback.name }}"
                     required
                 />
             </div>
@@ -39,7 +45,9 @@
                     id="message"
                     placeholder="Очень хороший курс!"
                     required
-                ></textarea>
+                >
+{{ feedback.message }}</textarea
+                >
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="created_at">Дата*</label>
@@ -48,6 +56,7 @@
                     type="date"
                     name="created_at"
                     id="date"
+                    value="{{ feedback.created_at }}"
                     required
                 />
             </div>
@@ -59,7 +68,17 @@
                     name="course"
                     id="name"
                     placeholder="Английский для начинающих"
-                    required
+                    value="{{ feedback.course }}"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Фотография</label>
+                <input
+                    class="h-12 w-full cursor-pointer rounded-xl border-2 border-gray-200 bg-transparent pr-2 file:mr-4 file:h-full file:cursor-pointer file:rounded-md file:border-0 file:bg-sky-500 file:text-sm file:font-semibold file:text-white file:transition-colors file:ease-in-out file:hover:bg-sky-400"
+                    type="file"
+                    accept="image/png, image/jpeg, image/jpg, image/webp"
+                    name="picture"
+                    id="picture"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -70,7 +89,7 @@
                     name="email"
                     id="email"
                     placeholder="asan.asanov@email.com"
-                    required
+                    value="{{ feedback.email }}"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -81,14 +100,35 @@
                     name="number"
                     id="number"
                     placeholder="+996 555 55 55 55"
-                    required
+                    value="{{ feedback.number }}"
                 />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="is_verified">Опубликован</label>
+                {% if feedback.is_verified %}
+                <input class="rounded-md size-7" type="checkbox" name="is_verified" id="is_verified" checked />
+                {% else %}
+                <input class="rounded-md size-7" type="checkbox" name="is_verified" id="is_verified" />
+                {% endif %}
             </div>
             <button
                 class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
                 type="submit"
             >
-                Добавить
+                Сохранить
+            </button>
+        </form>
+        <form
+            class="flex w-full flex-col gap-4"
+            method="POST"
+            action="/admin/feedback/delete/{{ feedback.id }}"
+            onsubmit="return confirm('Вы уверены, что хотите удалить этот отзыв?');"
+        >
+            <button
+                class="mt-5 flex items-center justify-center rounded-lg bg-red-500 py-2 text-white hover:bg-red-400"
+                type="submit"
+            >
+                Удалить
             </button>
         </form>
     </section>

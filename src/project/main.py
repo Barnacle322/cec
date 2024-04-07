@@ -4,35 +4,26 @@ import random
 
 from flask import Blueprint, jsonify, render_template, request
 
-from .extenstions import login_manager
-from .models import Course, CourseGroup, Event, Feedback, Staff, Teacher, Toefl, User
+from .extenstions import db, login_manager
+from .models import (
+    Course,
+    CourseGroup,
+    Event,
+    Feedback,
+    Staff,
+    Teacher,
+    Toefl,
+    ToeflRegistration,
+    User,
+)
 
 main = Blueprint("main", __name__)
-
-
-# def generate_month_matrix(month: int, year: int) -> dict:
-#     month_data = {"month": month, "year": year, "matrix": []}
-#     month_calendar = calendar.monthcalendar(year, month)
-#     for week in month_calendar:
-#         week_matrix = []
-#         for day in week:
-#             if day == 0:
-#                 week_matrix.append({"day": "", "events": []})
-#             else:
-#                 date = datetime.date(year, month, day)
-#                 event_colors = list(
-#                     {event.event_type.color for event in Event.get_by_date(date)}
-#                 )[0:3]
-#                 week_matrix.append({"day": day, "events": event_colors})
-#         month_data["matrix"].append(week_matrix)
-#     return month_data
 
 
 def generate_month_matrix(month: int, year: int) -> dict:
     month_data = {"month": month, "year": year, "matrix": []}
     month_calendar = calendar.monthcalendar(year, month)
 
-    # Fetch all events for the given month at once
     start_date = datetime.date(year, month, 1)
     end_date = datetime.date(year, month, calendar.monthrange(year, month)[1])
     all_events = Event.get_by_date_range(start_date, end_date)
@@ -44,7 +35,6 @@ def generate_month_matrix(month: int, year: int) -> dict:
                 week_matrix.append({"day": "", "events": []})
             else:
                 date = datetime.date(year, month, day)
-                # Look up the events for the day from the pre-fetched events
                 event_colors = list(
                     {
                         event.event_type.color
@@ -147,6 +137,95 @@ def toefl():
     )
 
 
-@main.route("/toefl/register")
+@main.get("/toefl/register")
 def toefl_register():
-    return render_template("toefl_register.html")
+    success = None
+    if args := request.args:
+        success = True if args.get("success") == "true" else False
+
+    # Get today's date
+    today = datetime.date.today()
+
+    # Calculate the number of days until the next Monday (0) and Thursday (3)
+    days_until_monday = (0 - today.weekday() + 7) % 7
+    days_until_thursday = (3 - today.weekday() + 7) % 7
+
+    # Get the next two Mondays
+    next_monday = today + datetime.timedelta(days=days_until_monday)
+    next_next_monday = next_monday + datetime.timedelta(days=7)
+
+    # Get the next two Thursdays
+    next_thursday = today + datetime.timedelta(days=days_until_thursday)
+    next_next_thursday = next_thursday + datetime.timedelta(days=7)
+
+    months_ru = {
+        1: "Январь",
+        2: "Февраль",
+        3: "Март",
+        4: "Апрель",
+        5: "Май",
+        6: "Июнь",
+        7: "Июль",
+        8: "Август",
+        9: "Сентябрь",
+        10: "Октябрь",
+        11: "Ноябрь",
+        12: "Декабрь",
+    }
+
+    available_dates = [
+        {
+            "date": f"Понедельник, {months_ru[next_monday.month]} {next_monday.day}, {next_monday.year}",
+            "value": next_monday,
+        },
+        {
+            "date": f"Понедельник, {months_ru[next_next_monday.month]} {next_next_monday.day}, {next_next_monday.year}",
+            "value": next_next_monday,
+        },
+        {
+            "date": f"Четверг, {months_ru[next_thursday.month]} {next_thursday.day}, {next_thursday.year}",
+            "value": next_thursday,
+        },
+        {
+            "date": f"Четверг, {months_ru[next_next_thursday.month]} {next_next_thursday.day}, {next_next_thursday.year}",
+            "value": next_next_thursday,
+        },
+    ]
+    available_dates = sorted(available_dates, key=lambda x: x["value"])
+
+    return render_template(
+        "toefl_register.html", success=success, available_dates=available_dates
+    )
+
+
+@main.post("/toefl/register")
+def toefl_register_post():
+    first_name = request.form.get("first_name")
+    last_name = request.form.get("last_name")
+    email = request.form.get("email")
+    phone = request.form.get("phone")
+    day = request.form.get("day")
+
+    if not first_name or not last_name or not email or not phone or not day:
+        return render_template("toefl_register.html", success=False)
+
+    day = datetime.datetime.strptime(day, "%Y-%m-%d").date()
+
+    try:
+        registration = ToeflRegistration(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            phone=phone,
+            date=day,
+            created_at=datetime.datetime.now(
+                tz=datetime.timezone(datetime.timedelta(hours=6))
+            ),
+        )
+        db.session.add(registration)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return render_template("toefl_register.html", success=False)
+
+    return render_template("toefl_register.html", success=True)

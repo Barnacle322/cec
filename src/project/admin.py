@@ -6,7 +6,15 @@ from flask import Blueprint, redirect, render_template, request, url_for
 from xlsx2csv import Xlsx2csv
 
 from .extenstions import db
-from .models import CourseGroup, EventType, Feedback, Staff, Teacher, Toefl
+from .models import (
+    CourseGroup,
+    EventType,
+    Feedback,
+    Staff,
+    Teacher,
+    Toefl,
+    ToeflRegistration,
+)
 from .utils.decor import admin_required
 from .utils.status_enum import Status, StatusType
 from .views.course import (
@@ -213,6 +221,13 @@ def toefl_check(date):
 def feedback():
     feedbacks = Feedback.get_all()
     return render_template("admin/feedback.html", feedbacks=feedbacks)
+
+
+@admin.get("/applications")
+@admin_required
+def applications():
+    toefl_applications = ToeflRegistration.get_all()
+    return render_template("admin/applications.html", toefl=toefl_applications)
 
 
 admin.add_url_rule(

@@ -1,0 +1,47 @@
+<!-- prettier-ignore -->
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+<!-- prettier-ignore -->
+{% endblock %} 
+{% block title %}Заявки{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section
+        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
+    >
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">TOEFL Заявки</h2>
+        <div class="relative w-full overflow-auto">
+            <table class="w-full overflow-hidden rounded-lg bg-white text-sm">
+                <thead class="bg-blue-500 text-white">
+                    <tr class="h-12 border-b *:px-4 *:text-left">
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Почта</th>
+                        <th>Телефон</th>
+                        <th>Дата подачи</th>
+                        <th>День сдачи</th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    {% for application in toefl %}
+                    <tr class="border-b *:p-4 even:bg-gray-100">
+                        <td class="font-medium">{{ application.first_name }}</td>
+                        <td>{{ application.last_name }}</td>
+                        <td>{{ application.email }}</td>
+                        <td>{{ application.phone }}</td>
+                        <td>{{ application.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+                        <td class="font-bold text-blue-500">{{ application.date.strftime("%d.%m.%Y") }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

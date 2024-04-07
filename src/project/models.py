@@ -6,9 +6,9 @@ from enum import Enum
 
 from flask import current_app
 from flask_login import UserMixin
-from sqlalchemy import Boolean, Date, DateTime, Integer, String, extract
+from sqlalchemy import Boolean, Date, DateTime, Integer, String, extract, func
 from sqlalchemy import Enum as SQLEnum
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, MappedAsDataclass, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from .extenstions import db
@@ -38,13 +38,13 @@ class User(UserMixin, db.Model):
 
     @classmethod
     def delete_by_id(cls, id: int) -> None:
-        if user := cls.get_by_id(id):
+        if user := cls.get_by_id(int(id)):
             db.session.delete(user)
             db.session.commit()
 
     @classmethod
     def get_by_id(cls, id: int) -> User | None:
-        return db.session.scalar(db.select(cls).where(cls.id == id))
+        return db.session.scalar(db.select(cls).where(cls.id == int(id)))
 
     @classmethod
     def get_by_email(cls, email: str) -> User | None:
@@ -112,7 +112,9 @@ class CourseGroup(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> CourseGroup | None:
-        return db.session.scalar(db.select(CourseGroup).where(CourseGroup.id == id))
+        return db.session.scalar(
+            db.select(CourseGroup).where(CourseGroup.id == int(id))
+        )
 
     @staticmethod
     def delete_by_id(id: int) -> None:
@@ -162,11 +164,11 @@ class Course(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> Course | None:
-        return db.session.scalar(db.select(Course).where(Course.id == id))
+        return db.session.scalar(db.select(Course).where(Course.id == int(id)))
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if course := Course.get_by_id(id):
+        if course := Course.get_by_id(int(id)):
             try:
                 delete_blob_from_url(course.picture_url)
             except Exception:
@@ -208,11 +210,11 @@ class Teacher(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> Teacher | None:
-        return db.session.scalar(db.select(Teacher).where(Teacher.id == id))
+        return db.session.scalar(db.select(Teacher).where(Teacher.id == int(id)))
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if teacher := Teacher.get_by_id(id):
+        if teacher := Teacher.get_by_id(int(id)):
             try:
                 delete_blob_from_url(teacher.picture_url)
             except Exception:
@@ -243,11 +245,11 @@ class Staff(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> Staff | None:
-        return db.session.scalar(db.select(Staff).where(Staff.id == id))
+        return db.session.scalar(db.select(Staff).where(Staff.id == int(id)))
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if staff := Staff.get_by_id(id):
+        if staff := Staff.get_by_id(int(id)):
             try:
                 delete_blob_from_url(staff.picture_url)
             except Exception:
@@ -288,11 +290,11 @@ class EventType(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> EventType | None:
-        return db.session.scalar(db.select(EventType).where(EventType.id == id))
+        return db.session.scalar(db.select(EventType).where(EventType.id == int(id)))
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if event_type := EventType.get_by_id(id):
+        if event_type := EventType.get_by_id(int(id)):
             db.session.delete(event_type)
             db.session.commit()
         else:
@@ -397,11 +399,11 @@ class Event(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> Event | None:
-        return db.session.scalar(db.select(Event).where(Event.id == id))
+        return db.session.scalar(db.select(Event).where(Event.id == int(id)))
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if event_ := Event.get_by_id(id):
+        if event_ := Event.get_by_id(int(id)):
             db.session.delete(event_)
             db.session.commit()
         else:
@@ -473,22 +475,18 @@ class Event(db.Model):
         db.session.commit()
 
 
-class Feedback(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    created_at: Mapped[datetime.date] = mapped_column(Date, nullable=False)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    message: Mapped[str] = mapped_column(String, nullable=False)
-    email: Mapped[str] = mapped_column(String, nullable=True)
-    number: Mapped[str] = mapped_column(String, nullable=True)
-    is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-    picture_url: Mapped[str] = mapped_column(String, nullable=True)
-    course: Mapped[str] = mapped_column(String, nullable=True)
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def __repr__(self) -> str:
-        return super().__repr__()
+class Feedback(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    created_at: Mapped[datetime.date] = mapped_column(Date, nullable=False, init=False)
+    name: Mapped[str] = mapped_column(String, nullable=False, init=True)
+    message: Mapped[str] = mapped_column(String, nullable=False, init=True)
+    email: Mapped[str] = mapped_column(String, nullable=True, init=False)
+    number: Mapped[str] = mapped_column(String, nullable=True, init=False)
+    picture_url: Mapped[str] = mapped_column(String, nullable=True, init=False)
+    course: Mapped[str] = mapped_column(String, nullable=True, init=False)
+    is_verified: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, init=False
+    )
 
     @staticmethod
     def get_all() -> Sequence[Feedback]:
@@ -496,17 +494,17 @@ class Feedback(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> Feedback | None:
-        return db.session.scalar(db.select(Feedback).where(Feedback.id == id))
+        return db.session.scalar(db.select(Feedback).where(Feedback.id == int(id)))
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if feedback := Feedback.get_by_id(id):
+        if feedback := Feedback.get_by_id(int(id)):
             db.session.delete(feedback)
             db.session.commit()
 
 
-class Toefl(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+class Toefl(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     test_taker_id: Mapped[str] = mapped_column(String, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     reading: Mapped[int] = mapped_column(Integer, nullable=True)
@@ -514,12 +512,6 @@ class Toefl(db.Model):
     speaking: Mapped[int] = mapped_column(Integer, nullable=True)
     writing: Mapped[int] = mapped_column(Integer, nullable=True)
     is_published: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def __repr__(self) -> str:
-        return super().__repr__()
 
     @property
     def total(self) -> int:
@@ -535,7 +527,7 @@ class Toefl(db.Model):
 
     @staticmethod
     def get_by_id(id: int) -> Toefl | None:
-        return db.session.scalar(db.select(Toefl).where(Toefl.id == id))
+        return db.session.scalar(db.select(Toefl).where(Toefl.id == int(id)))
 
     @staticmethod
     def get_all_by_date(date: datetime.date) -> Sequence[Toefl]:
@@ -570,7 +562,7 @@ class Toefl(db.Model):
 
     @staticmethod
     def delete_by_id(id: int) -> None:
-        if toefl := Toefl.get_by_id(id):
+        if toefl := Toefl.get_by_id(int(id)):
             db.session.delete(toefl)
             db.session.commit()
 
@@ -651,3 +643,31 @@ class Toefl(db.Model):
         )
         db.session.add_all(toefl_results)
         db.session.commit()
+
+
+class ToeflRegistration(MappedAsDataclass, db.Model):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    first_name: Mapped[str] = mapped_column(String, nullable=False)
+    last_name: Mapped[str] = mapped_column(String, nullable=False)
+    email: Mapped[str] = mapped_column(String, nullable=False)
+    phone: Mapped[str] = mapped_column(String, nullable=False)
+    date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
+    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
+
+    @staticmethod
+    def get_all() -> Sequence[ToeflRegistration]:
+        return db.session.scalars(db.select(ToeflRegistration)).all()
+
+    @staticmethod
+    def get_by_id(id: int) -> ToeflRegistration | None:
+        return db.session.scalar(
+            db.select(ToeflRegistration).where(ToeflRegistration.id == int(id))
+        )
+
+    @staticmethod
+    def get_all_by_date(date: datetime.date) -> Sequence[ToeflRegistration]:
+        return db.session.scalars(
+            db.select(ToeflRegistration).where(
+                func.date(ToeflRegistration.created_at) == date
+            )
+        ).all()

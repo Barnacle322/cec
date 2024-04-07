@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "cec"
+version = "0.1.0"
+description = ""
+authors = ["Barnacle322 <arstan.usenov@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.0.2"
+flask-sqlalchemy = "^3.1.1"
+flask-login = "^0.6.3"
+google-cloud-storage = "^2.16.0"
+pillow = "^10.3.0"
+xlsx2csv = "^0.8.2"
+requests = "^2.31.0"
+granian = { extras = ["reload"], version = "^1.2.1" }
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.5"
+pre-commit = "^3.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
