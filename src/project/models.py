@@ -645,7 +645,7 @@ class Toefl(MappedAsDataclass, db.Model, unsafe_hash=True):
         db.session.commit()
 
 
-class ToeflRegistration(MappedAsDataclass, db.Model):
+class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     first_name: Mapped[str] = mapped_column(String, nullable=False)
     last_name: Mapped[str] = mapped_column(String, nullable=False)
@@ -670,4 +670,27 @@ class ToeflRegistration(MappedAsDataclass, db.Model):
             db.select(ToeflRegistration).where(
                 func.date(ToeflRegistration.created_at) == date
             )
+        ).all()
+
+
+class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    name: Mapped[str] = mapped_column(String, nullable=False)
+    phone: Mapped[str] = mapped_column(String, nullable=False)
+    created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
+
+    @staticmethod
+    def get_all() -> Sequence[Registration]:
+        return db.session.scalars(db.select(Registration)).all()
+
+    @staticmethod
+    def get_by_id(id: int) -> Registration | None:
+        return db.session.scalar(
+            db.select(Registration).where(Registration.id == int(id))
+        )
+
+    @staticmethod
+    def get_all_by_date(date: datetime.date) -> Sequence[Registration]:
+        return db.session.scalars(
+            db.select(Registration).where(func.date(Registration.created_at) == date)
         ).all()

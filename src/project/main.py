@@ -2,7 +2,7 @@ import calendar
 import datetime
 import random
 
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 
 from .extenstions import db, login_manager
 from .models import (
@@ -10,6 +10,7 @@ from .models import (
     CourseGroup,
     Event,
     Feedback,
+    Registration,
     Staff,
     Teacher,
     Toefl,
@@ -57,6 +58,10 @@ def load_user(user_id: int) -> User | None:
 
 @main.route("/")
 def index():
+    success = None
+    if args := request.args:
+        success = True if args.get("success") == "true" else False
+
     course_groups = CourseGroup.get_all()
     feedbacks = Feedback.get_all()
     hero_list = ["hero-1.jpg", "hero-2.jpg", "hero-3.jpg"]
@@ -66,6 +71,7 @@ def index():
         course_groups=course_groups,
         feedbacks=feedbacks,
         random_hero=random_hero,
+        success=success,
     )
 
 
@@ -229,3 +235,32 @@ def toefl_register_post():
         return render_template("toefl_register.html", success=False)
 
     return render_template("toefl_register.html", success=True)
+
+
+@main.post("/register")
+def register():
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+
+    if not name or not phone:
+        return redirect(
+            url_for("main.index", _anchor="registration-form", success="false")
+        )
+
+    try:
+        registration = Registration(
+            name=name,
+            phone=phone,
+            created_at=datetime.datetime.now(
+                tz=datetime.timezone(datetime.timedelta(hours=6))
+            ),
+        )
+        db.session.add(registration)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return redirect(
+            url_for("main.index", _anchor="registration-form", success="false")
+        )
+
+    return redirect(url_for("main.index", _anchor="registration-form", success="true"))

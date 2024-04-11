@@ -11,24 +11,24 @@
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
-    <section class="flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 mt-8">
+    <section class="mt-8 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h1 class="w-full text-2xl font-medium sm:text-4xl">Курсы</h1>
-        <div class="w-full items-center justify-center gap-8 grid lg:grid-cols-2 mt-5">
+        <div class="mt-5 grid w-full items-center justify-center gap-8 lg:grid-cols-2">
             {% for course_group, courses in course_dict.items() %}
-            <div class="flex w-full h-full flex-col border rounded-3xl overflow-hidden items-center divide-y bg-white">
+            <div class="flex h-full w-full flex-col items-center divide-y overflow-hidden rounded-3xl border bg-white">
                 <div class="flex w-full gap-4 p-5">
-                    <div class="h-20 aspect-video rounded-xl overflow-hidden shrink-0 sm:block hidden">
+                    <div class="hidden aspect-video h-20 shrink-0 overflow-hidden rounded-xl sm:block">
                         <img class="object-cover" src="{{ course_group.picture_url }}" />
                     </div>
 
-                    <div class="flex flex-col gap-1 h-full">
-                        <span class="font-bold text-2xl">{{ course_group.name }}</span>
+                    <div class="flex h-full flex-col gap-1">
+                        <span class="text-2xl font-bold">{{ course_group.name }}</span>
                         <p class="text-gray-500">{{ course_group.description }}</p>
-                        <a href="/courses?course_group={{ course_group.link }}" class="underline text-sm"
+                        <a href="/courses?course_group={{ course_group.link }}" class="text-sm underline"
                             >/courses?course_group={{ course_group.link }}</a
                         >
                     </div>
-                    <div class="flex ml-auto h-fit">
+                    <div class="ml-auto flex h-fit">
                         <a
                             class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200"
                             href="/admin/course_group/edit/{{ course_group.id }}"
@@ -49,10 +49,10 @@
                         </a>
                     </div>
                 </div>
-                <div class="flex flex-col w-full gap-3 p-5">
+                <div class="flex w-full flex-col gap-3 p-5">
                     {% for course in courses %}
-                    <article class="flex gap-3 rounded-xl bg-white p-4 border">
-                        <img class="sm:block hidden h-20 rounded-lg" src="{{ course.picture_url }}" alt="" />
+                    <article class="flex gap-3 rounded-xl border bg-white p-4">
+                        <img class="hidden h-20 rounded-lg sm:block" src="{{ course.picture_url }}" alt="" />
                         <div class="flex flex-col">
                             <h2 class="text-xl font-medium">{{ course.name }}</h2>
                             <p class="text-gray-500">{{ course.description }}</p>
@@ -61,7 +61,7 @@
                             action="/admin/course/delete/{{ course.id }}"
                             method="POST"
                             onsubmit="return confirm('Вы уверены, что хотите удалить этот элемент?');"
-                            class="flex flex-col ml-auto gap-2 items-center justify-center"
+                            class="ml-auto flex flex-col items-center justify-center gap-2"
                         >
                             <a
                                 class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200"
@@ -82,7 +82,7 @@
                             ></a>
                             <button
                                 type="submit"
-                                class="text-red-500 hover:text-red-600 rounded-lg bg-gray-100 p-2 hover:bg-gray-200"
+                                class="rounded-lg bg-gray-100 p-2 text-red-500 hover:bg-gray-200 hover:text-red-600"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +104,7 @@
                     {% endfor %}
                     <a
                         href="/admin/course/add?course_group_id={{ course_group.id }}"
-                        class="flex items-center w-full justify-center gap-2 rounded-xl border border-gray-200 bg-white p-3 py-4 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
+                        class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-3 py-4 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
                     >
                         Добавить курс
                         <svg
@@ -127,7 +127,7 @@
         </div>
         <a
             href="/admin/course/add"
-            class="flex items-center w-full justify-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 py-10 mt-5 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
+            class="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 py-10 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
         >
             Добавить группу курсов
             <svg
