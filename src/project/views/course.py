@@ -241,7 +241,7 @@ class EditCourseView(MethodView):
             status = Status(StatusType.ERROR, "Курс не найден").get_status()
             return redirect(url_for("admin.courses", _external=False, **status))
         course_groups = list(CourseGroup.get_all())
-        course_groups.remove(course.course_group)
+        course_groups.remove(course.course_group)  # type: ignore
 
         return render_template(
             "admin/course/edit_course.html", course=course, course_groups=course_groups

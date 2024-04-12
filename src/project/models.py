@@ -2,12 +2,14 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Sequence
+from dataclasses import dataclass
 from enum import Enum
 
 from flask import current_app
 from flask_login import UserMixin
 from flask_sqlalchemy.pagination import Pagination
 from sqlalchemy import (
+    JSON,
     Boolean,
     Date,
     DateTime,
@@ -22,6 +24,7 @@ from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import (
     Mapped,
     MappedAsDataclass,
+    defer,
     joinedload,
     mapped_column,
     relationship,
@@ -111,14 +114,15 @@ def to_dict(model_instance):
 
 
 class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
     link: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     picture_url: Mapped[str] = mapped_column(String, nullable=False)
 
-    def get_courses(self) -> Sequence[Course]:
-        return Course.get_by_course_group(self)
+    courses: Mapped[list[Course]] = relationship(
+        "Course", uselist=True, init=False, backref="course_group"
+    )
 
     @staticmethod
     def get_all() -> Sequence[CourseGroup]:
@@ -126,20 +130,27 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all_with_courses():
-        course_groups = db.session.scalars(select(CourseGroup)).all()
-        courses = db.session.scalars(select(Course)).all()
-
-        course_groups_dict = {
-            course_group.id: {**to_dict(course_group), "course_list": []}
-            for course_group in course_groups
-        }
-
-        for course in courses:
-            course_groups_dict[course.course_group_id]["course_list"].append(
-                to_dict(course)
+        return (
+            db.session.scalars(
+                select(CourseGroup).options(joinedload(CourseGroup.courses))
             )
+            .unique()
+            .all()
+        )
+        # course_groups = db.session.scalars(select(CourseGroup)).all()
+        # courses = db.session.scalars(select(Course)).all()
 
-        return list(course_groups_dict.values())
+        # course_groups_dict = {
+        #     course_group.id: {**to_dict(course_group), "course_list": []}
+        #     for course_group in course_groups
+        # }
+
+        # for course in courses:
+        #     course_groups_dict[course.course_group_id]["course_list"].append(
+        #         to_dict(course)
+        #     )
+
+        # return list(course_groups_dict.values())
 
     @staticmethod
     def get_by_name(name: str) -> CourseGroup | None:
@@ -167,11 +178,6 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
     def get_by_link(link: str) -> CourseGroup | None:
         return db.session.scalar(select(CourseGroup).where(CourseGroup.link == link))
 
-    @staticmethod
-    def get_courses_by_link(link: str) -> Sequence[Course]:
-        course_group = CourseGroup.get_by_link(link)
-        return Course.get_by_course_group(course_group)
-
 
 class Course(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -182,8 +188,6 @@ class Course(db.Model):
     course_group_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course_group.id")
     )
-
-    course_group: Mapped[CourseGroup] = relationship(CourseGroup, backref="courses")
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -214,14 +218,16 @@ class Course(db.Model):
             raise ValueError(f"Course with id {id} does not exist")
 
     @staticmethod
-    def get_by_course_group(
-        course_group: CourseGroup | None = None,
-    ) -> Sequence[Course]:
-        if not course_group:
+    def get_by_course_group_id(course_group_id: int | None) -> Sequence[Course]:
+        if not course_group_id:
             return Course.get_all()
         return db.session.scalars(
-            select(Course).where(Course.course_group == course_group)
+            select(Course).where(Course.course_group_id == course_group_id)
         ).all()
+
+    @staticmethod
+    def get_by_link(link: str) -> Course | None:
+        return db.session.scalar(select(Course).where(Course.link == link))
 
 
 class Group(MappedAsDataclass, db.Model, unsafe_hash=True):
@@ -245,16 +251,29 @@ class Group(MappedAsDataclass, db.Model, unsafe_hash=True):
         return db.session.scalar(select(Group).where(Group.id == int(id)))
 
     @staticmethod
-    def get_by_course_id(course_id: int) -> Sequence[Group]:
-        return db.session.scalars(
-            select(Group).where(Group.course_id == course_id)
+    def get_by_course_id(course_id: int):
+        return db.session.execute(
+            select(Group, Timetable)
+            .join(Timetable, Group.id == Timetable.group_id)
+            .where(Group.course_id == course_id)
         ).all()
+
+
+@dataclass
+class Weekday:
+    id: int
+    name: str
+    shorthand: str
+    selected: bool
+    time: str
+
+
+# dict = {"1": {"selected": true, "time": "19:00", "name": "Понедельник", "shorthand": "ПН"}, "2": {"selected": false, "time": "19:00", "name": "Вторник", "shorthand": "ВТ"}, "3": {"selected": false, "time": "19:00", "name": "Среда", "shorthand": "СР"}, "4": {"selected": false, "time": "19:00", "name": "Четверг", "shorthand": "ЧТ"}, "5": {"selected": false, "time": "19:00", "name": "Пятница", "shorthand": "ПТ"}, "6": {"selected": false, "time": "19:00", "name": "Суббота", "shorthand": "СБ"}, "7": {"selected": false, "time": "19:00", "name": "Воскресенье", "shorthand": "ВС"}}
 
 
 class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    day: Mapped[str] = mapped_column(String, nullable=False, init=True)
-    time: Mapped[str] = mapped_column(String, nullable=False, init=True)
+    json_data: Mapped[JSON] = mapped_column(JSON, nullable=False, init=True)
     group_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("group.id"), init=True, nullable=False
     )
@@ -278,7 +297,7 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_by_course_id(course_id):
         return db.session.scalars(
-            select(Timetable, Group, Course)
+            select(Timetable, Group, Course.id)
             .join(Group, Timetable.group_id == Group.id)
             .join(Course, Group.course_id == Course.id)
             .where(Course.id == course_id)
@@ -362,7 +381,9 @@ class EventType(MappedAsDataclass, db.Model, unsafe_hash=True):
     description: Mapped[str] = mapped_column(String, nullable=True)
     color: Mapped[str] = mapped_column(String, nullable=False)
 
-    events: Mapped[list[Event]] = relationship("Event", uselist=True, init=False, backref="event_type")
+    events: Mapped[list[Event]] = relationship(
+        "Event", uselist=True, init=False, backref="event_type"
+    )
 
     @staticmethod
     def get_all() -> Sequence[EventType]:

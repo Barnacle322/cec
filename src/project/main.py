@@ -1,6 +1,7 @@
 import calendar
 import datetime
 import random
+from re import L
 
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 
@@ -10,6 +11,7 @@ from .models import (
     CourseGroup,
     Event,
     Feedback,
+    Group,
     Registration,
     Staff,
     Teacher,
@@ -80,14 +82,18 @@ def courses():
     course_groups = CourseGroup.get_all()
     query = request.args.get("course_group")
     course_group = CourseGroup.get_by_link(query) if query else None
-    courses = Course.get_by_course_group(course_group)
+    courses = Course.get_by_course_group_id(course_group.id if course_group else None)
 
     return render_template("courses.html", courses=courses, course_groups=course_groups)
 
 
 @main.route("/course/<course_name>")
 def course(course_name):
-    return render_template("course.html", course_name=course_name)
+    course = Course.get_by_link(course_name)
+    groups = Group.get_by_course_id(course.id)  # type: ignore
+    print("\n\n")
+    print(groups)
+    return render_template("course.html", course=course, groups=groups)
 
 
 @main.route("/calendar/<int:month>/<int:year>")

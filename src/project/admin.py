@@ -51,7 +51,6 @@ admin = Blueprint("admin", __name__)
 @admin_required
 def courses():
     course_groups = CourseGroup.get_all_with_courses()
-
     return render_template("admin/course/courses.html", course_groups=course_groups)
 
 

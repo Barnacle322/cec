@@ -3,14 +3,49 @@ content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden bg-gray-50 leading-normal tracking-tight"
 >
-    <section class="mt-5 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-32">
-        <article class="text-start">
-            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">Курсы на ваш выбор под ваши цели</h1>
-            <p class="text-lg sm:w-1/2 sm:text-2xl">
-                Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, используя уроки по самым
-                актуальным темам.
-            </p>
+    <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
+        <article class="text-start w-full gap-2 flex flex-col">
+            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">{{ course.name }}</h1>
+            <p class="text-lg sm:w-1/2 sm:text-2xl">{{ course.description.replace('\n', '<br />') | safe }}</p>
+            <img class="w-full aspect-[4/1] object-cover rounded-3xl mt-10" src="{{ course.picture_url }}" alt="" />
         </article>
+    </section>
+    <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
+        <h2 class="mb-5 w-full text-3xl font-mediu sm:text-5xl font-medium">Группы</h2>
+        <div class="grid grid-cols-1 min-[870px]:grid-cols-2 xl:grid-cols-3 gap-3 place-content-center">
+            {% for group, timetable in groups %}
+            <article class="p-5 bg-white rounded-3xl flex flex-col border w-full sm:w-[400px] sm:h-[400px]">
+                <h3 class="text-xl sm:text-2xl font-medium">{{ group.name }}</h3>
+                <span>{{ group.duration }}</span>
+                <div class="flex gap-1 mt-8">
+                    {% for index, data in timetable.json_data.items() %} {% if data.selected %}
+                    <div
+                        class="flex w-full justify-between items-center flex-col gap-2 text-xs sm:text-sm font-medium rounded-xl bg-sky-500 text-white py-2"
+                    >
+                        <span>{{ data.shorthand }}</span>
+                        <span>{{ data.time }}</span>
+                    </div>
+                    {% else %}
+                    <div
+                        class="flex w-full justify-between items-center flex-col gap-2 text-xs sm:text-sm font-medium bg-gray-100 rounded-xl py-2"
+                    >
+                        <span>{{ data.shorthand }}</span>
+                        <span></span>
+                    </div>
+                    {% endif %} {% endfor %}
+                </div>
+                <p class="mt-4 text-lg">{{ group.description | safe }}</p>
+                <div class="flex justify-between items-center w-full mt-10 sm:mt-auto">
+                    <span class="text-lg mr-4 leading-5">{{ group.price }}</span>
+                    <button
+                        class="py-3 px-4 bg-sky-500 rounded-lg text-white font-medium hover:bg-sky-400 transition-all ease-in-out hover:scale-105"
+                    >
+                        Записаться
+                    </button>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
     </section>
 </main>
 {% endblock %}

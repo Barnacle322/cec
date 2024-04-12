@@ -63,7 +63,7 @@
                     id="course_group_id"
                     required
                 >
-                    <option value="{{ course.course_group.id }}">{{ course.course_group.name }}</option>
+                    <option value="{{ course.course_group_id }}">{{ course.course_group.name }}</option>
                     {% for course_group in course_groups %}
                     <option value="{{ course_group.id }}">{{ course_group.name }}</option>
                     {% endfor %}
