@@ -14,7 +14,7 @@
     <section class="mt-8 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h1 class="w-full text-2xl font-medium sm:text-4xl">Курсы</h1>
         <div class="mt-5 grid w-full items-center justify-center gap-8 lg:grid-cols-2">
-            {% for course_group, courses in course_dict.items() %}
+            {% for course_group in course_groups %}
             <div class="flex h-full w-full flex-col items-center divide-y overflow-hidden rounded-3xl border bg-white">
                 <div class="flex w-full gap-4 p-5">
                     <div class="hidden aspect-video h-20 shrink-0 overflow-hidden rounded-xl sm:block">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="flex w-full flex-col gap-3 p-5">
-                    {% for course in courses %}
+                    {% for course in course_group.course_list %}
                     <article class="flex gap-3 rounded-xl border bg-white p-4">
                         <img class="hidden h-20 rounded-lg sm:block" src="{{ course.picture_url }}" alt="" />
                         <div class="flex flex-col">
@@ -126,7 +126,7 @@
             {% endfor %}
         </div>
         <a
-            href="/admin/course/add"
+            href="/admin/course_group/add"
             class="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white p-3 py-10 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
         >
             Добавить группу курсов

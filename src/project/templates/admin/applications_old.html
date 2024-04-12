@@ -11,18 +11,11 @@
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
+    {% if type=='registration' %}
     <section
-        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20 mb-20"
+        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
     >
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex items-end gap-2">
-            Заявки
-            <a
-                href="/admin/applications/old/registration/1"
-                class="text-sm hover:bg-sky-400 bg-sky-500 text-white py-1 px-2 rounded-lg mb-1"
-                >Скрытые</a
-            >
-        </h2>
-
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Заявки</h2>
         <div class="relative w-full overflow-auto">
             <table class="w-full overflow-hidden rounded-lg bg-white text-sm">
                 <thead class="bg-blue-500 text-white">
@@ -44,7 +37,7 @@
                                 onclick="toggleApplication(this, 'registration', '{{ application.id }}')"
                                 class="text-white bg-sky-500 hover:bg-sky-400 py-2 px-2 rounded-md"
                             >
-                                Скрыть
+                                Показать
                             </button>
                         </td>
                     </tr>
@@ -53,18 +46,11 @@
             </table>
         </div>
     </section>
+    {% elif type=='toefl' %}
     <section
-        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20 mb-20"
+        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
     >
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex items-end gap-2">
-            TOEFL Заявки
-            <a
-                href="/admin/applications/old/toefl/1"
-                class="text-sm hover:bg-sky-400 bg-sky-500 text-white py-1 px-2 rounded-lg mb-1"
-                >Скрытые</a
-            >
-        </h2>
-
+        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">TOEFL Заявки</h2>
         <div class="relative w-full overflow-auto">
             <table class="w-full overflow-hidden rounded-lg bg-white text-sm">
                 <thead class="bg-blue-500 text-white">
@@ -79,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody class="">
-                    {% for application in toefl %}
+                    {% for application in applications %}
                     <tr class="border-b *:p-4 even:bg-gray-100">
                         <td class="font-medium">{{ application.first_name }}</td>
                         <td>{{ application.last_name }}</td>
@@ -92,7 +78,7 @@
                                 onclick="toggleApplication(this, 'toefl', '{{ application.id }}')"
                                 class="text-white bg-sky-500 hover:bg-sky-400 py-2 px-2 rounded-md"
                             >
-                                Скрыть
+                                Показать
                             </button>
                         </td>
                     </tr>
@@ -101,7 +87,30 @@
             </table>
         </div>
     </section>
+    {% endif %}
+    <section class="mb-20 flex flex-col justify-center items-center">
+        <div class="">{{ applications.first }} - {{ applications.last }} из {{ applications.total }}</div>
+        <div class="flex gap-2 justify-center items-center mt-2">
+            <!-- prettier-ignore -->
+            {% for page in applications.iter_pages() %} 
+        {% if page %}
+        {% if page != applications.page %}
+            <a
+                class="border rounded-lg size-10 flex justify-center items-center hover:bg-sky-500 hover:text-white transition-all ease-in-out cursor-pointer"
+                href="/admin/applications/old/{{ type }}/{{ page }}"
+                >{{ page }}</a
+            >
+            {% else %}
+            <strong class="bg-sky-500 text-white rounded-lg size-10 flex justify-center items-center"
+                >{{ page }}</strong
+            >
+            {% endif %} {% else %}
+            <span class="mx-2">…</span>
+            {% endif %} {% endfor %}
+        </div>
+    </section>
 </main>
+
 <script>
     function toggleApplication(element, type, id) {
         fetch(`/admin/applications/toggle_handle/${type}/${id}`, {
@@ -113,11 +122,11 @@
                     console.error(data.error);
                     // Optionally, show an error message to the user
                 } else {
-                    if (data.handled) {
+                    if (!data.handled) {
                         element.parentNode.parentNode.classList.add("opacity-50");
                         element.innerText = "Вернуть";
                     } else {
-                        element.innerText = "Скрыть";
+                        element.innerText = "Показать";
                         element.parentNode.parentNode.classList.remove("opacity-50");
                     }
                     console.log("Handled state:", data.handled);
@@ -126,5 +135,4 @@
             });
     }
 </script>
-
 {% endblock %}

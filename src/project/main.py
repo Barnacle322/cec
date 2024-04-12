@@ -38,8 +38,8 @@ def generate_month_matrix(month: int, year: int) -> dict:
                 date = datetime.date(year, month, day)
                 event_colors = list(
                     {
-                        event.event_type.color
-                        for event in all_events
+                        event_color
+                        for event, event_color in all_events
                         if event.date == date
                     }
                 )[0:3]
@@ -63,7 +63,7 @@ def index():
         success = True if args.get("success") == "true" else False
 
     course_groups = CourseGroup.get_all()
-    feedbacks = Feedback.get_all()
+    feedbacks = Feedback.get_all_verified()
     hero_list = ["hero-1.jpg", "hero-2.jpg", "hero-3.jpg"]
     random_hero = random.choice(hero_list)
     return render_template(
@@ -111,12 +111,12 @@ def teachers():
 def send_events(month, year):
     events = Event.get_by_month(month, year)
     events_serialized = []
-    for event in events:
+    for event, event_color in events:
         events_serialized.append(
             {
                 "name": event.name,
                 "description": event.description,
-                "event_color": event.event_type.color,
+                "event_color": event_color,
                 "date": str(event.date),
                 "date_string": event.date_string,
             }

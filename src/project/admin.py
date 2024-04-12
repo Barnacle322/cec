@@ -2,14 +2,15 @@ import csv
 import datetime
 import os
 
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, jsonify, redirect, render_template, request, url_for
 from xlsx2csv import Xlsx2csv
 
 from .extenstions import db
 from .models import (
     CourseGroup,
-    EventType,
+    Event,
     Feedback,
+    Registration,
     Staff,
     Teacher,
     Toefl,
@@ -46,40 +47,19 @@ from .views.people import (
 admin = Blueprint("admin", __name__)
 
 
-@admin.route("/")
-@admin_required
-def index():
-    return render_template("admin/index.html")
-
-
 @admin.route("/courses")
 @admin_required
 def courses():
-    course_dict = {}
-    course_groups = CourseGroup.get_all()
-    for course_group in course_groups:
-        courses = course_group.get_courses()
-        course_dict[course_group] = courses
+    course_groups = CourseGroup.get_all_with_courses()
 
-    return render_template("admin/course/courses.html", course_dict=course_dict)
-
-
-@admin.route("/course/<course_name>")
-@admin_required
-def course(course_name):
-    return render_template("admin/course/course.html", course_name=course_name)
+    return render_template("admin/course/courses.html", course_groups=course_groups)
 
 
 @admin.route("/events")
 @admin_required
 def events():
-    event_dict = {}
-    event_types = EventType.get_all()
-    for event_type in event_types:
-        event_types = event_type.get_events()
-        event_dict[event_type] = event_types
-
-    return render_template("admin/events.html", event_dict=event_dict)
+    events = Event.get_all_with_types()
+    return render_template("admin/events.html", event_dict=events)
 
 
 @admin.route("/people")
@@ -223,11 +203,68 @@ def feedback():
     return render_template("admin/feedback.html", feedbacks=feedbacks)
 
 
+@admin.get("/")
 @admin.get("/applications")
 @admin_required
 def applications():
-    toefl_applications = ToeflRegistration.get_all()
-    return render_template("admin/applications.html", toefl=toefl_applications)
+    toefl_applications = ToeflRegistration.get_all_unhandled()
+    applications = Registration.get_all_unhandled()
+    return render_template(
+        "admin/applications.html", toefl=toefl_applications, applications=applications
+    )
+
+
+@admin.post("/applications/toggle_handle/<type>/<int:id>")
+@admin_required
+def toggle_handle(type, id):
+    if not type or not id:
+        return jsonify({"error": "Invalid parameters", "handled": None})
+
+    handled = None
+
+    if type == "toefl":
+        try:
+            toefl = ToeflRegistration.get_by_id(id)
+            if not toefl:
+                raise AttributeError
+
+            toefl.handled = not toefl.handled
+            handled = toefl.handled
+            db.session.commit()
+        except AttributeError:
+            return jsonify({"error": "TOEFL registration not found", "handled": None})
+
+    elif type == "registration":
+        try:
+            application = Registration.get_by_id(id)
+            if not application:
+                raise AttributeError
+
+            application.handled = not application.handled
+            handled = application.handled
+            db.session.commit()
+        except AttributeError:
+            return jsonify({"error": "Registration not found", "handled": None})
+
+    return jsonify({"error": None, "handled": handled})
+
+
+@admin.get("/applications/old/<type>/<int:page>")
+@admin_required
+def applications_old(type, page):
+    if type == "toefl":
+        toefl_applications = ToeflRegistration.get_pagination(page)
+    elif type == "registration":
+        toefl_applications = Registration.get_pagination(page)
+    else:
+        return redirect(url_for("admin.applications"))
+
+    return render_template(
+        "admin/applications_old.html",
+        applications=toefl_applications,
+        type=type,
+        page=page,
+    )
 
 
 admin.add_url_rule(
