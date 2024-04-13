@@ -1,0 +1,146 @@
+{% extends "admin/layout.html" %} {% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+{% endblock %} {% block title %}Расписание{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content
+%}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
+        <article class="text-start">
+            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Расписание</h1>
+            <p class="text-xl sm:text-2xl">Здесь вы можете добавить расписание для курса</p>
+        </article>
+    </section>
+    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20 mb-20">
+        <form
+            class="flex w-full flex-col gap-4"
+            method="POST"
+            enctype="multipart/form-data"
+            action="/admin/course/timetable/add"
+        >
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Программирование"
+                    required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description"
+                    id="description"
+                    placeholder="Описание группы курсов"
+                    required
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Длительность</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="duration"
+                    id="duration"
+                    placeholder="3 месяца"
+                    required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Цена</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="price"
+                    id="price"
+                    placeholder="5000 сом + 1500 сом за учебник"
+                    required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Курс</label>
+                <select
+                    class="rounded-xl border border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="course_id"
+                    id="course_id"
+                    required
+                >
+                    {% for course_group in course_groups %}
+                    <optgroup label="{{ course_group.name }}">
+                        {% for course in course_group.courses %}
+                        <option value="{{ course.id }}">{{ course.name }}</option>
+                        {% endfor %}
+                    </optgroup>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="flex gap-2 flex-wrap justify-center items-center">
+                <div class="flex flex-col justify-center items-center">
+                    <label for="monday">ПН</label>
+                    <input class="rounded-lg border-2 p-1" type="time" name="monday" id="monday" placeholder="19:00" />
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <label for="tuesday">ВТ</label>
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        type="time"
+                        name="tuesday"
+                        id="tuesday"
+                        placeholder="19:00"
+                    />
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <label for="wednesday">СР</label>
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        type="time"
+                        name="wednesday"
+                        id="wednesday"
+                        placeholder="19:00"
+                    />
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <label for="thursday">ЧТ</label>
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        type="time"
+                        name="thursday"
+                        id="thursday"
+                        placeholder="19:00"
+                    />
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <label for="friday">ПТ</label>
+                    <input class="rounded-lg border-2 p-1" type="time" name="friday" id="friday" placeholder="19:00" />
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <label for="saturday">СБ</label>
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        type="time"
+                        name="saturday"
+                        id="saturday"
+                        placeholder="19:00"
+                    />
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <label for="sunday">ВС</label>
+                    <input class="rounded-lg border-2 p-1" type="time" name="sunday" id="sunday" placeholder="19:00" />
+                </div>
+            </div>
+            <button
+                class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
+                type="submit"
+            >
+                Добавить
+            </button>
+        </form>
+    </section>
+</main>
+{% endblock %}

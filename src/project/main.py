@@ -11,10 +11,10 @@ from .models import (
     CourseGroup,
     Event,
     Feedback,
-    Group,
     Registration,
     Staff,
     Teacher,
+    Timetable,
     Toefl,
     ToeflRegistration,
     User,
@@ -90,10 +90,8 @@ def courses():
 @main.route("/course/<course_name>")
 def course(course_name):
     course = Course.get_by_link(course_name)
-    groups = Group.get_by_course_id(course.id)  # type: ignore
-    print("\n\n")
-    print(groups)
-    return render_template("course.html", course=course, groups=groups)
+    timetables = Timetable.get_by_course_id(course.id)  # type: ignore
+    return render_template("course.html", course=course, timetables=timetables)
 
 
 @main.route("/calendar/<int:month>/<int:year>")

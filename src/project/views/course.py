@@ -1,8 +1,11 @@
+import json
+from typing import Any
+
 from flask import flash, redirect, render_template, request, url_for
 from flask.views import MethodView
 
 from ..extenstions import db
-from ..models import Course, CourseGroup
+from ..models import Course, CourseGroup, Timetable
 from ..utils.decor import admin_required
 from ..utils.status_enum import Status, StatusType
 from ..utils.storage import delete_blob_from_url, upload_picture
@@ -313,3 +316,171 @@ class DeleteCourseView(MethodView):
 
         flash("Course deleted successfully", "success")
         return redirect(url_for("admin.courses"))
+
+
+class AddTimetable(MethodView):
+    methods = ["GET", "POST"]
+
+    @admin_required
+    def get(self):
+        db_course = None
+        if args := request.args:
+            course_id = args.get("course_id", type=int)
+            if course_id:
+                db_course = Course.get_by_id(course_id)
+
+        course_groups = CourseGroup.get_all_with_courses()
+
+        if db_course:
+            for course_group in course_groups:
+                course_group.courses = [
+                    course
+                    for course in course_group.courses
+                    if course.id != db_course.id
+                ]
+
+        return render_template(
+            "admin/course/add_timetable.html", course_groups=course_groups
+        )
+
+    @staticmethod
+    def construct_timetable(form_data) -> dict[str, dict[str, Any]]:
+        timetable = {
+            "1": {
+                "id": 1,
+                "name": "Понедельник",
+                "shorthand": "ПН",
+                "time": None,
+                "selected": False,
+            },
+            "2": {
+                "id": 2,
+                "name": "Вторник",
+                "shorthand": "ВТ",
+                "time": None,
+                "selected": False,
+            },
+            "3": {
+                "id": 3,
+                "name": "Среда",
+                "shorthand": "СР",
+                "time": None,
+                "selected": False,
+            },
+            "4": {
+                "id": 4,
+                "name": "Четверг",
+                "shorthand": "ЧТ",
+                "time": None,
+                "selected": False,
+            },
+            "5": {
+                "id": 5,
+                "name": "Пятница",
+                "shorthand": "ПТ",
+                "time": None,
+                "selected": False,
+            },
+            "6": {
+                "id": 6,
+                "name": "Суббота",
+                "shorthand": "СБ",
+                "time": None,
+                "selected": False,
+            },
+            "7": {
+                "id": 7,
+                "name": "Воскресенье",
+                "shorthand": "ВС",
+                "time": None,
+                "selected": False,
+            },
+        }
+
+        if monday := form_data.get("monday"):
+            day = timetable["1"]
+            day["time"] = monday
+            day["selected"] = True
+        if tuesday := form_data.get("tuesday"):
+            day = timetable["2"]
+            day["time"] = tuesday
+            day["selected"] = True
+        if wednesday := form_data.get("wednesday"):
+            day = timetable["3"]
+            day["time"] = wednesday
+            day["selected"] = True
+        if thursday := form_data.get("thursday"):
+            day = timetable["4"]
+            day["time"] = thursday
+            day["selected"] = True
+        if friday := form_data.get("friday"):
+            day = timetable["5"]
+            day["time"] = friday
+            day["selected"] = True
+        if saturday := form_data.get("saturday"):
+            day = timetable["6"]
+            day["time"] = saturday
+            day["selected"] = True
+        if sunday := form_data.get("sunday"):
+            day = timetable["7"]
+            day["time"] = sunday
+            day["selected"] = True
+
+        return timetable
+
+    @admin_required
+    def post(self):
+        name = request.form.get("name")
+        description = request.form.get("description")
+        duration = request.form.get("duration")
+        price = request.form.get("price")
+        course_id = request.form.get("course_id", type=int)
+
+        timetable = AddTimetable.construct_timetable(request.form)
+
+        if not name or not description or not duration or not price or not course_id:
+            status = Status(
+                StatusType.ERROR, "Пожалуйста заполните все поля"
+            ).get_status()
+
+            return redirect(url_for("admin.add_timetable", _external=False, **status))
+
+        try:
+            new_timetable = Timetable(
+                name=name,
+                description=description,
+                duration=duration,
+                price=price,
+                json_data=timetable,  # type: ignore
+                course_id=course_id,
+            )
+            db.session.add(new_timetable)
+            db.session.commit()
+        except Exception as e:
+            status = Status(
+                StatusType.ERROR, f"Ошибка при создании расписания: {e}"
+            ).get_status()
+            return redirect(url_for("admin.add_timetable", _external=False, **status))
+
+        return redirect(url_for("admin.add_timetable"))
+
+
+class EditTimetable(MethodView):
+    methods = ["GET", "POST"]
+
+    @admin_required
+    def get(self, course_group_id):
+        course_group = CourseGroup.get_by_id(course_group_id)
+        return render_template(
+            "admin/course/edit_timetable.html", course_group=course_group
+        )
+
+    @admin_required
+    def post(self, course_group_id): ...
+
+
+class DeleteTimetable(MethodView):
+    methods = ["POST"]
+
+    @admin_required
+    def post(self, course_group_id): ...

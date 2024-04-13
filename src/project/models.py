@@ -137,20 +137,6 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
             .unique()
             .all()
         )
-        # course_groups = db.session.scalars(select(CourseGroup)).all()
-        # courses = db.session.scalars(select(Course)).all()
-
-        # course_groups_dict = {
-        #     course_group.id: {**to_dict(course_group), "course_list": []}
-        #     for course_group in course_groups
-        # }
-
-        # for course in courses:
-        #     course_groups_dict[course.course_group_id]["course_list"].append(
-        #         to_dict(course)
-        #     )
-
-        # return list(course_groups_dict.values())
 
     @staticmethod
     def get_by_name(name: str) -> CourseGroup | None:
@@ -230,55 +216,18 @@ class Course(db.Model):
         return db.session.scalar(select(Course).where(Course.link == link))
 
 
-class Group(MappedAsDataclass, db.Model, unsafe_hash=True):
+class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String, nullable=False, init=True)
     description: Mapped[str] = mapped_column(String, nullable=False, init=True)
     duration: Mapped[str] = mapped_column(String, nullable=False, init=True)
-    price: Mapped[int] = mapped_column(Integer, nullable=False, init=True)
+    price: Mapped[str] = mapped_column(String, nullable=False, init=True)
+    json_data: Mapped[JSON] = mapped_column(JSON, nullable=False, init=True)
     course_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course.id"), init=True, nullable=False
     )
 
     course: Mapped[Course] = relationship(Course, backref="groups", init=False)
-
-    @staticmethod
-    def get_all() -> Sequence[Group]:
-        return db.session.scalars(select(Group)).all()
-
-    @staticmethod
-    def get_by_id(id: int) -> Group | None:
-        return db.session.scalar(select(Group).where(Group.id == int(id)))
-
-    @staticmethod
-    def get_by_course_id(course_id: int):
-        return db.session.execute(
-            select(Group, Timetable)
-            .join(Timetable, Group.id == Timetable.group_id)
-            .where(Group.course_id == course_id)
-        ).all()
-
-
-@dataclass
-class Weekday:
-    id: int
-    name: str
-    shorthand: str
-    selected: bool
-    time: str
-
-
-# dict = {"1": {"selected": true, "time": "19:00", "name": "Понедельник", "shorthand": "ПН"}, "2": {"selected": false, "time": "19:00", "name": "Вторник", "shorthand": "ВТ"}, "3": {"selected": false, "time": "19:00", "name": "Среда", "shorthand": "СР"}, "4": {"selected": false, "time": "19:00", "name": "Четверг", "shorthand": "ЧТ"}, "5": {"selected": false, "time": "19:00", "name": "Пятница", "shorthand": "ПТ"}, "6": {"selected": false, "time": "19:00", "name": "Суббота", "shorthand": "СБ"}, "7": {"selected": false, "time": "19:00", "name": "Воскресенье", "shorthand": "ВС"}}
-
-
-class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    json_data: Mapped[JSON] = mapped_column(JSON, nullable=False, init=True)
-    group_id: Mapped[int] = mapped_column(
-        Integer, db.ForeignKey("group.id"), init=True, nullable=False
-    )
-
-    group: Mapped[Group] = relationship(Group, backref="timetable", init=False)
 
     @staticmethod
     def get_all() -> Sequence[Timetable]:
@@ -289,18 +238,9 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
         return db.session.scalar(select(Timetable).where(Timetable.id == int(id)))
 
     @staticmethod
-    def get_by_group_id(group_id: int) -> Sequence[Timetable]:
+    def get_by_course_id(course_id: int):
         return db.session.scalars(
-            select(Timetable).where(Timetable.group_id == group_id)
-        ).all()
-
-    @staticmethod
-    def get_by_course_id(course_id):
-        return db.session.scalars(
-            select(Timetable, Group, Course.id)
-            .join(Group, Timetable.group_id == Group.id)
-            .join(Course, Group.course_id == Course.id)
-            .where(Course.id == course_id)
+            select(Timetable).where(Timetable.course_id == course_id)
         ).all()
 
 
@@ -376,7 +316,7 @@ class Staff(db.Model):
 
 
 class EventType(MappedAsDataclass, db.Model, unsafe_hash=True):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=True)
     color: Mapped[str] = mapped_column(String, nullable=False)
@@ -408,7 +348,7 @@ class EventType(MappedAsDataclass, db.Model, unsafe_hash=True):
 
 
 class Event(MappedAsDataclass, db.Model, unsafe_hash=True):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)

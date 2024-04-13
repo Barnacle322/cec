@@ -21,10 +21,13 @@ from .utils.status_enum import Status, StatusType
 from .views.course import (
     AddCourseGroupView,
     AddCourseView,
+    AddTimetable,
     DeleteCourseGroupView,
     DeleteCourseView,
+    DeleteTimetable,
     EditCourseGroupView,
     EditCourseView,
+    EditTimetable,
 )
 from .views.event import (
     AddEventTypeView,
@@ -307,6 +310,19 @@ admin.add_url_rule(
 admin.add_url_rule(
     "/course/delete/<int:course_id>",
     view_func=DeleteCourseView.as_view("delete_course"),
+)
+
+admin.add_url_rule(
+    "/course/timetable/add",
+    view_func=AddTimetable.as_view("add_timetable"),
+)
+admin.add_url_rule(
+    "/course/timetable/edit/<int:timetable_id>",
+    view_func=EditTimetable.as_view("edit_timetable"),
+)
+admin.add_url_rule(
+    "/course/timetable/delete/<int:timetable_id>",
+    view_func=DeleteTimetable.as_view("delete_timetable"),
 )
 
 
