@@ -12,13 +12,13 @@
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section
-        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20 mb-20"
+        class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
     >
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex items-end gap-2">
+        <h2 class="mb-5 flex w-full items-end gap-2 text-4xl font-medium sm:text-5xl">
             Заявки
             <a
                 href="/admin/applications/old/registration/1"
-                class="text-sm hover:bg-sky-400 bg-sky-500 text-white py-1 px-2 rounded-lg mb-1"
+                class="mb-1 rounded-lg bg-sky-500 px-2 py-1 text-sm text-white hover:bg-sky-400"
                 >Скрытые</a
             >
         </h2>
@@ -42,7 +42,7 @@
                         <td>
                             <button
                                 onclick="toggleApplication(this, 'registration', '{{ application.id }}')"
-                                class="text-white bg-sky-500 hover:bg-sky-400 py-2 px-2 rounded-md"
+                                class="rounded-md bg-sky-500 px-2 py-2 text-white hover:bg-sky-400"
                             >
                                 Скрыть
                             </button>
@@ -54,13 +54,13 @@
         </div>
     </section>
     <section
-        class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20 mb-20"
+        class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
     >
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl flex items-end gap-2">
+        <h2 class="mb-5 flex w-full items-end gap-2 text-4xl font-medium sm:text-5xl">
             TOEFL Заявки
             <a
                 href="/admin/applications/old/toefl/1"
-                class="text-sm hover:bg-sky-400 bg-sky-500 text-white py-1 px-2 rounded-lg mb-1"
+                class="mb-1 rounded-lg bg-sky-500 px-2 py-1 text-sm text-white hover:bg-sky-400"
                 >Скрытые</a
             >
         </h2>
@@ -90,7 +90,7 @@
                         <td>
                             <button
                                 onclick="toggleApplication(this, 'toefl', '{{ application.id }}')"
-                                class="text-white bg-sky-500 hover:bg-sky-400 py-2 px-2 rounded-md"
+                                class="rounded-md bg-sky-500 px-2 py-2 text-white hover:bg-sky-400"
                             >
                                 Скрыть
                             </button>

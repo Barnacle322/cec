@@ -5,7 +5,7 @@ from flask import Flask
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .admin import admin
-from .extenstions import db, login_manager, toolbar
+from .extenstions import db, login_manager
 from .main import main
 
 
@@ -25,7 +25,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
 
     db.init_app(app)
     login_manager.init_app(app)
-    toolbar.init_app(app)
+
     # Reverse proxy support
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 

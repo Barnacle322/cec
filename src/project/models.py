@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Sequence
-from dataclasses import dataclass
 from enum import Enum
 
 from flask import current_app

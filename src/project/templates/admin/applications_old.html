@@ -35,7 +35,7 @@
                         <td>
                             <button
                                 onclick="toggleApplication(this, 'registration', '{{ application.id }}')"
-                                class="text-white bg-sky-500 hover:bg-sky-400 py-2 px-2 rounded-md"
+                                class="rounded-md bg-sky-500 px-2 py-2 text-white hover:bg-sky-400"
                             >
                                 Показать
                             </button>
@@ -76,7 +76,7 @@
                         <td>
                             <button
                                 onclick="toggleApplication(this, 'toefl', '{{ application.id }}')"
-                                class="text-white bg-sky-500 hover:bg-sky-400 py-2 px-2 rounded-md"
+                                class="rounded-md bg-sky-500 px-2 py-2 text-white hover:bg-sky-400"
                             >
                                 Показать
                             </button>
@@ -88,20 +88,20 @@
         </div>
     </section>
     {% endif %}
-    <section class="mb-20 flex flex-col justify-center items-center">
+    <section class="mb-20 flex flex-col items-center justify-center">
         <div class="">{{ applications.first }} - {{ applications.last }} из {{ applications.total }}</div>
-        <div class="flex gap-2 justify-center items-center mt-2">
+        <div class="mt-2 flex items-center justify-center gap-2">
             <!-- prettier-ignore -->
             {% for page in applications.iter_pages() %} 
         {% if page %}
         {% if page != applications.page %}
             <a
-                class="border rounded-lg size-10 flex justify-center items-center hover:bg-sky-500 hover:text-white transition-all ease-in-out cursor-pointer"
+                class="flex size-10 cursor-pointer items-center justify-center rounded-lg border transition-all ease-in-out hover:bg-sky-500 hover:text-white"
                 href="/admin/applications/old/{{ type }}/{{ page }}"
                 >{{ page }}</a
             >
             {% else %}
-            <strong class="bg-sky-500 text-white rounded-lg size-10 flex justify-center items-center"
+            <strong class="flex size-10 items-center justify-center rounded-lg bg-sky-500 text-white"
                 >{{ page }}</strong
             >
             {% endif %} {% else %}
