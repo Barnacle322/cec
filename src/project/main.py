@@ -147,24 +147,15 @@ def toefl():
     )
 
 
-@main.get("/toefl/register")
-def toefl_register():
-    success = None
-    if args := request.args:
-        success = True if args.get("success") == "true" else False
-
-    # Get today's date
+def get_available_dates():
     today = datetime.date.today()
 
-    # Calculate the number of days until the next Monday (0) and Thursday (3)
     days_until_monday = (0 - today.weekday() + 7) % 7
     days_until_thursday = (3 - today.weekday() + 7) % 7
 
-    # Get the next two Mondays
     next_monday = today + datetime.timedelta(days=days_until_monday)
     next_next_monday = next_monday + datetime.timedelta(days=7)
 
-    # Get the next two Thursdays
     next_thursday = today + datetime.timedelta(days=days_until_thursday)
     next_next_thursday = next_thursday + datetime.timedelta(days=7)
 
@@ -202,6 +193,16 @@ def toefl_register():
         },
     ]
     available_dates = sorted(available_dates, key=lambda x: x["value"])
+    return available_dates
+
+
+@main.get("/toefl/register")
+def toefl_register():
+    success = None
+    if args := request.args:
+        success = True if args.get("success") == "true" else False
+
+    available_dates = get_available_dates()
 
     return render_template(
         "toefl_register.html", success=success, available_dates=available_dates
@@ -217,7 +218,7 @@ def toefl_register_post():
     day = request.form.get("day")
 
     if not first_name or not last_name or not email or not phone or not day:
-        return render_template("toefl_register.html", success=False)
+        return redirect(url_for("main.toefl_register", success="false"))
 
     day = datetime.datetime.strptime(day, "%Y-%m-%d").date()
 
@@ -236,9 +237,9 @@ def toefl_register_post():
         db.session.commit()
     except Exception as e:
         print(e)
-        return render_template("toefl_register.html", success=False)
+        return redirect(url_for("main.toefl_register", success="false"))
 
-    return render_template("toefl_register.html", success=True)
+    return redirect(url_for("main.toefl_register", success="true"))
 
 
 @main.post("/register")

@@ -91,7 +91,7 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                         </tr>
                     </thead>
                     <tbody class="">
-                        <form action="/admin/toefl/publish" method="POST">
+                        <form method="POST">
                             {% for result in results %}
                             <tr class="border-b *:p-4 odd:bg-slate-50">
                                 <td>
@@ -114,9 +114,17 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                             {% endfor %}
                             <button
                                 type="submit"
-                                class="mb-4 rounded-md bg-black px-4 py-2 text-xs font-medium text-white hover:underline sm:text-base"
+                                formaction="/admin/toefl/publish"
+                                class="mb-4 rounded-md bg-black px-4 py-2 text-xs font-medium text-white hover:underline sm:text-base mr-2"
                             >
                                 Publish
+                            </button>
+                            <button
+                                type="submit"
+                                formaction="/admin/toefl/unpublish"
+                                class="mb-4 rounded-md bg-black px-4 py-2 text-xs font-medium text-white hover:underline sm:text-base"
+                            >
+                                Unpublish
                             </button>
                         </form>
                     </tbody>
