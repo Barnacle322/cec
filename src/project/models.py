@@ -227,7 +227,7 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
         Integer, db.ForeignKey("course.id"), init=True, nullable=False
     )
 
-    course: Mapped[Course] = relationship(Course, backref="groups", init=False)
+    course: Mapped[Course] = relationship(Course, backref="timetables", init=False)
 
     @staticmethod
     def get_all() -> Sequence[Timetable]:
@@ -242,6 +242,14 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
         return db.session.scalars(
             select(Timetable).where(Timetable.course_id == course_id)
         ).all()
+
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if timetable := Timetable.get_by_id(int(id)):
+            db.session.delete(timetable)
+            db.session.commit()
+        else:
+            raise ValueError(f"Timetable with id {id} does not exist")
 
 
 class Teacher(db.Model):

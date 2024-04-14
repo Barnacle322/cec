@@ -1,4 +1,5 @@
 import json
+import time
 from typing import Any
 
 from flask import flash, redirect, render_template, request, url_for
@@ -331,16 +332,10 @@ class AddTimetable(MethodView):
 
         course_groups = CourseGroup.get_all_with_courses()
 
-        if db_course:
-            for course_group in course_groups:
-                course_group.courses = [
-                    course
-                    for course in course_group.courses
-                    if course.id != db_course.id
-                ]
-
         return render_template(
-            "admin/course/add_timetable.html", course_groups=course_groups
+            "admin/course/add_timetable.html",
+            course_groups=course_groups,
+            course_id=db_course.id if db_course else None,
         )
 
     @staticmethod
@@ -469,18 +464,63 @@ class EditTimetable(MethodView):
     methods = ["GET", "POST"]
 
     @admin_required
-    def get(self, course_group_id):
-        course_group = CourseGroup.get_by_id(course_group_id)
+    def get(self, timetable_id):
+        timetable = Timetable.get_by_id(timetable_id)
+        course_groups = CourseGroup.get_all_with_courses()
+
         return render_template(
-            "admin/course/edit_timetable.html", course_group=course_group
+            "admin/course/edit_timetable.html",
+            timetable=timetable,
+            course_groups=course_groups,
         )
 
     @admin_required
-    def post(self, course_group_id): ...
+    def post(self, timetable_id):
+        name = request.form.get("name")
+        description = request.form.get("description")
+        duration = request.form.get("duration")
+        price = request.form.get("price")
+        course_id = request.form.get("course_id", type=int)
+
+        timetable_data = AddTimetable.construct_timetable(request.form)
+
+        if not name or not description or not duration or not price or not course_id:
+            status = Status(
+                StatusType.ERROR, "Пожалуйста заполните все поля"
+            ).get_status()
+
+            return redirect(url_for("admin.edit_timetable", _external=False, **status))
+
+        try:
+            timetable = Timetable.get_by_id(timetable_id)
+            if not timetable:
+                raise Exception("Timetable not found")
+            timetable.name = name
+            timetable.description = description
+            timetable.duration = duration
+            timetable.price = price
+            timetable.json_data = timetable_data  # type: ignore
+            timetable.course_id = course_id
+            db.session.commit()
+        except Exception as e:
+            status = Status(
+                StatusType.ERROR, f"Ошибка при редактировании расписания: {e}"
+            ).get_status()
+            return redirect(url_for("admin.edit_timetable", _external=False, **status))
+
+        return redirect(url_for("admin.courses"))
 
 
 class DeleteTimetable(MethodView):
     methods = ["POST"]
 
     @admin_required
-    def post(self, course_group_id): ...
+    def post(self, timetable_id):
+        try:
+            Timetable.delete_by_id(timetable_id)
+        except Exception as e:
+            flash(f"Error deleting timetable: {e}", "danger")
+            return redirect(url_for("admin.courses"))
+
+        flash("Timetable deleted successfully", "success")
+        return redirect(url_for("admin.courses"))

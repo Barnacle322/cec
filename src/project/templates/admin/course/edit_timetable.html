@@ -16,7 +16,7 @@
             class="flex w-full flex-col gap-4"
             method="POST"
             enctype="multipart/form-data"
-            action="/admin/course/timetable/add"
+            action="/admin/course/timetable/edit/{{ timetable.id }}"
         >
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Название</label>
@@ -25,6 +25,7 @@
                     type="text"
                     name="name"
                     id="name"
+                    value="{{ timetable.name }}"
                     placeholder="Программирование"
                     required
                 />
@@ -38,7 +39,9 @@
                     id="description"
                     placeholder="Описание группы курсов"
                     required
-                ></textarea>
+                >
+{{ timetable.description }}</textarea
+                >
             </div>
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Длительность</label>
@@ -47,6 +50,7 @@
                     type="text"
                     name="duration"
                     id="duration"
+                    value="{{ timetable.duration }}"
                     placeholder="3 месяца"
                     required
                 />
@@ -58,6 +62,7 @@
                     type="text"
                     name="price"
                     id="price"
+                    value="{{ timetable.price }}"
                     placeholder="5000 сом + 1500 сом за учебник"
                     required
                 />
@@ -73,7 +78,7 @@
                 >
                     {% for course_group in course_groups %}
                     <optgroup label="{{ course_group.name }}">
-                        {% for course in course_group.courses %} {% if course.id == course_id %}
+                        {% for course in course_group.courses %} {% if course.id == timetable.course_id %}
                         <option selected value="{{ course.id }}">{{ course.name }}</option>
                         {% else %}
                         <option value="{{ course.id }}">{{ course.name }}</option>
@@ -85,12 +90,20 @@
             <div class="flex gap-2 flex-wrap justify-center items-center">
                 <div class="flex flex-col justify-center items-center">
                     <label for="monday">ПН</label>
-                    <input class="rounded-lg border-2 p-1" type="time" name="monday" id="monday" placeholder="19:00" />
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['1'].time}}"
+                        type="time"
+                        name="monday"
+                        id="monday"
+                        placeholder="19:00"
+                    />
                 </div>
                 <div class="flex flex-col justify-center items-center">
                     <label for="tuesday">ВТ</label>
                     <input
                         class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['2'].time}}"
                         type="time"
                         name="tuesday"
                         id="tuesday"
@@ -101,6 +114,7 @@
                     <label for="wednesday">СР</label>
                     <input
                         class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['3'].time}}"
                         type="time"
                         name="wednesday"
                         id="wednesday"
@@ -111,6 +125,7 @@
                     <label for="thursday">ЧТ</label>
                     <input
                         class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['4'].time}}"
                         type="time"
                         name="thursday"
                         id="thursday"
@@ -119,12 +134,20 @@
                 </div>
                 <div class="flex flex-col justify-center items-center">
                     <label for="friday">ПТ</label>
-                    <input class="rounded-lg border-2 p-1" type="time" name="friday" id="friday" placeholder="19:00" />
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['5'].time}}"
+                        type="time"
+                        name="friday"
+                        id="friday"
+                        placeholder="19:00"
+                    />
                 </div>
                 <div class="flex flex-col justify-center items-center">
                     <label for="saturday">СБ</label>
                     <input
                         class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['6'].time}}"
                         type="time"
                         name="saturday"
                         id="saturday"
@@ -133,7 +156,14 @@
                 </div>
                 <div class="flex flex-col justify-center items-center">
                     <label for="sunday">ВС</label>
-                    <input class="rounded-lg border-2 p-1" type="time" name="sunday" id="sunday" placeholder="19:00" />
+                    <input
+                        class="rounded-lg border-2 p-1"
+                        value="{{ timetable.json_data['7'].time}}"
+                        type="time"
+                        name="sunday"
+                        id="sunday"
+                        placeholder="19:00"
+                    />
                 </div>
             </div>
             <button

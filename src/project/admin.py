@@ -13,6 +13,7 @@ from .models import (
     Registration,
     Staff,
     Teacher,
+    Timetable,
     Toefl,
     ToeflRegistration,
 )
@@ -54,7 +55,20 @@ admin = Blueprint("admin", __name__)
 @admin_required
 def courses():
     course_groups = CourseGroup.get_all_with_courses()
-    return render_template("admin/course/courses.html", course_groups=course_groups)
+    timetables = Timetable.get_all()
+    timetable_dict = {}
+    for timetable in timetables:
+        if not timetable_dict.get(timetable.course_id):
+            timetable_dict[timetable.course_id] = list()
+            timetable_dict[timetable.course_id].append(timetable)
+        else:
+            timetable_dict[timetable.course_id].append(timetable)
+
+    return render_template(
+        "admin/course/courses.html",
+        course_groups=course_groups,
+        timetables=timetable_dict,
+    )
 
 
 @admin.route("/events")
