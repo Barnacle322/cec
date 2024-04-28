@@ -1,0 +1,77 @@
+# Kyrgyz translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-04-29 02:21+0600\n"
+"PO-Revision-Date: 2024-04-29 02:04+0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ky\n"
+"Language-Team: ky <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: src/project/templates/index.html:9
+msgid "Результаты TOEFL"
+msgstr "TOEFL жыйынтыгы"
+
+#: src/project/templates/index.html:11
+msgid "Смотреть"
+msgstr "Кара"
+
+#: src/project/templates/index.html:30
+msgid "Качественное обучение - успешное будущее"
+msgstr "Сапаттуу окутуу - ийгиликтүү келечек"
+
+#: src/project/templates/index.html:39
+msgid "Что такое Центр Дополнительного Образования?"
+msgstr "Центр Дополнительного Образования деген эмне?"
+
+#: src/project/templates/index.html:45
+msgid "18 лет"
+msgstr "18 жыл"
+
+#: src/project/templates/index.html:46
+msgid "На образовательном рынке"
+msgstr "Билим берүү рыногунда"
+
+#: src/project/templates/index.html:50
+msgid "Довольных учеников"
+msgstr "Канааттанган студенттер"
+
+#: src/project/templates/index.html:54
+msgid "Высококвалифицированных преподавателей"
+msgstr "Жогорку квалификациялуу мугалимдер"
+
+#: src/project/templates/index.html:58
+msgid "Довольных клиентов"
+msgstr "Канааттандырылган кардарлар"
+
+#: src/project/templates/index.html:65 src/project/templates/layout.html:27
+#: src/project/templates/layout.html:91
+msgid "Курсы"
+msgstr "Курстар"
+
+#: src/project/templates/layout.html:19
+msgid "ЦДО"
+msgstr "ЦДО"
+
+#: src/project/templates/layout.html:28 src/project/templates/layout.html:96
+msgid "О нас"
+msgstr "Биз жөнундө"
+
+#: src/project/templates/layout.html:30 src/project/templates/layout.html:106
+msgid "Учителя"
+msgstr "Мугалимдер"
+
+#: src/project/templates/layout.html:31 src/project/templates/layout.html:112
+msgid "Связаться с нами"
+msgstr "Байланыштар"
+

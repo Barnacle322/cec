@@ -1,9 +1,17 @@
 import calendar
 import datetime
 import random
-from re import L
 
-from flask import Blueprint, jsonify, redirect, render_template, request, url_for
+from flask import (
+    Blueprint,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
+from flask_babel import gettext
 
 from .extenstions import db, login_manager
 from .models import (
@@ -58,6 +66,12 @@ def load_user(user_id: int) -> User | None:
     return None
 
 
+@main.route("/lang/<lang>")
+def set_lang(lang=None):
+    session["lang"] = lang
+    return redirect(url_for("main.index"))
+
+
 @main.route("/")
 def index():
     success = None
@@ -68,6 +82,7 @@ def index():
     feedbacks = Feedback.get_all_verified()
     hero_list = ["hero-1.jpg", "hero-2.jpg", "hero-3.jpg"]
     random_hero = random.choice(hero_list)
+
     return render_template(
         "index.html",
         course_groups=course_groups,

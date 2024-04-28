@@ -16,7 +16,7 @@
 
         {% block additional_scripts %}{% endblock %}
 
-        <title>{% block title %}{% endblock %} | ЦДО</title>
+        <title>{% block title %}{% endblock %} | {{_('ЦДО')}}</title>
         {% endblock %}
     </head>
     <body class="w-full">
@@ -24,11 +24,11 @@
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
                 <a href="/"><img class="w-40" src="/static/elements/logo_light.png" /></a>
                 <ul class="hidden gap-7 font-medium *:transition-colors *:ease-in-out hover:*:text-slate-200 md:flex">
-                    <a href="/courses">Курсы</a>
-                    <a href="/about">О нас</a>
+                    <a href="/courses">{{_('Курсы')}}</a>
+                    <a href="/about">{{_('О нас')}}</a>
                     <a href="/toefl/register">TOEFL</a>
-                    <a href="/teachers">Учителя</a>
-                    <a href="/about#contacts">Связаться с нами</a>
+                    <a href="/teachers">{{_('Учителя')}}</a>
+                    <a href="/about#contacts">{{_('Связаться с нами')}}</a>
                 </ul>
                 <!-- <a
                     href="/login"
@@ -88,12 +88,12 @@
                             <a
                                 href="/courses"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >Курсы</a
+                                >{{_('Курсы')}}</a
                             >
                             <a
                                 href="/about"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >О нас</a
+                                >{{_('О нас')}}</a
                             >
                             <a
                                 href="/toefl/register"
@@ -103,13 +103,13 @@
                             <a
                                 href="/teachers"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >Учителя</a
+                                >{{_('Учителя')}}</a
                             >
                             <a
                                 href="/about#contacts"
                                 class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
                                 onclick="closeMenu()"
-                                >Связаться с нами</a
+                                >{{_('Связаться с нами')}}</a
                             >
                         </div>
                         <div class="py-6">

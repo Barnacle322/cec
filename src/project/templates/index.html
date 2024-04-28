@@ -6,9 +6,9 @@ endblock %} {% block content %}
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section id="toelf_banner" class="flex h-14 w-full items-center justify-center gap-3 bg-[#08559a] px-6">
-        <span class="text-xl font-bold text-white">Результаты TOEFL</span>
+        <span class="text-xl font-bold text-white">{{_('Результаты TOEFL')}}</span>
         <a class="rounded-full bg-white px-2 py-1 text-sm transition-colors ease-in-out hover:bg-gray-100" href="/toefl"
-            >Смотреть</a
+            >{{_('Смотреть')}}</a
         >
     </section>
     <span
@@ -27,39 +27,42 @@ endblock %} {% block content %}
         <div class="flex w-full max-w-5xl justify-center">
             <div class="mt-10 flex max-w-7xl flex-col gap-2 sm:mt-20">
                 <h1 class="w-4/6 text-pretty text-4xl font-medium text-white sm:w-1/2 sm:text-6xl">
-                    Качественное обучение - успешное будущее
+                    {{_('Качественное обучение - успешное будущее')}}
                 </h1>
             </div>
         </div>
     </section>
+    <a href="{{ url_for('main.set_lang', lang='ru') }}">Russian</a>
+    <a href="{{ url_for('main.set_lang', lang='en') }}">English</a>
+    <a href="{{ url_for('main.set_lang', lang='ky') }}">Kyrgyz</a>
     <section class="mt-14 flex max-w-7xl flex-col items-center justify-center px-6">
-        <h2 class="text-center text-4xl sm:text-5xl">Что такое Центр Дополнительного Образования?</h2>
+        <h2 class="text-center text-4xl sm:text-5xl">{{_('Что такое Центр Дополнительного Образования?')}}</h2>
         <div class="element opacity-100 transition-opacity duration-[1500ms] ease-in-out">
             <div
                 class="mx-10 mt-14 grid grid-cols-1 place-items-center gap-20 min-[550px]:grid-cols-2 min-[967px]:grid-cols-4"
             >
                 <div class="w-52">
-                    <h3 class="text-4xl">18 лет</h3>
-                    <span>На образовательном рынке</span>
+                    <h3 class="text-4xl">{{_('18 лет')}}</h3>
+                    <span>{{_('На образовательном рынке')}}</span>
                 </div>
                 <div class="w-52">
                     <h3 class="text-4xl">50 000+</h3>
-                    <span>Довольных учеников</span>
+                    <span>{{_('Довольных учеников')}}</span>
                 </div>
                 <div class="w-52">
                     <h3 class="text-4xl">65</h3>
-                    <span>Высококвалифицированных преподавателей</span>
+                    <span>{{_('Высококвалифицированных преподавателей')}}</span>
                 </div>
                 <div class="w-52">
                     <h3 class="text-4xl">97%</h3>
-                    <span>Довольных клиентов</span>
+                    <span>{{_('Довольных клиентов')}}</span>
                 </div>
             </div>
         </div>
     </section>
     <section class="mt-28 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <div class="flex w-full flex-row flex-wrap justify-between">
-            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Курсы</h2>
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Курсы')}}</h2>
         </div>
         <div class="grid w-full grid-cols-1 flex-wrap items-center justify-center gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {% for course_group in course_groups %}
@@ -331,9 +334,7 @@ endblock %} {% block content %}
                 </form>
                 <div class="flex w-full flex-col gap-3 text-white sm:w-1/2">
                     <h3 class="text-3xl font-medium">Что дальше?</h3>
-                    <p class="text-2xl">
-                        Ждите от нас звонка! Наш менеджер свяжется с Вами и проконсультирует.
-                    </p>
+                    <p class="text-2xl">Ждите от нас звонка! Наш менеджер свяжется с Вами и проконсультирует.</p>
                 </div>
             </div>
         </div>

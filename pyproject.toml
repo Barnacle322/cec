@@ -16,6 +16,8 @@ xlsx2csv = "^0.8.2"
 requests = "^2.31.0"
 granian = { extras = ["reload"], version = "^1.2.1" }
 flask-debugtoolbar = "^0.14.1"
+flask-babel = "^4.0.0"
+babel = "^2.14.0"
 
 
 [tool.poetry.group.dev.dependencies]
