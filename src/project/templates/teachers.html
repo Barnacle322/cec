@@ -1,15 +1,15 @@
-{% extends "/layout.html" %} {% block title %}О нас{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+{% extends "/layout.html" %} {% block title %}{{_('О нас')}}{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
 content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden bg-gray-50 leading-normal tracking-tight"
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="text-start">
-            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">О преподавателях</h2>
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('О преподавателях')}}</h2>
             <p class="text-lg sm:w-1/2 sm:text-2xl">
-                Наши преподаватели - это люди, которые имеют большой опыт в преподавании английского языка, а также
+                {{_('Наши преподаватели - это люди, которые имеют большой опыт в преподавании английского языка, а также
                 подготовке к экзаменам TOEFL и IELTS. Они помогут вам достичь ваших целей и дадут много полезных советов
-                по изучению английского языка.
+                по изучению английского языка.')}}
             </p>
         </article>
         <img

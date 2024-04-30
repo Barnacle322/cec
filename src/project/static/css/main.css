@@ -950,6 +950,12 @@ select {
 .aspect-video {
   aspect-ratio: 16 / 9;
 }
+.aspect-\[3\/1\] {
+  aspect-ratio: 3/1;
+}
+.aspect-\[2\/1\] {
+  aspect-ratio: 2/1;
+}
 .size-1 {
   width: 0.25rem;
   height: 0.25rem;
@@ -1175,6 +1181,9 @@ select {
 }
 .items-center {
   align-items: center;
+}
+.justify-normal {
+  justify-content: normal;
 }
 .justify-start {
   justify-content: flex-start;
@@ -2369,6 +2378,10 @@ body {
 
   .sm\:flex {
     display: flex;
+  }
+
+  .sm\:aspect-\[3\/1\] {
+    aspect-ratio: 3/1;
   }
 
   .sm\:size-12 {

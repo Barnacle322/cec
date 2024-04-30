@@ -415,6 +415,7 @@ class Event(MappedAsDataclass, db.Model, unsafe_hash=True):
                 extract("year", Event.date) == year,
                 Event.event_type_id == EventType.id,
             )
+            .order_by(Event.date)
         ).all()
 
     @staticmethod
@@ -481,19 +482,193 @@ class Toefl(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     test_taker_id: Mapped[str] = mapped_column(String, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
-    reading: Mapped[int] = mapped_column(Integer, nullable=True)
     listening: Mapped[int] = mapped_column(Integer, nullable=True)
-    speaking: Mapped[int] = mapped_column(Integer, nullable=True)
-    writing: Mapped[int] = mapped_column(Integer, nullable=True)
+    grammar: Mapped[int] = mapped_column(Integer, nullable=True)
+    reading: Mapped[int] = mapped_column(Integer, nullable=True)
     is_published: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+
+    def calculate_listening(self):
+        lookup = {
+            0: 200,
+            1: 240,
+            2: 250,
+            3: 270,
+            4: 280,
+            5: 290,
+            6: 300,
+            7: 310,
+            8: 320,
+            9: 330,
+            10: 340,
+            11: 350,
+            12: 360,
+            13: 370,
+            14: 390,
+            15: 400,
+            16: 400,
+            17: 410,
+            18: 420,
+            19: 430,
+            20: 430,
+            21: 440,
+            22: 440,
+            23: 450,
+            24: 460,
+            25: 460,
+            26: 470,
+            27: 470,
+            28: 480,
+            29: 480,
+            30: 490,
+            31: 500,
+            32: 500,
+            33: 510,
+            34: 520,
+            35: 520,
+            36: 530,
+            37: 540,
+            38: 550,
+            39: 550,
+            40: 560,
+            41: 570,
+            42: 580,
+            43: 590,
+            44: 600,
+            45: 610,
+            46: 610,
+            47: 630,
+            48: 640,
+            49: 660,
+            50: 680,
+        }
+        return lookup.get(self.listening, 0)
+
+    def calculate_grammar(self):
+        lookup = {
+            0: 200,
+            1: 210,
+            2: 220,
+            3: 240,
+            4: 250,
+            5: 260,
+            6: 280,
+            7: 290,
+            8: 300,
+            9: 320,
+            10: 340,
+            11: 340,
+            12: 360,
+            13: 370,
+            14: 380,
+            15: 390,
+            16: 400,
+            17: 410,
+            18: 420,
+            19: 430,
+            20: 440,
+            21: 450,
+            22: 460,
+            23: 470,
+            24: 480,
+            25: 490,
+            26: 500,
+            27: 510,
+            28: 520,
+            29: 540,
+            30: 540,
+            31: 550,
+            32: 560,
+            33: 580,
+            34: 590,
+            35: 600,
+            36: 620,
+            37: 640,
+            38: 660,
+            39: 670,
+            40: 680,
+            41: 680,
+            42: 680,
+            43: 680,
+            44: 680,
+            45: 680,
+            46: 680,
+            47: 680,
+            48: 680,
+            49: 680,
+            50: 680,
+        }
+        return lookup.get(self.grammar, 0)
+
+    def calculate_reading(self):
+        lookup = {
+            0: 210,
+            1: 220,
+            2: 230,
+            3: 230,
+            4: 240,
+            5: 250,
+            6: 260,
+            7: 270,
+            8: 280,
+            9: 280,
+            10: 290,
+            11: 300,
+            12: 310,
+            13: 330,
+            14: 340,
+            15: 350,
+            16: 360,
+            17: 370,
+            18: 380,
+            19: 390,
+            20: 400,
+            21: 410,
+            22: 420,
+            23: 430,
+            24: 430,
+            25: 440,
+            26: 450,
+            27: 460,
+            28: 460,
+            29: 470,
+            30: 480,
+            31: 480,
+            32: 490,
+            33: 500,
+            34: 510,
+            35: 520,
+            36: 520,
+            37: 530,
+            38: 540,
+            39: 540,
+            40: 550,
+            41: 560,
+            42: 570,
+            43: 580,
+            44: 590,
+            45: 600,
+            46: 610,
+            47: 630,
+            48: 650,
+            49: 660,
+            50: 670,
+        }
+        return lookup.get(self.reading, 0)
 
     @property
     def total(self) -> int:
-        return self.reading + self.listening + self.speaking + self.writing
+        return round(
+            (
+                self.calculate_grammar()
+                + self.calculate_listening()
+                + self.calculate_reading()
+            )
+            / 3
+        )
 
     @property
     def auca_total(self) -> int:
-        return self.reading + self.listening + self.writing
+        return round((self.calculate_grammar() + self.calculate_reading()) / 2)
 
     @staticmethod
     def get_all() -> Sequence[Toefl]:
@@ -565,7 +740,7 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_all_unhandled() -> Sequence[ToeflRegistration]:
         return db.session.scalars(
-            select(ToeflRegistration).where(ToeflRegistration.handled.is_(False))  # noqa
+            select(ToeflRegistration).where(ToeflRegistration.handled.is_(False))
         ).all()
 
     @staticmethod
@@ -597,6 +772,8 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
     name: Mapped[str] = mapped_column(String, nullable=False)
     phone: Mapped[str] = mapped_column(String, nullable=False)
+    age: Mapped[int] = mapped_column(Integer, nullable=False)
+    course_info: Mapped[str] = mapped_column(String, nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
     handled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
@@ -607,7 +784,9 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_all_unhandled() -> Sequence[Registration]:
         return db.session.scalars(
-            select(Registration).where(Registration.handled.is_(False))  # noqa
+            select(Registration)
+            .where(Registration.handled.is_(False))
+            .order_by(Registration.course_info)
         ).all()
 
     @staticmethod

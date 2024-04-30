@@ -81,10 +81,9 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                                 />
                             </th>
                             <th>ID</th>
-                            <th>Reading</th>
                             <th>Listening</th>
-                            <th>Speaking</th>
-                            <th>Writing</th>
+                            <th>Grammar</th>
+                            <th>Reading</th>
                             <th>Total Score</th>
                             <th>AUCA Score</th>
                             <th>Published</th>
@@ -103,10 +102,9 @@ block head %} {{ super() }} {% endblock %} {% block content %}
                                     />
                                 </td>
                                 <td class="font-medium">{{ result.test_taker_id }}</td>
-                                <td>{{ result.reading }}</td>
                                 <td>{{ result.listening }}</td>
-                                <td>{{ result.speaking }}</td>
-                                <td>{{ result.writing }}</td>
+                                <td>{{ result.grammar }}</td>
+                                <td>{{ result.reading }}</td>
                                 <td class="font-bold text-blue-500">{{ result.total }}</td>
                                 <td class="font-bold text-blue-500">{{ result.auca_total }}</td>
                                 <td class="font-bold text-blue-500">{{ result.is_published }}</td>

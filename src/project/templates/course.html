@@ -7,11 +7,16 @@
         <article class="flex w-full flex-col gap-2 text-start">
             <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">{{ course.name }}</h1>
             <p class="text-lg sm:w-1/2 sm:text-2xl">{{ course.description.replace('\n', '<br />') | safe }}</p>
-            <img class="mt-10 aspect-[4/1] w-full rounded-3xl object-cover" src="{{ course.picture_url }}" alt="" />
+            <img
+                class="mt-5 sm:mt-10 aspect-[2/1] sm:aspect-[3/1] w-full rounded-3xl object-cover"
+                src="{{ course.picture_url }}"
+                alt=""
+            />
         </article>
     </section>
+
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
-        <h2 class="font-mediu mb-5 w-full text-3xl font-medium sm:text-5xl">Группы</h2>
+        <h2 class="font-mediu mb-5 w-full text-3xl font-medium sm:text-5xl">{{_('Группы')}}</h2>
         <div class="grid grid-cols-1 place-content-center gap-3 min-[870px]:grid-cols-2 xl:grid-cols-3">
             {% for timetable in timetables %}
             <article class="flex w-full flex-col rounded-3xl border bg-white p-5 sm:h-[400px] sm:w-[400px]">
@@ -38,14 +43,164 @@
                 <div class="mt-10 flex w-full items-center justify-between sm:mt-auto">
                     <span class="mr-4 text-lg leading-5">{{ timetable.price }}</span>
                     <button
+                        onclick="openModal('{{ course.name }} {{ timetable.name }}')"
                         class="rounded-lg bg-sky-500 px-4 py-3 font-medium text-white transition-all ease-in-out hover:scale-105 hover:bg-sky-400"
                     >
-                        Записаться
+                        {{_('Записаться')}}
                     </button>
                 </div>
             </article>
             {% endfor %}
         </div>
     </section>
+    <section id="modal" class="transition-opacity ease-in-out opacity-0 pointer-events-none">
+        <div class="fixed inset-0 h-full w-full bg-black/50"></div>
+        <div class="fixed right-0 top-1/2 w-full -translate-y-1/2">
+            <div
+                class="relative mx-4 max-w-lg overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:mx-auto"
+            >
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 border-b justify-between flex">
+                    <h2 class="text-lg font-medium">{{_('Запись на курс')}}</h2>
+                    <button onclick="closeModal()">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-5"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <form
+                    action="/register-course"
+                    method="POST"
+                    class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 grid grid-cols-4 gap-x-2 gap-y-5"
+                >
+                    <div class="col-span-2 flex flex-col gap-1">
+                        <label for="name">Имя</label>
+                        <input
+                            class="rounded-lg"
+                            type="text"
+                            name="name"
+                            id="name"
+                            autocomplete="name"
+                            placeholder="Асан"
+                            required=""
+                        />
+                    </div>
+
+                    <div class="col-span-2 flex flex-col gap-1">
+                        <label for="age">Возраст</label>
+                        <input class="rounded-lg" type="number" name="age" id="age" placeholder="16" required="" />
+                    </div>
+
+                    <div class="col-span-4 flex flex-col gap-1">
+                        <label for="phone">Номер телефона</label>
+                        <input
+                            class="rounded-lg"
+                            type="tel"
+                            name="phone"
+                            id="phone"
+                            autocomplete="tel"
+                            placeholder="+996 999 99 99 99"
+                            required=""
+                        />
+                    </div>
+
+                    <div class="col-span-4 flex flex-col gap-1">
+                        <label for="group">Курс и группа</label>
+                        <input
+                            class="rounded-lg"
+                            type="text"
+                            name="course_info"
+                            id="course_info"
+                            placeholder="{{_('Английский Pre-Intermediate')}}"
+                            required=""
+                        />
+                    </div>
+
+                    <button
+                        class="col-span-4 mt-6 w-full rounded-lg bg-sky-500 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
+                        type="submit"
+                    >
+                        {{_('Зарегистрироваться')}}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="toast" class="transition-opacity ease-in-out">
+        {% if success == True %}
+        <div
+            class="fixed bottom-5 right-1/2 mx-4 flex w-[calc(100%-32px)] max-w-3xl translate-x-[calc(50%+16px)] items-center gap-3 rounded-lg border bg-white p-5 shadow-xl"
+        >
+            <div class="flex size-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-6 w-6 text-green-500"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
+                    {{_('Успешная регистрация')}}
+                </h3>
+                <p class="text-sm text-gray-500">
+                    {{_('Если у вас есть вопросы, позвоните по номеру +996 312 915 022')}}
+                </p>
+            </div>
+        </div>
+        {% elif success == False %}
+        <div
+            class="fixed bottom-5 right-1/2 mx-4 flex w-[calc(100%-32px)] max-w-3xl translate-x-[calc(50%+16px)] items-center gap-3 rounded-lg border bg-white p-5 shadow-xl"
+        >
+            <div class="flex size-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="h-6 w-6 text-red-500"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                    />
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">
+                    {{_('Произошла ошибка')}}
+                </h3>
+                <p class="text-sm text-gray-500">
+                    {{_('Если у вас есть вопросы, позвоните по номеру +996 312 915 022')}}
+                </p>
+            </div>
+        </div>
+        {% endif %}
+    </section>
 </main>
+<script>
+    function closeModal() {
+        document.getElementById("modal").classList.add("opacity-0", "pointer-events-none");
+    }
+    function openModal(course_info) {
+        document.getElementById("modal").classList.remove("opacity-0", "pointer-events-none");
+        document.getElementById("course_info").value = course_info;
+    }
+</script>
 {% endblock %}

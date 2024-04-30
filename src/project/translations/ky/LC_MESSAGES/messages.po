@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-04-29 02:21+0600\n"
+"POT-Creation-Date: 2024-04-30 06:53+0600\n"
 "PO-Revision-Date: 2024-04-29 02:04+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ky\n"
@@ -18,13 +18,162 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
 
-#: src/project/templates/index.html:9
+#: src/project/templates/about.html:1 src/project/templates/layout.html:28
+#: src/project/templates/layout.html:96 src/project/templates/teachers.html:1
+msgid "О нас"
+msgstr "Биз жөнүндө"
+
+#: src/project/templates/about.html:8
+msgid "Немного о нас"
+msgstr "Биз жөнүндө бир аз"
+
+#: src/project/templates/about.html:10
+msgid ""
+"Миссия ЦДО: предоставлять высококачественные образовательные услуги, "
+"ориентированные на\n"
+"                профессиональное и личностное развитие для разнообразных "
+"целевых групп, включая школьников, студентов и\n"
+"                профессионалов."
+msgstr ""
+"Борбордук билим берүү борборунун миссиясы: ар кандай максаттуу топторго, "
+"анын ичинде мектеп окуучуларына, студенттерге жана адистерге кесиптик "
+"жана инсандык өнүгүүгө багытталган жогорку сапаттагы билим берүү "
+"кызматтарын көрсөтүү."
+
+#: src/project/templates/about.html:15
+msgid ""
+"За 18 лет работы прошли обучение более 50 000 человек, включая "
+"корпоративных заказчиков из более 50\n"
+"                компаний и организаций Кыргызстана, Казахстана и "
+"Таджикистана."
+msgstr ""
+"18 жылдын ичинде 50 000ден ашык адам окутулду, анын ичинде Кыргызстандын,"
+" Казакстандын жана Тажикстандын 50\n"
+" ашык ишканаларынын жана уюмдарынын корпоративдик кардарлары."
+
+#: src/project/templates/about.html:27
+msgid "Команда"
+msgstr ""
+
+#: src/project/templates/about.html:51
+msgid "Наши партнёры"
+msgstr "Биздин өнөктөштөр"
+
+#: src/project/templates/about.html:53
+msgid ""
+"Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, "
+"KICB и другие."
+msgstr ""
+"Бизге ДСУ, ПРООН, USAID, KICB жана башкалар сыяктуу ири компаниялар жана "
+"уюмдар ишенет."
+
+#: src/project/templates/about.html:76
+msgid "Контакты"
+msgstr "Байланыштар"
+
+#: src/project/templates/about.html:78
+msgid ""
+"Мы работаем с понедельника по пятницу с 10:00 до 19:00. Если у вас есть "
+"вопросы, пожалуйста,\n"
+"                    свяжитесь с нами."
+msgstr "Биз дүйшөмбүдөн жумага чейин 10:00дөн 19:00гө чейин ачыкбыз. "
+
+#: src/project/templates/about.html:86 src/project/templates/about.html:90
+msgid "Телефон"
+msgstr ""
+
+#: src/project/templates/about.html:97
+msgid "Городской телефон"
+msgstr "Стационардык телефон"
+
+#: src/project/templates/about.html:101
+#: src/project/templates/toefl_register.html:292
+msgid "Электронная почта"
+msgstr "Электрондук почта"
+
+#: src/project/templates/about.html:110
+msgid "Как к нам добраться?"
+msgstr "Бизге кантип жетсе болот?"
+
+#: src/project/templates/about.html:112
+msgid ""
+"Мы находимся на втором этаже в 209 кабинете здания АУЦА. Возле кофейни "
+"Sierra"
+msgstr "Биз БААУнун имаратынын 209-бөлмөсүндө экинчи кабатта жайгашканбыз. "
+
+#: src/project/templates/course.html:19
+msgid "Группы"
+msgstr "Топтор"
+
+#: src/project/templates/course.html:49
+msgid "Записаться"
+msgstr "Катталыңыз"
+
+#: src/project/templates/course.html:63
+msgid "Запись на курс"
+msgstr "Курска жазылыңыз"
+
+#: src/project/templates/course.html:120 src/project/templates/index.html:349
+msgid "Английский Pre-Intermediate"
+msgstr "English Pre-Intermediate"
+
+#: src/project/templates/course.html:129 src/project/templates/index.html:107
+#: src/project/templates/toefl_register.html:329
+msgid "Зарегистрироваться"
+msgstr "Каттоо"
+
+#: src/project/templates/course.html:158 src/project/templates/index.html:389
+#: src/project/templates/toefl_register.html:33
+#: src/project/templates/toefl_register.html:100
+msgid "Успешная регистрация"
+msgstr "ийгиликтүү каттоо"
+
+#: src/project/templates/course.html:161 src/project/templates/course.html:190
+#: src/project/templates/index.html:392 src/project/templates/index.html:421
+#: src/project/templates/toefl_register.html:36
+#: src/project/templates/toefl_register.html:65
+msgid "Если у вас есть вопросы, позвоните по номеру +996 312 915 022"
+msgstr "Суроолоруңуз болсо 996 312 915 022 номерине чалыңыз"
+
+#: src/project/templates/course.html:187 src/project/templates/index.html:418
+#: src/project/templates/toefl_register.html:62
+msgid "Произошла ошибка"
+msgstr "ката кетти"
+
+#: src/project/templates/courses.html:9
+msgid "Курсы на ваш выбор, под ваши цели"
+msgstr "Сиздин максаттарыңызга ылайыкташтырылган, сиз тандаган курстар"
+
+#: src/project/templates/courses.html:12
+msgid ""
+"Предоставим программу обучения, исходя из ваших запросов, поможем достичь"
+" цели, используя уроки по\n"
+"                самым актуальным темам."
+msgstr ""
+"Биз сиздин суроо-талаптарыңыздын негизинде окуу программасын сунуштайбыз "
+"жана эң актуалдуу темалар боюнча сабактарды колдонуу менен максатыңызга "
+"жетүүгө жардам беребиз."
+
+#: src/project/templates/courses.html:22
+msgid "Все"
+msgstr "Баары"
+
+#: src/project/templates/courses.html:42
+msgid "Подробнее..."
+msgstr "Кененирээк..."
+
+#: src/project/templates/index.html:3
+#: src/project/templates/toefl_register.html:3
+msgid "Центр Дополнительного Образования"
+msgstr "Үзгүлтүксүз билим берүү борбору"
+
+#: src/project/templates/index.html:9 src/project/templates/toefl.html:23
 msgid "Результаты TOEFL"
-msgstr "TOEFL жыйынтыгы"
+msgstr "TOEFL натыйжалары"
 
 #: src/project/templates/index.html:11
 msgid "Смотреть"
-msgstr "Кара"
+msgstr "Карагыла"
 
 #: src/project/templates/index.html:30
 msgid "Качественное обучение - успешное будущее"
@@ -32,7 +181,7 @@ msgstr "Сапаттуу окутуу - ийгиликтүү келечек"
 
 #: src/project/templates/index.html:39
 msgid "Что такое Центр Дополнительного Образования?"
-msgstr "Центр Дополнительного Образования деген эмне?"
+msgstr "Үзгүлтүксүз билим берүү борбору деген эмне?"
 
 #: src/project/templates/index.html:45
 msgid "18 лет"
@@ -40,7 +189,7 @@ msgstr "18 жыл"
 
 #: src/project/templates/index.html:46
 msgid "На образовательном рынке"
-msgstr "Билим берүү рыногунда"
+msgstr "Билим берүү рыногу жөнүндө"
 
 #: src/project/templates/index.html:50
 msgid "Довольных учеников"
@@ -52,20 +201,145 @@ msgstr "Жогорку квалификациялуу мугалимдер"
 
 #: src/project/templates/index.html:58
 msgid "Довольных клиентов"
-msgstr "Канааттандырылган кардарлар"
+msgstr "канааттандырылган кардарлар"
 
 #: src/project/templates/index.html:65 src/project/templates/layout.html:27
 #: src/project/templates/layout.html:91
 msgid "Курсы"
 msgstr "Курстар"
 
+#: src/project/templates/index.html:80
+msgid "Подробнее"
+msgstr "Көбүрөөк маалымат"
+
+#: src/project/templates/index.html:87
+msgid "Клубы"
+msgstr "Клубтар"
+
+#: src/project/templates/index.html:95
+msgid "Шахматы"
+msgstr "Шахмат"
+
+#: src/project/templates/index.html:97
+msgid "Бесплатно"
+msgstr "Бекер"
+
+#: src/project/templates/index.html:101
+msgid ""
+"Шахматы - игра, которая точно прошла тест на время. Подходит как и "
+"взрослым, так и\n"
+"                        детям."
+msgstr "Шахмат - бул убакыт сынагынан өткөн оюн. "
+
+#: src/project/templates/index.html:114
+msgid "Календарь"
+msgstr ""
+
+#: src/project/templates/index.html:118
+msgid "Предстоящие события"
+msgstr "Алдыдагы окуялар"
+
+#: src/project/templates/index.html:209
+msgid "Отзывы"
+msgstr "Обзор"
+
+#: src/project/templates/index.html:248
+msgid "Частые вопросы"
+msgstr "Көп берилүүчү суроолор"
+
+#: src/project/templates/index.html:253
+msgid "Как я могу узнать, какой курс мне подходит?"
+msgstr "Кайсы курс мага туура келерин кантип биле алам?"
+
+#: src/project/templates/index.html:256
+msgid ""
+"Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы"
+" можете связаться с\n"
+"                    нами по телефону или электронной почте, и наши "
+"консультанты помогут вам выбрать курс, который\n"
+"                    соответствует вашим целям и уровню подготовки."
+msgstr "Ар бир курстун сүрөттөлүшүн биздин веб-сайттан окуй аласыз. "
+
+#: src/project/templates/index.html:264
+msgid "Как я могу записаться на курс?"
+msgstr "Кантип курска жазылсам болот?"
+
+#: src/project/templates/index.html:266
+msgid ""
+"Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также"
+" вы можете связаться с\n"
+"                    нами по телефону или прийти к нам в офис."
+msgstr "Сиз анкета толтуруу менен биздин веб-сайтта курска каттала аласыз. "
+
+#: src/project/templates/index.html:274
+msgid "Как я могу записаться на пробное тестирование TOEFL?"
+msgstr "TOEFL практикалык тестине кантип жазылсам болот?"
+
+#: src/project/templates/index.html:276
+msgid "Вы можете записаться"
+msgstr "Сиз катталсаңыз болот"
+
+#: src/project/templates/index.html:282
+msgid "Я сдал пробное тестирование, где я могу узнать свой результат?"
+msgstr "Мен практикалык тесттен өттүм, натыйжамды кайдан билсем болот?"
+
+#: src/project/templates/index.html:285
+msgid "Также Результаты пробного тестирования можете найти"
+msgstr "Сиз ошондой эле сыноонун жыйынтыгын таба аласыз"
+
+#: src/project/templates/index.html:286
+msgid "здесь"
+msgstr "бул жерде"
+
+#: src/project/templates/index.html:292
+msgid "Нужен ли мне компьютер для обучения?"
+msgstr "Окуу үчүн мага компьютер керекпи?"
+
+#: src/project/templates/index.html:294
+msgid ""
+"Мы предоставляем всю нужную информацию и материалы для обучения. Вам не "
+"нужен компьютер, но он\n"
+"                    может быть полезен для самостоятельного изучения "
+"материала."
+msgstr ""
+"Биз окутуу үчүн бардык зарыл болгон маалыматтарды жана материалдарды "
+"камсыз кылат. "
+
+#: src/project/templates/index.html:301
+msgid "Есть ли у вас индивидуальный занятия?"
+msgstr "Жеке сабактарыңыз барбы?"
+
+#: src/project/templates/index.html:302
+msgid "Да, есть!"
+msgstr "Ооба, бар!"
+
+#: src/project/templates/index.html:314
+msgid "Самое сложное - это начать. Оставьте заявку и мы поможем вам со всем!"
+msgstr "Эң кыйын нерсе - баштоо. "
+
+#: src/project/templates/index.html:324
+msgid "Асан Асанов"
+msgstr ""
+
+#: src/project/templates/index.html:341
+msgid "16 лет"
+msgstr "16 жыл"
+
+#: src/project/templates/index.html:353
+msgid "Оставить заявку"
+msgstr "Өтүнүч калтырыңыз"
+
+#: src/project/templates/index.html:357
+msgid "Что дальше?"
+msgstr "Эми эмне болот?"
+
+#: src/project/templates/index.html:359
+msgid "Ждите от нас звонка! Наш менеджер свяжется с Вами и проконсультирует."
+msgstr "Бизден чалууну күтүңүз! "
+
 #: src/project/templates/layout.html:19
 msgid "ЦДО"
-msgstr "ЦДО"
-
-#: src/project/templates/layout.html:28 src/project/templates/layout.html:96
-msgid "О нас"
-msgstr "Биз жөнундө"
+msgstr "CDO"
 
 #: src/project/templates/layout.html:30 src/project/templates/layout.html:106
 msgid "Учителя"
@@ -73,5 +347,157 @@ msgstr "Мугалимдер"
 
 #: src/project/templates/layout.html:31 src/project/templates/layout.html:112
 msgid "Связаться с нами"
-msgstr "Байланыштар"
+msgstr "Биз менен байланышыңыз"
+
+#: src/project/templates/layout.html:263
+msgid "© 2024 Центр Дополнительного Образования. Все права защищены"
+msgstr "© 2024 Кошумча билим берүү борбору. "
+
+#: src/project/templates/teachers.html:8
+msgid "О преподавателях"
+msgstr "Мугалимдер жөнүндө"
+
+#: src/project/templates/teachers.html:10
+msgid ""
+"Наши преподаватели - это люди, которые имеют большой опыт в преподавании "
+"английского языка, а также\n"
+"                подготовке к экзаменам TOEFL и IELTS. Они помогут вам "
+"достичь ваших целей и дадут много полезных советов\n"
+"                по изучению английского языка."
+msgstr ""
+"Биздин мугалимдер англис тилин окутууда, ошондой эле TOEFL жана IELTS "
+"сынактарына даярданууда чоң тажрыйбасы бар адамдар. "
+
+#: src/project/templates/toefl.html:33 src/project/templates/toefl.html:42
+msgid "Предыдущая"
+msgstr "Мурунку"
+
+#: src/project/templates/toefl.html:49 src/project/templates/toefl.html:58
+msgid "Следующая"
+msgstr "Кийинки"
+
+#: src/project/templates/toefl.html:92
+msgid "Хотите сдать тест?"
+msgstr "Сиз тест тапшыргыңыз келеби?"
+
+#: src/project/templates/toefl.html:96
+msgid "Регистрация тут"
+msgstr "Каттоо бул жерде"
+
+#: src/project/templates/toefl_register.html:104
+msgid ""
+"Мы получили вашу заявку на пробный тест. Приходите в указанное время и "
+"день.\n"
+"                                    Если у вас есть вопросы позвоните по "
+"номеру +996 312 915 022"
+msgstr "Биз практикалык тестке арызыңызды алдык. "
+
+#: src/project/templates/toefl_register.html:117
+#: src/project/templates/toefl_register.html:168
+msgid "Закрыть"
+msgstr "Жабуу"
+
+#: src/project/templates/toefl_register.html:150
+msgid "Ошибка при регистрации"
+msgstr "Каттоо учурунда ката"
+
+#: src/project/templates/toefl_register.html:154
+msgid "Произошла ошибка при регистрации на пробный тест. Попробуйте еще раз."
+msgstr "Көнүгүү сынагына катталып жатканда ката кетти. "
+
+#: src/project/templates/toefl_register.html:156
+msgid "Если Вы не можете зарегистрироваться, позвоните по номеру +996 312 915 022"
+msgstr "Эгер каттала албасаңыз, 996 312 915 022 номерине чалыңыз"
+
+#: src/project/templates/toefl_register.html:177
+msgid "Пробный TOEFL PBT"
+msgstr "TOEFL PBT сыноо"
+
+#: src/project/templates/toefl_register.html:194
+msgid "500 Сом"
+msgstr "500 сом"
+
+#: src/project/templates/toefl_register.html:211
+msgid "Часа"
+msgstr "Саат"
+
+#: src/project/templates/toefl_register.html:228
+msgid "Пн/Чт 14:10"
+msgstr "Дш/Бш 14:10"
+
+#: src/project/templates/toefl_register.html:233
+msgid ""
+"На пробный тест необходимо регистрироваться заранее через наш сайт с "
+"указанием желаемой даты\n"
+"                    сдачи пробного тестирования. После регистрации через "
+"наш сайт Вы будете автоматически внесены в\n"
+"                    список, т.е. ответного письма на почту или "
+"уведомления нет."
+msgstr ""
+"Сыноо сынагынан өтүүнүн каалаган күнүн көрсөтүү менен биздин веб-сайт "
+"аркылуу алдын ала катталууга тийишсиз. "
+
+#: src/project/templates/toefl_register.html:239
+msgid ""
+"P.S. Если лимит превышает максимально-допустимое количество участников, с"
+" Вами свяжутся и\n"
+"                    предложат другую дату сдачи тестирования."
+msgstr "P.S. "
+
+#: src/project/templates/toefl_register.html:243
+msgid "Для прохождения теста с собой необходимо иметь:"
+msgstr "Тесттен өтүү үчүн сиз менен бирге болушуңуз керек:"
+
+#: src/project/templates/toefl_register.html:245
+msgid "- Паспорт (для несовершеннолетних - свидетельство о рождении)"
+msgstr "- Паспорт (жашы жете электерге - туулгандыгы тууралуу күбөлүк)"
+
+#: src/project/templates/toefl_register.html:246
+msgid "- Ручку"
+msgstr "- Калем"
+
+#: src/project/templates/toefl_register.html:247
+msgid "- 400 сомов без сдачи"
+msgstr "- 400 сом өзгөртүүсүз"
+
+#: src/project/templates/toefl_register.html:251
+msgid ""
+"После регистрации в день сдачи тестирования необходимо прийти к нам в "
+"офис - 209 кабинет, чтобы\n"
+"                    узнать место проведения тестирования, так как "
+"аудитории меняются."
+msgstr ""
+"Тестирлөө күнү катталгандан кийин аудитория алмашып жаткандыктан, "
+"тестирлөөнүн ордун билүү үчүн биздин офиске - 209-кабинетке келишиңиз "
+"керек."
+
+#: src/project/templates/toefl_register.html:255
+msgid ""
+"Пробный тест состоит из 3 частей (аудирование, грамматический тест, "
+"чтение) и длится ~ 2 часа.\n"
+"                    Максимальный балл - 677. Минимальный - 200."
+msgstr ""
+"Сыноо тести 3 бөлүктөн турат (угуу, грамматикалык тест, окуу) жана ~ 2 "
+"саатка созулат.\n"
+" Эң жогорку балл 677. Минималдуу 200."
+
+#: src/project/templates/toefl_register.html:266
+msgid "Имя"
+msgstr "Аты-жөнү"
+
+#: src/project/templates/toefl_register.html:279
+msgid "Фамилия"
+msgstr "Фамилиясы"
+
+#: src/project/templates/toefl_register.html:304
+msgid "Номер телефона"
+msgstr "Телефон номери"
+
+#: src/project/templates/toefl_register.html:317
+msgid "День"
+msgstr "Күн"
+
+#: src/project/templates/toefl_register.html:319
+msgid "Выберите день"
+msgstr "Бир күндү тандаңыз"
 

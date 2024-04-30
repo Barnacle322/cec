@@ -28,7 +28,9 @@
                 <thead class="bg-blue-500 text-white">
                     <tr class="h-12 border-b *:px-4 *:text-left">
                         <th>Имя</th>
+                        <th>Возраст</th>
                         <th>Телефон</th>
+                        <th>Курс</th>
                         <th>Дата подачи</th>
                         <th>Действие</th>
                     </tr>
@@ -37,7 +39,9 @@
                     {% for application in applications %}
                     <tr class="border-b *:p-4 even:bg-gray-100">
                         <td class="font-medium">{{ application.name }}</td>
+                        <td>{{ application.age }}</td>
                         <td>{{ application.phone }}</td>
+                        <td>{{ application.course_info }}</td>
                         <td>{{ application.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
                         <td>
                             <button

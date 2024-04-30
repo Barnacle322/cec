@@ -104,9 +104,14 @@ def courses():
 
 @main.route("/course/<course_name>")
 def course(course_name):
+    success = None
+    if args := request.args:
+        success = True if args.get("success") == "true" else False
     course = Course.get_by_link(course_name)
     timetables = Timetable.get_by_course_id(course.id)  # type: ignore
-    return render_template("course.html", course=course, timetables=timetables)
+    return render_template(
+        "course.html", course=course, timetables=timetables, success=success
+    )
 
 
 @main.route("/calendar/<int:month>/<int:year>")
@@ -261,8 +266,10 @@ def toefl_register_post():
 def register():
     name = request.form.get("name")
     phone = request.form.get("phone")
+    age = request.form.get("age", type=int)
+    course_info = request.form.get("course_info")
 
-    if not name or not phone:
+    if not name or not phone or not age or not course_info:
         return redirect(
             url_for("main.index", _anchor="registration-form", success="false")
         )
@@ -271,6 +278,8 @@ def register():
         registration = Registration(
             name=name,
             phone=phone,
+            age=age,
+            course_info=course_info,
             created_at=datetime.datetime.now(
                 tz=datetime.timezone(datetime.timedelta(hours=6))
             ),
@@ -284,3 +293,32 @@ def register():
         )
 
     return redirect(url_for("main.index", _anchor="registration-form", success="true"))
+
+
+@main.post("/register-course")
+def register_course():
+    name = request.form.get("name")
+    phone = request.form.get("phone")
+    age = request.form.get("age", type=int)
+    course_info = request.form.get("course_info")
+
+    if not name or not phone or not age or not course_info:
+        return redirect(f"{request.referrer}?success=false")
+
+    try:
+        registration = Registration(
+            name=name,
+            phone=phone,
+            age=age,
+            course_info=course_info,
+            created_at=datetime.datetime.now(
+                tz=datetime.timezone(datetime.timedelta(hours=6))
+            ),
+        )
+        db.session.add(registration)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return redirect(f"{request.referrer}?success=false")
+
+    return redirect(f"{request.referrer}?success=true")

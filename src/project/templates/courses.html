@@ -5,10 +5,12 @@ content %}
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="text-start">
-            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">Курсы на ваш выбор, под ваши цели</h1>
+            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">
+                {{_('Курсы на ваш выбор, под ваши цели')}}
+            </h1>
             <p class="text-lg sm:w-1/2 sm:text-2xl">
-                Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, используя уроки по самым
-                актуальным темам.
+                {{_('Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, используя уроки по
+                самым актуальным темам.')}}
             </p>
         </article>
     </section>
@@ -17,7 +19,7 @@ content %}
             <a
                 class="{{ 'bg-sky-500 text-white' if request.args.get('course_group') == None else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
                 href="/courses"
-                >Все</a
+                >{{_('Все')}}</a
             >
             {% for course_group in course_groups %}
             <a
@@ -37,11 +39,12 @@ content %}
                 <a
                     class="text-lg font-medium text-blue-600 transition-colors ease-in-out hover:text-blue-500"
                     href="course/{{ course.link }}"
-                    >Подробнее...</a
+                    >{{_('Подробнее...')}}</a
                 >
             </article>
             {% endfor %}
         </div>
     </section>
+    
 </main>
 {% endblock %}

@@ -1,19 +1,19 @@
-{% extends "/layout.html" %} {% block title %}О нас{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
-content %}
+{% extends "/layout.html" %} {% block title %}{{_('О нас')}}{% endblock %} {% block head %} {{ super() }} {% endblock %}
+{% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="text-start">
-            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Немного о нас</h2>
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Немного о нас')}}</h2>
             <p class="text-lg sm:w-1/2 sm:text-2xl">
-                Миссия ЦДО: предоставлять высококачественные образовательные услуги, ориентированные на профессиональное
-                и личностное развитие для разнообразных целевых групп, включая школьников, студентов и профессионалов.
-
+                {{_('Миссия ЦДО: предоставлять высококачественные образовательные услуги, ориентированные на
+                профессиональное и личностное развитие для разнообразных целевых групп, включая школьников, студентов и
+                профессионалов.')}}
                 <br />
                 <br />
-                За 18 лет работы прошли обучение более 50 000 человек, включая корпоративных заказчиков из более 50
-                компаний и организаций Кыргызстана, Казахстана и Таджикистана.
+                {{_('За 18 лет работы прошли обучение более 50 000 человек, включая корпоративных заказчиков из более 50
+                компаний и организаций Кыргызстана, Казахстана и Таджикистана.')}}
             </p>
         </article>
         <img
@@ -24,7 +24,7 @@ content %}
     </section>
 
     <section class="flex w-full max-w-7xl flex-col items-center justify-center px-6 pt-10 sm:pt-20">
-        <h2 class="w-full text-4xl font-medium sm:text-5xl">Команда</h2>
+        <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Команда')}}</h2>
 
         <div
             class="mt-5 grid grid-cols-1 justify-items-center gap-x-8 gap-y-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
@@ -48,9 +48,9 @@ content %}
         class="mt-20 flex w-full flex-col items-center justify-center gap-16 rounded-t-3xl bg-gray-50 pt-10 sm:pt-20"
     >
         <article class="w-full max-w-7xl px-6 text-start">
-            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Наши партнёры</h2>
+            <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Наши партнёры')}}</h2>
             <p class="text-lg sm:w-1/2 sm:text-2xl">
-                Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, KICB и другие.
+                {{_('Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, KICB и другие.')}}
             </p>
         </article>
         <div class="flex w-full flex-col items-center justify-center rounded-3xl bg-[#1fbbff] p-8 sm:p-16">
@@ -73,32 +73,32 @@ content %}
     >
         <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <article class="text-start">
-                <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Контакты</h2>
+                <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Контакты')}}</h2>
                 <p class="text-lg sm:w-1/2 sm:text-2xl">
-                    Мы работаем с понедельника по пятницу с 10:00 до 19:00. Если у вас есть вопросы, пожалуйста,
-                    свяжитесь с нами.
+                    {{_('Мы работаем с понедельника по пятницу с 10:00 до 19:00. Если у вас есть вопросы, пожалуйста,
+                    свяжитесь с нами.')}}
                 </p>
             </article>
         </div>
         <div class="mt-10 flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
                 <a href="tel:+996502915022" class="select-all text-4xl font-medium">+996 502 915 022</a>
-                <span class="text-xl">Телефон</span>
+                <span class="text-xl">{{_('Телефон')}}</span>
             </div>
             <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
                 <a href="tel:+996550915022" class="select-all text-4xl font-medium">+996 550 915 022</a>
-                <span class="text-xl">Телефон</span>
+                <span class="text-xl">{{_('Телефон')}}</span>
             </div>
         </div>
 
         <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
                 <a href="tel:+996772915022" class="select-all text-4xl font-medium">+996 312 91 50 22</a>
-                <span class="text-xl">Городской телефон</span>
+                <span class="text-xl"> {{_('Городской телефон')}}</span>
             </div>
             <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
                 <a href="mailto:cec@auca.kg" class="select-all text-4xl font-medium">cec@auca.kg</a>
-                <span class="text-xl">Электронная почта</span>
+                <span class="text-xl">{{_('Электронная почта')}}</span>
             </div>
         </div>
 
@@ -107,9 +107,9 @@ content %}
                 class="flex w-full max-w-7xl flex-col items-center justify-center gap-4 rounded-3xl bg-white p-6 sm:w-1/2"
             >
                 <div class="flex w-full flex-col">
-                    <span class="text-4xl font-medium">Как к нам добраться?</span>
+                    <span class="text-4xl font-medium">{{_('Как к нам добраться?')}}</span>
                     <span class="text-xl"
-                        >Мы находимся на втором этаже в 209 кабинете здания АУЦА. Возле кофейни Sierra</span
+                        >{{_('Мы находимся на втором этаже в 209 кабинете здания АУЦА. Возле кофейни Sierra')}}</span
                     >
                 </div>
                 <iframe

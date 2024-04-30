@@ -49,6 +49,7 @@ from .views.people import (
 )
 
 admin = Blueprint("admin", __name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 @admin.route("/courses")
@@ -121,26 +122,16 @@ def toefl_add():
         date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
 
         if file.filename.split(".")[-1] in ["xlsx", "xls"]:  # type: ignore
-            file.save("./src/project/static/toefl/toefl.xlsx")
-            Xlsx2csv(
-                "./src/project/static/toefl/toefl.xlsx", outputencoding="utf-8"
-            ).convert("./src/project/static/toefl/toefl.csv")
-            os.remove("./src/project/static/toefl/toefl.xlsx")
+            file_path = os.path.join(BASE_DIR, "static", "toefl", "toefl.xlsx")
+            csv_path = os.path.join(BASE_DIR, "static", "toefl", "toefl.csv")
+            file.save(file_path)
+            Xlsx2csv(file_path, outputencoding="utf-8").convert(csv_path)
+            os.remove(file_path)
 
-            with open(
-                "./src/project/static/toefl/toefl.csv", newline="", encoding="utf-8"
-            ) as f:
-                reader = csv.reader(f, dialect="excel")
-
-                header = [x.upper() for x in next(reader)]
-                header = [x.strip() for x in header if x != ""]
-                if header != [
-                    "ID",
-                    "READING",
-                    "WRITING",
-                    "SPEAKING",
-                    "LISTENING",
-                ]:
+            with open(csv_path, newline="", encoding="utf-8") as f:
+                reader = csv.DictReader(f, dialect="excel")
+                header = [x.upper().strip() for x in reader.fieldnames if x != ""]  # type: ignore
+                if header != ["ID", "LISTENING", "GRAMMAR", "READING"]:
                     status = Status(
                         StatusType.ERROR,
                         "Неверный формат файла. Первая строка должна содержать заголовки столбцов: ID, READING, WRITING, SPEAKING, LISTENING",
@@ -150,15 +141,14 @@ def toefl_add():
                 toefl_results = []
                 Toefl.delete_by_date(date)
                 for line in reader:
-                    line = [x.strip() for x in line if x != ""]
-                    if len(line) != 0:
+                    if line and any(line.values()):
+                        del line[""]
                         toefl_results.append(
                             Toefl(
-                                test_taker_id=line[0],
-                                reading=int(line[1]),
-                                writing=int(line[2]),
-                                speaking=int(line[3]),
-                                listening=int(line[4]),
+                                test_taker_id=line.get("ID", 'NO ID'),
+                                listening=int(line.get("LISTENING", 0)),
+                                grammar=int(line.get("GRAMMAR", 0)),
+                                reading=int(line.get("READING", 0)),
                                 date=date,
                             )
                         )
