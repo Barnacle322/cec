@@ -345,3 +345,8 @@ def login_post():
 def logout():
     logout_user()
     return redirect(url_for("main.index"))
+
+
+@main.get("/health")
+def health():
+    return "OK"
