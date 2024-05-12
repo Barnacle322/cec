@@ -18,6 +18,7 @@ granian = { extras = ["reload"], version = "^1.2.1" }
 flask-debugtoolbar = "^0.14.1"
 flask-babel = "^4.0.0"
 babel = "^2.14.0"
+python-slugify = "^8.0.4"
 
 
 [tool.poetry.group.dev.dependencies]

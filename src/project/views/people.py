@@ -17,9 +17,26 @@ class AddTeacherView(MethodView):
 
     @admin_required
     def post(self):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        bio = request.form.get("bio")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
+        bio_ru = form_data.get("bio_ru")
+        bio_en = form_data.get("bio_en")
+        bio_ky = form_data.get("bio_ky")
+        bio = {"ru": bio_ru, "en": bio_en or bio_ru, "ky": bio_ky or bio_ru}
+
         picture = request.files.get("picture")
 
         if not name or not description or not picture or not bio:
@@ -38,7 +55,10 @@ class AddTeacherView(MethodView):
 
         try:
             teacher = Teacher(
-                name=name, description=description, bio=bio, picture_url=picture_url
+                _name=name,
+                _description=description,
+                _bio=bio,
+                picture_url=picture_url,
             )
             db.session.add(teacher)
             db.session.commit()
@@ -67,9 +87,26 @@ class EditTeacherView(MethodView):
 
     @admin_required
     def post(self, teacher_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        bio = request.form.get("bio")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
+        bio_ru = form_data.get("bio_ru")
+        bio_en = form_data.get("bio_en")
+        bio_ky = form_data.get("bio_ky")
+        bio = {"ru": bio_ru, "en": bio_en or bio_ru, "ky": bio_ky or bio_ru}
+
         picture = request.files.get("picture")
 
         if not name or not description or not bio:
@@ -144,8 +181,20 @@ class AddStaffView(MethodView):
 
     @admin_required
     def post(self):
-        name = request.form.get("name")
-        description = request.form.get("description")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
         picture = request.files.get("picture")
 
         if not name or not description or not picture:
@@ -164,7 +213,7 @@ class AddStaffView(MethodView):
             return redirect(url_for("admin.add_staff", _external=False, **status))
 
         try:
-            staff = Staff(name=name, description=description, picture_url=picture_url)
+            staff = Staff(_name=name, _description=description, picture_url=picture_url)
             db.session.add(staff)
             db.session.commit()
         except Exception as e:
@@ -192,8 +241,21 @@ class EditStaffView(MethodView):
 
     @admin_required
     def post(self, staff_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
         picture = request.files.get("picture")
 
         if not name or not description:

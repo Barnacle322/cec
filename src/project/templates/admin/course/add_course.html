@@ -1,26 +1,53 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+<!-- prettier-ignore -->
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}Курсы{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<!-- prettier-ignore -->
+{% endblock %} 
+{% block title %}Курсы{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
-    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
+    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-20">
         <article class="text-start">
             <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Курс</h1>
             <p class="text-xl sm:text-2xl">Здесь вы можете добавить курс</p>
         </article>
     </section>
-    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
+    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-20 sm:mt-20">
         <form class="flex w-full flex-col gap-4" method="POST" enctype="multipart/form-data" action="/admin/course/add">
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Название</label>
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="name"
-                    id="name"
+                    name="name_ru"
+                    id="name_ru"
                     placeholder="Python"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_en"
+                    id="name_en"
+                    placeholder="Python"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_ky"
+                    id="name_ky"
+                    placeholder="Python"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -28,23 +55,33 @@
                 <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="description"
-                    id="description"
-                    placeholder="Описание курсы"
+                    name="description_ru"
+                    id="description_ru"
+                    placeholder="Описание курса"
                     required
                 ></textarea>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Ссылка</label>
-                <input
+                <label class="font-medium" for="">Описание на английском</label>
+                <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="link"
-                    id="link"
-                    placeholder="python"
-                    required
-                />
+                    name="description_en"
+                    id="description_en"
+                    placeholder="Описание курса"
+                ></textarea>
             </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на кыргызском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_ky"
+                    id="description_ky"
+                    placeholder="Описание курса"
+                ></textarea>
+            </div>
+
             <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Группа</label>
                 <select
@@ -54,10 +91,16 @@
                     id="course_group_id"
                     required
                 >
+                    {% if selected_course_group_id == None %}
+                    <option disabled selected>Выберите группу курсов</option>
+                    {% endif %}
+                    <!-- prettier-ignore -->
+                    {% for course_group in course_groups %} 
+                    {% if course_group.id == selected_course_group_id %}
+                    <option value="{{ course_group.id }}" selected>{{ course_group.name }}</option>
+                    {% else %}
                     <option value="{{ course_group.id }}">{{ course_group.name }}</option>
-                    {% for course_group in course_groups %}
-                    <option value="{{ course_group.id }}">{{ course_group.name }}</option>
-                    {% endfor %}
+                    {% endif %} {% endfor %}
                 </select>
             </div>
             <div class="flex flex-col gap-2">

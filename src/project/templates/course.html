@@ -27,14 +27,14 @@
                     <div
                         class="flex w-full flex-col items-center justify-between gap-2 rounded-xl bg-sky-500 py-2 text-xs font-medium text-white sm:text-sm"
                     >
-                        <span>{{ data.shorthand }}</span>
+                        <span>{{ data.shorthand.get(session.get('lang', 'ru')) }}</span>
                         <span>{{ data.time }}</span>
                     </div>
                     {% else %}
                     <div
                         class="flex w-full flex-col items-center justify-between gap-2 rounded-xl bg-gray-100 py-2 text-xs font-medium sm:text-sm"
                     >
-                        <span>{{ data.shorthand }}</span>
+                        <span>{{ data.shorthand.get(session.get('lang', 'ru')) }}</span>
                         <span></span>
                     </div>
                     {% endif %} {% endfor %}

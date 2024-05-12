@@ -1,9 +1,8 @@
-import json
-import time
 from typing import Any
 
 from flask import flash, redirect, render_template, request, url_for
 from flask.views import MethodView
+from slugify import slugify
 
 from ..extenstions import db
 from ..models import Course, CourseGroup, Timetable
@@ -21,12 +20,24 @@ class AddCourseGroupView(MethodView):
 
     @admin_required
     def post(self):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        link = request.form.get("link")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
         picture = request.files.get("picture")
 
-        if not name or not description or not link or not picture:
+        if not name_ru or not description_ru or not picture:
             status = Status(
                 StatusType.ERROR, "Пожалуйста заполните все поля"
             ).get_status()
@@ -46,10 +57,14 @@ class AddCourseGroupView(MethodView):
             )
 
         try:
-            course_group = CourseGroup(
-                name=name, description=description, link=link, picture_url=picture_url
+            db.session.add(
+                CourseGroup(
+                    _name=name,
+                    _description=description,
+                    picture_url=picture_url,
+                    slug=slugify(name_ru),
+                )
             )
-            db.session.add(course_group)
             db.session.commit()
         except Exception as e:
             status = Status(
@@ -77,12 +92,24 @@ class EditCourseGroupView(MethodView):
 
     @admin_required
     def post(self, course_group_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        link = request.form.get("link")
+        form_data = request.form
+        name_ru = form_data.get("name_ru", "Нет имени")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
         picture = request.files.get("picture")
 
-        if not name or not description or not link:
+        if not name or not description:
             status = Status(
                 StatusType.ERROR, "Пожалуйста заполните все поля"
             ).get_status()
@@ -102,7 +129,7 @@ class EditCourseGroupView(MethodView):
                 raise Exception("Course group not found")
             course_group.name = name
             course_group.description = description
-            course_group.link = link
+            course_group.slug = slugify(name_ru)
             if picture:
                 picture_url = upload_picture(picture)
                 try:
@@ -150,36 +177,37 @@ class AddCourseView(MethodView):
 
     @admin_required
     def get(self):
-        course_groups = list(CourseGroup.get_all())
-        course_group = None
-        if course_group_id := request.args.get("course_group_id", type=int):
-            course_group = CourseGroup.get_by_id(course_group_id)
-            if course_group:
-                course_groups.remove(course_group)
+        course_groups = CourseGroup.get_all()
+        selected_course_group_id = request.args.get("course_group_id", type=int)
 
         return render_template(
             "admin/course/add_course.html",
-            course_group=course_group,
             course_groups=course_groups,
+            selected_course_group_id=selected_course_group_id,
         )
 
     @admin_required
     def post(
         self,
     ):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        link = request.form.get("link")
-        course_group_id = request.form.get("course_group_id")
+        form_data = request.form
+        name_ru = form_data.get("name_ru", "Нет имени")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+        course_group_id = form_data.get("course_group_id", type=int)
         picture = request.files.get("picture")
 
-        if (
-            not name
-            or not description
-            or not link
-            or not picture
-            or not course_group_id
-        ):
+        if not name or not description or not picture or not course_group_id:
             status = Status(
                 StatusType.ERROR, "Пожалуйста заполните все поля"
             ).get_status()
@@ -210,9 +238,9 @@ class AddCourseView(MethodView):
 
         try:
             course = Course(
-                name=name,
-                description=description,
-                link=link,
+                _name=name,
+                _description=description,
+                slug=slugify(name_ru),
                 picture_url=picture_url,
                 course_group_id=course_group_id,
             )
@@ -253,12 +281,24 @@ class EditCourseView(MethodView):
 
     @admin_required
     def post(self, course_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        link = request.form.get("link")
+        form_data = request.form
+        name_ru = form_data.get("name_ru", "Нет имени")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
         picture = request.files.get("picture")
 
-        if not name or not description or not link:
+        if not name or not description:
             status = Status(
                 StatusType.ERROR, "Пожалуйста заполните все поля"
             ).get_status()
@@ -278,7 +318,7 @@ class EditCourseView(MethodView):
                 raise Exception("Course not found")
             course.name = name
             course.description = description
-            course.link = link
+            course.slug = slugify(name_ru)
             if picture:
                 picture_url = upload_picture(picture)
                 try:
@@ -343,50 +383,50 @@ class AddTimetable(MethodView):
         timetable = {
             "1": {
                 "id": 1,
-                "name": "Понедельник",
-                "shorthand": "ПН",
+                "name": {"ru": "Понедельник", "en": "Monday", "ky": "Дүйшөмбү"},
+                "shorthand": {"ru": "ПН", "en": "MO", "ky": "ДШ"},
                 "time": None,
                 "selected": False,
             },
             "2": {
                 "id": 2,
-                "name": "Вторник",
-                "shorthand": "ВТ",
+                "name": {"ru": "Вторник", "en": "Tuesday", "ky": "Шейшемби"},
+                "shorthand": {"ru": "ВТ", "en": "TU", "ky": "ШЕ"},
                 "time": None,
                 "selected": False,
             },
             "3": {
                 "id": 3,
-                "name": "Среда",
-                "shorthand": "СР",
+                "name": {"ru": "Среда", "en": "Wednesday", "ky": "Шаршемби"},
+                "shorthand": {"ru": "СР", "en": "WE", "ky": "ША"},
                 "time": None,
                 "selected": False,
             },
             "4": {
                 "id": 4,
-                "name": "Четверг",
-                "shorthand": "ЧТ",
+                "name": {"ru": "Четверг", "en": "Thursday", "ky": "Бейшемби"},
+                "shorthand": {"ru": "ЧТ", "en": "TH", "ky": "БЕ"},
                 "time": None,
                 "selected": False,
             },
             "5": {
                 "id": 5,
-                "name": "Пятница",
-                "shorthand": "ПТ",
+                "name": {"ru": "Пятница", "en": "Friday", "ky": "Жума"},
+                "shorthand": {"ru": "ПТ", "en": "FR", "ky": "ЖУ"},
                 "time": None,
                 "selected": False,
             },
             "6": {
                 "id": 6,
-                "name": "Суббота",
-                "shorthand": "СБ",
+                "name": {"ru": "Суббота", "en": "Saturday", "ky": "Ишемби"},
+                "shorthand": {"ru": "СБ", "en": "SA", "ky": "ИШ"},
                 "time": None,
                 "selected": False,
             },
             "7": {
                 "id": 7,
-                "name": "Воскресенье",
-                "shorthand": "ВС",
+                "name": {"ru": "Воскресенье", "en": "Sunday", "ky": "Жекшемби"},
+                "shorthand": {"ru": "ВС", "en": "SU", "ky": "ЖЕ"},
                 "time": None,
                 "selected": False,
             },
@@ -425,13 +465,36 @@ class AddTimetable(MethodView):
 
     @admin_required
     def post(self):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        duration = request.form.get("duration")
-        price = request.form.get("price")
-        course_id = request.form.get("course_id", type=int)
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_en, "ky": name_ky or name_en}
 
-        timetable = AddTimetable.construct_timetable(request.form)
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en,
+            "ky": description_ky,
+        }
+        duration_ru = form_data.get("duration_ru")
+        duration_en = form_data.get("duration_en")
+        duration_ky = form_data.get("duration_ky")
+        duration = {
+            "ru": duration_ru,
+            "en": duration_en or duration_ru,
+            "ky": duration_ky or duration_ru,
+        }
+
+        price_ru = form_data.get("price_ru")
+        price_en = form_data.get("price_en")
+        price_ky = form_data.get("price_ky")
+        price = {"ru": price_ru, "en": price_en or price_ru, "ky": price_ky or price_ru}
+        course_id = form_data.get("course_id", type=int)
+
+        timetable = AddTimetable.construct_timetable(form_data)
 
         if not name or not description or not duration or not price or not course_id:
             status = Status(
@@ -442,11 +505,11 @@ class AddTimetable(MethodView):
 
         try:
             new_timetable = Timetable(
-                name=name,
-                description=description,
-                duration=duration,
-                price=price,
-                json_data=timetable,  # type: ignore
+                _name=name,
+                _description=description,
+                _duration=duration,
+                _price=price,
+                json_data=timetable,
                 course_id=course_id,
             )
             db.session.add(new_timetable)
@@ -476,10 +539,34 @@ class EditTimetable(MethodView):
 
     @admin_required
     def post(self, timetable_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
-        duration = request.form.get("duration")
-        price = request.form.get("price")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+        duration_ru = form_data.get("duration_ru")
+        duration_en = form_data.get("duration_en")
+        duration_ky = form_data.get("duration_ky")
+        duration = {
+            "ru": duration_ru,
+            "en": duration_en or duration_ru,
+            "ky": duration_ky or duration_ru,
+        }
+
+        price_ru = form_data.get("price_ru")
+        price_en = form_data.get("price_en")
+        price_ky = form_data.get("price_ky")
+        price = {"ru": price_ru, "en": price_en or price_ru, "ky": price_ky or price_ru}
+
         course_id = request.form.get("course_id", type=int)
 
         timetable_data = AddTimetable.construct_timetable(request.form)
@@ -499,7 +586,7 @@ class EditTimetable(MethodView):
             timetable.description = description
             timetable.duration = duration
             timetable.price = price
-            timetable.json_data = timetable_data  # type: ignore
+            timetable.json_data = timetable_data
             timetable.course_id = course_id
             db.session.commit()
         except Exception as e:

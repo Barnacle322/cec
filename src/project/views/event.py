@@ -38,8 +38,20 @@ class AddEventTypeView(MethodView):
 
     @admin_required
     def post(self):
-        name = request.form.get("name")
-        description = request.form.get("description")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
         color = request.form.get("color")
 
         if not name or not description or not color:
@@ -50,7 +62,7 @@ class AddEventTypeView(MethodView):
             return redirect(url_for("admin.add_event_type", _external=False, **status))
 
         try:
-            event_type = EventType(name=name, description=description, color=color)
+            event_type = EventType(_name=name, _description=description, color=color)
             db.session.add(event_type)
             db.session.commit()
         except Exception as e:
@@ -99,8 +111,20 @@ class EditEventTypeView(MethodView):
 
     @admin_required
     def post(self, event_type_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
         color = request.form.get("color")
 
         if not name or not description or not color:
@@ -177,8 +201,21 @@ class AddEventView(MethodView):
 
     @admin_required
     def post(self):
-        name = request.form.get("name")
-        description = request.form.get("description")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
+
         event_type_id = request.form.get("event_type_id", type=int)
         date_str = request.form.get("date")
 
@@ -196,8 +233,8 @@ class AddEventView(MethodView):
             if not event_type:
                 raise Exception("Event type not found")
             event = Event(
-                name=name,
-                description=description,
+                _name=name,
+                _description=description,
                 event_type_id=event_type_id,
                 date=date,
             )
@@ -226,8 +263,20 @@ class EditEventView(MethodView):
 
     @admin_required
     def post(self, event_id):
-        name = request.form.get("name")
-        description = request.form.get("description")
+        form_data = request.form
+        name_ru = form_data.get("name_ru")
+        name_en = form_data.get("name_en")
+        name_ky = form_data.get("name_ky")
+        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+
+        description_ru = form_data.get("description_ru")
+        description_en = form_data.get("description_en")
+        description_ky = form_data.get("description_ky")
+        description = {
+            "ru": description_ru,
+            "en": description_en or description_ru,
+            "ky": description_ky or description_ru,
+        }
         event_type_id = request.form.get("event_type_id", type=int)
         date_str = request.form.get("date")
 

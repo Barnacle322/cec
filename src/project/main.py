@@ -11,7 +11,7 @@ from flask import (
     session,
     url_for,
 )
-from flask_babel import gettext
+from flask_login import login_user, logout_user
 
 from .extenstions import db, login_manager
 from .models import (
@@ -96,7 +96,7 @@ def index():
 def courses():
     course_groups = CourseGroup.get_all()
     query = request.args.get("course_group")
-    course_group = CourseGroup.get_by_link(query) if query else None
+    course_group = CourseGroup.get_by_slug(query) if query else None
     courses = Course.get_by_course_group_id(course_group.id if course_group else None)
 
     return render_template("courses.html", courses=courses, course_groups=course_groups)
@@ -107,7 +107,7 @@ def course(course_name):
     success = None
     if args := request.args:
         success = True if args.get("success") == "true" else False
-    course = Course.get_by_link(course_name)
+    course = Course.get_by_slug(course_name)
     timetables = Timetable.get_by_course_id(course.id)  # type: ignore
     return render_template(
         "course.html", course=course, timetables=timetables, success=success
@@ -322,3 +322,26 @@ def register_course():
         return redirect(f"{request.referrer}?success=false")
 
     return redirect(f"{request.referrer}?success=true")
+
+
+@main.get("/login")
+def login():
+    return render_template("login.html")
+
+
+@main.post("/login")
+def login_post():
+    username = request.form.get("username", "")
+    password = request.form.get("password", "")
+
+    user = User.get_by_username(username)
+    if user and user.password == password and user.is_admin:
+        login_user(user)
+        return redirect(url_for("admin.applications"))
+    return redirect(url_for("main.login"))
+
+
+@main.get("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("main.index"))

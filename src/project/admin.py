@@ -16,6 +16,7 @@ from .models import (
     Timetable,
     Toefl,
     ToeflRegistration,
+    User,
 )
 from .utils.decor import admin_required
 from .utils.status_enum import Status, StatusType
@@ -108,6 +109,7 @@ def toefl():
 
 
 @admin.route("/toefl/add", methods=["GET", "POST"])
+@admin_required
 def toefl_add():
     if request.method == "POST":
         file = request.files.get("file")
@@ -134,7 +136,7 @@ def toefl_add():
                 if header != ["ID", "LISTENING", "GRAMMAR", "READING"]:
                     status = Status(
                         StatusType.ERROR,
-                        "Неверный формат файла. Первая строка должна содержать заголовки столбцов: ID, READING, WRITING, SPEAKING, LISTENING",
+                        "Неверный формат файла. Первая строка должна содержать заголовки столбцов: ID, LISTENING, GRAMMAR, READING",
                     ).get_status()
                     return redirect(url_for("admin.toefl", _external=False, **status))
 
@@ -145,7 +147,7 @@ def toefl_add():
                         del line[""]
                         toefl_results.append(
                             Toefl(
-                                test_taker_id=line.get("ID", 'NO ID'),
+                                test_taker_id=line.get("ID", "NO ID"),
                                 listening=int(line.get("LISTENING", 0)),
                                 grammar=int(line.get("GRAMMAR", 0)),
                                 reading=int(line.get("READING", 0)),
@@ -258,7 +260,13 @@ def toggle_handle(type, id):
             if not toefl:
                 raise AttributeError
 
-            toefl.handled = not toefl.handled
+            if not toefl.handled:
+                toefl.handled = True
+                toefl.handled_at = datetime.datetime.now(tz=datetime.timezone.utc)
+            else:
+                toefl.handled = False
+                toefl.handled_at = None
+
             handled = toefl.handled
             db.session.commit()
         except AttributeError:
@@ -270,7 +278,13 @@ def toggle_handle(type, id):
             if not application:
                 raise AttributeError
 
-            application.handled = not application.handled
+            if not application.handled:
+                application.handled = True
+                application.handled_at = datetime.datetime.now(tz=datetime.timezone.utc)
+            else:
+                application.handled = False
+                application.handled_at = None
+
             handled = application.handled
             db.session.commit()
         except AttributeError:
@@ -295,6 +309,32 @@ def applications_old(type, page):
         type=type,
         page=page,
     )
+
+
+@admin.get("/create_admin")
+@admin_required
+def member():
+    return render_template("admin/member.html")
+
+
+@admin.post("/create_admin")
+@admin_required
+def create_member():
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    if not username or not password:
+        return redirect(url_for("admin.member"))
+
+    user = User.get_by_username(username)
+    if user:
+        return redirect(url_for("admin.member"))
+
+    user = User(username=username, password=password)
+    db.session.add(user)
+    db.session.commit()
+
+    return redirect(url_for("admin.member"))
 
 
 admin.add_url_rule(

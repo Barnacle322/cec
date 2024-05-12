@@ -238,7 +238,7 @@
                                         <a href="/about" class="hover:text-slate-900">О нас</a>
                                     </li>
                                     <li>
-                                        <a href="/jobs" class="hover:text-slate-900">Курсы</a>
+                                        <a href="/about#contacts" class="hover:text-slate-900">Контакты</a>
                                     </li>
                                     <li>
                                         <a href="/teachers" class="hover:text-slate-900">Преподаватели</a>
@@ -246,13 +246,16 @@
                                 </ul>
                             </div>
                             <div class="mt-10 md:mt-0">
-                                <h3 class="font-semibold text-slate-900">Legal</h3>
+                                <h3 class="font-semibold text-slate-900">Язык</h3>
                                 <ul role="list" class="mt-6 space-y-4">
                                     <li>
-                                        <a href="/privacy-policy" class="hover:text-slate-900">Privacy Policy</a>
+                                        <a href="{{ url_for('main.set_lang', lang='ru') }}">Русский</a>
                                     </li>
                                     <li>
-                                        <a href="/terms-of-service" class="hover:text-slate-900">Terms of Service</a>
+                                        <a href="{{ url_for('main.set_lang', lang='en') }}">Английский</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('main.set_lang', lang='ky') }}">Кыргызский</a>
                                     </li>
                                 </ul>
                             </div>

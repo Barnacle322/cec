@@ -23,11 +23,33 @@ block content %}
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="name"
-                    id="name"
-                    value="{{ staff.name }}"
-                    placeholder="Асан Асанов"
+                    name="name_ru"
+                    id="name_ru"
+                    value="{{ staff._name.get('ru') }}"
+                    placeholder="{{_('Асан Асанов')}}"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Имя на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_en"
+                    id="name_en"
+                    value="{{ staff._name.get('en') }}"
+                    placeholder="{{_('Асан Асанов')}}"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Имя на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_ky"
+                    id="name_ky"
+                    value="{{ staff._name.get('ky') }}"
+                    placeholder="{{_('Асан Асанов')}}"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -35,12 +57,36 @@ block content %}
                 <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="description"
-                    id="description"
-                    placeholder="Асан Асанов"
+                    name="description_ru"
+                    id="description_ru"
+                    placeholder="{{_('Асан Асанов')}}"
                     required
                 >
-{{ staff.description }}</textarea
+{{ staff._description.get("ru") }}</textarea
+                >
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на английском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_en"
+                    id="description_en"
+                    placeholder="{{_('Асан Асанов')}}"
+                >
+{{ staff._description.get("en") }}</textarea
+                >
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на кыргызском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_ky"
+                    id="description_ky"
+                    placeholder="{{_('Асан Асанов')}}"
+                >
+{{ staff._description.get("ky") }}</textarea
                 >
             </div>
             <div class="flex flex-col gap-2">

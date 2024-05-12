@@ -23,11 +23,33 @@
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="name"
-                    id="name"
-                    value="{{ timetable.name }}"
+                    name="name_ru"
+                    id="name_ru"
+                    value="{{ timetable._name.get('ru') }}"
                     placeholder="Программирование"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_en"
+                    id="name_en"
+                    value="{{ timetable._name.get('en') }}"
+                    placeholder="Программирование"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_ky"
+                    id="name_ky"
+                    value="{{ timetable._name.get('ky') }}"
+                    placeholder="Программирование"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -35,12 +57,36 @@
                 <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="description"
-                    id="description"
+                    name="description_ru"
+                    id="description_ru"
                     placeholder="Описание группы курсов"
                     required
                 >
-{{ timetable.description }}</textarea
+{{ timetable._description.get("ru") }}</textarea
+                >
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на английском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_en"
+                    id="description_en"
+                    placeholder="Описание группы курсов"
+                >
+{{ timetable._description.get("en") }}</textarea
+                >
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на кыргызском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_ky"
+                    id="description_ky"
+                    placeholder="Описание группы курсов"
+                >
+{{ timetable._description.get("ky") }}</textarea
                 >
             </div>
             <div class="flex flex-col gap-2">
@@ -48,11 +94,33 @@
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="duration"
-                    id="duration"
-                    value="{{ timetable.duration }}"
+                    name="duration_ru"
+                    id="duration_ru"
+                    value="{{ timetable._duration.get('ru') }}"
                     placeholder="3 месяца"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Длительность на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="duration_en"
+                    id="duration_en"
+                    value="{{ timetable._duration.get('en') }}"
+                    placeholder="3 месяца"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Длительность на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="duration_ky"
+                    id="duration_ky"
+                    value="{{ timetable._duration.get('ky') }}"
+                    placeholder="3 месяца"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -60,11 +128,33 @@
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="price"
-                    id="price"
-                    value="{{ timetable.price }}"
+                    name="price_ru"
+                    id="price_ru"
+                    value="{{ timetable._price.get('ru') }}"
                     placeholder="5000 сом + 1500 сом за учебник"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Цена на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="price_en"
+                    id="price_en"
+                    value="{{ timetable._price.get('en') }}"
+                    placeholder="5000 сом + 1500 сом за учебник"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Цена на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="price_ky"
+                    id="price_ky"
+                    value="{{ timetable._price.get('ky') }}"
+                    placeholder="5000 сом + 1500 сом за учебник"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -170,7 +260,7 @@
                 class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
                 type="submit"
             >
-                Добавить
+                Сохранить
             </button>
         </form>
     </section>

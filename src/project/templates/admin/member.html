@@ -1,0 +1,32 @@
+<!-- prettier-ignore -->
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+<!-- prettier-ignore -->
+{% endblock %} 
+{% block title %}Заявки{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section
+        class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
+    >
+        <h2 class="mb-5 flex w-full items-end gap-2 text-4xl font-medium sm:text-5xl">Создание Админа</h2>
+        <form method="POST" class="flex gap-2 flex-col">
+            <div class="flex flex-col gap-1">
+                <label for="username">Юзернейм</label>
+                <input id="username" name="username" type="text" />
+            </div>
+            <div class="flex flex-col gap-1">
+                <label for="password">Пароль</label>
+                <input id="password" name="password" type="text" />
+            </div>
+            <button type="submit">Создать</button>
+        </form>
+    </section>
+</main>
+
+{% endblock %}

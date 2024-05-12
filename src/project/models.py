@@ -2,9 +2,8 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Sequence
-from enum import Enum
 
-from flask import current_app
+from flask import current_app, session
 from flask_login import UserMixin
 from flask_sqlalchemy.pagination import Pagination
 from sqlalchemy import (
@@ -16,14 +15,11 @@ from sqlalchemy import (
     String,
     extract,
     func,
-    inspect,
     select,
 )
-from sqlalchemy import Enum as SQLEnum
 from sqlalchemy.orm import (
     Mapped,
     MappedAsDataclass,
-    defer,
     joinedload,
     mapped_column,
     relationship,
@@ -34,94 +30,63 @@ from .extenstions import db
 from .utils.storage import delete_blob_from_url
 
 
-class OauthProvider(Enum):
-    GOOGLE = "google"
-    LINKEDIN = "linkedin"
-    APPLE = "apple"
-
-
-class User(UserMixin, db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    type = mapped_column(String)
-    email: Mapped[str] = mapped_column(String, nullable=False, unique=True)
-    is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+class User(UserMixin, MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    username: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    password: Mapped[str] = mapped_column(String, nullable=False)
     is_admin: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
-    __mapper_args__ = {"polymorphic_identity": "user", "polymorphic_on": type}
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def __repr__(self):
-        return f"<User {self.email} | {self.type}>"
-
-    @classmethod
-    def delete_by_id(cls, id: int) -> None:
-        if user := cls.get_by_id(int(id)):
+    @staticmethod
+    def delete_by_id(id: int) -> None:
+        if user := User.get_by_id(int(id)):
             db.session.delete(user)
             db.session.commit()
 
-    @classmethod
-    def get_by_id(cls, id: int) -> User | None:
-        return db.session.scalar(select(cls).where(cls.id == int(id)))
+    @staticmethod
+    def get_by_id(id: int) -> User | None:
+        return db.session.scalar(select(User).where(User.id == int(id)))
 
-    @classmethod
-    def get_by_email(cls, email: str) -> User | None:
-        return db.session.scalar(select(cls).where(cls.email == email))
+    @staticmethod
+    def get_by_username(username: str) -> User | None:
+        return db.session.scalar(select(User).where(User.username == username))
 
-    @classmethod
-    def get_all(cls) -> Sequence[User]:
-        return db.session.scalars(select(cls)).all()
-
-
-class UserOauth(User):
-    oauth_provider: Mapped[OauthProvider] = mapped_column(
-        SQLEnum(OauthProvider), nullable=True
-    )
-
-    __mapper_args__ = {
-        "polymorphic_identity": "user_oauth",
-    }
-
-
-class UserRegular(User):
-    password_hash: Mapped[str] = mapped_column(String, nullable=True)
-
-    __mapper_args__ = {
-        "polymorphic_identity": "user_regular",
-    }
-
-    @property
-    def password(self) -> None:
-        raise AttributeError("Password is not a readable attribute.")
-
-    @password.setter
-    def password(self, password: str) -> None:
-        self.password_hash = generate_password_hash(password, "scrypt")
-
-    def verify_password(self, password: str) -> bool:
-        if not self.password_hash:
-            return False
-        return check_password_hash(self.password_hash, password)
-
-
-def to_dict(model_instance):
-    return {
-        c.key: getattr(model_instance, c.key)
-        for c in inspect(model_instance).mapper.column_attrs
-    }
+    @staticmethod
+    def get_all() -> Sequence[User]:
+        return db.session.scalars(select(User)).all()
 
 
 class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
-    link: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=True)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=True)
+    slug: Mapped[str] = mapped_column(
+        String,
+        nullable=False,
+        unique=True,
+    )
     picture_url: Mapped[str] = mapped_column(String, nullable=False)
 
     courses: Mapped[list[Course]] = relationship(
         "Course", uselist=True, init=False, backref="course_group"
     )
+
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
 
     @staticmethod
     def get_all() -> Sequence[CourseGroup]:
@@ -136,10 +101,6 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
             .unique()
             .all()
         )
-
-    @staticmethod
-    def get_by_name(name: str) -> CourseGroup | None:
-        return db.session.scalar(select(CourseGroup).where(CourseGroup.name == name))
 
     @staticmethod
     def get_by_id(id: int) -> CourseGroup | None:
@@ -160,25 +121,37 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
             raise ValueError(f"Course group with id {id} does not exist")
 
     @staticmethod
-    def get_by_link(link: str) -> CourseGroup | None:
-        return db.session.scalar(select(CourseGroup).where(CourseGroup.link == link))
+    def get_by_slug(slug: str) -> CourseGroup | None:
+        return db.session.scalar(select(CourseGroup).where(CourseGroup.slug == slug))
 
 
-class Course(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
-    link: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+class Course(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=False)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=False)
+    slug: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     picture_url: Mapped[str] = mapped_column(String, nullable=False)
     course_group_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course_group.id")
     )
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
 
-    def __repr__(self) -> str:
-        return super().__repr__()
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
 
     @staticmethod
     def get_all() -> Sequence[Course]:
@@ -211,22 +184,58 @@ class Course(db.Model):
         ).all()
 
     @staticmethod
-    def get_by_link(link: str) -> Course | None:
-        return db.session.scalar(select(Course).where(Course.link == link))
+    def get_by_slug(slug: str) -> Course | None:
+        return db.session.scalar(select(Course).where(Course.slug == slug))
 
 
 class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    name: Mapped[str] = mapped_column(String, nullable=False, init=True)
-    description: Mapped[str] = mapped_column(String, nullable=False, init=True)
-    duration: Mapped[str] = mapped_column(String, nullable=False, init=True)
-    price: Mapped[str] = mapped_column(String, nullable=False, init=True)
-    json_data: Mapped[JSON] = mapped_column(JSON, nullable=False, init=True)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
+    _duration: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
+    _price: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
+    json_data: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     course_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course.id"), init=True, nullable=False
     )
 
     course: Mapped[Course] = relationship(Course, backref="timetables", init=False)
+
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
+
+    @property
+    def duration(self):
+        lang = session.get("lang", "ru")
+        return self._duration.get(lang, self._duration.get("ru"))
+
+    @duration.setter
+    def duration(self, value):
+        self._duration = value
+
+    @property
+    def price(self):
+        lang = session.get("lang", "ru")
+        return self._price.get(lang, self._price.get("ru"))
+
+    @price.setter
+    def price(self, value):
+        self._price = value
 
     @staticmethod
     def get_all() -> Sequence[Timetable]:
@@ -251,18 +260,39 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
             raise ValueError(f"Timetable with id {id} does not exist")
 
 
-class Teacher(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=True)
-    bio: Mapped[str] = mapped_column(String, nullable=True)
+class Teacher(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=False)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=True)
+    _bio: Mapped[dict] = mapped_column(JSON, nullable=True)
     picture_url: Mapped[str] = mapped_column(String, nullable=True)
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
 
-    def __repr__(self) -> str:
-        return super().__repr__()
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
+
+    @property
+    def bio(self):
+        lang = session.get("lang", "ru")
+        return self._bio.get(lang, self._bio.get("ru"))
+
+    @bio.setter
+    def bio(self, value):
+        self._bio = value
 
     @staticmethod
     def get_all(max: int = 9999) -> Sequence[Teacher]:
@@ -287,17 +317,29 @@ class Teacher(db.Model):
             raise ValueError(f"Teacher with id {id} does not exist")
 
 
-class Staff(db.Model):
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=True)
+class Staff(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=False)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=True)
     picture_url: Mapped[str] = mapped_column(String, nullable=True)
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
 
-    def __repr__(self) -> str:
-        return super().__repr__()
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
 
     @staticmethod
     def get_all(max: int = 9999) -> Sequence[Staff]:
@@ -324,22 +366,35 @@ class Staff(db.Model):
 
 class EventType(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=True)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=False)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=True)
     color: Mapped[str] = mapped_column(String, nullable=False)
 
     events: Mapped[list[Event]] = relationship(
         "Event", uselist=True, init=False, backref="event_type"
     )
 
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
+
     @staticmethod
     def get_all() -> Sequence[EventType]:
         return db.session.scalars(select(EventType)).all()
-
-    @staticmethod
-    def get_by_name(name: str) -> EventType | None:
-        event_type = db.session.scalar(select(EventType).where(EventType.name == name))
-        return event_type
 
     @staticmethod
     def get_by_id(id: int) -> EventType | None:
@@ -356,10 +411,28 @@ class EventType(MappedAsDataclass, db.Model, unsafe_hash=True):
 
 class Event(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    name: Mapped[str] = mapped_column(String, nullable=False)
-    description: Mapped[str] = mapped_column(String, nullable=False)
+    _name: Mapped[dict] = mapped_column(JSON, nullable=False)
+    _description: Mapped[dict] = mapped_column(JSON, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     event_type_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("event_type.id"))
+
+    @property
+    def name(self):
+        lang = session.get("lang", "ru")
+        return self._name.get(lang, self._name.get("ru"))
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    @property
+    def description(self):
+        lang = session.get("lang", "ru")
+        return self._description.get(lang, self._description.get("ru"))
+
+    @description.setter
+    def description(self, value):
+        self._description = value
 
     @property
     def date_string(self) -> str:
@@ -731,7 +804,12 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
     phone: Mapped[str] = mapped_column(String, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
-    handled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    handled_at: Mapped[datetime.datetime | None] = mapped_column(
+        DateTime, nullable=True, init=False
+    )
+    handled: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, init=False
+    )
 
     @staticmethod
     def get_all() -> Sequence[ToeflRegistration]:
@@ -762,7 +840,7 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
         query = (
             select(ToeflRegistration)
             .where(ToeflRegistration.handled.is_(True))
-            .order_by(ToeflRegistration.created_at.desc())
+            .order_by(ToeflRegistration.handled_at.desc())
         )
         pagination = db.paginate(select=query, page=page, per_page=per_page)
         return pagination
@@ -775,7 +853,12 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
     age: Mapped[int] = mapped_column(Integer, nullable=False)
     course_info: Mapped[str] = mapped_column(String, nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
-    handled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    handled_at: Mapped[datetime.datetime | None] = mapped_column(
+        DateTime, nullable=True, init=False
+    )
+    handled: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=False, init=False
+    )
 
     @staticmethod
     def get_all() -> Sequence[Registration]:
@@ -804,7 +887,7 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
         query = (
             select(Registration)
             .where(Registration.handled.is_(True))
-            .order_by(Registration.created_at.desc())
+            .order_by(Registration.handled_at.desc())
         )
         pagination = db.paginate(select=query, page=page, per_page=per_page)
         return pagination

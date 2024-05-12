@@ -2,7 +2,6 @@ import os
 from datetime import timedelta
 
 from flask import Flask, session
-from flask_babel import gettext
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .admin import admin
@@ -12,7 +11,8 @@ from .main import main
 
 def create_app(database_url="sqlite:///db.sqlite"):
     app = Flask(__name__)
-    app.debug = True
+    # TODO: REMOVE THIS BEFORE DEPLOYMENT
+    # app.debug = True
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("_DATABASE_URL", database_url)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app.config["SQLALCHEMY_RECORD_QUERIES"] = True
@@ -29,7 +29,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
     login_manager.init_app(app)
 
     def get_locale():
-        return session.get("lang", "en")
+        return session.get("lang", "ru")
 
     babel.init_app(
         app,

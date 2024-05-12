@@ -11,7 +11,7 @@
             <p class="text-xl sm:text-2xl">Здесь вы можете добавить расписание для курса</p>
         </article>
     </section>
-    <section class="mb-20 mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
+    <section class="mb-20 mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <form
             class="flex w-full flex-col gap-4"
             method="POST"
@@ -23,10 +23,30 @@
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="name"
-                    id="name"
+                    name="name_ru"
+                    id="name_ru"
                     placeholder="Программирование"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_en"
+                    id="name_en"
+                    placeholder="Программирование"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Название на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_ky"
+                    id="name_ky"
+                    placeholder="Программирование"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -34,10 +54,30 @@
                 <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="description"
-                    id="description"
+                    name="description_ru"
+                    id="description_ru"
                     placeholder="Описание группы курсов"
                     required
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на английском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_en"
+                    id="description_en"
+                    placeholder="Описание группы курсов"
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на кыргызском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_ky"
+                    id="description_ky"
+                    placeholder="Описание группы курсов"
                 ></textarea>
             </div>
             <div class="flex flex-col gap-2">
@@ -45,21 +85,62 @@
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="duration"
-                    id="duration"
+                    name="duration_ru"
+                    id="duration_ru"
                     placeholder="3 месяца"
                     required
                 />
             </div>
             <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Длительность на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="duration_en"
+                    id="duration_en"
+                    placeholder="3 месяца"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Длительность на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="duration_ky"
+                    id="duration_ky"
+                    placeholder="3 месяца"
+                />
+            </div>
+
+            <div class="flex flex-col gap-2">
                 <label class="font-medium" for="">Цена</label>
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="price"
-                    id="price"
+                    name="price_ru"
+                    id="price_ru"
                     placeholder="5000 сом + 1500 сом за учебник"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Цена на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="price_en"
+                    id="price_en"
+                    placeholder="5000 сом + 1500 сом за учебник"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Цена на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="price_ky"
+                    id="price_ky"
+                    placeholder="5000 сом + 1500 сом за учебник"
                 />
             </div>
             <div class="flex flex-col gap-2">

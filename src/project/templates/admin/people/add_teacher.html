@@ -11,7 +11,7 @@ content %}
             <p class="text-xl sm:text-2xl">Здесь вы можете добавить учителя</p>
         </article>
     </section>
-    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
+    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <form
             class="flex w-full flex-col gap-4"
             method="POST"
@@ -23,10 +23,30 @@ content %}
                 <input
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Асан Асанов"
+                    name="name_ru"
+                    id="name_ru"
+                    placeholder="{{_('Асан Асанов')}}"
                     required
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Имя на английском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_en"
+                    id="name_en"
+                    placeholder="{{_('Асан Асанов')}}"
+                />
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Имя на кыргызском</label>
+                <input
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="name_ky"
+                    id="name_ky"
+                    placeholder="{{_('Асан Асанов')}}"
                 />
             </div>
             <div class="flex flex-col gap-2">
@@ -34,10 +54,30 @@ content %}
                 <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="description"
-                    id="description"
-                    placeholder="Асан Асанов"
+                    name="description_ru"
+                    id="description_ru"
+                    placeholder="{{_('Асан Асанов')}}"
                     required
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на английском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_en"
+                    id="description_en"
+                    placeholder="{{_('Асан Асанов')}}"
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Описание на кыргызском </label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="description_ky"
+                    id="description_ky"
+                    placeholder="{{_('Асан Асанов')}}"
                 ></textarea>
             </div>
             <div class="flex flex-col gap-2">
@@ -45,10 +85,30 @@ content %}
                 <textarea
                     class="rounded-xl border-2 border-gray-200 py-3 text-lg"
                     type="text"
-                    name="bio"
-                    id="bio"
-                    placeholder="Асан Асанов"
+                    name="bio_ru"
+                    id="bio_ru"
+                    placeholder="{{_('Асан Асанов')}}"
                     required
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Биография на английском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="bio_en"
+                    id="bio_en"
+                    placeholder="{{_('Асан Асанов')}}"
+                ></textarea>
+            </div>
+            <div class="flex flex-col gap-2">
+                <label class="font-medium" for="">Биография на кыргызском</label>
+                <textarea
+                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
+                    type="text"
+                    name="bio_ky"
+                    id="bio_ky"
+                    placeholder="{{_('Асан Асанов')}}"
                 ></textarea>
             </div>
             <div class="flex flex-col gap-2">
