@@ -14,4 +14,5 @@ RUN rm -rf /root/.cache/pip/*
 
 ENV PORT 80
 
+RUN exec poetry run pybabel compile -d ./project/translations
 CMD exec poetry run granian --interface wsgi --port $PORT --host 0.0.0.0 --workers 5 --threads 8 project:application
