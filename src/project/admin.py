@@ -73,6 +73,27 @@ def courses():
     )
 
 
+@admin.route("/courses/<int:course_id>", methods=["POST"])
+@admin_required
+def edit_timetable_positions(course_id):
+    if request.method == "POST":
+        timetables = Timetable.get_all()
+
+        request_data = request.json
+        positions = {int(item.get("id")): item.get("position") for item in request_data}
+        for timetable in timetables:
+            if timetable.course_id == course_id:
+                new_position = positions.get(timetable.id)
+                if (
+                    new_position is not None
+                    and timetable.course_position != new_position
+                ):
+                    timetable.course_position = new_position
+                    db.session.add(timetable)
+        db.session.commit()
+    return jsonify({"status": "success"}, 200)
+
+
 @admin.route("/events")
 @admin_required
 def events():

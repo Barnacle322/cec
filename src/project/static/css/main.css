@@ -737,6 +737,9 @@ select {
 .pointer-events-none {
   pointer-events: none;
 }
+.visible {
+  visibility: visible;
+}
 .static {
   position: static;
 }
@@ -920,6 +923,9 @@ select {
 .mt-auto {
   margin-top: auto;
 }
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
 .block {
   display: block;
 }
@@ -980,6 +986,10 @@ select {
 .size-7 {
   width: 1.75rem;
   height: 1.75rem;
+}
+.size-8 {
+  width: 2rem;
+  height: 2rem;
 }
 .h-12 {
   height: 3rem;
@@ -1294,6 +1304,12 @@ select {
 }
 .divide-gray-500\/10 > :not([hidden]) ~ :not([hidden]) {
   border-color: rgb(107 114 128 / 0.1);
+}
+.place-self-start {
+  place-self: start;
+}
+.place-self-end {
+  place-self: end;
 }
 .overflow-auto {
   overflow: auto;
@@ -2311,6 +2327,15 @@ body {
 
 .disabled\:pointer-events-none:disabled {
   pointer-events: none;
+}
+
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+
+.disabled\:bg-gray-500:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 114 128 / var(--tw-bg-opacity));
 }
 
 .disabled\:opacity-50:disabled {
