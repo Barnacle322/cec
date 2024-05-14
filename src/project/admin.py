@@ -80,7 +80,7 @@ def edit_timetable_positions(course_id):
         timetables = Timetable.get_all()
 
         request_data = request.json
-        positions = {int(item.get("id")): item.get("position") for item in request_data}
+        positions = {int(item.get("id")): item.get("position") for item in request_data}  # type: ignore
         for timetable in timetables:
             if timetable.course_id == course_id:
                 new_position = positions.get(timetable.id)

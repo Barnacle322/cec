@@ -79,6 +79,7 @@ class EditFeedbackView(MethodView):
         course = request.form.get("course")
         created_at = request.form.get("created_at")
         is_verified = request.form.get("is_verified", type=bool)
+        is_verified = is_verified if is_verified else False
 
         if not name or not message:
             status = Status(
@@ -102,15 +103,15 @@ class EditFeedbackView(MethodView):
             feedback.message = message
             if picture:
                 feedback.picture_url = upload_picture(picture)
-            if course:
+            if course is not None:
                 feedback.course = course
-            if email:
+            if email is not None:
                 feedback.email = email
-            if number:
+            if number is not None:
                 feedback.number = number
-            if is_verified:
+            if is_verified is not None:
                 feedback.is_verified = is_verified
-            if created_at:
+            if created_at is not None:
                 feedback.created_at = datetime.datetime.strptime(created_at, "%Y-%m-%d")
             else:
                 feedback.created_at = datetime.date.today()

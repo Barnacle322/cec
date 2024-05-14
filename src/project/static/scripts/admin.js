@@ -9,6 +9,7 @@ courseIds.forEach((courseId) => {
 
     initialPositions[courseId] = getPositions(courseId);
     submitButton.disabled = true;
+    submitButton.classList.add("hidden");
 
     new Sortable(timetables_list, {
         handle: ".handle",
@@ -18,6 +19,7 @@ courseIds.forEach((courseId) => {
             positions[courseId] = getPositions(courseId);
             if (JSON.stringify(positions[courseId]) == JSON.stringify(initialPositions[courseId])) {
                 submitButton.disabled = true;
+                submitButton.classList.add("hidden");
             } else {
                 submitButton.disabled = false;
                 submitButton.classList.remove("hidden");
@@ -107,20 +109,16 @@ function setCourseState(id) {
 
 function toggleCourseGroup(id) {
     var currentSelectedCourseGroup = localStorage.getItem("selectedCourseGroup");
-
     var newSelectedCourseGroup = currentSelectedCourseGroup === id ? null : id;
 
     localStorage.setItem("selectedCourseGroup", newSelectedCourseGroup);
-
     setCourseGroupState(newSelectedCourseGroup);
 }
 
 function toggleCourse(id) {
     var currentSelectedCourse = localStorage.getItem("selectedCourse");
-
     var newSelectedCourse = currentSelectedCourse === id ? null : id;
 
     localStorage.setItem("selectedCourse", newSelectedCourse);
-
     setCourseState(newSelectedCourse);
 }

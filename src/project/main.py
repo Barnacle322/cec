@@ -116,7 +116,7 @@ def course(course_name):
 
 @main.route("/calendar/<int:month>/<int:year>")
 def send_calendar(month, year):
-    return jsonify(generate_month_matrix(month, year))
+    return jsonify(generate_month_matrix(month=month, year=year))
 
 
 @main.route("/about")

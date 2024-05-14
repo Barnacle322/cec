@@ -4,7 +4,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.10.2/Sortable.min.js" defer></script>
 
 <script src="/static/scripts/admin.js" defer></script>
-<script src="/static/scripts/idempotency.js" defer></script>
+<script src="/static/scripts/idempotency.js"></script>
 
 <!-- prettier-ignore -->
 {% endblock %} 
@@ -18,12 +18,11 @@
     <h1 class="w-full text-4xl font-medium">Курсы</h1>
     <div class="mt-5 grid w-full items-center justify-center gap-3 lg:grid-cols-2 grid-cols-1">
         {% for course_group in course_groups %}
-        <div class="flex h-full w-full flex-col items-center divide-y overflow-hidden rounded-3xl border bg-gray-50">
+        <div
+            class="shadow-md flex h-full w-full flex-col items-center divide-y overflow-hidden rounded-3xl border bg-gray-100"
+        >
             <div class="flex w-full gap-4 bg-white p-5">
-                <div
-                    onclick="toggleCourseGroup('{{ course_group.id }}')"
-                    class="flex flex-col justify-center mt-1 cursor-pointer"
-                >
+                <button onclick="toggleCourseGroup('{{ course_group.id }}')" class="flex mt-2">
                     <svg
                         id="closeArrow-{{ course_group.id }}"
                         xmlns="http://www.w3.org/2000/svg"
@@ -47,18 +46,12 @@
                     >
                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                </div>
-                <div
-                    onclick="toggleCourseGroup('{{ course_group.id }}')"
-                    class="hidden aspect-video h-20 shrink-0 overflow-hidden rounded-xl sm:block cursor-pointer"
-                >
+                </button>
+                <div class="hidden aspect-video h-20 shrink-0 overflow-hidden rounded-xl sm:block">
                     <img class="object-cover" src="{{ course_group.picture_url }}" />
                 </div>
-
                 <div class="flex h-full flex-col gap-1">
-                    <span onclick="toggleCourseGroup('{{ course_group.id }}')" class="text-2xl font-bold cursor-pointer"
-                        >{{ course_group.name }}</span
-                    >
+                    <span class="text-2xl font-bold">{{ course_group.name }}</span>
                     <p class="text-gray-500">{{ course_group.description }}</p>
                     <a href="/courses?course_group={{ course_group.slug }}" class="text-sm underline"
                         >/courses?course_group={{ course_group.slug }}</a
@@ -89,10 +82,7 @@
                 {% for course in course_group.courses %}
                 <article class="flex flex-col divide-y overflow-hidden rounded-xl border bg-white shadow-sm mb-3">
                     <div class="flex gap-3 p-4">
-                        <div
-                            onclick="toggleCourse('{{ course.id }}')"
-                            class="flex flex-col justify-center mt-1 cursor-pointer"
-                        >
+                        <button onclick="toggleCourse('{{ course.id }}')" class="flex mt-2">
                             <svg
                                 id="closeArrowCourse-{{ course.id }}"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -116,17 +106,14 @@
                             >
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                             </svg>
-                        </div>
+                        </button>
                         <img
-                            onclick="toggleCourse('{{ course.id }}')"
                             class="hidden h-20 rounded-lg sm:block cursor-pointer"
                             src="{{ course.picture_url }}"
                             alt=""
                         />
                         <div class="flex flex-col">
-                            <h2 onclick="toggleCourse('{{ course.id }}')" class="text-xl font-medium cursor-pointer">
-                                {{ course.name }}
-                            </h2>
+                            <h2 class="text-xl font-medium cursor-pointer">{{ course.name }}</h2>
                             <p class="text-gray-500">{{ course.description }}</p>
                         </div>
                         <form

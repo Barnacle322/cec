@@ -197,7 +197,9 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     _duration: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     _price: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     json_data: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
-    course_position: Mapped[int] = mapped_column(Integer, nullable=False, init=True)
+    course_position: Mapped[int] = mapped_column(
+        Integer, nullable=False, init=True, autoincrement=True
+    )
     course_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course.id"), init=True, nullable=False
     )
@@ -253,7 +255,9 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_by_course_id(course_id: int):
         return db.session.scalars(
-            select(Timetable).where(Timetable.course_id == course_id)
+            select(Timetable)
+            .where(Timetable.course_id == course_id)
+            .order_by(Timetable.course_position)
         ).all()
 
     @staticmethod
