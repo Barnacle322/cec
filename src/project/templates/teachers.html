@@ -1,5 +1,5 @@
-{% extends "/layout.html" %} {% block title %}{{_('Учителя')}}{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
-content %}
+{% extends "/layout.html" %} {% block title %}{{_('Учителя')}}{% endblock %} {% block head %} {{ super() }} {% endblock
+%} {% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden bg-gray-50 leading-normal tracking-tight"
 >
@@ -19,19 +19,17 @@ content %}
         />
     </section>
     <section
-        class="mt-10 grid w-full max-w-7xl grid-cols-1 items-start justify-center gap-10 px-6 sm:mt-20 sm:grid-cols-2"
+        class="mt-10 grid w-full max-w-7xl lg:grid-cols-2 grid-cols-1 items-start justify-center gap-10 px-6 sm:mt-20"
     >
         {% for teacher in teachers %}
-        <article class="flex max-w-[500px] gap-5 text-start">
+        <article>
             <img
-                class="h-[225px] w-[140px] rounded-xl bg-gray-200 object-cover sm:h-[350px] sm:w-[280px]"
+                class="aspect-[3/4] rounded-xl bg-gray-200 object-cover max-h-44 sm:max-h-80 float-left mr-4 mb-px"
                 src="{{ teacher.picture_url }}"
                 alt=""
             />
-            <div class="flex flex-col gap-1">
-                <h3 class="text-2xl font-semibold sm:text-3xl">{{ teacher.name }}</h3>
-                <p class="text-lg">{{ teacher.bio }}</p>
-            </div>
+            <h3 class="text-2xl font-semibold sm:text-3xl w-full">{{ teacher.name }}</h3>
+            <p class="sm:text-lg w-full text-justify mt-2">{{ teacher.bio.replace('\n', '<br />') | safe }}</p>
         </article>
         {% endfor %}
     </section>

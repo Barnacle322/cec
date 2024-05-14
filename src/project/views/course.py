@@ -528,9 +528,9 @@ class AddTimetable(MethodView):
             status = Status(
                 StatusType.ERROR, f"Ошибка при создании расписания: {e}"
             ).get_status()
-            return redirect(url_for("admin.add_timetable", _external=False, **status))
+            return redirect(url_for("admin.courses", _external=False, **status))
 
-        return redirect(url_for("admin.add_timetable"))
+        return redirect(url_for("admin.courses"))
 
 
 class EditTimetable(MethodView):
