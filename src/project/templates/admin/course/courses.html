@@ -16,6 +16,13 @@
     class="relative mt-24 py-8 px-6 flex max-w-7xl mx-auto w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <h1 class="w-full text-4xl font-medium">Курсы</h1>
+    {% if status_type %} {% if status_type == '3' %}
+    <div class="w-full rounded-xl text-red-500 mt-3">{{ msg }}</div>
+    {% endif %} {% if status_type == '2' %}
+    <div class="w-full rounded-xl text-orange-400 mt-3">{{ msg }}</div>
+    {% endif %} {% if status_type == '1' %}
+    <div class="w-full rounded-xl text-lime-500 mt-3">{{ msg }}</div>
+    {% endif %} {% endif %}
     <div class="mt-5 grid w-full items-center justify-center gap-3 lg:grid-cols-2 grid-cols-1">
         {% for course_group in course_groups %}
         <div

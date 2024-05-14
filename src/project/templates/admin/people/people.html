@@ -5,6 +5,13 @@
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
+        {% if status_type %} {% if status_type == '3' %}
+        <div class="w-full rounded-xl text-red-500">{{ msg }}</div>
+        {% endif %} {% if status_type == '2' %}
+        <div class="w-full rounded-xl text-orange-400">{{ msg }}</div>
+        {% endif %} {% if status_type == '1' %}
+        <div class="w-full rounded-xl text-lime-500">{{ msg }}</div>
+        {% endif %} {% endif %}
         <h2 class="w-full text-2xl font-medium sm:text-4xl">Учителя</h2>
         <div class="mt-5 grid w-full gap-5 md:grid-cols-2">
             <a

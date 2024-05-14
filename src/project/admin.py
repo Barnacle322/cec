@@ -56,6 +56,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 @admin.route("/courses")
 @admin_required
 def courses():
+    status_type, msg = None, None
+    if query := request.args:
+        status_type = query.get("type")
+        msg = query.get("msg")
+
     course_groups = CourseGroup.get_all_with_courses()
     timetables = Timetable.get_all()
     timetable_dict = {}
@@ -70,6 +75,8 @@ def courses():
         "admin/course/courses.html",
         course_groups=course_groups,
         timetables=timetable_dict,
+        status_type=status_type,
+        msg=msg,
     )
 
 
@@ -97,21 +104,44 @@ def edit_timetable_positions(course_id):
 @admin.route("/events")
 @admin_required
 def events():
+    status_type, msg = None, None
+    if query := request.args:
+        status_type = query.get("type")
+        msg = query.get("msg")
+
     events = Event.get_all_with_types()
-    return render_template("admin/events.html", event_dict=events)
+    return render_template(
+        "admin/events.html", event_dict=events, status_type=status_type, msg=msg
+    )
 
 
 @admin.route("/people")
 @admin_required
 def people():
+    status_type, msg = None, None
+    if query := request.args:
+        status_type = query.get("type")
+        msg = query.get("msg")
+
     teachers = Teacher.get_all()
     staff = Staff.get_all()
-    return render_template("admin/people/people.html", teachers=teachers, staff=staff)
+    return render_template(
+        "admin/people/people.html",
+        teachers=teachers,
+        staff=staff,
+        status_type=status_type,
+        msg=msg,
+    )
 
 
 @admin.route("/toefl")
 @admin_required
 def toefl():
+    status_type, msg = None, None
+    if query := request.args:
+        status_type = query.get("type")
+        msg = query.get("msg")
+
     if (date_str := request.args.get("date", type=str)) != "None" and date_str != None:
         try:
             date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
@@ -125,7 +155,12 @@ def toefl():
 
     pagination = Toefl.get_pagination_dates(date)
     return render_template(
-        "admin/toefl.html", pagination=pagination, results=results, date=date
+        "admin/toefl.html",
+        pagination=pagination,
+        results=results,
+        date=date,
+        status_type=status_type,
+        msg=msg,
     )
 
 
@@ -252,8 +287,15 @@ def toefl_check(date):
 @admin.get("/feedback")
 @admin_required
 def feedback():
+    status_type, msg = None, None
+    if query := request.args:
+        status_type = query.get("type")
+        msg = query.get("msg")
+
     feedbacks = Feedback.get_all()
-    return render_template("admin/feedback.html", feedbacks=feedbacks)
+    return render_template(
+        "admin/feedback.html", feedbacks=feedbacks, status_type=status_type, msg=msg
+    )
 
 
 @admin.get("/")
