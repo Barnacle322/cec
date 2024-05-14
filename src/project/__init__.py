@@ -5,7 +5,7 @@ from flask import Flask, session
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .admin import admin
-from .extenstions import babel, db, login_manager
+from .extenstions import babel, db, login_manager, migrate
 from .main import main
 
 
@@ -27,6 +27,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
 
     db.init_app(app)
     login_manager.init_app(app)
+    migrate.init_app(app, db)
 
     def get_locale():
         return session.get("lang", "ru")

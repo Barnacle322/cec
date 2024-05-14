@@ -3,6 +3,7 @@ from typing import Any
 from flask import flash, redirect, render_template, request, url_for
 from flask.views import MethodView
 from slugify import slugify
+from sqlalchemy import func
 
 from ..extenstions import db
 from ..models import Course, CourseGroup, Timetable
@@ -503,6 +504,14 @@ class AddTimetable(MethodView):
 
             return redirect(url_for("admin.add_timetable", _external=False, **status))
 
+        if course_id:
+            max_position = (
+                db.session.query(func.max(Timetable.course_position))
+                .filter(Timetable.course_id == int(course_id))
+                .scalar()
+            )
+            course_position = (max_position or 0) + 1
+
         try:
             new_timetable = Timetable(
                 _name=name,
@@ -510,6 +519,7 @@ class AddTimetable(MethodView):
                 _duration=duration,
                 _price=price,
                 json_data=timetable,
+                course_position=course_position,
                 course_id=course_id,
             )
             db.session.add(new_timetable)

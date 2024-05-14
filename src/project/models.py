@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 from collections.abc import Sequence
+from sqlite3 import Connection as SQLite3Connection
 
 from flask import current_app, session
 from flask_login import UserMixin
@@ -13,10 +14,12 @@ from sqlalchemy import (
     DateTime,
     Integer,
     String,
+    event,
     extract,
     func,
     select,
 )
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import (
     Mapped,
     MappedAsDataclass,
@@ -24,7 +27,6 @@ from sqlalchemy.orm import (
     mapped_column,
     relationship,
 )
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from .extenstions import db
 from .utils.storage import delete_blob_from_url
@@ -195,6 +197,9 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     _duration: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     _price: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     json_data: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
+    course_position: Mapped[int] = mapped_column(
+        Integer, nullable=False, init=True, autoincrement=True
+    )
     course_id: Mapped[int] = mapped_column(
         Integer, db.ForeignKey("course.id"), init=True, nullable=False
     )
@@ -239,7 +244,9 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all() -> Sequence[Timetable]:
-        return db.session.scalars(select(Timetable)).all()
+        return db.session.scalars(
+            select(Timetable).order_by(Timetable.course_position)
+        ).all()
 
     @staticmethod
     def get_by_id(id: int) -> Timetable | None:
@@ -248,7 +255,9 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_by_course_id(course_id: int):
         return db.session.scalars(
-            select(Timetable).where(Timetable.course_id == course_id)
+            select(Timetable)
+            .where(Timetable.course_id == course_id)
+            .order_by(Timetable.course_position)
         ).all()
 
     @staticmethod
@@ -891,3 +900,11 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
         )
         pagination = db.paginate(select=query, page=page, per_page=per_page)
         return pagination
+
+
+@event.listens_for(Engine, "connect")
+def _set_sqlite_pragma(dbapi_connection, connection_record):
+    if isinstance(dbapi_connection, SQLite3Connection):
+        cursor = dbapi_connection.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON;")
+        cursor.close()
