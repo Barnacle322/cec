@@ -6,6 +6,13 @@
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">Отзывы</h2>
+        {% if status_type %} {% if status_type == '3' %}
+        <div class="w-full rounded-xl text-red-500">{{ msg }}</div>
+        {% endif %} {% if status_type == '2' %}
+        <div class="w-full rounded-xl text-orange-400">{{ msg }}</div>
+        {% endif %} {% if status_type == '1' %}
+        <div class="w-full rounded-xl text-lime-500">{{ msg }}</div>
+        {% endif %} {% endif %}
         <div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <a
                 href="/admin/feedback/add"
