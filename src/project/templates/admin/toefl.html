@@ -66,11 +66,11 @@ block head %} {{ super() }} {% endblock %} {% block content %}
         </header>
         <div class="flex w-full max-w-7xl flex-1 flex-col overflow-auto px-9 py-6">
             {% if status_type %} {% if status_type == '3' %}
-            <div class="w-full rounded-xl text-red-500 mb-3">{{ msg }}</div>
+            <div class="mb-3 w-full rounded-xl text-red-500">{{ msg }}</div>
             {% endif %} {% if status_type == '2' %}
-            <div class="w-full rounded-xl text-orange-400 mb-3">{{ msg }}</div>
+            <div class="mb-3 w-full rounded-xl text-orange-400">{{ msg }}</div>
             {% endif %} {% if status_type == '1' %}
-            <div class="w-full rounded-xl text-lime-500 mb-3">{{ msg }}</div>
+            <div class="mb-3 w-full rounded-xl text-lime-500">{{ msg }}</div>
             {% endif %} {% endif %}
             <h2 class="mb-4 text-lg font-bold text-blue-500 sm:text-xl">
                 Test Takers' Scores

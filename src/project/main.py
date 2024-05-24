@@ -80,7 +80,7 @@ def index():
 
     course_groups = CourseGroup.get_all()
     feedbacks = Feedback.get_all_verified()
-    hero_list = ["hero-1.jpg", "hero-2.jpg", "hero-3.jpg"]
+    hero_list = ["hero-1.jpg", "hero-2.jpg", "hero-3.jpg", "hero-4.jpg"]
     random_hero = random.choice(hero_list)
 
     return render_template(

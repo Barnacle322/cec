@@ -48,3 +48,11 @@ body {
 .sortable-ghost {
     @apply opacity-10;
 }
+
+textarea {
+    field-sizing: content;
+}
+
+@view-transition {
+    navigation: auto;
+}

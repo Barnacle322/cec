@@ -8,7 +8,7 @@
             <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">{{ course.name }}</h1>
             <p class="text-lg sm:w-1/2 sm:text-2xl">{{ course.description.replace('\n', '<br />') | safe }}</p>
             <img
-                class="mt-5 sm:mt-10 aspect-[2/1] sm:aspect-[3/1] w-full rounded-3xl object-cover"
+                class="mt-5 aspect-[2/1] w-full rounded-3xl object-cover sm:mt-10 sm:aspect-[3/1]"
                 src="{{ course.picture_url }}"
                 alt=""
             />
@@ -19,13 +19,13 @@
         <h2 class="font-mediu mb-5 w-full text-3xl font-medium sm:text-5xl">{{_('Группы')}}</h2>
         <div class="grid grid-cols-1 place-content-center gap-3 min-[870px]:grid-cols-2 xl:grid-cols-3">
             {% for timetable in timetables %}
-            <article class="flex w-full flex-col rounded-3xl border bg-white p-5 sm:h-[400px] sm:w-[400px]">
+            <article class="flex w-full flex-col rounded-3xl border bg-white p-5 min-h-[400px] sm:w-[400px]">
                 <h3 class="text-xl font-medium sm:text-2xl">{{ timetable.name }}</h3>
                 <span>{{ timetable.duration }}</span>
-                <div class="mt-8 flex gap-1">
+                <div class="mt-8 gap-1 hidden has-[div.bg-sky-500]:flex">
                     {% for index, data in timetable.json_data.items() %} {% if data.selected %}
                     <div
-                        class="flex w-full flex-col items-center justify-between gap-2 rounded-xl bg-sky-500 py-2 text-xs font-medium text-white sm:text-sm"
+                        class="flex w-full flex-col items-center justify-between gap-2 rounded-xl bg-sky-500 py-2 text-xs font-medium text-white empty:hidden sm:text-sm"
                     >
                         <span>{{ data.shorthand.get(session.get('lang', 'ru')) }}</span>
                         <span>{{ data.time }}</span>
@@ -39,7 +39,7 @@
                     </div>
                     {% endif %} {% endfor %}
                 </div>
-                <p class="mt-4 text-lg">{{ timetable.description | safe }}</p>
+                <p class="mt-4 text-lg">{{ timetable.description.replace('\n', '<br />') | safe }}</p>
                 <div class="mt-10 flex w-full items-center justify-between sm:mt-auto">
                     <span class="mr-4 text-lg leading-5">{{ timetable.price }}</span>
                     <button
@@ -53,13 +53,13 @@
             {% endfor %}
         </div>
     </section>
-    <section id="modal" class="transition-opacity ease-in-out opacity-0 pointer-events-none">
+    <section id="modal" class="pointer-events-none opacity-0 transition-opacity ease-in-out">
         <div class="fixed inset-0 h-full w-full bg-black/50"></div>
         <div class="fixed right-0 top-1/2 w-full -translate-y-1/2">
             <div
                 class="relative mx-4 max-w-lg overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:mx-auto"
             >
-                <div class="bg-gray-50 px-4 py-3 sm:px-6 border-b justify-between flex">
+                <div class="flex justify-between border-b bg-gray-50 px-4 py-3 sm:px-6">
                     <h2 class="text-lg font-medium">{{_('Запись на курс')}}</h2>
                     <button onclick="closeModal()">
                         <svg
@@ -77,7 +77,7 @@
                 <form
                     action="/register-course"
                     method="POST"
-                    class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 grid grid-cols-4 gap-x-2 gap-y-5"
+                    class="grid grid-cols-4 gap-x-2 gap-y-5 bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
                 >
                     <div class="col-span-2 flex flex-col gap-1">
                         <label for="name">Имя</label>

@@ -16,6 +16,9 @@ def create_app(database_url="sqlite:///db.sqlite"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("_DATABASE_URL", database_url)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app.config["SQLALCHEMY_RECORD_QUERIES"] = True
+    app.config["SQLALCHEMY_POOL_SIZE"] = int(os.getenv("SQLALCHEMY_POOL_SIZE", 5))
+    app.config["SQLALCHEMY_POOL_RECYCLE"] = int(os.getenv("SQLALCHEMY_POOL_RECYCLE", 1800))
+    app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = "translations"
 
     app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=30)

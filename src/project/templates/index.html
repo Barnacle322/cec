@@ -20,6 +20,9 @@
     <span
         class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-3.jpg')]"
     ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-4.jpg')]"
+    ></span>
     <section
         class="flex h-[300px] w-full justify-center bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/{{ random_hero }}')] bg-cover bg-right px-6 sm:h-[500px]"
         id="hero"
@@ -27,33 +30,29 @@
         <div class="flex w-full max-w-5xl justify-center">
             <div class="mt-10 flex max-w-7xl flex-col gap-2 sm:mt-20">
                 <h1 class="w-4/6 text-pretty text-4xl font-medium text-white sm:w-1/2 sm:text-6xl">
-                    {{_('Качественное обучение - успешное будущее')}}
+                    {{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}
                 </h1>
             </div>
         </div>
     </section>
     <section class="mt-14 flex max-w-7xl flex-col items-center justify-center px-6">
-        <h2 class="text-center text-4xl sm:text-5xl">{{_('Что такое Центр Дополнительного Образования?')}}</h2>
-        <div class="element opacity-100 transition-opacity duration-[1500ms] ease-in-out">
-            <div
-                class="mx-10 mt-14 grid grid-cols-1 place-items-center gap-20 min-[550px]:grid-cols-2 min-[967px]:grid-cols-4"
-            >
-                <div class="w-52">
-                    <h3 class="text-4xl">{{_('18 лет')}}</h3>
-                    <span>{{_('На образовательном рынке')}}</span>
-                </div>
-                <div class="w-52">
-                    <h3 class="text-4xl">50 000+</h3>
-                    <span>{{_('Довольных учеников')}}</span>
-                </div>
-                <div class="w-52">
-                    <h3 class="text-4xl">65</h3>
-                    <span>{{_('Высококвалифицированных преподавателей')}}</span>
-                </div>
-                <div class="w-52">
-                    <h3 class="text-4xl">97%</h3>
-                    <span>{{_('Довольных клиентов')}}</span>
-                </div>
+        <h2 class="text-center text-4xl font-medium sm:text-5xl">{{_('Что такое Мейкерспейс АУЦА?')}}</h2>
+        <div class="mt-14 grid grid-cols-2 gap-x-10 gap-y-10 sm:gap-x-20 lg:grid-cols-4">
+            <div>
+                <h3 class="text-4xl">{{_('18 лет')}}</h3>
+                <span>{{_('На рынке образования ')}}</span>
+            </div>
+            <div>
+                <h3 class="text-4xl">50 000+</h3>
+                <span>{{_('Довольных учеников')}}</span>
+            </div>
+            <div>
+                <h3 class="text-4xl">65</h3>
+                <span>{{_('Опытных преподавателей')}}</span>
+            </div>
+            <div>
+                <h3 class="text-4xl">97%</h3>
+                <span>{{_('Довольных клиентов')}}</span>
             </div>
         </div>
     </section>
@@ -64,13 +63,13 @@
         <div class="grid w-full grid-cols-1 flex-wrap items-center justify-center gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {% for course_group in course_groups %}
             <div class="group flex h-full w-full flex-col items-center gap-3 overflow-hidden rounded-3xl border">
-                <img class="aspect-video object-cover min-h-1/2" src="{{ course_group.picture_url }}" />
-                <div class="flex flex-col items-center gap-3 p-5 text-center text-pretty">
+                <img class="min-h-1/2 aspect-video object-cover" src="{{ course_group.picture_url }}" />
+                <div class="flex flex-col items-center gap-3 text-pretty p-5 text-center">
                     <span class="text-2xl font-bold">{{ course_group.name }}</span>
                     <p class="text-gray-500">{{ course_group.description.replace('\n', '<br />') | safe }}</p>
                 </div>
                 <a
-                    class="mb-6 w-1/3 rounded-md bg-sky-500 py-2 text-center text-sm text-white transition-colors ease-in-out hover:bg-sky-400 mt-auto"
+                    class="mb-6 mt-auto w-1/3 rounded-md bg-sky-500 py-2 text-center text-sm text-white transition-colors ease-in-out hover:bg-sky-400"
                     href="/courses?course_group={{ course_group.slug }}"
                     >{{_('Подробнее')}}</a
                 >
@@ -82,17 +81,17 @@
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Клубы')}}</h2>
         <div class="flex w-full flex-col overflow-hidden rounded-xl border shadow-sm sm:flex-row">
             <div class="relative sm:max-w-[40%]">
-                <img class="object-cover aspect-video" src="/static/elements/chess.jpg" />
+                <img class="aspect-video object-cover" src="/static/elements/chess.jpg" />
             </div>
-            <div class="flex flex-wrap w-full">
+            <div class="flex w-full flex-wrap">
                 <div class="flex h-full w-full flex-col p-4">
-                    <h3 class="text-3xl font-bold text-gray-800 flex items-center">
+                    <h3 class="flex items-center text-3xl font-bold text-gray-800">
                         {{_('Шахматы')}}
-                        <span class="text-sm rounded-full bg-sky-500 text-white ml-2 py-px px-3"
+                        <span class="ml-2 rounded-full bg-sky-500 px-3 py-px text-sm text-white"
                             >{{_('Бесплатно')}}</span
                         >
                     </h3>
-                    <article class="mt-1 text-gray-500 mb-10">
+                    <article class="mb-10 mt-1 text-gray-500">
                         {{_('Шахматы - игра, которая точно прошла тест на время. Подходит как и взрослым, так и
                         детям.')}}
                     </article>
@@ -204,7 +203,7 @@
         <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Отзывы')}}</h2>
         <div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {% for feedback in feedbacks %}
-            <article class="flex flex-col rounded-2xl p-4 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+            <article class="flex flex-col rounded-3xl border p-5">
                 <div class="flex gap-3">
                     {% if feedback.picture_url %}
                     <img
@@ -229,7 +228,7 @@
                         <span class="text-gray-400">{{ feedback.created_at }}</span>
                     </div>
                 </div>
-                <p class="mt-2 text-gray-600">{{ feedback.message }}</p>
+                <p class="mt-2 text-gray-600">{{ feedback.message.replace('\n', '<br />') | safe }}</p>
                 {% if feedback.course %}
                 <div class="mt-4 w-fit text-nowrap rounded-full bg-gray-200 px-5 py-1 text-sm text-gray-700">
                     {{ feedback.course }}

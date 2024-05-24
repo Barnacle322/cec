@@ -11,6 +11,11 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/static/elements/favicon/favicon-16x16.png" />
         <link rel="manifest" href="/static/elements/favicon/site.webmanifest" />
+        <link rel="mask-icon" href="/static/elements/favicon/safari-pinned-tab.svg" color="#1e85bf" />
+        <link rel="shortcut icon" href="/static/elements/favicon/favicon.ico" />
+        <meta name="msapplication-TileColor" content="#2d89ef" />
+        <meta name="msapplication-config" content="/static/elements/favicon/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff" />
 
         <script src="/static/scripts/menu.js" defer></script>
 
@@ -22,7 +27,10 @@
     <body class="w-full">
         <nav class="absolute left-0 top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white">
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
-                <a href="/"><img class="w-40" src="/static/elements/logo_light.png" /></a>
+                <div>
+                    <a href="/"><img class="hidden w-40 sm:block" src="/static/elements/logo_light.png" /></a>
+                    <a href="/"><img class="block w-11 sm:hidden" src="/static/elements/icon_light.svg" /></a>
+                </div>
                 <ul class="hidden gap-7 font-medium *:transition-colors *:ease-in-out hover:*:text-slate-200 md:flex">
                     <a href="/courses">{{_('Курсы')}}</a>
                     <a href="/about">{{_('О нас')}}</a>
@@ -30,11 +38,6 @@
                     <a href="/teachers">{{_('Учителя')}}</a>
                     <a href="/about#contacts">{{_('Связаться с нами')}}</a>
                 </ul>
-                <!-- <a
-                    href="/login"
-                    class="mr-9 hidden min-w-max rounded-xl bg-sky-500 px-3 py-2 text-center text-white transition-colors ease-in-out hover:bg-sky-400 md:block"
-                    >Войти</a
-                > -->
                 <a href="https://auca.kg" target="_blank"
                     ><img
                         class="hidden h-12 lg:block"
@@ -112,13 +115,6 @@
                                 >{{_('Связаться с нами')}}</a
                             >
                         </div>
-                        <div class="py-6">
-                            <a
-                                href="/waitlist"
-                                class="flex items-center justify-center rounded-xl bg-sky-500 px-3 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
-                                >Войти</a
-                            >
-                        </div>
                     </div>
                 </div>
             </div>
@@ -193,23 +189,31 @@
                                 <h3 class="font-semibold text-slate-900">Курсы</h3>
                                 <ul role="list" class="mt-6 space-y-4">
                                     <li>
-                                        <a href="/courses?course_group=coding" class="hover:text-slate-900"
+                                        <a href="/courses?course_group=it-kursy" class="hover:text-slate-900"
                                             >Программирования</a
                                         >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=dar" class="hover:text-slate-900"
+                                        <a
+                                            href="/courses?course_group=detskaia-akademiia-rosta"
+                                            class="hover:text-slate-900"
                                             >Детская Академия Роста</a
                                         >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=language" class="hover:text-slate-900">Языки</a>
+                                        <a href="/courses?course_group=iazykovye-kursy" class="hover:text-slate-900"
+                                            >Языки</a
+                                        >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=business" class="hover:text-slate-900">Бизнес</a>
+                                        <a href="/courses?course_group=biznes-kursy" class="hover:text-slate-900"
+                                            >Бизнес</a
+                                        >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=preparation" class="hover:text-slate-900"
+                                        <a
+                                            href="/courses?course_group=podgotovitelnye-kursy"
+                                            class="hover:text-slate-900"
                                             >Подготовительные Курсы</a
                                         >
                                     </li>

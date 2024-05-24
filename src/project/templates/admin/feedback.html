@@ -34,7 +34,7 @@
                     ></path></svg
             ></a>
             {% for feedback in feedbacks %}
-            <article class="relative flex flex-col rounded-xl p-4 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+            <article class="relative flex flex-col rounded-3xl border bg-white p-5">
                 <div class="flex gap-3">
                     {% if feedback.picture_url %}
                     <img
@@ -64,7 +64,7 @@
                         <span class="text-gray-400">{{ feedback.created_at }}</span>
                     </div>
                 </div>
-                <p class="mt-2 text-gray-600">{{ feedback.message }}</p>
+                <p class="mt-2 text-gray-600">{{ feedback.message.replace('\n', '<br />') | safe }}</p>
                 {% if feedback.course %}
                 <div class="mt-4 w-fit text-nowrap rounded-full bg-gray-200 px-5 py-1 text-sm text-gray-700">
                     {{ feedback.course }}
