@@ -67,6 +67,7 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
         unique=True,
     )
     picture_url: Mapped[str] = mapped_column(String, nullable=False)
+    position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
     courses: Mapped[list[Course]] = relationship(
         "Course", uselist=True, init=False, backref="course_group"
@@ -92,13 +93,14 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all() -> Sequence[CourseGroup]:
-        return db.session.scalars(select(CourseGroup)).all()
+        return db.session.scalars(select(CourseGroup).order_by(CourseGroup.position)).all()
 
     @staticmethod
     def get_all_with_courses():
         return (
             db.session.scalars(
                 select(CourseGroup).options(joinedload(CourseGroup.courses))
+                .order_by(CourseGroup.position)
             )
             .unique()
             .all()
