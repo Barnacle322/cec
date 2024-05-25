@@ -1,6 +1,6 @@
 {% extends "/layout.html" %} {% block additional_scripts %}
 <script src="/static/scripts/calendar.js" defer></script>
-{% endblock %} {% block title %}{{_('Центр Дополнительного Образования')}}{% endblock %} {% block head %} {{ super() }}
+{% endblock %} {% block title %}{{_('Мейкерспейс АУЦА')}}{% endblock %} {% block head %} {{ super() }}
 {% endblock %} {% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
@@ -63,7 +63,9 @@
         <div class="grid w-full grid-cols-1 flex-wrap items-center justify-center gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {% for course_group in course_groups %}
             <div class="group flex h-full w-full flex-col items-center gap-3 overflow-hidden rounded-3xl border">
-                <img class="min-h-1/2 aspect-video object-cover" src="{{ course_group.picture_url }}" />
+                <a href="/courses?course_group={{ course_group.slug }}">
+                    <img class="min-h-1/2 aspect-video object-cover" src="{{ course_group.picture_url }}" />
+                </a>
                 <div class="flex flex-col items-center gap-3 text-pretty p-5 text-center">
                     <span class="text-2xl font-bold">{{ course_group.name }}</span>
                     <p class="text-gray-500">{{ course_group.description.replace('\n', '<br />') | safe }}</p>

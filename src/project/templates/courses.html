@@ -33,7 +33,9 @@ content %}
         <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for course in courses %}
             <article class="flex flex-col gap-3 rounded-xl bg-white p-9">
-                <img class="rounded-lg" src="{{ course.picture_url }}" alt="" />
+                <a href="course/{{ course.slug }}">
+                    <img class="rounded-lg" src="{{ course.picture_url }}" alt="" />
+                </a>
                 <h2 class="text-3xl font-medium">{{ course.name }}</h2>
                 <p class="text-lg">{{ course.description.replace('\n', '<br />') | safe }}</p>
                 <a

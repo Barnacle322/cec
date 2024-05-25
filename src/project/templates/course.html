@@ -40,7 +40,7 @@
                     {% endif %} {% endfor %}
                 </div>
                 <p class="mt-4 text-lg">{{ timetable.description.replace('\n', '<br />') | safe }}</p>
-                <div class="mt-10 flex w-full items-center justify-between sm:mt-auto">
+                <div class="flex w-full items-center justify-between mt-auto">
                     <span class="mr-4 text-lg leading-5">{{ timetable.price }}</span>
                     <button
                         onclick="openModal('{{ course.name }} {{ timetable.name }}')"

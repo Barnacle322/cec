@@ -2256,10 +2256,6 @@ textarea {
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
 
-.empty\:flex:empty {
-  display: flex;
-}
-
 .empty\:hidden:empty {
   display: none;
 }
