@@ -2416,10 +2416,6 @@ textarea {
     margin-top: 8rem;
   }
 
-  .sm\:mt-auto {
-    margin-top: auto;
-  }
-
   .sm\:block {
     display: block;
   }

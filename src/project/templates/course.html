@@ -19,10 +19,10 @@
         <h2 class="font-mediu mb-5 w-full text-3xl font-medium sm:text-5xl">{{_('Группы')}}</h2>
         <div class="grid grid-cols-1 place-content-center gap-3 min-[870px]:grid-cols-2 xl:grid-cols-3">
             {% for timetable in timetables %}
-            <article class="flex w-full flex-col rounded-3xl border bg-white p-5 min-h-[400px] sm:w-[400px]">
+            <article class="flex min-h-[400px] w-full flex-col rounded-3xl border bg-white p-5 sm:w-[400px]">
                 <h3 class="text-xl font-medium sm:text-2xl">{{ timetable.name }}</h3>
                 <span>{{ timetable.duration }}</span>
-                <div class="mt-8 gap-1 hidden has-[div.bg-sky-500]:flex">
+                <div class="mt-8 hidden gap-1 has-[div.bg-sky-500]:flex">
                     {% for index, data in timetable.json_data.items() %} {% if data.selected %}
                     <div
                         class="flex w-full flex-col items-center justify-between gap-2 rounded-xl bg-sky-500 py-2 text-xs font-medium text-white empty:hidden sm:text-sm"
@@ -40,7 +40,7 @@
                     {% endif %} {% endfor %}
                 </div>
                 <p class="mt-4 text-lg">{{ timetable.description.replace('\n', '<br />') | safe }}</p>
-                <div class="flex w-full items-center justify-between mt-auto">
+                <div class="mt-auto flex w-full items-center justify-between">
                     <span class="mr-4 text-lg leading-5">{{ timetable.price }}</span>
                     <button
                         onclick="openModal('{{ course.name }} {{ timetable.name }}')"
