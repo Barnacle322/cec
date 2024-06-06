@@ -62,7 +62,10 @@ block content %}
             {% for course_group in course_groups %}
             <div class="flex flex-col items-center gap-3 rounded-3xl border">
                 <a href="/courses?course_group={{ course_group.slug }}">
-                    <img class="min-h-1/2 aspect-video w-full object-cover rounded-t-3xl" src="{{ course_group.picture_url }}" />
+                    <img
+                        class="min-h-1/2 aspect-video w-full rounded-t-3xl object-cover"
+                        src="{{ course_group.picture_url }}"
+                    />
                 </a>
                 <div class="flex flex-col items-center gap-3 text-pretty p-5 text-center">
                     <span class="text-2xl font-bold">{{ course_group.name }}</span>
@@ -77,8 +80,8 @@ block content %}
             {% endfor %}
         </div>
     </section>
-    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Клубы')}}</h2>
+    <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-5 px-6 pb-3">
+        <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Клубы')}}</h2>
         <div class="flex w-full flex-col overflow-hidden rounded-xl border shadow-sm sm:flex-row">
             <div class="relative sm:max-w-[40%]">
                 <img class="aspect-video object-cover" src="/static/elements/chess.jpg" />
@@ -87,7 +90,7 @@ block content %}
                 <div class="flex h-full w-full flex-col p-4">
                     <h3 class="flex items-center text-3xl font-bold text-gray-800">
                         {{_('Шахматы')}}
-                        <span class="ml-2 rounded-full bg-sky-500 px-3 py-px text-sm text-white"
+                        <span class="ml-2 rounded-full bg-sky-100 px-3 py-px text-sm text-sky-500"
                             >{{_('Бесплатно')}}</span
                         >
                     </h3>
@@ -96,11 +99,37 @@ block content %}
                         детям.')}}
                     </article>
                     <button
-                        class="ml-auto mt-auto rounded-lg bg-sky-500 px-3 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
+                        class="ml-auto mt-auto rounded-lg bg-sky-500 px-3 py-2 text-sm text-white transition-colors ease-in-out hover:bg-sky-400 sm:text-base"
+                        onclick="openModal('Шахматы')"
                     >
                         {{_('Зарегистрироваться')}}
                     </button>
                 </div>
+            </div>
+        </div>
+        <div class="flex w-full flex-col overflow-hidden rounded-xl border shadow-sm sm:flex-row">
+            <div class="flex w-full flex-wrap">
+                <div class="flex h-full w-full flex-col p-4">
+                    <h3 class="flex items-center text-3xl font-bold text-gray-800">
+                        {{_('Repair Cafe')}}
+                        <span class="ml-2 rounded-full bg-sky-100 px-3 py-px text-sm text-sky-500"
+                            >{{_('Бесплатно')}}</span
+                        >
+                    </h3>
+                    <article class="mb-10 mt-1 text-gray-500">
+                        {{_('Repair Cafe - Нидерландская инициатива по организации мероприятий, на которых участники
+                        учатся чинить вещи. Это помогает сократить количество мусора и продлить срок службы вещей.')}}
+                    </article>
+                    <button
+                        class="ml-auto mt-auto rounded-lg bg-sky-500 px-3 py-2 text-sm text-white transition-colors ease-in-out hover:bg-sky-400 sm:text-base"
+                        onclick="openModal('Repair Cafe')"
+                    >
+                        {{_('Зарегистрироваться')}}
+                    </button>
+                </div>
+            </div>
+            <div class="relative sm:max-w-[40%]">
+                <img class="aspect-video object-cover" src="/static/elements/repair_cafe.jpeg" />
             </div>
         </div>
     </section>
@@ -197,6 +226,71 @@ block content %}
                 <!-- Days -->
             </div>
             <!-- End Calendar -->
+        </div>
+    </section>
+    <section class="mt-20 w-full max-w-7xl px-4">
+        <script>
+            (function (C, A, L) {
+                let p = function (a, ar) {
+                    a.q.push(ar);
+                };
+                let d = C.document;
+                C.Cal =
+                    C.Cal ||
+                    function () {
+                        let cal = C.Cal;
+                        let ar = arguments;
+                        if (!cal.loaded) {
+                            cal.ns = {};
+                            cal.q = cal.q || [];
+                            d.head.appendChild(d.createElement("script")).src = A;
+                            cal.loaded = true;
+                        }
+                        if (ar[0] === L) {
+                            const api = function () {
+                                p(api, arguments);
+                            };
+                            const namespace = ar[1];
+                            api.q = api.q || [];
+                            typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+                            return;
+                        }
+                        p(cal, ar);
+                    };
+            })(window, "https://cal.com/embed.js", "init");
+            Cal("init");
+        </script>
+
+        <div
+            class="relative mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden rounded-3xl border-2 bg-sky-900 bg-cover p-10 shadow-lg lg:flex-row"
+        >
+            <div class="flex flex-col gap-5 text-white lg:w-1/2">
+                <span class="text-[40px] font-semibold leading-tight"
+                    >Арендуйте
+                    <br />
+                    <span class="bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">
+                        оборудование бесплатно
+                    </span>
+                    у нас в Makerspace!</span
+                >
+                <p class="lg:text-lg">
+                    Просто укажите нужное время и дату, и мы свяжемся с вами для подтверждения бронирования.
+
+                    <br /><br />
+                    3D Принтеры, Лазерные резаки, Электроника, Швейные машины и многое другое! Все это вы можете
+                    арендовать у нас в Makerspace!
+                </p>
+
+                <button
+                    class="rounded-lg bg-sky-500 px-3 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
+                    data-cal-link="aucamldc"
+                >
+                    Бронировать
+                </button>
+            </div>
+            <div class="absolute hidden h-[calc(100%-80px)] w-1/2 translate-x-full lg:block">
+                <img class="h-full w-full rounded-xl object-cover" src="/static/elements/hero-4.jpg" alt="" />
+            </div>
         </div>
     </section>
     <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
@@ -357,6 +451,86 @@ block content %}
         </div>
     </section>
 
+    <section id="modal" class="pointer-events-none opacity-0 transition-opacity ease-in-out">
+        <div class="fixed inset-0 h-full w-full bg-black/50"></div>
+        <div class="fixed right-0 top-1/2 w-full -translate-y-1/2">
+            <div
+                class="relative mx-4 max-w-lg overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:mx-auto"
+            >
+                <div class="flex justify-between border-b bg-gray-50 px-4 py-3 sm:px-6">
+                    <h2 class="text-lg font-medium">{{_('Запись на курс')}}</h2>
+                    <button onclick="closeModal()">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-5"
+                        >
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <form
+                    action="/register-course"
+                    method="POST"
+                    class="grid grid-cols-4 gap-x-2 gap-y-5 bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
+                >
+                    <div class="col-span-2 flex flex-col gap-1">
+                        <label for="name">Имя</label>
+                        <input
+                            class="rounded-lg"
+                            type="text"
+                            name="name"
+                            id="name"
+                            autocomplete="name"
+                            placeholder="Асан"
+                            required=""
+                        />
+                    </div>
+
+                    <div class="col-span-2 flex flex-col gap-1">
+                        <label for="age">Возраст</label>
+                        <input class="rounded-lg" type="number" name="age" id="age" placeholder="16" required="" />
+                    </div>
+
+                    <div class="col-span-4 flex flex-col gap-1">
+                        <label for="phone">Номер телефона</label>
+                        <input
+                            class="rounded-lg"
+                            type="tel"
+                            name="phone"
+                            id="phone"
+                            autocomplete="tel"
+                            placeholder="+996 999 99 99 99"
+                            required=""
+                        />
+                    </div>
+
+                    <div class="col-span-4 flex flex-col gap-1">
+                        <label for="group">Клуб</label>
+                        <input
+                            class="rounded-lg"
+                            type="text"
+                            name="course_info_modal"
+                            id="course_info_modal"
+                            placeholder="{{_('Английский Pre-Intermediate')}}"
+                            required=""
+                        />
+                    </div>
+
+                    <button
+                        class="col-span-4 mt-6 w-full rounded-lg bg-sky-500 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
+                        type="submit"
+                    >
+                        {{_('Зарегистрироваться')}}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <section id="toast">
         {% if success == True %}
         <div
@@ -419,4 +593,13 @@ block content %}
         {% endif %}
     </section>
 </main>
+<script>
+    function closeModal() {
+        document.getElementById("modal").classList.add("opacity-0", "pointer-events-none");
+    }
+    function openModal(course_info) {
+        document.getElementById("modal").classList.remove("opacity-0", "pointer-events-none");
+        document.getElementById("course_info_modal").value = course_info;
+    }
+</script>
 {% endblock %}
