@@ -1,4 +1,47 @@
-{% extends "/layout.html" %} {% block title %}{{_('О нас')}}{% endblock %} {% block head %} {{ super() }} {% endblock %}
+<!-- prettier-ignore -->
+{% extends "/layout.html" %} 
+{% block head %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="title" content="{{_('О нас')}} · MLDC" />
+    <meta property="og:title" content="{{_('О нас')}} · MLDC" />
+    <meta property="twitter:title" content="{{_('О нас')}} · MLDC" />
+    <title>{{_('О нас')}} · MLDC</title>
+
+    <meta name="description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+    <meta property="og:description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+    <meta property="twitter:description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+
+    <meta property="og:image" content="Meta Preview" />
+    <meta property="twitter:image" content="Meta Preview" />
+
+    <meta property="og:url" content="https://mldc.auca.kg/about" />
+    <meta property="twitter:url" content="https://mldc.auca.kg/about" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <meta name="robots" content="index" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/elements/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/elements/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/static/elements/favicon/site.webmanifest" />
+    <link rel="mask-icon" href="/static/elements/favicon/safari-pinned-tab.svg" color="#1e85bf" />
+    <link rel="shortcut icon" href="/static/elements/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-config" content="/static/elements/favicon/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="/static/css/main.css" />
+
+    <script src="/static/scripts/menu.js" defer></script>
+</head>
+<!-- prettier-ignore -->
+{% endblock %} 
 {% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
@@ -6,15 +49,45 @@
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="text-start">
             <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Немного о нас')}}</h2>
-            <p class="text-lg sm:w-1/2 sm:text-2xl">
-                {{_('Наша миссия: предоставлять высококачественные образовательные услуги, ориентированные на
-                профессиональное и личностное развитие для разнообразных целевых групп, включая школьников, студентов и
-                профессионалов.')}}
-                <br />
-                <br />
-                {{_('За 18 лет работы прошли обучение более 50 000 человек, включая корпоративных заказчиков из более 50
-                компаний и организаций Кыргызстана, Казахстана и Таджикистана.')}}
-            </p>
+            <div class="grid sm:grid-cols-2 gap-10 text-justify text-lg sm:text-2xl">
+                <div class="flex flex-col gap-5">
+                    <p>
+                        {{_('Одна из самых больших ценностей в мире – это знания. Необходимость адаптироваться к
+                        изменяющейся действительности требует от каждого постоянную готовность учиться и приобретать
+                        новые навыки. Это соответствует миссии и задачам АУЦА: поддержка гражданской активности,
+                        обучение на уровне сообществ и активное исследование, способствующее развитию сообществ на
+                        местном, региональном и глобальном уровнях. Для решения этой задачи в АУЦА был создан Центр
+                        дополнительного образования.')}}
+                    </p>
+                    <p>
+                        {{_('За время своей работы ЦДО зарекомендовал себя как эффективный способ повышения
+                        квалификации, изучения языков. Здесь действовали и действуют различные программы, рассчитанные
+                        на самые разные возрастные и социальные группы: «Академия роста для детей», подготовительные
+                        курсы для абитуриентов, бизнес-курсы и тренинги, IT- курсы и языковые курсы для всех желающих.
+                        За эти годы было осуществлено множество проектов, большое количество студентов центра приобрели
+                        знания, усовершенствовали языковые навыки, исполнили свои мечты.')}}
+                    </p>
+                </div>
+                <div class="flex flex-col gap-5">
+                    <p>
+                        {{_('Накоплен громадный опыт, но новый день ставит иные задачи и требует более совершенные формы
+                        обучения. Начинается следующая глава в истории образовательных проектов АУЦА, и называется она
+                        Makerspace Learning Center (MLC). Мейкерспейс – уникальное образовательное, творческое и
+                        предпринимательское пространство, в котором можно будет не только получать новые знания и
+                        навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном
+                        оборудовании.')}}
+                    </p>
+                    <p>
+                        {{_('Термин makerspace стал использоваться с 2005 года для обозначения пространства, где высокие
+                        технологии стали доступны для самых широких слоёв населения. Со временем понятие «мейкерспейс»
+                        стало обозначать общественное движение, которое стремится популяризировать технологические
+                        инновации, сделать их более доступными для широкого круга людей и тем самым позволить им
+                        попробовать себя в роли инноваторов и предпринимателей. «Мейкерспейс АУЦА» станет частью этого
+                        процесса, будет проводником для формирования движения «высокотехнологического сделай сам» в
+                        Кыргызстане.')}}
+                    </p>
+                </div>
+            </div>
         </article>
         <img
             class="mt-10 h-40 w-full rounded-xl object-cover object-center sm:mt-20 sm:h-96"

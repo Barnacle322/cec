@@ -1,29 +1,6 @@
 <!doctype html>
 <html lang="ru">
-    <head>
-        {% block head %}
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="/static/css/main.css" />
-        <meta name="view-transition" content="same-origin" />
-
-        <link rel="apple-touch-icon" sizes="180x180" href="/static/elements/favicon/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/elements/favicon/favicon-16x16.png" />
-        <link rel="manifest" href="/static/elements/favicon/site.webmanifest" />
-        <link rel="mask-icon" href="/static/elements/favicon/safari-pinned-tab.svg" color="#1e85bf" />
-        <link rel="shortcut icon" href="/static/elements/favicon/favicon.ico" />
-        <meta name="msapplication-TileColor" content="#2d89ef" />
-        <meta name="msapplication-config" content="/static/elements/favicon/browserconfig.xml" />
-        <meta name="theme-color" content="#ffffff" />
-
-        <script src="/static/scripts/menu.js" defer></script>
-
-        {% block additional_scripts %}{% endblock %}
-
-        <title>{% block title %}{% endblock %} | {{_('MLDC')}}</title>
-        {% endblock %}
-    </head>
+    {% block head %}{% endblock %}
     <body class="w-full">
         <nav class="absolute left-0 top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white">
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
@@ -146,41 +123,6 @@
                                     ></path>
                                 </svg>
                             </a>
-                            <!-- <a href="https://twitter.com/" target="_blank" class="">
-                                    <span class="sr-only">Twitter</span>
-                                    <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
-                                        <path
-                                            d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"
-                                        ></path>
-                                    </svg>
-                                </a>
-                                <a href="https://www.linkedin.com/company/">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        height="1em"
-                                        viewBox="0 0 448 512"
-                                        class="h-6 w-6"
-                                    >
-                                        <style>
-                                            svg {
-                                                fill: #000000;
-                                            }
-                                        </style>
-                                        <path
-                                            d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"
-                                        />
-                                    </svg>
-                                </a>
-                                <a href="#" class="">
-                                    <span class="sr-only">YouTube</span>
-                                    <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-                                            clip-rule="evenodd"
-                                        ></path>
-                                    </svg>
-                                </a> -->
                         </div>
                     </div>
                     <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">

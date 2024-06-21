@@ -1,7 +1,49 @@
-{% extends "/layout.html" %} {% block additional_scripts %}
-<script src="/static/scripts/calendar.js" defer></script>
-{% endblock %} {% block title %}{{_('Мейкерспейс АУЦА')}}{% endblock %} {% block head %} {{ super() }} {% endblock %} {%
-block content %}
+<!-- prettier-ignore -->
+{% extends "/layout.html" %} 
+{% block head %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="title" content="{{_('Мейкерспейс АУЦА')}}" />
+    <meta property="og:title" content="{{_('Мейкерспейс АУЦА')}}" />
+    <meta property="twitter:title" content="{{_('Мейкерспейс АУЦА')}}" />
+    <title>{{_('Мейкерспейс АУЦА')}}</title>
+
+    <meta name="description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+    <meta property="og:description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+    <meta property="twitter:description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+
+    <meta property="og:image" content="Meta Preview" />
+    <meta property="twitter:image" content="Meta Preview" />
+
+    <meta property="og:url" content="https://mldc.auca.kg" />
+    <meta property="twitter:url" content="https://mldc.auca.kg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <meta name="robots" content="index" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/elements/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/elements/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/static/elements/favicon/site.webmanifest" />
+    <link rel="mask-icon" href="/static/elements/favicon/safari-pinned-tab.svg" color="#1e85bf" />
+    <link rel="shortcut icon" href="/static/elements/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-config" content="/static/elements/favicon/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="/static/css/main.css" />
+
+    <script src="/static/scripts/menu.js" defer></script>
+    <script src="/static/scripts/calendar.js" defer></script>
+</head>
+<!-- prettier-ignore -->
+{% endblock %} 
+{% block content %}
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
@@ -32,6 +74,11 @@ block content %}
                 <h1 class="w-4/6 text-pretty text-4xl font-medium text-white sm:w-1/2 sm:text-6xl">
                     {{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}
                 </h1>
+                <span class="text-white flex gap-2">
+                    <a href="{{ url_for('main.set_lang', lang='ky') }}" class="underline">🇰🇬 KY</a>
+                    <a href="{{ url_for('main.set_lang', lang='en') }}" class="underline">🇺🇸 EN</a>
+                    <a href="{{ url_for('main.set_lang', lang='ru') }}" class="underline">🇷🇺 RU</a>
+                </span>
             </div>
         </div>
     </section>
