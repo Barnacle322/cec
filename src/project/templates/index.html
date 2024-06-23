@@ -66,15 +66,15 @@
         class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-4.jpg')]"
     ></span>
     <section
-        class="flex h-[300px] w-full justify-center bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/{{ random_hero }}')] bg-cover bg-right px-6 sm:h-[500px]"
+        class="flex w-full justify-center bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/{{ random_hero }}')] bg-cover bg-right px-6 sm:py-20 py-10"
         id="hero"
     >
         <div class="flex w-full max-w-5xl justify-center">
-            <div class="mt-10 flex max-w-7xl flex-col gap-2 sm:mt-20">
+            <div class="flex max-w-7xl flex-col gap-2">
                 <h1 class="w-4/6 text-pretty text-4xl font-medium text-white sm:w-1/2 sm:text-6xl">
                     {{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}
                 </h1>
-                <span class="text-white flex gap-2">
+                <span class="flex gap-2 text-white">
                     <a href="{{ url_for('main.set_lang', lang='ky') }}" class="underline">🇰🇬 KY</a>
                     <a href="{{ url_for('main.set_lang', lang='en') }}" class="underline">🇺🇸 EN</a>
                     <a href="{{ url_for('main.set_lang', lang='ru') }}" class="underline">🇷🇺 RU</a>
@@ -130,12 +130,10 @@
     <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-5 px-6 pb-3">
         <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Клубы')}}</h2>
         <div class="flex w-full flex-col overflow-hidden rounded-xl border shadow-sm sm:flex-row">
-            <div class="relative sm:max-w-[40%]">
-                <img class="aspect-video object-cover" src="/static/elements/chess.jpg" />
-            </div>
+            <img class="aspect-video object-cover sm:max-w-[40%]" src="/static/elements/chess.jpg" />
             <div class="flex w-full flex-wrap">
                 <div class="flex h-full w-full flex-col p-4">
-                    <h3 class="flex items-center text-3xl font-bold text-gray-800">
+                    <h3 class="flex items-center text-2xl font-bold text-gray-800 sm:text-3xl">
                         {{_('Шахматы')}}
                         <span class="ml-2 rounded-full bg-sky-100 px-3 py-px text-sm text-sky-500"
                             >{{_('Бесплатно')}}</span
@@ -147,7 +145,7 @@
                     </article>
                     <button
                         class="ml-auto mt-auto rounded-lg bg-sky-500 px-3 py-2 text-sm text-white transition-colors ease-in-out hover:bg-sky-400 sm:text-base"
-                        onclick="openModal('Шахматы')"
+                        onclick="openModal('Клуб Шахмат')"
                     >
                         {{_('Зарегистрироваться')}}
                     </button>
@@ -157,7 +155,7 @@
         <div class="flex w-full flex-col overflow-hidden rounded-xl border shadow-sm sm:flex-row">
             <div class="flex w-full flex-wrap">
                 <div class="flex h-full w-full flex-col p-4">
-                    <h3 class="flex items-center text-3xl font-bold text-gray-800">
+                    <h3 class="flex items-center text-2xl font-bold text-gray-800 sm:text-3xl">
                         {{_('Repair Cafe')}}
                         <span class="ml-2 rounded-full bg-sky-100 px-3 py-px text-sm text-sky-500"
                             >{{_('Бесплатно')}}</span
@@ -169,15 +167,13 @@
                     </article>
                     <button
                         class="ml-auto mt-auto rounded-lg bg-sky-500 px-3 py-2 text-sm text-white transition-colors ease-in-out hover:bg-sky-400 sm:text-base"
-                        onclick="openModal('Repair Cafe')"
+                        onclick="openModal('Клуб Repair Cafe')"
                     >
                         {{_('Зарегистрироваться')}}
                     </button>
                 </div>
             </div>
-            <div class="relative sm:max-w-[40%]">
-                <img class="aspect-video object-cover" src="/static/elements/repair_cafe.jpeg" />
-            </div>
+            <img class="aspect-video object-cover sm:max-w-[40%]" src="/static/elements/repair_cafe.jpeg" />
         </div>
     </section>
     <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
@@ -307,25 +303,21 @@
             })(window, "https://cal.com/embed.js", "init");
             Cal("init");
         </script>
-
         <div
             class="relative mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden rounded-3xl border-2 bg-sky-900 bg-cover p-10 shadow-lg lg:flex-row"
         >
             <div class="flex flex-col gap-5 text-white lg:w-1/2">
-                <span class="text-[40px] font-semibold leading-tight"
-                    >Арендуйте
-                    <br />
+                <span class="text-[40px] font-semibold leading-tight">
                     <span class="bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">
-                        оборудование бесплатно
+                        {{_('Арендуйте оборудование')}}
                     </span>
-                    у нас в Makerspace!</span
+                    {{_('у нас в Makerspace!')}}</span
                 >
                 <p class="lg:text-lg">
-                    Просто укажите нужное время и дату, и мы свяжемся с вами для подтверждения бронирования.
-
+                    {{_('Просто укажите нужное время и дату, и мы свяжемся с вами для подтверждения бронирования.')}}
                     <br /><br />
-                    3D Принтеры, Лазерные резаки, Электроника, Швейные машины и многое другое! Все это вы можете
-                    арендовать у нас в Makerspace!
+                    3D Принтеры, Лазерные резаки, Электроника, Паяльные Станции, ЧПУ станки и многое другое! Все это вы
+                    можете арендовать у нас в Makerspace!
                 </p>
 
                 <button
@@ -369,9 +361,9 @@
                         <span class="text-gray-400">{{ feedback.created_at }}</span>
                     </div>
                 </div>
-                <p class="mt-2 text-gray-600">{{ feedback.message.replace('\n', '<br />') | safe }}</p>
+                <p class="my-2 text-gray-600">{{ feedback.message.replace('\n', '<br />') | safe }}</p>
                 {% if feedback.course %}
-                <div class="mt-4 w-fit text-nowrap rounded-full bg-gray-200 px-5 py-1 text-sm text-gray-700">
+                <div class="mt-auto w-fit text-nowrap rounded-full bg-gray-200 px-5 py-1 text-sm text-gray-700">
                     {{ feedback.course }}
                 </div>
                 {% endif %}
@@ -505,7 +497,7 @@
                 class="relative mx-4 max-w-lg overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:mx-auto"
             >
                 <div class="flex justify-between border-b bg-gray-50 px-4 py-3 sm:px-6">
-                    <h2 class="text-lg font-medium">{{_('Запись на курс')}}</h2>
+                    <h2 class="text-lg font-medium">{{_('Запись на клуб')}}</h2>
                     <button onclick="closeModal()">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"

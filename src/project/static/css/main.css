@@ -835,6 +835,10 @@ select {
   margin-left: auto;
   margin-right: auto;
 }
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -924,6 +928,18 @@ select {
 }
 .mt-auto {
   margin-top: auto;
+}
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+.line-clamp-4 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 .block {
   display: block;
@@ -1884,9 +1900,6 @@ select {
 .text-start {
   text-align: start;
 }
-.indent-4 {
-  text-indent: 1rem;
-}
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -2246,15 +2259,6 @@ textarea {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.first-letter\:text-7xl::first-letter {
-  font-size: 4.5rem;
-  line-height: 1;
-}
-
-.first-letter\:font-bold::first-letter {
-  font-weight: 700;
-}
-
 .file\:mr-4::file-selector-button {
   margin-right: 1rem;
 }
@@ -2585,6 +2589,16 @@ textarea {
   .sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+  }
+
+  .sm\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .sm\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
 
   .sm\:pb-4 {
