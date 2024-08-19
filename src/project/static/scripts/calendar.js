@@ -22,7 +22,7 @@ function fetchCalendarData(month, year) {
     return fetch(`/calendar/${month}/${year}`)
         .then((response) => response.json())
         .catch((error) => console.error(error));
-}
+} 
 
 function fetchEventData(month, year) {
     return fetch(`/events/${month}/${year}`)
@@ -31,7 +31,7 @@ function fetchEventData(month, year) {
 }
 
 function renderEvents(events) {
-    const eventsContainer = document.querySelector("#events");
+    const eventsContainer = document.getElementById("events");
     eventsContainer.innerHTML = ""; // Clear the events container
 
     events.forEach((event) => {

@@ -118,7 +118,8 @@
                         <th>AUCA Score</th>
                     </tr>
                 </thead>
-                <tbody class="">
+                {% if results %}
+                <tbody>
                     {% for result in results %} {% if result.is_published %}
                     <tr class="border-b *:p-4 odd:bg-slate-50">
                         <td class="font-medium">{{ result.test_taker_id }}</td>
@@ -130,6 +131,13 @@
                     </tr>
                     {% endif %} {% endfor %}
                 </tbody>
+                {% else %}
+                <tbody>
+                    <tr class="border-b *:p-4">
+                        <td colspan="6" class="text-center font-bold">{{_('Нет результатов')}}</td>
+                    </tr>
+                </tbody>
+                {% endif %}
             </table>
         </div>
         <h2 class="mt-20 w-full text-center text-5xl font-bold">{{_('Хотите сдать тест?')}}</h2>

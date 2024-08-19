@@ -17,7 +17,7 @@
                 </ul>
                 <a href="https://auca.kg" target="_blank"
                     ><img
-                        class="hidden h-12 lg:block"
+                        class="hidden h-11 lg:block"
                         src="{{ url_for('static', filename='elements/logo_tr2.png')}}"
                         alt="AUCA"
                 /></a>
@@ -44,8 +44,7 @@
                 class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-4 md:max-w-md md:ring-gray-900/10"
             >
                 <div class="flex items-center justify-between">
-                    <a href="#" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Globalify</span>
+                    <a href="#">
                         <img class="w-40" src="/static/elements/logo.png" alt="" />
                     </a>
                     <button type="button" class="mr-3 rounded-md text-gray-700" onclick="closeMenu()">
@@ -168,9 +167,6 @@
                                         <a href="https://auca.kg" class="hover:text-slate-900">АУЦА</a>
                                     </li>
                                     <li>
-                                        <a href="https://cec.auca.kg" class="hover:text-slate-900">Старый сайт</a>
-                                    </li>
-                                    <li>
                                         <a href="/about#contacts" class="hover:text-slate-900">Контакты</a>
                                     </li>
                                 </ul>
@@ -199,9 +195,6 @@
                                     </li>
                                     <li>
                                         <a href="{{ url_for('main.set_lang', lang='en') }}">Английский</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url_for('main.set_lang', lang='ky') }}">Кыргызский</a>
                                     </li>
                                 </ul>
                             </div>

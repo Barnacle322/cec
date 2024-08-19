@@ -54,35 +54,80 @@
         >
     </section>
     <span
-        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-1.jpg')]"
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-1.jpg')]"
     ></span>
     <span
-        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-2.jpg')]"
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-2.jpg')]"
     ></span>
     <span
-        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-3.jpg')]"
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-3.jpg')]"
     ></span>
     <span
-        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero-4.jpg')]"
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-4.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-5.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-6.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-7.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-8.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-9.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-10.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-11.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-12.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-13.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-14.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-15.jpg')]"
+    ></span>
+    <span
+        class="hidden bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/hero-16.jpg')]"
     ></span>
     <section
-        class="flex w-full justify-center bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/{{ random_hero }}')] bg-cover bg-right px-6 sm:py-20 py-10"
+        class="flex w-full justify-center bg-cover bg-right px-6 sm:py-28 py-20 bg-[linear-gradient(to_right,rgba(0,0,0,0.5),rgba(0,0,0,0)),url('/static/elements/hero/{{ random_hero }}')] "
         id="hero"
     >
-        <div class="flex w-full max-w-5xl justify-center">
-            <div class="flex max-w-7xl flex-col gap-2">
-                <h1 class="w-4/6 text-pretty text-4xl font-medium text-white sm:w-1/2 sm:text-6xl">
-                    {{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}
-                </h1>
-                <span class="flex gap-2 text-white">
-                    <a href="{{ url_for('main.set_lang', lang='ky') }}" class="underline">🇰🇬 KY</a>
-                    <a href="{{ url_for('main.set_lang', lang='en') }}" class="underline">🇺🇸 EN</a>
-                    <a href="{{ url_for('main.set_lang', lang='ru') }}" class="underline">🇷🇺 RU</a>
-                </span>
-            </div>
+        <div class="flex w-full max-w-5xl flex-col gap-2 sm:mb-16">
+            <h1 class="text-4xl font-medium text-white w-full sm:text-6xl">
+                Be maker
+                <br />
+                Make life better
+            </h1>
+            <span class="flex gap-2 text-white">
+                <a
+                    href="{{ url_for('main.set_lang', lang='en') }}"
+                    class="underline flex gap-1 justify-center items-center"
+                >
+                    <img class="h-4" src="/static/elements/usa.png" alt="USA" />EN
+                </a>
+                <a
+                    href="{{ url_for('main.set_lang', lang='ru') }}"
+                    class="underline flex gap-1 justify-center items-center"
+                >
+                    <img class="h-4" src="/static/elements/russia.png" alt="USA" /> RU
+                </a>
+            </span>
         </div>
     </section>
-    <section class="mt-14 flex max-w-7xl flex-col items-center justify-center px-6">
+    <section class="mt-16 flex max-w-7xl flex-col items-center justify-center px-6">
         <h2 class="text-center text-4xl font-medium sm:text-5xl">{{_('Что такое Мейкерспейс АУЦА?')}}</h2>
         <div class="mt-14 grid grid-cols-2 gap-x-10 gap-y-10 sm:gap-x-20 lg:grid-cols-4">
             <div>
@@ -306,29 +351,13 @@
         <div
             class="relative mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden rounded-3xl border-2 bg-sky-900 bg-cover p-10 shadow-lg lg:flex-row"
         >
-            <div class="flex flex-col gap-5 text-white lg:w-1/2">
+            <div class="flex flex-col gap-5 text-white">
                 <span class="text-[40px] font-semibold leading-tight">
+                    Станьте членами нашего сообщества
                     <span class="bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">
-                        {{_('Арендуйте оборудование')}}
+                        Makerspace
                     </span>
-                    {{_('у нас в Makerspace!')}}</span
-                >
-                <p class="lg:text-lg">
-                    {{_('Просто укажите нужное время и дату, и мы свяжемся с вами для подтверждения бронирования.')}}
-                    <br /><br />
-                    3D Принтеры, Лазерные резаки, Электроника, Паяльные Станции, ЧПУ станки и многое другое! Все это вы
-                    можете арендовать у нас в Makerspace!
-                </p>
-
-                <button
-                    class="rounded-lg bg-sky-500 px-3 py-2 text-white transition-colors ease-in-out hover:bg-sky-400"
-                    data-cal-link="aucamldc"
-                >
-                    Бронировать
-                </button>
-            </div>
-            <div class="absolute hidden h-[calc(100%-80px)] w-1/2 translate-x-full lg:block">
-                <img class="h-full w-full rounded-xl object-cover" src="/static/elements/hero-4.jpg" alt="" />
+                </span>
             </div>
         </div>
     </section>
