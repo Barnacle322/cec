@@ -71,7 +71,7 @@
                         class="flex w-full flex-col items-center justify-between gap-2 rounded-xl bg-sky-500 py-2 text-xs font-medium text-white empty:hidden sm:text-sm"
                     >
                         <span>{{ data.shorthand.get(session.get('lang', 'ru')) }}</span>
-                        <span>{{ data.time }}</span>
+                        <span>{{ data.time if data.time != "00:00" else " " }}</span>
                     </div>
                     {% else %}
                     <div
@@ -83,7 +83,7 @@
                     {% endif %} {% endfor %}
                 </div>
                 <p class="mt-4 text-lg">{{ timetable.description.replace('\n', '<br />') | safe }}</p>
-                <div class="mt-auto flex w-full items-center justify-between">
+                <div class="mt-auto flex w-full items-center justify-between pt-4">
                     <span class="mr-4 text-lg leading-5">{{ timetable.price }}</span>
                     <button
                         onclick="openModal('{{ course.name }} {{ timetable.name }}')"
