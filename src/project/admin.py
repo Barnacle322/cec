@@ -200,7 +200,10 @@ def toefl_add():
                 Toefl.delete_by_date(date)
                 for line in reader:
                     if line and any(line.values()):
-                        del line[""]
+                        try:
+                            del line[""]
+                        except KeyError:
+                            pass
                         toefl_results.append(
                             Toefl(
                                 test_taker_id=line.get("ID", "NO ID"),
