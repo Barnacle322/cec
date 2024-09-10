@@ -49,8 +49,8 @@
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="text-start">
             <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Немного о нас')}}</h2>
-            <div class="grid gap-10 text-justify text-lg sm:grid-cols-2 sm:text-2xl">
-                <div class="flex flex-col gap-5">
+            <div class="grid gap-10 text-justify text-lg sm:text-2xl">
+                <div class="flex gap-10 sm:flex-row flex-col">
                     <p>
                         {{_('Одна из самых больших ценностей в мире – это знания. Необходимость адаптироваться к
                         изменяющейся действительности требует от каждого постоянную готовность учиться и приобретать
@@ -68,7 +68,12 @@
                         знания, усовершенствовали языковые навыки, исполнили свои мечты.')}}
                     </p>
                 </div>
-                <div class="flex flex-col gap-5">
+                <img
+                    class="h-40 w-full rounded-xl object-cover object-center sm:h-96"
+                    src="/static/elements/about-hero.jpg"
+                    alt=""
+                />
+                <div class="flex gap-10 sm:flex-row flex-col">
                     <p>
                         {{_('Накоплен громадный опыт, но новый день ставит иные задачи и требует более совершенные формы
                         обучения. Начинается следующая глава в истории образовательных проектов АУЦА, и называется она
@@ -89,11 +94,6 @@
                 </div>
             </div>
         </article>
-        <img
-            class="h-40 w-full rounded-xl object-cover object-center mt-10 sm:h-96"
-            src="/static/elements/about-hero.jpg"
-            alt=""
-        />
     </section>
 
     <section class="flex w-full max-w-7xl flex-col items-center justify-center px-6 pt-10 sm:pt-20">
@@ -130,13 +130,21 @@
             <div
                 class="flex w-full max-w-7xl flex-wrap items-center justify-center gap-x-4 gap-y-6 rounded-2xl bg-white px-5 py-12"
             >
-                {% for partner in range(6) %}
                 <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/who.png" alt="" />
                 <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/undp.svg" alt="" />
-                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/embassy.png" alt="" />
+                <img class="h-8 grayscale sm:h-14" src="/static/elements/logos/embassy.png" alt="" />
                 <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/usaid.svg" alt="" />
                 <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/kicb.svg" alt="" />
-                {% endfor %}
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/beeline.webp" alt="" />
+                <img class="h-8 grayscale sm:h-14" src="/static/elements/logos/cc.png" alt="" />
+                <img class="h-8 grayscale sm:h-10" src="/static/elements/logos/hyatt.svg" alt="" />
+                <img class="h-8 grayscale sm:h-16" src="/static/elements/logos/msdsp.webp" alt="" />
+                <img class="h-8 grayscale sm:h-8" src="/static/elements/logos/mega.png" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/jti.webp" alt="" />
+                <img class="h-8 grayscale sm:h-14" src="/static/elements/logos/ab.svg" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/gazprom.svg" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/nato.png" alt="" />
+                <img class="h-8 grayscale sm:h-12" src="/static/elements/logos/svetofor.webp" alt="" />
             </div>
         </div>
     </section>
@@ -148,8 +156,8 @@
             <article class="text-start">
                 <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Контакты')}}</h2>
                 <p class="text-lg sm:w-1/2 sm:text-2xl">
-                    {{_('Мы работаем с понедельника по пятницу с 10:00 до 19:00. Если у вас есть вопросы, пожалуйста,
-                    свяжитесь с нами.')}}
+                    {{_('Мы работаем')}} <b>{{_(' с понедельника по субботу')}}</b>
+                    <b>{{_('с 10:00 до 20:00.')}}</b> {{_('Если у вас есть вопросы, пожалуйста, свяжитесь с нами.')}}
                 </p>
             </article>
         </div>
@@ -166,7 +174,7 @@
 
         <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
             <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">
-                <a href="tel:+996772915022" class="select-all text-4xl font-medium">+996 312 91 50 22</a>
+                <a href="tel:+996772915022" class="select-all text-4xl font-medium">+996 312 915 02</a>
                 <span class="text-xl"> {{_('Городской телефон')}}</span>
             </div>
             <div class="flex w-full flex-col items-center justify-center gap-4 rounded-3xl bg-white py-8 sm:w-1/2">

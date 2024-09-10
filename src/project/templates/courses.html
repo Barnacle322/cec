@@ -75,12 +75,12 @@
 
         <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for course in courses %}
-            <article class="flex flex-col gap-3 rounded-xl bg-white p-9">
+            <article class="flex flex-col gap-3 rounded-xl bg-white p-4 sm:p-9">
                 <a href="course/{{ course.slug }}">
-                    <img class="rounded-lg" src="{{ course.picture_url }}" alt="" />
+                    <img class="rounded-lg aspect-video" src="{{ course.picture_url }}" alt="" />
                 </a>
                 <h2 class="text-3xl font-medium">{{ course.name }}</h2>
-                <p class="text-lg">{{ course.description.replace('\n', '<br />') | safe }}</p>
+                <p class="text-lg text-justify text-gray-700">{{ course.description.replace('\n', '<br />') | safe }}</p>
                 <a
                     class="text-lg font-medium text-blue-600 transition-colors ease-in-out hover:text-blue-500"
                     href="course/{{ course.slug }}"
