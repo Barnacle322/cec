@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-10-21 14:33+0400\n"
+"POT-Creation-Date: 2024-10-22 03:41+0400\n"
 "PO-Revision-Date: 2024-04-29 02:04+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ky\n"
@@ -185,31 +185,31 @@ msgstr "Катталыңыз"
 msgid "Запись на курс"
 msgstr "Курска жазылыңыз"
 
-#: src/project/templates/course.html:163 src/project/templates/index.html:1255
-#: src/project/templates/index.html:1336
+#: src/project/templates/course.html:163 src/project/templates/index.html:688
+#: src/project/templates/index.html:769
 msgid "Английский Pre-Intermediate"
 msgstr "English Pre-Intermediate"
 
 #: src/project/templates/course.html:172 src/project/templates/index.html:195
-#: src/project/templates/index.html:217 src/project/templates/index.html:1345
+#: src/project/templates/index.html:217 src/project/templates/index.html:778
 #: src/project/templates/toefl_register.html:368
 msgid "Зарегистрироваться"
 msgstr "Каттоо"
 
-#: src/project/templates/course.html:201 src/project/templates/index.html:1375
+#: src/project/templates/course.html:201 src/project/templates/index.html:808
 #: src/project/templates/toefl_register.html:72
 #: src/project/templates/toefl_register.html:139
 msgid "Успешная регистрация"
 msgstr "ийгиликтүү каттоо"
 
 #: src/project/templates/course.html:204 src/project/templates/course.html:233
-#: src/project/templates/index.html:1378 src/project/templates/index.html:1407
+#: src/project/templates/index.html:811 src/project/templates/index.html:840
 #: src/project/templates/toefl_register.html:75
 #: src/project/templates/toefl_register.html:104
 msgid "Если у вас есть вопросы, позвоните по номеру +996 312 915 022"
 msgstr "Суроолоруңуз болсо 996 312 915 022 номерине чалыңыз"
 
-#: src/project/templates/course.html:230 src/project/templates/index.html:1404
+#: src/project/templates/course.html:230 src/project/templates/index.html:837
 #: src/project/templates/toefl_register.html:101
 msgid "Произошла ошибка"
 msgstr "ката кетти"
@@ -292,8 +292,6 @@ msgid "Шахматы"
 msgstr "Шахмат"
 
 #: src/project/templates/index.html:184 src/project/templates/index.html:206
-#: src/project/templates/index.html:442 src/project/templates/index.html:468
-#: src/project/templates/index.html:494
 msgid "Бесплатно"
 msgstr "Бекер"
 
@@ -328,109 +326,49 @@ msgstr "Алдыдагы окуялар"
 msgid "Вступайте в сообщество"
 msgstr ""
 
-#: src/project/templates/index.html:335
-msgid "Возможности"
-msgstr ""
-
-#: src/project/templates/index.html:337 src/project/templates/index.html:517
-#: src/project/templates/index.html:571 src/project/templates/index.html:641
-#: src/project/templates/index.html:726 src/project/templates/index.html:860
-#: src/project/templates/index.html:994
+#: src/project/templates/index.html:352 src/project/templates/index.html:406
+#: src/project/templates/index.html:476
 msgid "Доступ ко всем сервисам"
 msgstr ""
 
-#: src/project/templates/index.html:338
-msgid "Скидка для инженерных курсов"
-msgstr ""
-
-#: src/project/templates/index.html:339
-msgid "Скидка на мастерклассы"
-msgstr ""
-
-#: src/project/templates/index.html:340
-msgid "№ бесплатных мастерклассов"
-msgstr ""
-
-#: src/project/templates/index.html:341
-msgid "Скидка для IT курсов"
-msgstr ""
-
-#: src/project/templates/index.html:342
-msgid "Скидка для языковых курсов"
-msgstr ""
-
-#: src/project/templates/index.html:343
-msgid "Аренда оборудования"
-msgstr ""
-
-#: src/project/templates/index.html:344
-msgid "Аренда помещений"
-msgstr ""
-
-#: src/project/templates/index.html:366 src/project/templates/index.html:390
-#: src/project/templates/index.html:414 src/project/templates/index.html:438
-#: src/project/templates/index.html:464 src/project/templates/index.html:490
-msgid "год"
-msgstr ""
-
-#: src/project/templates/index.html:533
+#: src/project/templates/index.html:368
 msgid "1 бесплатный мастеркласс в год"
 msgstr ""
 
-#: src/project/templates/index.html:549 src/project/templates/index.html:619
-#: src/project/templates/index.html:689 src/project/templates/index.html:758
-#: src/project/templates/index.html:892 src/project/templates/index.html:1026
+#: src/project/templates/index.html:384 src/project/templates/index.html:438
+#: src/project/templates/index.html:508
 msgid "скидка на языковые курсы"
 msgstr ""
 
-#: src/project/templates/index.html:587
+#: src/project/templates/index.html:422
 msgid "2 бесплатных мастеркласса в год"
 msgstr ""
 
-#: src/project/templates/index.html:603 src/project/templates/index.html:673
-#: src/project/templates/index.html:790 src/project/templates/index.html:924
-#: src/project/templates/index.html:1058
+#: src/project/templates/index.html:454 src/project/templates/index.html:524
 msgid "скидка на инженерные мастерклассы"
 msgstr ""
 
-#: src/project/templates/index.html:657 src/project/templates/index.html:742
-#: src/project/templates/index.html:876 src/project/templates/index.html:1010
+#: src/project/templates/index.html:492
 msgid "4 бесплатных мастеркласса в год"
 msgstr ""
 
-#: src/project/templates/index.html:705 src/project/templates/index.html:807
-#: src/project/templates/index.html:941 src/project/templates/index.html:1075
+#: src/project/templates/index.html:540
 msgid "скидка на IT курсы"
 msgstr ""
 
-#: src/project/templates/index.html:774 src/project/templates/index.html:908
-#: src/project/templates/index.html:1042
-msgid "скидка на инженерные курсы"
-msgstr ""
-
-#: src/project/templates/index.html:823 src/project/templates/index.html:957
-#: src/project/templates/index.html:1091
-msgid "Бесплатная аренда помещений"
-msgstr ""
-
-#: src/project/templates/index.html:839 src/project/templates/index.html:973
-#: src/project/templates/index.html:1107
-msgid "на аренду оборудования"
-msgstr ""
-
-#: src/project/templates/index.html:1115
+#: src/project/templates/index.html:548
 msgid "Отзывы"
 msgstr "Обзор"
 
-#: src/project/templates/index.html:1154
+#: src/project/templates/index.html:587
 msgid "Частые вопросы"
 msgstr "Көп берилүүчү суроолор"
 
-#: src/project/templates/index.html:1159
+#: src/project/templates/index.html:592
 msgid "Как я могу узнать, какой курс мне подходит?"
 msgstr "Кайсы курс мага туура келерин кантип биле алам?"
 
-#: src/project/templates/index.html:1162
+#: src/project/templates/index.html:595
 msgid ""
 "Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы"
 " можете связаться с\n"
@@ -439,42 +377,42 @@ msgid ""
 "                    соответствует вашим целям и уровню подготовки."
 msgstr "Ар бир курстун сүрөттөлүшүн биздин веб-сайттан окуй аласыз. "
 
-#: src/project/templates/index.html:1170
+#: src/project/templates/index.html:603
 msgid "Как я могу записаться на курс?"
 msgstr "Кантип курска жазылсам болот?"
 
-#: src/project/templates/index.html:1172
+#: src/project/templates/index.html:605
 msgid ""
 "Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также"
 " вы можете связаться с\n"
 "                    нами по телефону или прийти к нам в офис."
 msgstr "Сиз анкета толтуруу менен биздин веб-сайтта курска каттала аласыз. "
 
-#: src/project/templates/index.html:1180
+#: src/project/templates/index.html:613
 msgid "Как я могу записаться на пробное тестирование TOEFL?"
 msgstr "TOEFL практикалык тестине кантип жазылсам болот?"
 
-#: src/project/templates/index.html:1182
+#: src/project/templates/index.html:615
 msgid "Вы можете записаться"
 msgstr "Сиз катталсаңыз болот"
 
-#: src/project/templates/index.html:1188
+#: src/project/templates/index.html:621
 msgid "Я сдал пробное тестирование, где я могу узнать свой результат?"
 msgstr "Мен практикалык тесттен өттүм, натыйжамды кайдан билсем болот?"
 
-#: src/project/templates/index.html:1191
+#: src/project/templates/index.html:624
 msgid "Также Результаты пробного тестирования можете найти"
 msgstr "Сиз ошондой эле сыноонун жыйынтыгын таба аласыз"
 
-#: src/project/templates/index.html:1192
+#: src/project/templates/index.html:625
 msgid "здесь"
 msgstr "бул жерде"
 
-#: src/project/templates/index.html:1198
+#: src/project/templates/index.html:631
 msgid "Нужен ли мне компьютер для обучения?"
 msgstr "Окуу үчүн мага компьютер керекпи?"
 
-#: src/project/templates/index.html:1200
+#: src/project/templates/index.html:633
 msgid ""
 "Мы предоставляем всю нужную информацию и материалы для обучения. Вам не "
 "нужен компьютер, но он\n"
@@ -484,15 +422,15 @@ msgstr ""
 "Биз окутуу үчүн бардык зарыл болгон маалыматтарды жана материалдарды "
 "камсыз кылат. "
 
-#: src/project/templates/index.html:1207
+#: src/project/templates/index.html:640
 msgid "Есть ли у вас индивидуальный занятия?"
 msgstr "Жеке сабактарыңыз барбы?"
 
-#: src/project/templates/index.html:1208
+#: src/project/templates/index.html:641
 msgid "Да, есть!"
 msgstr "Ооба, бар!"
 
-#: src/project/templates/index.html:1220
+#: src/project/templates/index.html:653
 msgid "Самое сложное - это начать. Оставьте заявку и мы поможем вам со всем!"
 msgstr "Эң кыйын нерсе - баштоо. "
 
@@ -549,46 +487,46 @@ msgstr "Эң кыйын нерсе - баштоо. "
 #: src/project/templates/admin/people/edit_teacher.html:99
 #: src/project/templates/admin/people/edit_teacher.html:112
 #: src/project/templates/admin/people/edit_teacher.html:124
-#: src/project/templates/index.html:1230
+#: src/project/templates/index.html:663
 msgid "Асан Асанов"
 msgstr ""
 
-#: src/project/templates/index.html:1247
+#: src/project/templates/index.html:680
 msgid "16 лет"
 msgstr "16 жыл"
 
-#: src/project/templates/index.html:1259
+#: src/project/templates/index.html:692
 msgid "Оставить заявку"
 msgstr "Өтүнүч калтырыңыз"
 
-#: src/project/templates/index.html:1263
+#: src/project/templates/index.html:696
 msgid "Что дальше?"
 msgstr "Эми эмне болот?"
 
-#: src/project/templates/index.html:1265
+#: src/project/templates/index.html:698
 msgid "Ждите от нас звонка! Наш менеджер свяжется с Вами и проконсультирует."
 msgstr "Бизден чалууну күтүңүз! "
 
-#: src/project/templates/index.html:1279
+#: src/project/templates/index.html:712
 #, fuzzy
 msgid "Запись на клуб"
 msgstr "Курска жазылыңыз"
 
-#: src/project/templates/index.html:1299
+#: src/project/templates/index.html:732
 #: src/project/templates/toefl_register.html:305
 msgid "Имя"
 msgstr "Аты-жөнү"
 
-#: src/project/templates/index.html:1312
+#: src/project/templates/index.html:745
 msgid "Возраст"
 msgstr ""
 
-#: src/project/templates/index.html:1317
+#: src/project/templates/index.html:750
 #: src/project/templates/toefl_register.html:343
 msgid "Номер телефона"
 msgstr "Телефон номери"
 
-#: src/project/templates/index.html:1330
+#: src/project/templates/index.html:763
 #, fuzzy
 msgid "Клуб"
 msgstr "Клубтар"
@@ -918,5 +856,41 @@ msgstr "Карагыла"
 #~ msgstr ""
 
 #~ msgid "25% скидка на языковые курсы"
+#~ msgstr ""
+
+#~ msgid "Возможности"
+#~ msgstr ""
+
+#~ msgid "Скидка для инженерных курсов"
+#~ msgstr ""
+
+#~ msgid "Скидка на мастерклассы"
+#~ msgstr ""
+
+#~ msgid "№ бесплатных мастерклассов"
+#~ msgstr ""
+
+#~ msgid "Скидка для IT курсов"
+#~ msgstr ""
+
+#~ msgid "Скидка для языковых курсов"
+#~ msgstr ""
+
+#~ msgid "Аренда оборудования"
+#~ msgstr ""
+
+#~ msgid "Аренда помещений"
+#~ msgstr ""
+
+#~ msgid "год"
+#~ msgstr ""
+
+#~ msgid "скидка на инженерные курсы"
+#~ msgstr ""
+
+#~ msgid "Бесплатная аренда помещений"
+#~ msgstr ""
+
+#~ msgid "на аренду оборудования"
 #~ msgstr ""
 
