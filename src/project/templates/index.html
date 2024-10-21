@@ -106,7 +106,7 @@
         id="hero"
     >
         <div class="flex w-full max-w-5xl flex-col gap-2 sm:mb-16">
-            <h1 class="text-4xl font-medium text-white w-full sm:text-6xl">
+            <h1 class="w-full text-4xl font-medium text-white sm:text-6xl">
                 Be maker
                 <br />
                 Make life better
@@ -114,13 +114,13 @@
             <span class="flex gap-2 text-white">
                 <a
                     href="{{ url_for('main.set_lang', lang='en') }}"
-                    class="underline flex gap-1 justify-center items-center"
+                    class="flex items-center justify-center gap-1 underline"
                 >
                     <img class="h-4" src="/static/elements/usa.png" alt="USA" />EN
                 </a>
                 <a
                     href="{{ url_for('main.set_lang', lang='ru') }}"
-                    class="underline flex gap-1 justify-center items-center"
+                    class="flex items-center justify-center gap-1 underline"
                 >
                     <img class="h-4" src="/static/elements/russia.png" alt="USA" /> RU
                 </a>
@@ -316,35 +316,38 @@
             <!-- End Calendar -->
         </div>
     </section>
-    <section class="mt-20 w-full max-w-7xl px-4">
+    <section class="mt-20 w-full">
         <div
-            class="relative mx-auto flex flex-col w-full max-w-7xl gap-10 overflow-hidden rounded-3xl border-2 bg-sky-900 bg-cover p-10 shadow-lg"
+            class="relative mx-auto flex w-full flex-col gap-10 overflow-hidden bg-sky-800 bg-cover px-6 py-20 shadow-lg"
         >
-            <div class="flex flex-col gap-5 text-white justify-center items-center">
-                <span class="text-[40px] font-semibold leading-tight">
-                    Станьте членами нашего сообщества
+            <div class="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 text-white sm:mb-10">
+                <span class="text-5xl font-semibold leading-tight">
+                    {{_('Вступайте в сообщество')}}
                     <span class="bg-gradient-to-r from-sky-500 to-blue-500 bg-clip-text text-transparent">
                         Makerspace
                     </span>
                 </span>
             </div>
-            <div class="flex w-full text-white gap-3 overflow-x-auto pb-3">
-                <div class="flex flex-col gap-2 mr-5">
-                    <h3 class="font-medium text-lg invisible">Tier</h3>
-                    <span class="text-4xl font-bold invisible">$0</span>
+            <div class="mx-auto hidden w-full max-w-7xl gap-3 overflow-x-auto pb-3 text-white sm:flex">
+                <div class="mr-5 flex flex-col gap-2">
+                    <h3 class="invisible text-lg font-medium">Tier</h3>
+                    <span class="invisible text-4xl font-bold">$0</span>
                     <span class="font-medium">{{_("Возможности")}}</span>
                     <div class="mt-2 flex flex-col gap-4">
-                        <span class="text-gray-200 w-max">{{_("Доступ ко всем сервисам")}}</span>
-                        <span class="text-gray-200 w-max">{{_("Скидка для мастерклассов")}}</span>
-                        <span class="text-gray-200 w-max">{{_("Кол-во бесплатных мастерклассов")}}</span>
-                        <span class="text-gray-200 w-max">{{_("Скидка для IT курсов")}}</span>
-                        <span class="text-gray-200 w-max">{{_("Скидка для языковых курсов")}}</span>
+                        <span class="w-max text-gray-200">{{_("Доступ ко всем сервисам")}}</span>
+                        <span class="w-max text-gray-200">{{_("Скидка для инженерных курсов")}}</span>
+                        <span class="w-max text-gray-200">{{_("Скидка на мастерклассы")}}</span>
+                        <span class="w-max text-gray-200">{{_("№ бесплатных мастерклассов")}}</span>
+                        <span class="w-max text-gray-200">{{_("Скидка для IT курсов")}}</span>
+                        <span class="w-max text-gray-200">{{_("Скидка для языковых курсов")}}</span>
+                        <span class="w-max text-gray-200">{{_("Аренда оборудования")}}</span>
+                        <span class="w-max text-gray-200">{{_("Аренда помещений")}}</span>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 w-full">
-                    <h3 class="font-medium text-lg">Standard</h3>
+                <div class="flex w-full flex-col gap-2">
+                    <h3 class="text-lg font-medium">Standard</h3>
                     <span class="text-4xl font-bold">$30</span>
-                    <span class="font-medium invisible">Возможности</span>
+                    <span class="invisible font-medium">Возможности</span>
                     <div class="mt-2 flex flex-col gap-4">
                         <span
                             ><svg
@@ -358,16 +361,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                             </svg>
                         </span>
+                        <span class="invisible">x</span>
                         <span class="invisible">x</span>
                         <span class="">1/{{_("год")}}</span>
                         <span class="invisible">x</span>
                         <span class="">15%</span>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 w-full">
-                    <h3 class="font-medium text-lg">Silver</h3>
+                <div class="flex w-full flex-col gap-2">
+                    <h3 class="text-lg font-medium">Silver</h3>
                     <span class="text-4xl font-bold">$50</span>
-                    <span class="font-medium invisible">Возможности</span>
+                    <span class="invisible font-medium">Возможности</span>
                     <div class="mt-2 flex flex-col gap-4">
                         <span
                             ><svg
@@ -381,16 +385,17 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                             </svg>
                         </span>
+                        <span class="invisible">x</span>
                         <span class="">20%</span>
                         <span class="">2/{{_("год")}}</span>
                         <span class="invisible">x</span>
                         <span class="">20%</span>
                     </div>
                 </div>
-                <div class="flex flex-col gap-2 w-full">
-                    <h3 class="font-medium text-lg">Gold</h3>
+                <div class="flex w-full flex-col gap-2">
+                    <h3 class="text-lg font-medium">Gold</h3>
                     <span class="text-4xl font-bold">$70</span>
-                    <span class="font-medium invisible">Возможности</span>
+                    <span class="invisible font-medium">Возможности</span>
                     <div class="mt-2 flex flex-col gap-4">
                         <span
                             ><svg
@@ -404,11 +409,704 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                             </svg>
                         </span>
+                        <span class="invisible">x</span>
                         <span class="">20%</span>
                         <span class="">4/{{_("год")}}</span>
                         <span class="">15%</span>
-                        <span class="invisible">15%</span>
+                        <span class="">20%</span>
                     </div>
+                </div>
+                <div class="flex w-full flex-col gap-2">
+                    <h3 class="text-lg font-medium">Platinum(Staff)</h3>
+                    <span class="invisible text-4xl font-bold">$70</span>
+                    <span class="invisible font-medium">Возможности</span>
+                    <div class="mt-2 flex flex-col gap-4">
+                        <span
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-[24px]"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg>
+                        </span>
+                        <span class="">25%</span>
+                        <span class="">25%</span>
+                        <span class="">4/{{_("год")}}</span>
+                        <span class="">20%</span>
+                        <span class="">100%</span>
+                        <span class="">20%</span>
+                        <span class="">Бесплатно</span>
+                    </div>
+                </div>
+                <div class="flex w-full flex-col gap-2">
+                    <h3 class="text-lg font-medium">Platinum(Students)</h3>
+                    <span class="invisible text-4xl font-bold">$70</span>
+                    <span class="invisible font-medium">Возможности</span>
+                    <div class="mt-2 flex flex-col gap-4">
+                        <span
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-[24px]"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg>
+                        </span>
+                        <span class="">25%</span>
+                        <span class="">25%</span>
+                        <span class="">4/{{_("год")}}</span>
+                        <span class="">20%</span>
+                        <span class="">25%</span>
+                        <span class="">20%</span>
+                        <span class="">Бесплатно</span>
+                    </div>
+                </div>
+                <div class="flex w-full flex-col gap-2">
+                    <h3 class="text-lg font-medium">Institutional</h3>
+                    <span class="invisible text-4xl font-bold">$70</span>
+                    <span class="invisible font-medium">Возможности</span>
+                    <div class="mt-2 flex flex-col gap-4">
+                        <span
+                            ><svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-[24px]"
+                            >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg>
+                        </span>
+                        <span class="">25%</span>
+                        <span class="">25%</span>
+                        <span class="">4/{{_("год")}}</span>
+                        <span class="">20%</span>
+                        <span class="">25%</span>
+                        <span class="">20%</span>
+                        <span class="">Бесплатно</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-auto grid w-full max-w-7xl grid-cols-1 gap-10 overflow-x-auto pb-3 text-white sm:hidden">
+                <div class="flex flex-col">
+                    <h3 class="text-base font-semibold leading-7">Standard</h3>
+                    <span class="mt-4 text-5xl font-bold tracking-tight">$30</span>
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 sm:mt-10">
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Доступ ко всем сервисам
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            1 бесплатный мастеркласс в год
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            15% скидка на языковые курсы
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-base font-semibold leading-7">Silver</h3>
+                    <span class="mt-4 text-5xl font-bold tracking-tight">$50</span>
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 sm:mt-10">
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Доступ ко всем сервисам
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            2 бесплатных мастеркласса в год
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% скидка на инженерные мастерклассы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            15% скидка на языковые курсы
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-base font-semibold leading-7">Gold</h3>
+                    <span class="mt-4 text-5xl font-bold tracking-tight">$70</span>
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 sm:mt-10">
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Доступ ко всем сервисам
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            4 бесплатных мастеркласса в год
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% скидка на инженерные мастерклассы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% скидка на языковые курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            15% скидка на IT курсы
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-base font-semibold leading-7">Platinum(Staff)</h3>
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 sm:mt-10">
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Доступ ко всем сервисам
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            4 бесплатных мастеркласса в год
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            100% скидка на языковые курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на инженерные курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на инженерные мастерклассы
+                        </li>
+
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% скидка на IT курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Бесплатная аренда помещений
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% на аренду оборудования
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-base font-semibold leading-7">Platinum(Students)</h3>
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 sm:mt-10">
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Доступ ко всем сервисам
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            4 бесплатных мастеркласса в год
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на языковые курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на инженерные курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на инженерные мастерклассы
+                        </li>
+
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% скидка на IT курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Бесплатная аренда помещений
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% на аренду оборудования
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col">
+                    <h3 class="text-base font-semibold leading-7">Institutional</h3>
+                    <ul role="list" class="mt-6 space-y-3 text-sm leading-6 sm:mt-10">
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Доступ ко всем сервисам
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            4 бесплатных мастеркласса в год
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на языковые курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на инженерные курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            25% скидка на инженерные мастерклассы
+                        </li>
+
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% скидка на IT курсы
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            Бесплатная аренда помещений
+                        </li>
+                        <li class="flex gap-x-3">
+                            <svg
+                                class="h-6 w-5 flex-none"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                data-slot="icon"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                            20% на аренду оборудования
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
