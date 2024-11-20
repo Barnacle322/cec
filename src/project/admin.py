@@ -2,11 +2,14 @@ import csv
 import datetime
 import os
 
+import requests
 from flask import Blueprint, jsonify, redirect, render_template, request, url_for
+from lxml import html
 from xlsx2csv import Xlsx2csv
 
 from .extenstions import db
 from .models import (
+    Blog,
     CourseGroup,
     Event,
     Feedback,
@@ -20,6 +23,8 @@ from .models import (
 )
 from .utils.decor import admin_required
 from .utils.status_enum import Status, StatusType
+from .utils.storage import upload_picture
+from .views.blog import EditBlogView
 from .views.course import (
     AddCourseGroupView,
     AddCourseView,
@@ -142,7 +147,9 @@ def toefl():
         status_type = query.get("type")
         msg = query.get("msg")
 
-    if (date_str := request.args.get("date", type=str)) != "None" and date_str != None:
+    if (
+        date_str := request.args.get("date", type=str)
+    ) != "None" and date_str is not None:
         try:
             date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
             results = Toefl.get_all_by_date(date)
@@ -377,6 +384,104 @@ def applications_old(type, page):
     )
 
 
+@admin.get("/blogs")
+@admin_required
+def blogs():
+    blogs = Blog.get_all()
+    return render_template("admin/blogs.html", blogs=blogs)
+
+
+@admin.get("/blog/create")
+@admin_required
+def create_blog():
+    new_blog = Blog()
+    new_blog.set_title(value="Новый блог")
+    db.session.add(new_blog)
+    db.session.commit()
+
+    return redirect(url_for("admin.edit_blog", blog_id=new_blog.id))
+
+
+@admin.get("/blog/data/<int:blog_id>")
+@admin_required
+def get_blog_data(blog_id):
+    blog = Blog.get_by_id(blog_id)
+    if not blog:
+        return jsonify(message="Blog not found"), 404
+    return jsonify(blog.json)
+
+
+@admin.route("/blog/image/upload", methods=["POST"])
+@admin_required
+def upload_image():
+    try:
+        if "image" not in request.files:
+            return jsonify(message="No file part"), 400
+        file = request.files["image"]
+        if file.filename == "":
+            return jsonify(message="No selected file"), 400
+        picture_url = upload_picture(file)
+        return jsonify(success=1, file={"url": picture_url}), 200
+    except Exception as e:
+        return jsonify(message=str(e)), 500
+
+
+@admin.route("/blog/image/fetch", methods=["POST"])
+@admin_required
+def fetch_image():
+    try:
+        data = request.get_json()
+        url = data.get("url")
+        return jsonify(success=1, file={"url": url}), 200
+    except Exception as e:
+        return jsonify(message=str(e)), 500
+
+
+@admin.route("/blog/link", methods=["GET"])
+def fetch_url():
+    url = request.args.get("url")
+    if url is None:
+        return jsonify(detail="URL parameter is required"), 400
+
+    try:
+        response = requests.get(url)
+        tree = html.fromstring(response.content)
+
+        title = tree.findtext(".//title")
+
+        description = tree.xpath('//meta[@name="description"]/@content')
+        description = description[0] if description else None
+
+        image = tree.xpath('//meta[@property="og:image"]/@content')
+        image = image[0] if image else None
+
+        return jsonify(
+            success=1,
+            link=url,
+            meta={
+                "title": title,
+                "description": description,
+                "image": {"url": image},
+            },
+        ), 200
+    except Exception as e:
+        return jsonify(message=str(e)), 500
+
+
+@admin.post("/blog/{id}/publish-status")
+def change_publish_status(id: int):
+    blog = Blog.get_by_id(id)
+    if not blog:
+        return jsonify(message="Blog not found"), 404
+
+    request_data = request.get_json()
+    blog.is_draft = request_data.get("is_draft")
+
+    db.session.commit()
+
+    return redirect(url_for("admin.edit_blog", blog_id=id))
+
+
 @admin.get("/create_admin")
 @admin_required
 def member():
@@ -490,4 +595,9 @@ admin.add_url_rule(
 admin.add_url_rule(
     "/feedback/delete/<int:feedback_id>",
     view_func=DeleteFeedbackView.as_view("delete_feedback"),
+)
+
+
+admin.add_url_rule(
+    "/blog/edit/<int:blog_id>", view_func=EditBlogView.as_view("edit_blog")
 )

@@ -1,0 +1,90 @@
+<!-- prettier-ignore -->
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
+<script src="/static/scripts/idempotency.js" defer></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script>
+
+<script src="/static/scripts/editBlog.js" defer></script>
+
+<!-- prettier-ignore -->
+{% endblock %} 
+{% block title %}Блог{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+
+<main class="relative mt-24 flex items-center w-full flex-col overflow-x-hidden leading-normal tracking-tight">
+    <div class="w-full mx-auto border border-gray-200 bg-white text-white py-3">
+        <div class="flex gap-2 max-w-7xl mx-auto w-full px-6 items-center">
+            {% if is_draft %}
+            <button
+                id="publish-button"
+                class="tranision-colors rounded-lg bg-green-600 px-3 py-2 text-sm duration-200 ease-in-out hover:bg-green-500"
+                onclick="changeStatus(false)"
+            >
+                Опубликовать
+            </button>
+            {% else %}
+            <button
+                id="unpublish-button"
+                class="tranision-colors rounded-lg bg-red-600 px-3 py-2 text-sm duration-200 ease-in-out hover:bg-red-500"
+                onclick="changeStatus(true)"
+            >
+                Скрыть
+            </button>
+            {% endif %}
+            <button
+                id="discard-button"
+                onclick="discardChanges()"
+                disabled
+                class="ranision-colors rounded-lg bg-red-600 px-3 py-2 text-sm duration-200 ease-in-out hover:bg-red-500 disabled:cursor-not-allowed disabled:bg-gray-500"
+            >
+                Отменить
+            </button>
+            <div id="change-indicator" class="ml-auto text-sm text-gray-300"></div>
+
+            <button
+                onclick="saveArticle()"
+                class="tranision-colors rounded-lg bg-blue-600 px-3 py-2 text-sm duration-200 ease-in-out hover:bg-blue-500"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24"
+                    viewBox="0 -960 960 960"
+                    width="24"
+                    stroke-width="1.5"
+                    fill="currentColor"
+                    class="size-5 text-white"
+                >
+                    <path
+                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h447q16 0 30.5 6t25.5 17l114 114q11 11 17 25.5t6 30.5v447q0 33-23.5 56.5T760-120H200Zm560-526L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM280-560h280q17 0 28.5-11.5T600-600v-80q0-17-11.5-28.5T560-720H280q-17 0-28.5 11.5T240-680v80q0 17 11.5 28.5T280-560Zm-80-86v446-560 114Z"
+                    />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <section class="max-w-[650px] w-full mt-5 px-4">
+        <div class="text-center">
+            <textarea
+                class="w-full rounded-lg border-0 bg-transparent p-0 text-4xl font-bold underline focus:ring-0"
+                name=""
+                id="title"
+                required
+            >
+{{ title }}</textarea
+            >
+        </div>
+
+        <div id="editorjs" class="prose mt-5 w-full max-w-7xl mx-auto"></div>
+    </section>
+</main>
+{% endblock %}

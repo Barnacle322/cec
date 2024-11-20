@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import datetime
+import uuid
 from collections.abc import Sequence
 from sqlite3 import Connection as SQLite3Connection
 
 from flask import current_app, session
 from flask_login import UserMixin
 from flask_sqlalchemy.pagination import Pagination
+from slugify import slugify
 from sqlalchemy import (
     JSON,
     Boolean,
@@ -18,6 +20,7 @@ from sqlalchemy import (
     extract,
     func,
     select,
+    text,
 )
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import (
@@ -93,13 +96,16 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all() -> Sequence[CourseGroup]:
-        return db.session.scalars(select(CourseGroup).order_by(CourseGroup.position)).all()
+        return db.session.scalars(
+            select(CourseGroup).order_by(CourseGroup.position)
+        ).all()
 
     @staticmethod
     def get_all_with_courses():
         return (
             db.session.scalars(
-                select(CourseGroup).options(joinedload(CourseGroup.courses))
+                select(CourseGroup)
+                .options(joinedload(CourseGroup.courses))
                 .order_by(CourseGroup.position)
             )
             .unique()
@@ -902,6 +908,106 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
         )
         pagination = db.paginate(select=query, page=page, per_page=per_page)
         return pagination
+
+
+class Blog(MappedAsDataclass, db.Model, unsafe_hash=True):
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
+    date: Mapped[datetime.datetime] = mapped_column(
+        DateTime, server_default=func.now(), nullable=False, init=False
+    )
+    title: Mapped[str | None] = mapped_column(
+        String, index=True, nullable=True, init=False
+    )
+    slug: Mapped[str | None] = mapped_column(
+        String, index=True, unique=True, nullable=True, init=False
+    )
+    _json: Mapped[dict | None] = mapped_column(JSON, nullable=True, init=False)
+    is_draft: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, default=True, init=False
+    )
+    preview_url: Mapped[str | None] = mapped_column(String, nullable=True, init=False)
+    published: Mapped[datetime.datetime] = mapped_column(
+        DateTime, nullable=True, init=False, server_default=func.now()
+    )
+
+    is_deleted: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=text("false"), init=False
+    )
+    deleted_at: Mapped[datetime.datetime | None] = mapped_column(
+        DateTime, nullable=True, init=False
+    )
+
+    def set_title(self, value: str) -> None:
+        self.title = value
+        base_slug = slugify(value)
+        new_slug = base_slug
+
+        counter = 0
+        while True and counter < 25:
+            counter += 1
+            existing = Blog.get_by_slug(slug=new_slug)
+            if existing and existing.id != self.id:
+                new_slug = f"{base_slug}-{uuid.uuid4().hex[:4]}"
+            else:
+                break
+
+        self.slug = new_slug
+
+    @property
+    def json(self) -> dict | None:
+        return self._json
+
+    @json.setter
+    def json(self, value):
+        self._json = value
+
+        blocks = value.get("blocks", [])
+        if not blocks:
+            return
+        for block in blocks:
+            if block["type"] == "image":
+                self.preview_url = block["data"]["file"]["url"]
+                break
+
+    @staticmethod
+    def get_all() -> Sequence[Blog]:
+        return db.session.scalars(db.select(Blog)).all()
+
+    @staticmethod
+    def get_all_published() -> Sequence[Blog]:
+        return db.session.scalars(
+            select(Blog).where(Blog.is_draft.is_(False), Blog.is_deleted.is_(False))
+        ).all()
+
+    @staticmethod
+    def get_by_slug(slug: str) -> Blog | None:
+        return db.session.scalar(
+            select(Blog).where(Blog.slug == slug, Blog.is_deleted.is_(False))
+        )
+
+    @staticmethod
+    def get_by_id(id: int, load_full_data: bool = True) -> Blog | None:
+        if not load_full_data:
+            return db.session.scalar(
+                select(Blog).where(Blog.id == int(id), Blog.is_deleted.is_(False))
+            )
+        return db.session.get(Blog, int(id))
+
+    def get_previous(self):
+        return db.session.scalar(
+            select(Blog)
+            .where(Blog.published < self.published, Blog.is_deleted.is_(False))
+            .order_by(Blog.published.desc())
+            .limit(1)
+        )
+
+    def get_next(self):
+        return db.session.scalar(
+            select(Blog)
+            .where(Blog.published > self.published, Blog.is_deleted.is_(False))
+            .order_by(Blog.published)
+            .limit(1)
+        )
 
 
 @event.listens_for(Engine, "connect")
