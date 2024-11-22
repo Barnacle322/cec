@@ -1,0 +1,85 @@
+<!-- prettier-ignore -->
+{% extends "/layout.html" %} 
+{% block head %}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta name="title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <meta property="og:title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <meta property="twitter:title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <title>{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}</title>
+
+    <meta
+        name="description"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+    />
+    <meta
+        property="og:description"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+    />
+    <meta
+        property="twitter:description"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+    />
+
+    <meta property="og:image" content="Meta Preview" />
+    <meta property="twitter:image" content="Meta Preview" />
+
+    <meta property="og:url" content="https://mldc.auca.kg" />
+    <meta property="twitter:url" content="https://mldc.auca.kg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <meta name="robots" content="index" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/elements/favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/elements/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/static/elements/favicon/site.webmanifest" />
+    <link rel="mask-icon" href="/static/elements/favicon/safari-pinned-tab.svg" color="#1e85bf" />
+    <link rel="shortcut icon" href="/static/elements/favicon/favicon.ico" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="msapplication-config" content="/static/elements/favicon/browserconfig.xml" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="stylesheet" href="/static/css/main.css" />
+
+    <script src="/static/scripts/menu.js" defer></script>
+    <script src="/static/scripts/calendar.js" defer></script>
+</head>
+<!-- prettier-ignore -->
+{% endblock %} 
+{% block content %}
+<main
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
+>
+    <section class="mx-auto my-10 w-full max-w-7xl px-6">
+        <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Блог')}}</h2>
+        <div class="mt-10 grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
+            {% for blog in blogs %}
+            <article class="flex max-w-xl flex-col items-start">
+                <a href="/blogs/{{ blog.slug }}">
+                    <img class="mb-5 aspect-[3/2] w-full rounded-lg object-cover" src="{{ blog.preview_url }}" alt="" />
+                </a>
+                <div class="flex flex-col items-start justify-start">
+                    <div class="flex items-center gap-x-4">
+                        <time class="text-slate-500">{{ blog.published.strftime("%d %B, %Y") }}</time>
+                    </div>
+                    <div class="relative">
+                        <h3 class="mt-3 text-lg font-semibold leading-6 text-slate-900 hover:text-slate-700">
+                            <a href="/blogs/{{ blog.slug }}">
+                                <span class="absolute inset-0"></span>
+                                {{ blog.title }}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock %}

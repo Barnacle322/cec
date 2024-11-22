@@ -2455,6 +2455,12 @@ select {
 .tracking-tight {
   letter-spacing: -0.025em;
 }
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
 .text-\[\#08559a\] {
   --tw-text-opacity: 1;
   color: rgb(8 85 154 / var(--tw-text-opacity));

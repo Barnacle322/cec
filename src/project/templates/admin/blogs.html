@@ -54,8 +54,15 @@
                     {% endif %}
                 </div>
                 <div class="flex h-full flex-col gap-1">
-                    <span class="text-2xl font-bold">{{ blog.title }}</span>
+                    <span class="text-2xl font-bold"
+                        >{{ blog.title }} <span class="font-normal text-gray-500 text-sm">{{ blog.published.strftime("%d %B, %Y") }}</span></span
+                    >
                     <a href="/blogs/{{ blog.slug }}" class="text-sm underline">/blogs/{{ blog.slug }}</a>
+                    {% if blog.is_draft %}
+                    <span class="text-sm text-red-500">Черновик</span>
+                    {% else %}
+                    <span class="text-sm text-lime-500">Опубликовано</span>
+                    {% endif %}
                 </div>
                 <div class="ml-auto flex h-fit">
                     <a class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200" href="/admin/blog/edit/{{ blog.id }}"

@@ -393,6 +393,12 @@ def register_course():
     return redirect(f"{request.referrer}?success=true")
 
 
+@main.get("/blogs")
+def blogs():
+    blogs = Blog.get_all_published()
+    return render_template("blogs.html", blogs=blogs)
+
+
 @main.get("/blogs/<blog_slug>")
 def blog(blog_slug):
     blog = Blog.get_by_slug(blog_slug)

@@ -912,9 +912,6 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
 
 class Blog(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    date: Mapped[datetime.datetime] = mapped_column(
-        DateTime, server_default=func.now(), nullable=False, init=False
-    )
     title: Mapped[str | None] = mapped_column(
         String, index=True, nullable=True, init=False
     )
@@ -971,12 +968,14 @@ class Blog(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all() -> Sequence[Blog]:
-        return db.session.scalars(db.select(Blog)).all()
+        return db.session.scalars(db.select(Blog).order_by(Blog.published.desc())).all()
 
     @staticmethod
     def get_all_published() -> Sequence[Blog]:
         return db.session.scalars(
-            select(Blog).where(Blog.is_draft.is_(False), Blog.is_deleted.is_(False))
+            select(Blog)
+            .where(Blog.is_draft.is_(False), Blog.is_deleted.is_(False))
+            .order_by(Blog.published.desc())
         ).all()
 
     @staticmethod
