@@ -986,12 +986,8 @@ class Blog(MappedAsDataclass, db.Model, unsafe_hash=True):
         )
 
     @staticmethod
-    def get_by_id(id: int, load_full_data: bool = True) -> Blog | None:
-        if not load_full_data:
-            return db.session.scalar(
-                select(Blog).where(Blog.id == int(id), Blog.is_deleted.is_(False))
-            )
-        return db.session.get(Blog, int(id))
+    def get_by_id(id: int) -> Blog | None:
+        return db.session.scalar(select(Blog).where(Blog.id == id))
 
     def get_previous(self):
         return db.session.scalar(

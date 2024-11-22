@@ -16,7 +16,11 @@ class EditBlogView(MethodView):
         if not blog:
             return redirect(url_for("admin.blogs"))
 
-        return render_template("admin/blog/create_blog.html", title=blog.title)
+        return render_template(
+            "admin/blog/create_blog.html",
+            title=blog.title,
+            is_draft=blog.is_draft,
+        )
 
     @admin_required
     def post(self, blog_id):

@@ -438,6 +438,7 @@ def fetch_image():
 
 
 @admin.route("/blog/link", methods=["GET"])
+@admin_required
 def fetch_url():
     url = request.args.get("url")
     if url is None:
@@ -468,7 +469,8 @@ def fetch_url():
         return jsonify(message=str(e)), 500
 
 
-@admin.post("/blog/{id}/publish-status")
+@admin.post("/blog/publish-status/<int:id>")
+@admin_required
 def change_publish_status(id: int):
     blog = Blog.get_by_id(id)
     if not blog:
@@ -478,7 +480,6 @@ def change_publish_status(id: int):
     blog.is_draft = request_data.get("is_draft")
 
     db.session.commit()
-
     return redirect(url_for("admin.edit_blog", blog_id=id))
 
 

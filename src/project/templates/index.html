@@ -5,14 +5,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="title" content="{{_('Мейкерспейс АУЦА')}}" />
-    <meta property="og:title" content="{{_('Мейкерспейс АУЦА')}}" />
-    <meta property="twitter:title" content="{{_('Мейкерспейс АУЦА')}}" />
-    <title>{{_('Мейкерспейс АУЦА')}}</title>
+    <meta name="title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <meta property="og:title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <meta property="twitter:title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <title>{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}</title>
 
-    <meta name="description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
-    <meta property="og:description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
-    <meta property="twitter:description" content="{{_('Станьте частью креативного общества с Мейкерспейс АУЦА')}}" />
+    <meta
+        name="description"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+    />
+    <meta
+        property="og:description"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+    />
+    <meta
+        property="twitter:description"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+    />
 
     <meta property="og:image" content="Meta Preview" />
     <meta property="twitter:image" content="Meta Preview" />
@@ -318,7 +327,7 @@
     </section>
     <section class="mt-20 w-full">
         <div
-            class="relative mx-auto flex w-full max-w-7xl rounded-3xl flex-col gap-10 overflow-hidden bg-[#1f3058] bg-cover px-6 py-12 shadow-lg"
+            class="relative mx-auto flex w-full max-w-7xl flex-col gap-10 overflow-hidden rounded-3xl bg-[#1f3058] bg-cover px-6 py-12 shadow-lg"
         >
             <div class="mx-auto flex max-w-7xl flex-col items-center justify-center gap-5 text-white sm:mb-10">
                 <span class="text-5xl font-semibold leading-tight">
@@ -329,7 +338,7 @@
                 </span>
             </div>
             <div
-                class="mx-auto grid w-full max-w-5xl grid-cols-1 sm:grid-cols-3 gap-10 overflow-x-auto pb-3 text-white"
+                class="mx-auto grid w-full max-w-5xl grid-cols-1 gap-10 overflow-x-auto pb-3 text-white sm:grid-cols-3"
             >
                 <div class="flex flex-col">
                     <h3 class="text-base font-semibold">Standard</h3>
@@ -644,9 +653,9 @@
         </div>
     </section>
 
-    <section class="mx-auto mt-10 max-w-7xl w-full px-6">
+    <section class="mx-auto mt-10 w-full max-w-7xl px-6">
         <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Блог')}}</h2>
-        <div class="grid w-full grid-cols-1 gap-8 mt-10 lg:grid-cols-2">
+        <div class="mt-10 grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
             {% for blog in blogs %}
             <article class="flex max-w-xl flex-col items-start">
                 <a href="/blogs/{{ blog.slug }}">
@@ -654,7 +663,7 @@
                 </a>
                 <div class="flex flex-col items-start justify-start">
                     <div class="flex items-center gap-x-4">
-                        <time class="text-slate-500">{{ blog.published.strftime("%B %d, %Y") }}</time>
+                        <time class="text-slate-500">{{ blog.published.strftime("%d %B, %Y") }}</time>
                     </div>
                     <div class="relative">
                         <h3 class="mt-3 text-lg font-semibold leading-6 text-slate-900 hover:text-slate-700">

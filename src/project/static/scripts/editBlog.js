@@ -278,6 +278,9 @@ function changeStatus(status) {
     const statusData = JSON.stringify({ is_draft: status });
     let response = fetch(statusUrl, {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
         body: statusData,
     }).then((data) => {
         data;
