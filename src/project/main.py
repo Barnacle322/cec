@@ -15,6 +15,7 @@ from flask_login import login_user, logout_user
 
 from .extenstions import db, login_manager
 from .models import (
+    Blog,
     Course,
     CourseGroup,
     Event,
@@ -29,6 +30,55 @@ from .models import (
 )
 
 main = Blueprint("main", __name__)
+
+
+def parse_editorjs(json_data):
+    if json_data is None:
+        return "No content available."
+    blocks = json_data.get("blocks")
+    if blocks is not None:
+        html_list = []
+        for block in blocks:
+            block_html = ""
+            block_type = block.get("type")
+            if block_type == "paragraph":
+                block_html = f"<p>{block.get('data').get('text')}</p>"
+            elif block_type == "header":
+                level = block.get("data").get("level")
+                text = block.get("data").get("text")
+                block_html = f"<h{level} id='{text.replace("'", "")}'>{text}</h{level}>"
+            elif block_type == "list":
+                style = block.get("data").get("style")
+                if style == "ordered":
+                    block_html = f"<ol class='list-decimal'>{''.join([f'<li>{item}</li>' for item in block.get('data').get('items')])}</ol>"
+                else:
+                    block_html = f"<ul class='list-disc'>{''.join([f'<li>{item}</li>' for item in block.get('data').get('items')])}</ul>"
+            elif block_type == "embed":
+                caption = block.get("data").get("caption")
+                block_html = f"<figure><iframe class='w-full aspect-video' src='{block.get("data").get("embed")}' frameborder='0' allow='autoplay; fullscreen; picture-in-picture' allowfullscreen></iframe><figcaption class='text-center'>{caption}</figcaption></figure>"
+            elif block_type == "quote":
+                alignment = block.get("data").get("alignment")
+                block_html = f"<blockquote {"class='text-center text-pretty'" if alignment == 'center' else ''}>{block.get("data").get("text")}</blockquote>"
+            elif block_type == "linkblock":
+                block_html = f"<a href='{block.get('data').get('link')}' target='_blank'>{block.get('data').get('meta').get('title')}</a>"
+            elif block_type == "image":
+                try:
+                    picture_url = block.get("data").get("file").get("url")
+                    caption = block.get("data").get("caption")
+                    with_border = block.get("data").get("withBorder")
+                    with_background = block.get("data").get("withBackground")
+                    stretched = block.get("data").get("stretched")
+                    consolidated_styles = f"{'border border-solid' if with_border else ''} {'w-full' if stretched else ''}"
+                    block_html = f"<figure {'class=bg-auto bg-slate-500' if with_background else ''}> <img class='{consolidated_styles} rounded-md' src='{picture_url}'><figcaption class='text-center'>{caption}</figcaption></figure>"
+                except Exception as e:
+                    print(e)
+            elif block_type == "delimiter":
+                block_html = "<div class='inline-block text-2xl leading-16 h-8 tracking-wider text-center'>***</div>"
+            elif block_type == "code":
+                block_html = f"<pre><code>{block.get('data').get('code')}</code></pre>"
+            html_list.append(block_html)
+
+    return "".join(html_list)
 
 
 def generate_month_matrix(month: int, year: int) -> dict:
@@ -80,6 +130,7 @@ def index():
 
     course_groups = CourseGroup.get_all()
     feedbacks = Feedback.get_all_verified()
+    blogs = Blog.get_all_published()
     hero_list = [
         "hero-1.jpg",
         "hero-2.jpg",
@@ -106,6 +157,7 @@ def index():
         feedbacks=feedbacks,
         random_hero=random_hero,
         success=success,
+        blogs=blogs,
     )
 
 
@@ -339,6 +391,21 @@ def register_course():
         return redirect(f"{request.referrer}?success=false")
 
     return redirect(f"{request.referrer}?success=true")
+
+
+@main.get("/blogs")
+def blogs():
+    blogs = Blog.get_all_published()
+    return render_template("blogs.html", blogs=blogs)
+
+
+@main.get("/blogs/<blog_slug>")
+def blog(blog_slug):
+    blog = Blog.get_by_slug(blog_slug)
+    if not blog:
+        return redirect(url_for("main.index"))
+    blog_html = parse_editorjs(blog.json)
+    return render_template("blog.html", blog_html=blog_html, blog=blog)
 
 
 @main.get("/login")

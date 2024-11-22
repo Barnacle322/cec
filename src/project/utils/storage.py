@@ -2,7 +2,6 @@ import base64
 import io
 from uuid import UUID, uuid4
 
-from flask import current_app
 from google.cloud import storage
 from PIL import Image
 

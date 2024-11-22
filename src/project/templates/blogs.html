@@ -5,10 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="title" content="{{_('Курсы · MLDC · Курсы в Бишкеке')}}" />
-    <meta property="og:title" content="{{_('Курсы · MLDC · Курсы в Бишкеке')}}" />
-    <meta property="twitter:title" content="{{_('Курсы · MLDC · Курсы в Бишкеке')}}" />
-    <title>{{_('Курсы · MLDC · Курсы в Бишкеке')}}</title>
+    <meta name="title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <meta property="og:title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <meta property="twitter:title" content="{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}" />
+    <title>{{_('Мейкерспейс АУЦА · Курсы в Бишкеке')}}</title>
 
     <meta
         name="description"
@@ -26,8 +26,8 @@
     <meta property="og:image" content="Meta Preview" />
     <meta property="twitter:image" content="Meta Preview" />
 
-    <meta property="og:url" content="https://mldc.auca.kg/courses" />
-    <meta property="twitter:url" content="https://mldc.auca.kg/courses" />
+    <meta property="og:url" content="https://mldc.auca.kg" />
+    <meta property="twitter:url" content="https://mldc.auca.kg" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
@@ -48,55 +48,35 @@
     <link rel="stylesheet" href="/static/css/main.css" />
 
     <script src="/static/scripts/menu.js" defer></script>
+    <script src="/static/scripts/calendar.js" defer></script>
 </head>
 <!-- prettier-ignore -->
 {% endblock %} 
 {% block content %}
 <main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden bg-gray-50 leading-normal tracking-tight"
+    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
-    <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
-        <article class="text-start">
-            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">
-                {{_('Курсы на ваш выбор, под ваши цели')}}
-            </h1>
-            <p class="text-lg sm:w-1/2 sm:text-2xl">
-                {{_('Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, используя уроки по
-                самым актуальным темам.')}}
-            </p>
-        </article>
-    </section>
-    <section class="mt-5 flex w-full max-w-7xl flex-col items-start justify-start px-6">
-        <div class="flex flex-wrap gap-3">
-            <a
-                class="{{ 'bg-sky-500 text-white' if request.args.get('course_group') == None else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
-                href="/courses"
-                >{{_('Все')}}</a
-            >
-            {% for course_group in course_groups %}
-            <a
-                class="{{ 'bg-sky-500 text-white' if request.args.get('course_group') == course_group.slug else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
-                href="?course_group={{ course_group.slug }}"
-                >{{ course_group.name }}</a
-            >
-            {% endfor %}
-        </div>
-
-        <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {% for course in courses %}
-            <article class="flex flex-col gap-3 rounded-xl bg-white p-4 sm:p-9">
-                <a href="course/{{ course.slug }}">
-                    <img class="aspect-video rounded-lg" src="{{ course.picture_url }}" alt="" />
+    <section class="mx-auto my-10 w-full max-w-7xl px-6">
+        <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Блог')}}</h2>
+        <div class="mt-10 grid w-full grid-cols-1 gap-8 lg:grid-cols-2">
+            {% for blog in blogs %}
+            <article class="flex max-w-xl flex-col items-start">
+                <a href="/blogs/{{ blog.slug }}">
+                    <img class="mb-5 aspect-[3/2] w-full rounded-lg object-cover" src="{{ blog.preview_url }}" alt="" />
                 </a>
-                <h2 class="text-3xl font-medium">{{ course.name }}</h2>
-                <p class="text-justify text-lg text-gray-700">
-                    {{ course.description.replace('\n', '<br />') | safe }}
-                </p>
-                <a
-                    class="text-lg font-medium text-blue-600 transition-colors ease-in-out hover:text-blue-500"
-                    href="course/{{ course.slug }}"
-                    >{{_('Подробнее...')}}</a
-                >
+                <div class="flex flex-col items-start justify-start">
+                    <div class="flex items-center gap-x-4">
+                        <time class="text-slate-500">{{ blog.published.strftime("%d %B, %Y") }}</time>
+                    </div>
+                    <div class="relative">
+                        <h3 class="mt-3 text-lg font-semibold leading-6 text-slate-900 hover:text-slate-700">
+                            <a href="/blogs/{{ blog.slug }}">
+                                <span class="absolute inset-0"></span>
+                                {{ blog.title }}
+                            </a>
+                        </h3>
+                    </div>
+                </div>
             </article>
             {% endfor %}
         </div>

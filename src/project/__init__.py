@@ -1,3 +1,4 @@
+import locale
 import os
 from datetime import timedelta
 
@@ -11,13 +12,14 @@ from .main import main
 
 def create_app(database_url="sqlite:///db.sqlite"):
     app = Flask(__name__)
-    # TODO: REMOVE THIS BEFORE DEPLOYMENT
-    # app.debug = True
+
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("_DATABASE_URL", database_url)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app.config["SQLALCHEMY_RECORD_QUERIES"] = True
     app.config["SQLALCHEMY_POOL_SIZE"] = int(os.getenv("SQLALCHEMY_POOL_SIZE", 5))
-    app.config["SQLALCHEMY_POOL_RECYCLE"] = int(os.getenv("SQLALCHEMY_POOL_RECYCLE", 1800))
+    app.config["SQLALCHEMY_POOL_RECYCLE"] = int(
+        os.getenv("SQLALCHEMY_POOL_RECYCLE", 1800)
+    )
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = "translations"
 
@@ -39,6 +41,14 @@ def create_app(database_url="sqlite:///db.sqlite"):
         app,
         locale_selector=get_locale,
     )
+
+    @app.before_request
+    def set_locale():
+        user_locale = get_locale()
+        if user_locale == "ru":
+            locale.setlocale(locale.LC_ALL, "ru_RU.UTF-8")
+        else:
+            locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
     # Reverse proxy support
     app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
