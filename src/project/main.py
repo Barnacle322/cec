@@ -1,10 +1,13 @@
 import calendar
 import datetime
 import random
+import xml.etree.ElementTree as ElementTree
 
 from flask import (
     Blueprint,
+    current_app,
     jsonify,
+    make_response,
     redirect,
     render_template,
     request,
@@ -429,6 +432,67 @@ def login_post():
 def logout():
     logout_user()
     return redirect(url_for("main.index"))
+
+
+@main.route("/sitemap.xml")
+def sitemap():
+    pages = []
+    one_day_ago = (
+        (datetime.datetime.now() - datetime.timedelta(days=1)).date().isoformat()
+    )
+
+    # Add static pages
+    for rule in current_app.url_map.iter_rules():
+        if (
+            rule.methods
+            and "GET" in rule.methods
+            and len(rule.arguments) == 0
+            and not rule.rule.startswith("/admin")
+            and not rule.rule.startswith("/logout")
+            and not rule.rule.startswith("/login")
+            and not rule.rule.startswith("/health")
+        ):
+            pages.append([rule.rule, one_day_ago])
+
+    courses = Course.get_all()
+    for course in courses:
+        pages.append([f"/course/{course.slug}", one_day_ago])
+
+    course_groups = CourseGroup.get_all()
+    for course_group in course_groups:
+        pages.append([f"/courses?course_group={course_group.slug}", one_day_ago])
+
+    blogs = Blog.get_all_published()
+    for blog in blogs:
+        pages.append([f"/blogs/{blog.slug}", one_day_ago])
+
+    root = ElementTree.Element(
+        "urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    )
+    for page in pages:
+        url = ElementTree.SubElement(root, "url")
+        loc = ElementTree.SubElement(url, "loc")
+        loc.text = page[0]
+        lastmod = ElementTree.SubElement(url, "lastmod")
+        lastmod.text = page[1]
+        changefreq = ElementTree.SubElement(url, "changefreq")
+        changefreq.text = "daily"
+        priority = ElementTree.SubElement(url, "priority")
+        priority.text = "1.0"
+
+    sitemap_xml = ElementTree.tostring(root, encoding="utf-8")
+    response = make_response(sitemap_xml)
+    response.headers["Content-Type"] = "application/xml"
+
+    return response
+
+
+@main.route("/robots.txt")
+def robots():
+    robots_txt = "User-agent: *\nDisallow: /admin\nDisallow: /logout\nDisallow: /login\n\nSitemap: https://mldc.auca.kg/sitemap.xml"
+    response = make_response(robots_txt)
+    response.headers["Content-Type"] = "text/plain"
+    return response
 
 
 @main.get("/health")
