@@ -460,7 +460,12 @@ def sitemap():
 
     course_groups = CourseGroup.get_all()
     for course_group in course_groups:
-        pages.append([f"/courses?course_group={course_group.slug}", one_day_ago])
+        pages.append(
+            [
+                f"/courses?course_group={course_group.slug}",
+                one_day_ago,
+            ]
+        )
 
     blogs = Blog.get_all_published()
     for blog in blogs:
@@ -472,7 +477,7 @@ def sitemap():
     for page in pages:
         url = ElementTree.SubElement(root, "url")
         loc = ElementTree.SubElement(url, "loc")
-        loc.text = page[0]
+        loc.text = "https://mldc.auca.kg" + page[0]
         lastmod = ElementTree.SubElement(url, "lastmod")
         lastmod.text = page[1]
         changefreq = ElementTree.SubElement(url, "changefreq")
