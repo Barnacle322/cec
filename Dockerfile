@@ -15,11 +15,17 @@ RUN apk update && apk add --no-cache \
     && echo "Asia/Bishkek" > /etc/timezone \
     && apk del .build-deps
 
-# Generate the required locales
-RUN apk add --no-cache \
-    alpine-conf \
-    && setup-locale -i ru_RU.UTF-8 -f UTF-8 \
-    && setup-locale -i en_US.UTF-8 -f UTF-8
+# Install glibc and generate the required locales
+RUN apk --no-cache add ca-certificates wget && \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
+    apk add glibc-2.35-r0.apk && \
+    rm glibc-2.35-r0.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-bin-2.35-r0.apk && \
+    apk add glibc-bin-2.35-r0.apk && \
+    rm glibc-bin-2.35-r0.apk && \
+    /usr/glibc-compat/bin/localedef -i ru_RU -f UTF-8 ru_RU.UTF-8 && \
+    /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
 
 # Set environment variables for locale
 ENV LANG ru_RU.UTF-8
