@@ -12,15 +12,15 @@
 
     <meta
         name="description"
-        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании. Лучшие курсы в Бишкек по всем направлениям!')}}"
     />
     <meta
         property="og:description"
-        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании. Лучшие курсы в Бишкек по всем направлениям!')}}"
     />
     <meta
         property="twitter:description"
-        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
+        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании. Лучшие курсы в Бишкек по всем направлениям!')}}"
     />
 
     <meta property="og:image" content="Meta Preview" />
@@ -59,8 +59,13 @@
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section id="toelf_banner" class="flex h-14 w-full items-center justify-center gap-3 bg-[#08559a] px-6">
-        <span class="text-xl font-bold text-white">{{_('Результаты TOEFL')}}</span>
-        <a class="rounded-full bg-white px-2 py-1 text-sm transition-colors ease-in-out hover:bg-gray-100" href="/toefl"
+        <span class="fade-in text-xl font-bold text-white" style="animation-delay: 1.8s"
+            >{{_('Результаты TOEFL')}}</span
+        >
+        <a
+            class="fade-in rounded-full bg-white px-2 py-1 text-sm transition-colors ease-in-out hover:bg-gray-100"
+            href="/toefl"
+            style="animation-delay: 1.8s"
             >{{_('Смотреть')}}</a
         >
     </section>
@@ -117,12 +122,12 @@
         id="hero"
     >
         <div class="flex w-full max-w-5xl flex-col gap-2 sm:mb-16">
-            <h1 class="w-full text-4xl font-medium text-white sm:text-6xl">
-                Be maker
+            <h1 class="w-full text-4xl font-medium text-white sm:text-6xl overflow-visible">
+                <span class="fade-in">Be Maker</span>
                 <br />
-                Make life better
+                <span class="fade-in" style="animation-delay: 0.7s">Make Life Better</span>
             </h1>
-            <span class="flex gap-2 text-white">
+            <span class="fade-in flex gap-2 text-white" style="animation-delay: 1.5s">
                 <a
                     href="{{ url_for('main.set_lang', lang='en') }}"
                     class="flex items-center justify-center gap-1 underline"
@@ -139,8 +144,13 @@
         </div>
     </section>
     <section class="mt-16 flex max-w-7xl flex-col items-center justify-center px-6">
-        <h2 class="text-center text-4xl font-medium sm:text-5xl">{{_('Что такое Мейкерспейс АУЦА?')}}</h2>
-        <div class="mt-14 grid grid-cols-2 gap-x-10 gap-y-10 sm:gap-x-20 lg:grid-cols-4">
+        <h2 class="move-up text-center text-4xl font-medium sm:text-5xl" style="animation-delay: 1s">
+            {{_('Что такое Мейкерспейс АУЦА?')}}
+        </h2>
+        <div
+            class="move-up mt-14 grid grid-cols-2 gap-x-10 gap-y-10 sm:gap-x-20 lg:grid-cols-4"
+            style="animation-delay: 1.2s"
+        >
             <div>
                 <h3 class="text-4xl">{{_('18 лет')}}</h3>
                 <span>{{_('На рынке образования ')}}</span>
@@ -160,13 +170,16 @@
         </div>
     </section>
     <section class="mt-28 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
-        <h2 class="mb-5 w-full text-4xl font-medium sm:text-5xl">{{_('Курсы')}}</h2>
-        <div class="grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <h2 class="move-up mb-5 w-full text-4xl font-medium sm:text-5xl" style="animation-delay: 1.5s">
+            {{_('Курсы')}}
+        </h2>
+        <div class="move-up grid w-full grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" style="animation-delay: 2s">
             {% for course_group in course_groups %}
             <div class="flex flex-col items-center gap-3 rounded-3xl border">
-                <a href="/courses?course_group={{ course_group.slug }}">
+                <a class="rounded-t-3xl overflow-hidden" href="/courses?course_group={{ course_group.slug }}">
                     <img
-                        class="min-h-1/2 aspect-video w-full rounded-t-3xl object-cover"
+                        class="min-h-1/2 aspect-video w-full object-cover hover:scale-[1.03] transition-transform ease-in-out duration-500"
+                        loading="lazy"
                         src="{{ course_group.picture_url }}"
                     />
                 </a>
@@ -186,7 +199,13 @@
     <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-5 px-6 pb-3">
         <h2 class="w-full text-4xl font-medium sm:text-5xl">{{_('Клубы')}}</h2>
         <div class="flex w-full flex-col overflow-hidden rounded-xl border shadow-sm sm:flex-row">
-            <img class="aspect-video object-cover sm:max-w-[40%]" src="/static/elements/chess.jpg" />
+            <div class="sm:max-w-[40%] overflow-hidden">
+                <img
+                    class="aspect-video object-cover hover:scale-[1.03] transition-transform ease-in-out duration-500"
+                    loading="lazy"
+                    src="/static/elements/chess.jpg"
+                />
+            </div>
             <div class="flex w-full flex-wrap">
                 <div class="flex h-full w-full flex-col p-4">
                     <h3 class="flex items-center text-2xl font-bold text-gray-800 sm:text-3xl">
@@ -229,7 +248,13 @@
                     </button>
                 </div>
             </div>
-            <img class="aspect-video object-cover sm:max-w-[40%]" src="/static/elements/repair_cafe.jpeg" />
+            <div class="sm:max-w-[40%] overflow-hidden">
+                <img
+                    class="aspect-video object-cover hover:scale-[1.03] transition-transform ease-in-out duration-500"
+                    loading="lazy"
+                    src="/static/elements/repair_cafe.jpeg"
+                />
+            </div>
         </div>
     </section>
     <section class="mt-20 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
@@ -564,6 +589,7 @@
                     {% if feedback.picture_url %}
                     <img
                         class="flex aspect-square h-12 items-center justify-center rounded-full bg-gray-300 object-cover"
+                        loading="lazy"
                         src="{{ feedback.picture_url }}"
                         alt=""
                     />
@@ -661,7 +687,12 @@
             {% for blog in blogs %}
             <article class="flex max-w-xl flex-col items-start">
                 <a href="/blogs/{{ blog.slug }}">
-                    <img class="mb-5 aspect-[3/2] w-full rounded-lg object-cover" src="{{ blog.preview_url }}" alt="" />
+                    <img
+                        class="mb-5 aspect-[3/2] w-full rounded-lg object-cover"
+                        loading="lazy"
+                        src="{{ blog.preview_url }}"
+                        alt=""
+                    />
                 </a>
                 <div class="flex flex-col items-start justify-start">
                     <div class="flex items-center gap-x-4">

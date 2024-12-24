@@ -62,7 +62,12 @@
             {% for blog in blogs %}
             <article class="flex max-w-xl flex-col items-start">
                 <a href="/blogs/{{ blog.slug }}">
-                    <img class="mb-5 aspect-[3/2] w-full rounded-lg object-cover" src="{{ blog.preview_url }}" alt="" />
+                    <img
+                        class="mb-5 aspect-[3/2] w-full rounded-lg object-cover"
+                        loading="lazy"
+                        src="{{ blog.preview_url }}"
+                        alt=""
+                    />
                 </a>
                 <div class="flex flex-col items-start justify-start">
                     <div class="flex items-center gap-x-4">

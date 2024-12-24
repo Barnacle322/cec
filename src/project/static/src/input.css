@@ -56,3 +56,37 @@ textarea {
 @view-transition {
     navigation: auto;
 }
+
+@keyframes move-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.move-up {
+    opacity: 0;
+    -webkit-animation: move-up 0.8s ease-in-out forwards;
+    -moz-animation: move-up 0.8s ease-in-out forwards;
+    animation: move-up 0.8s ease-in-out forwards;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    opacity: 0;
+    -webkit-animation: fade-in 0.8s ease-in-out forwards;
+    -moz-animation: fade-in 0.8s ease-in-out forwards;
+    animation: fade-in 0.8s ease-in-out forwards;
+}

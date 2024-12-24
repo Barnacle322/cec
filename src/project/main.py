@@ -116,6 +116,7 @@ def load_user(user_id: int) -> User | None:
     user = User.get_by_id(id=int(user_id))
     if user:
         return user
+
     return None
 
 
@@ -166,12 +167,29 @@ def index():
 
 @main.route("/courses")
 def courses():
-    course_groups = CourseGroup.get_all()
-    query = request.args.get("course_group")
-    course_group = CourseGroup.get_by_slug(query) if query else None
+    courses = Course.get_all()
+
+    return render_template(
+        "courses.html",
+        courses=courses,
+        course_groups=CourseGroup.get_all(),
+        course_group_name=None,
+    )
+
+
+@main.route("/courses/<course_group_slug>")
+def course_group(course_group_slug: str):
+    course_group = (
+        CourseGroup.get_by_slug(course_group_slug) if course_group_slug else None
+    )
     courses = Course.get_by_course_group_id(course_group.id if course_group else None)
 
-    return render_template("courses.html", courses=courses, course_groups=course_groups)
+    return render_template(
+        "courses.html",
+        courses=courses,
+        course_groups=CourseGroup.get_all(),
+        course_group_name=course_group_slug,
+    )
 
 
 @main.route("/course/<course_name>")
@@ -179,10 +197,17 @@ def course(course_name):
     success = None
     if args := request.args:
         success = True if args.get("success") == "true" else False
+
     course = Course.get_by_slug(course_name)
-    timetables = Timetable.get_by_course_id(course.id)  # type: ignore
+    if not course:
+        return redirect(url_for("main.courses"))
+    timetables = Timetable.get_by_course_id(course.id)
+
     return render_template(
-        "course.html", course=course, timetables=timetables, success=success
+        "course.html",
+        course=course,
+        timetables=timetables,
+        success=success,
     )
 
 
@@ -225,17 +250,20 @@ def toefl():
     if (date_str := request.args.get("date", type=str)) != "None" and date_str != None:
         try:
             date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+            human_date = date.strftime("%d %B, %Y")
             results = Toefl.get_all_by_date(date)
         except ValueError:
             date = datetime.date.today()
+            human_date = date.strftime("%d %B, %Y")
             results = Toefl.get_latest_results()
     else:
         results = Toefl.get_latest_results()
         date = results[0].date if results else datetime.date.today()
+        human_date = date.strftime("%d %B, %Y")
 
     pagination = Toefl.get_pagination_dates(date)
     return render_template(
-        "toefl.html", date=date, results=results, pagination=pagination
+        "toefl.html", human_date=human_date, results=results, pagination=pagination
     )
 
 
@@ -451,6 +479,7 @@ def sitemap():
             and not rule.rule.startswith("/logout")
             and not rule.rule.startswith("/login")
             and not rule.rule.startswith("/health")
+            and not rule.rule.startswith("/lang")
         ):
             pages.append([rule.rule, one_day_ago])
 
@@ -462,7 +491,7 @@ def sitemap():
     for course_group in course_groups:
         pages.append(
             [
-                f"/courses?course_group={course_group.slug}",
+                f"/courses/{course_group.slug}",
                 one_day_ago,
             ]
         )
@@ -494,7 +523,7 @@ def sitemap():
 
 @main.route("/robots.txt")
 def robots():
-    robots_txt = "User-agent: *\nDisallow: /admin\nDisallow: /logout\nDisallow: /login\n\nSitemap: https://mldc.auca.kg/sitemap.xml"
+    robots_txt = "User-agent: *\nDisallow: /admin\nDisallow: /logout\nDisallow: /login\nDisallow: /lang/*\n\nSitemap: https://mldc.auca.kg/sitemap.xml"
     response = make_response(robots_txt)
     response.headers["Content-Type"] = "text/plain"
     return response

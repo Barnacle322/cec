@@ -49,9 +49,10 @@
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="flex w-full flex-col gap-2 text-start">
             <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">{{ course.name }}</h1>
-            <p class="text-lg sm:w-1/2 sm:text-2xl">{{ course.description.replace('\n', '<br />') | safe }}</p>
+            <p class="text-lg md:w-1/2 sm:text-2xl">{{ course.description.replace('\n', '<br />') | safe }}</p>
             <img
                 class="mt-5 aspect-[2/1] w-full rounded-3xl object-cover sm:mt-10 sm:aspect-[3/1]"
+                loading="lazy"
                 src="{{ course.picture_url }}"
                 alt=""
             />
@@ -60,7 +61,9 @@
 
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <h2 class="font-mediu mb-5 w-full text-3xl font-medium sm:text-5xl">{{_('Группы')}}</h2>
-        <div class="grid grid-cols-1 place-content-center gap-3 min-[870px]:grid-cols-2 xl:grid-cols-3">
+        <div
+            class="grid grid-cols-1 place-content-center gap-3 min-[870px]:grid-cols-2 xl:grid-cols-3 w-full sm:w-auto"
+        >
             {% for timetable in timetables %}
             <article class="flex min-h-[400px] w-full flex-col rounded-3xl border bg-white p-5 sm:w-[400px]">
                 <h3 class="text-xl font-medium sm:text-2xl">{{ timetable.name }}</h3>

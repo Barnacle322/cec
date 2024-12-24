@@ -853,7 +853,7 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
         ).all()
 
     @staticmethod
-    def get_pagination(page: int, per_page: int = 5) -> Pagination:
+    def get_pagination(page: int, per_page: int = 20) -> Pagination:
         query = (
             select(ToeflRegistration)
             .where(ToeflRegistration.handled.is_(True))
@@ -900,7 +900,7 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
         ).all()
 
     @staticmethod
-    def get_pagination(page: int, per_page: int = 5) -> Pagination:
+    def get_pagination(page: int, per_page: int = 20) -> Pagination:
         query = (
             select(Registration)
             .where(Registration.handled.is_(True))

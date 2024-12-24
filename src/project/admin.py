@@ -152,20 +152,23 @@ def toefl():
     ) != "None" and date_str is not None:
         try:
             date = datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
+            human_date = date.strftime("%d %B, %Y")
             results = Toefl.get_all_by_date(date)
         except ValueError:
             date = datetime.date.today()
+            human_date = date.strftime("%d %B, %Y")
             results = Toefl.get_latest_results()
     else:
         results = Toefl.get_latest_results()
         date = results[0].date if results else datetime.date.today()
+        human_date = date.strftime("%d %B, %Y")
 
     pagination = Toefl.get_pagination_dates(date)
     return render_template(
         "admin/toefl.html",
         pagination=pagination,
         results=results,
-        date=date,
+        human_date=human_date,
         status_type=status_type,
         msg=msg,
     )
