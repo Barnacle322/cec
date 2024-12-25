@@ -59,10 +59,10 @@
                 </div>
                 <div class="flex h-full flex-col gap-1">
                     <span class="text-2xl font-bold">{{ course_group.name }}</span>
-                    <p class="text-gray-500">{{ course_group.description }}</p>
-                    <a href="/courses?course_group={{ course_group.slug }}" class="text-sm underline"
-                        >/courses?course_group={{ course_group.slug }}</a
-                    >
+                    <p class="text-gray-500 line-clamp-2">{{ course_group.description }}</p>
+                    <a href="/courses/{{ course_group.slug }}" class="text-sm underline"
+                        >/courses/{{ course_group.slug }}
+                    </a>
                 </div>
                 <div class="ml-auto flex h-fit">
                     <a
@@ -121,7 +121,7 @@
                         />
                         <div class="flex flex-col">
                             <h2 class="cursor-pointer text-xl font-medium">{{ course.name }}</h2>
-                            <p class="text-gray-500">{{ course.description }}</p>
+                            <p class="text-gray-500 line-clamp-2">{{ course.description }}</p>
                         </div>
                         <form
                             action="/admin/course/delete/{{ course.id }}"

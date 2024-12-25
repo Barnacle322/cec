@@ -5,33 +5,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="title" content="{{_('Курсы · MLDC · Курсы в Бишкеке')}}" />
-    <meta property="og:title" content="{{_('Курсы · MLDC · Курсы в Бишкеке')}}" />
-    <meta property="twitter:title" content="{{_('Курсы · MLDC · Курсы в Бишкеке')}}" />
-    <title>{{_('Курсы · MLDC · Курсы в Бишкеке')}}</title>
+    <!-- prettier-ignore -->
+    {% set title = _('Курсы · MLDC · Курсы в Бишкеке') if not course_group else course_group.name + ' · MLDC · Курсы в Бишкеке' %}
+    <meta name="title" content="{{ title }}" />
+    <meta property="og:title" content="{{ title }}" />
+    <meta property="twitter:title" content="{{ title }}" />
+    <title>{{ title }}</title>
 
-    <meta
-        name="description"
-        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
-    />
-    <meta
-        property="og:description"
-        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
-    />
-    <meta
-        property="twitter:description"
-        content="{{_('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.')}}"
-    />
+    <!-- prettier-ignore -->
+    {% set description = _('Мейкерспейс – уникальное образовательное, творческое и предпринимательское пространство, в котором можно будет не только получать новые знания и навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном оборудовании.') if not course_group else course_group.description %}
 
-    <meta property="og:image" content="Meta Preview" />
-    <meta property="twitter:image" content="Meta Preview" />
+    <meta name="description" content="{{ description }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="twitter:description" content="{{ description }}" />
 
-    <meta property="og:url" content="https://mldc.auca.kg/courses" />
-    <meta property="twitter:url" content="https://mldc.auca.kg/courses" />
+    <meta property="og:image" content="{{ course_group.picture_url if course_group }}" />
+    <meta property="twitter:image" content="{{ course_group.picture_url if course_group }}" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <meta property="og:url" content="https://mldc.auca.kg/courses{{ '/' + course_group.slug if course_group }}" />
+    <meta property="twitter:url" content="https://mldc.auca.kg/courses{{ '/' + course_group.slug if course_group }}" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
-    <meta property="twitter:card" content="summary_large_image" />
 
     <meta name="robots" content="index" />
 
@@ -57,13 +53,20 @@
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
         <article class="text-start">
-            <h1 class="mb-5 w-full text-4xl font-medium sm:w-3/4 sm:text-7xl">
+            {% if course_group.name %}
+            <h1 class="mb-5 w-full text-5xl font-medium sm:w-3/4 sm:text-7xl">{{ course_group.name }}</h1>
+            {% else %}
+            <h1 class="mb-5 w-full text-5xl font-medium sm:w-3/4 sm:text-7xl">
                 {{_('Курсы на ваш выбор, под ваши цели')}}
             </h1>
-            <p class="text-lg sm:w-1/2 sm:text-2xl">
+            {% endif %} {% if course_group.description %}
+            <p class="text-lg lg:w-2/3 sm:text-2xl">{{ course_group.description }}</p>
+            {% else %}
+            <p class="text-lg lg:w-2/3 sm:text-2xl">
                 {{_('Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, используя уроки по
                 самым актуальным темам.')}}
             </p>
+            {% endif %}
         </article>
     </section>
     <section class="mt-5 flex w-full max-w-7xl flex-col items-start justify-start px-6">
@@ -71,32 +74,37 @@
             <a
                 class="{{ 'bg-sky-500 text-white' if course_group_name == None else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
                 href="/courses"
-                >{{_('Все')}}</a
-            >
+                >{{_('Все')}}
+            </a>
             {% for course_group in course_groups %}
             <a
                 class="{{ 'bg-sky-500 text-white' if course_group.slug == course_group_name else 'bg-white' }} w-max rounded-lg  px-3 py-2 text-lg font-medium transition-colors ease-out hover:bg-sky-400 hover:text-white"
                 href="/courses/{{ course_group.slug }}"
-                >{{ course_group.name }}</a
-            >
+                >{{ course_group.name }}
+            </a>
             {% endfor %}
         </div>
 
         <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {% for course in courses %}
             <article class="flex flex-col gap-3 rounded-xl bg-white p-4 sm:p-9">
-                <a href="/course/{{ course.slug }}">
-                    <img class="aspect-video rounded-lg" src="{{ course.picture_url }}" alt="" loading="lazy" />
+                <a class="rounded-lg overflow-hidden bg-gray-100 aspect-video w-full" href="/course/{{ course.slug }}">
+                    <img
+                        class="aspect-video hover:scale-[1.03] ease-in-out transition-transform"
+                        src="{{ course.picture_url }}"
+                        alt=""
+                        loading="lazy"
+                    />
                 </a>
                 <h2 class="text-3xl font-medium">{{ course.name }}</h2>
-                <p class="text-justify text-lg text-gray-700">
+                <p class="text-justify text-lg text-gray-700 line-clamp-5">
                     {{ course.description.replace('\n', '<br />') | safe }}
                 </p>
                 <a
                     class="text-lg font-medium text-blue-600 transition-colors ease-in-out hover:text-blue-500"
                     href="/course/{{ course.slug }}"
-                    >{{_('Подробнее...')}}</a
-                >
+                    >{{_('Подробнее...')}}
+                </a>
             </article>
             {% endfor %}
         </div>

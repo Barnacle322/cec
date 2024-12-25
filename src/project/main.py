@@ -172,6 +172,7 @@ def courses():
     return render_template(
         "courses.html",
         courses=courses,
+        course_group=None,
         course_groups=CourseGroup.get_all(),
         course_group_name=None,
     )
@@ -187,6 +188,7 @@ def course_group(course_group_slug: str):
     return render_template(
         "courses.html",
         courses=courses,
+        course_group=course_group,
         course_groups=CourseGroup.get_all(),
         course_group_name=course_group_slug,
     )

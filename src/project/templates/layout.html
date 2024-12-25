@@ -2,7 +2,7 @@
 <html lang="ru">
     {% block head %}{% endblock %}
     <body class="w-full">
-        <nav class="absolute left-0 top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white">
+        <nav class="fixed top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white z-20 shadow-xl">
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
                 <div>
                     <a href="/"><img class="hidden w-40 sm:block" src="/static/elements/logo_light.png" /></a>
@@ -130,36 +130,30 @@
                                 <h3 class="font-semibold text-slate-900">{{_("Курсы")}}</h3>
                                 <ul role="list" class="mt-6 space-y-4">
                                     <li>
-                                        <a href="/courses?course_group=inzhenernye-kursy" class="hover:text-slate-900"
+                                        <a href="/courses/inzhenernye-kursy" class="hover:text-slate-900"
                                             >{{_('Мейкерспейс')}}</a
                                         >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=it-kursy" class="hover:text-slate-900"
+                                        <a href="/courses/it-kursy" class="hover:text-slate-900"
                                             >{{_('Программирования')}}</a
                                         >
                                     </li>
                                     <li>
-                                        <a
-                                            href="/courses?course_group=detskaia-akademiia-rosta"
-                                            class="hover:text-slate-900"
+                                        <a href="/courses/detskaia-akademiia-rosta" class="hover:text-slate-900"
                                             >{{_('Детская Академия Роста')}}</a
                                         >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=iazykovye-kursy" class="hover:text-slate-900"
+                                        <a href="/courses/iazykovye-kursy" class="hover:text-slate-900"
                                             >{{_("Языки")}}</a
                                         >
                                     </li>
                                     <li>
-                                        <a href="/courses?course_group=biznes-kursy" class="hover:text-slate-900"
-                                            >{{_('Бизнес')}}</a
-                                        >
+                                        <a href="/courses/biznes-kursy" class="hover:text-slate-900">{{_('Бизнес')}}</a>
                                     </li>
                                     <li>
-                                        <a
-                                            href="/courses?course_group=podgotovitelnye-kursy"
-                                            class="hover:text-slate-900"
+                                        <a href="/courses/podgotovitelnye-kursy" class="hover:text-slate-900"
                                             >{{_("Подготовительные Курсы")}}</a
                                         >
                                     </li>
