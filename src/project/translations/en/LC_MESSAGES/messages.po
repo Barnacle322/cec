@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-01-08 02:47+0530\n"
+"POT-Creation-Date: 2025-07-23 14:24+0800\n"
 "PO-Revision-Date: 2025-01-08 02:47+0530\n"
 "Last-Translator: \n"
 "Language: en\n"
@@ -16,12 +16,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.15.0\n"
+"Generated-By: Babel 2.17.0\n"
 
 #: src/project/templates/about.html:8 src/project/templates/about.html:9
 #: src/project/templates/about.html:10 src/project/templates/about.html:11
-#: src/project/templates/layout.html:13 src/project/templates/layout.html:75
-#: src/project/templates/layout.html:179
+#: src/project/templates/layout.html:29 src/project/templates/layout.html:139
+#: src/project/templates/layout.html:458
 msgid "О нас"
 msgstr "About us"
 
@@ -55,11 +55,11 @@ msgstr ""
 msgid "Мейкерспейс АУЦА"
 msgstr "Makerspace AUCA"
 
-#: src/project/templates/about.html:60
+#: src/project/templates/about.html:63
 msgid "Немного о нас"
 msgstr "A bit about us"
 
-#: src/project/templates/about.html:64
+#: src/project/templates/about.html:70
 msgid ""
 "Одна из самых больших ценностей в мире – это знания. Необходимость "
 "адаптироваться к\n"
@@ -81,7 +81,7 @@ msgstr ""
 " local, regional, and global levels. To address this issue, AUCA created "
 "the Center for Continuing Education."
 
-#: src/project/templates/about.html:72
+#: src/project/templates/about.html:80
 msgid ""
 "За время своей работы ЦДО зарекомендовал себя как эффективный способ "
 "повышения\n"
@@ -105,7 +105,7 @@ msgstr ""
 "number of students of the center have acquired knowledge, improved their "
 "language skills, and fulfilled their dreams."
 
-#: src/project/templates/about.html:88
+#: src/project/templates/about.html:101
 msgid ""
 "Накоплен громадный опыт, но новый день ставит иные задачи и требует более"
 " совершенные формы\n"
@@ -127,7 +127,7 @@ msgstr ""
 "gain new knowledge and skills, develop, but also implement projects, work"
 " on high-tech equipment."
 
-#: src/project/templates/about.html:96
+#: src/project/templates/about.html:111
 msgid ""
 "Термин makerspace стал использоваться с 2005 года для обозначения "
 "пространства, где высокие\n"
@@ -152,15 +152,15 @@ msgstr ""
 "become part of this process, will be a guide for the formation of the "
 "“high-tech DIY” movement in Kyrgyzstan."
 
-#: src/project/templates/about.html:110
+#: src/project/templates/about.html:128
 msgid "Команда"
 msgstr "Team"
 
-#: src/project/templates/about.html:135
+#: src/project/templates/about.html:149
 msgid "Наши партнёры"
 msgstr "Our partners"
 
-#: src/project/templates/about.html:137
+#: src/project/templates/about.html:151
 msgid ""
 "Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, "
 "KICB и другие."
@@ -168,45 +168,48 @@ msgstr ""
 "We are trusted by large companies and organizations such as WHO, UNDP, "
 "USAID, KICB and others."
 
-#: src/project/templates/about.html:168 src/project/templates/layout.html:169
-#: src/project/templates/layout.html:182
+#: src/project/templates/about.html:251 src/project/templates/layout.html:425
+#: src/project/templates/layout.html:469
 msgid "Контакты"
 msgstr "Contacts"
 
-#: src/project/templates/about.html:170
+#: src/project/templates/about.html:253
 msgid "Мы работаем"
 msgstr "We work"
 
-#: src/project/templates/about.html:170
+#: src/project/templates/about.html:254
 msgid " с понедельника по субботу"
 msgstr " from Monday to Saturday"
 
-#: src/project/templates/about.html:171
+#: src/project/templates/about.html:255
 msgid "с 10:00 до 20:00."
 msgstr "from 10:00 to 20:00."
 
-#: src/project/templates/about.html:171
-msgid "Если у вас есть вопросы, пожалуйста, свяжитесь с нами."
+#: src/project/templates/about.html:255
+#, fuzzy
+msgid ""
+"Если у вас есть\n"
+"                    вопросы, пожалуйста, свяжитесь с нами."
 msgstr "If you have questions, please, contact us."
 
-#: src/project/templates/about.html:178 src/project/templates/about.html:182
+#: src/project/templates/about.html:282 src/project/templates/about.html:305
 msgid "Телефон"
 msgstr "Phone"
 
-#: src/project/templates/about.html:189
-msgid "Городской телефон"
-msgstr "Landline phone"
-
-#: src/project/templates/about.html:193
-#: src/project/templates/toefl_register.html:331
+#: src/project/templates/about.html:328
+#: src/project/templates/toefl_register.html:338
 msgid "Электронная почта"
 msgstr "Email"
 
-#: src/project/templates/about.html:202
+#: src/project/templates/about.html:351
+msgid "Городской телефон"
+msgstr "Landline phone"
+
+#: src/project/templates/about.html:360
 msgid "Как к нам добраться?"
 msgstr "How to get to us?"
 
-#: src/project/templates/about.html:203
+#: src/project/templates/about.html:361
 msgid "Мы находимся в отдельном здании возле АУЦА "
 msgstr "We are located in a separate building near AUCA "
 
@@ -217,47 +220,47 @@ msgstr "We are located in a separate building near AUCA "
 msgid "Мейкерспейс АУЦА · Курсы в Бишкеке"
 msgstr "Makerspace AUCA · Courses in Bishkek"
 
-#: src/project/templates/blogs.html:60 src/project/templates/index.html:682
+#: src/project/templates/blogs.html:60 src/project/templates/index.html:777
 msgid "Блог"
 msgstr "Blog"
 
-#: src/project/templates/course.html:63
+#: src/project/templates/course.html:69
 msgid "Группы"
 msgstr "Groups"
 
-#: src/project/templates/course.html:95
+#: src/project/templates/course.html:109
 msgid "Записаться"
 msgstr "Sign up"
 
-#: src/project/templates/course.html:109
+#: src/project/templates/course.html:125
 msgid "Запись на курс"
 msgstr "Enroll in a course"
 
-#: src/project/templates/course.html:166 src/project/templates/index.html:760
-#: src/project/templates/index.html:841
+#: src/project/templates/course.html:192 src/project/templates/index.html:869
+#: src/project/templates/index.html:973
 msgid "Английский Pre-Intermediate"
 msgstr "English Pre-Intermediate"
 
-#: src/project/templates/course.html:175 src/project/templates/index.html:225
-#: src/project/templates/index.html:247 src/project/templates/index.html:850
-#: src/project/templates/toefl_register.html:368
+#: src/project/templates/course.html:201 src/project/templates/index.html:277
+#: src/project/templates/index.html:302 src/project/templates/index.html:982
+#: src/project/templates/toefl_register.html:380
 msgid "Зарегистрироваться"
 msgstr "Register"
 
-#: src/project/templates/course.html:204 src/project/templates/index.html:880
+#: src/project/templates/course.html:232 src/project/templates/index.html:1012
 #: src/project/templates/toefl_register.html:72
 #: src/project/templates/toefl_register.html:139
 msgid "Успешная регистрация"
 msgstr "Successful registration"
 
-#: src/project/templates/course.html:207 src/project/templates/course.html:236
-#: src/project/templates/index.html:883 src/project/templates/index.html:912
+#: src/project/templates/course.html:235 src/project/templates/course.html:264
+#: src/project/templates/index.html:1015 src/project/templates/index.html:1044
 #: src/project/templates/toefl_register.html:75
 #: src/project/templates/toefl_register.html:104
 msgid "Если у вас есть вопросы, позвоните по номеру +996 312 915 022"
 msgstr "If you have questions, call 996 312 915 022"
 
-#: src/project/templates/course.html:233 src/project/templates/index.html:909
+#: src/project/templates/course.html:262 src/project/templates/index.html:1041
 #: src/project/templates/toefl_register.html:101
 msgid "Произошла ошибка"
 msgstr "An error occurred"
@@ -266,24 +269,25 @@ msgstr "An error occurred"
 msgid "Курсы · MLDC · Курсы в Бишкеке"
 msgstr "Courses · MLDC · Courses in Bishkek"
 
-#: src/project/templates/courses.html:60
+#: src/project/templates/courses.html:65
 msgid "Курсы на ваш выбор, под ваши цели"
 msgstr "Courses of your choice, tailored to your goals"
 
-#: src/project/templates/courses.html:66
+#: src/project/templates/courses.html:71
+#, fuzzy
 msgid ""
 "Предоставим программу обучения, исходя из ваших запросов, поможем достичь"
 " цели, используя уроки по\n"
-"                самым актуальным темам."
+"            самым актуальным темам."
 msgstr ""
 "We will provide a training program based on your requests and help you "
 "achieve your goal using lessons on the most current topics."
 
-#: src/project/templates/courses.html:77
+#: src/project/templates/courses.html:81
 msgid "Все"
 msgstr "All"
 
-#: src/project/templates/courses.html:106
+#: src/project/templates/courses.html:117
 msgid "Подробнее..."
 msgstr "More details..."
 
@@ -301,60 +305,60 @@ msgstr ""
 "implement projects, work on high-tech equipment. The best courses in "
 "Bishkek in all areas!"
 
-#: src/project/templates/index.html:63 src/project/templates/toefl.html:66
+#: src/project/templates/index.html:66 src/project/templates/toefl.html:70
 msgid "Результаты TOEFL"
 msgstr "TOEFL Results"
 
-#: src/project/templates/index.html:69
+#: src/project/templates/index.html:72
 msgid "Смотреть"
 msgstr "See"
 
-#: src/project/templates/index.html:148
+#: src/project/templates/index.html:161
 msgid "Что такое Мейкерспейс АУЦА?"
 msgstr "What is AUCA Makerspace?"
 
-#: src/project/templates/index.html:155
+#: src/project/templates/index.html:171
 msgid "18 лет"
 msgstr "18 years"
 
-#: src/project/templates/index.html:156
+#: src/project/templates/index.html:173
 msgid "На рынке образования "
 msgstr "On the education market "
 
-#: src/project/templates/index.html:160
+#: src/project/templates/index.html:181
 msgid "Довольных учеников"
 msgstr "Satisfied students"
 
-#: src/project/templates/index.html:164
+#: src/project/templates/index.html:189
 msgid "Опытных преподавателей"
 msgstr "Experienced teachers"
 
-#: src/project/templates/index.html:168
+#: src/project/templates/index.html:197
 msgid "Довольных клиентов"
 msgstr "Satisfied customers"
 
-#: src/project/templates/index.html:174 src/project/templates/layout.html:12
-#: src/project/templates/layout.html:70 src/project/templates/layout.html:130
+#: src/project/templates/index.html:206 src/project/templates/layout.html:22
+#: src/project/templates/layout.html:120 src/project/templates/layout.html:317
 msgid "Курсы"
 msgstr "Courses"
 
-#: src/project/templates/index.html:193
+#: src/project/templates/index.html:238
 msgid "Подробнее"
 msgstr "More details"
 
-#: src/project/templates/index.html:200
+#: src/project/templates/index.html:248
 msgid "Клубы"
 msgstr "Clubs"
 
-#: src/project/templates/index.html:212
+#: src/project/templates/index.html:263
 msgid "Шахматы"
 msgstr "Chess"
 
-#: src/project/templates/index.html:214 src/project/templates/index.html:236
+#: src/project/templates/index.html:266 src/project/templates/index.html:291
 msgid "Бесплатно"
 msgstr "Free"
 
-#: src/project/templates/index.html:218
+#: src/project/templates/index.html:270
 msgid ""
 "Шахматы - игра, которая точно прошла тест на время. Подходит как и "
 "взрослым, так и\n"
@@ -363,11 +367,11 @@ msgstr ""
 "Chess is a game that definitely stood the passage of time. It is fit for "
 "both kids and adults."
 
-#: src/project/templates/index.html:234
+#: src/project/templates/index.html:288
 msgid "Repair Cafe"
 msgstr "Repair Cafe"
 
-#: src/project/templates/index.html:240
+#: src/project/templates/index.html:295
 msgid ""
 "Repair Cafe - Нидерландская инициатива по организации мероприятий, на "
 "которых участники\n"
@@ -378,61 +382,61 @@ msgstr ""
 " learn to repair things. This helps reduce waste and extend the life of "
 "things."
 
-#: src/project/templates/index.html:261
+#: src/project/templates/index.html:319
 msgid "Календарь"
 msgstr "Calendar"
 
-#: src/project/templates/index.html:265
+#: src/project/templates/index.html:327
 msgid "Предстоящие события"
 msgstr "Upcoming Events"
 
-#: src/project/templates/index.html:361
+#: src/project/templates/index.html:427
 msgid "Вступайте в сообщество"
 msgstr "Join community"
 
-#: src/project/templates/index.html:388 src/project/templates/index.html:442
-#: src/project/templates/index.html:512
+#: src/project/templates/index.html:457 src/project/templates/index.html:511
+#: src/project/templates/index.html:581
 msgid "Доступ ко всем сервисам"
 msgstr "Access to all services"
 
-#: src/project/templates/index.html:404
+#: src/project/templates/index.html:473
 msgid "1 бесплатный мастеркласс в год"
 msgstr "1 free workshop per year"
 
-#: src/project/templates/index.html:420 src/project/templates/index.html:474
-#: src/project/templates/index.html:544
+#: src/project/templates/index.html:489 src/project/templates/index.html:543
+#: src/project/templates/index.html:613
 msgid "скидка на языковые курсы"
 msgstr "discount on language courses"
 
-#: src/project/templates/index.html:458
+#: src/project/templates/index.html:527
 msgid "2 бесплатных мастеркласса в год"
 msgstr "2 free workshops per year"
 
-#: src/project/templates/index.html:490 src/project/templates/index.html:560
+#: src/project/templates/index.html:559 src/project/templates/index.html:629
 msgid "скидка на инженерные мастерклассы"
 msgstr "discount on engineering workshops"
 
-#: src/project/templates/index.html:528
+#: src/project/templates/index.html:597
 msgid "4 бесплатных мастеркласса в год"
 msgstr "4 free workshops per year"
 
-#: src/project/templates/index.html:576
+#: src/project/templates/index.html:645
 msgid "скидка на IT курсы"
 msgstr "discount on IT courses"
 
-#: src/project/templates/index.html:584
+#: src/project/templates/index.html:656
 msgid "Отзывы"
 msgstr "Reviews"
 
-#: src/project/templates/index.html:621
+#: src/project/templates/index.html:712
 msgid "Частые вопросы"
 msgstr "Frequently asked questions"
 
-#: src/project/templates/index.html:626
+#: src/project/templates/index.html:718
 msgid "Как я могу узнать, какой курс мне подходит?"
 msgstr "How can I know which course is right for me?"
 
-#: src/project/templates/index.html:629
+#: src/project/templates/index.html:721
 msgid ""
 "Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы"
 " можете связаться с\n"
@@ -446,11 +450,11 @@ msgstr ""
 "you choose the course that best suits your goals and training level\n"
 "                    that suits your goals and level of training."
 
-#: src/project/templates/index.html:637
+#: src/project/templates/index.html:729
 msgid "Как я могу записаться на курс?"
 msgstr "How can I enroll in a course?"
 
-#: src/project/templates/index.html:639
+#: src/project/templates/index.html:731
 msgid ""
 "Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также"
 " вы можете связаться с\n"
@@ -460,31 +464,31 @@ msgstr ""
 "application form. You can also contact\n"
 "                    us by phone or come to our office."
 
-#: src/project/templates/index.html:647
+#: src/project/templates/index.html:739
 msgid "Как я могу записаться на пробное тестирование TOEFL?"
 msgstr "How can I sign up for a TOEFL practice test?"
 
-#: src/project/templates/index.html:649
+#: src/project/templates/index.html:741
 msgid "Вы можете записаться"
 msgstr "You can sign up"
 
-#: src/project/templates/index.html:655
+#: src/project/templates/index.html:747
 msgid "Я сдал пробное тестирование, где я могу узнать свой результат?"
 msgstr "I took the practice test, where can I find out my result?"
 
-#: src/project/templates/index.html:658
+#: src/project/templates/index.html:750
 msgid "Также Результаты пробного тестирования можете найти"
 msgstr "You can also find the results of trial testing"
 
-#: src/project/templates/index.html:659
+#: src/project/templates/index.html:751
 msgid "здесь"
 msgstr "here"
 
-#: src/project/templates/index.html:665
+#: src/project/templates/index.html:757
 msgid "Нужен ли мне компьютер для обучения?"
 msgstr "Do I need a computer for studying?"
 
-#: src/project/templates/index.html:667
+#: src/project/templates/index.html:759
 msgid ""
 "Мы предоставляем всю нужную информацию и материалы для обучения. Вам не "
 "нужен компьютер, но он\n"
@@ -496,19 +500,19 @@ msgstr ""
 "                    you don't need a computer, but it can be useful for "
 "self-study."
 
-#: src/project/templates/index.html:674
+#: src/project/templates/index.html:766
 msgid "Есть ли у вас индивидуальный занятия?"
 msgstr "Do you have individual lessons?"
 
-#: src/project/templates/index.html:675
+#: src/project/templates/index.html:767
 msgid "Да, есть!"
 msgstr "Yes, there is!"
 
-#: src/project/templates/index.html:714
+#: src/project/templates/index.html:821
 msgid "Читать другие"
 msgstr "Read more"
 
-#: src/project/templates/index.html:725
+#: src/project/templates/index.html:834
 msgid "Самое сложное - это начать. Оставьте заявку и мы поможем вам со всем!"
 msgstr ""
 "The hardest part is getting started. Leave a request and we will help you"
@@ -567,125 +571,130 @@ msgstr ""
 #: src/project/templates/admin/people/edit_teacher.html:99
 #: src/project/templates/admin/people/edit_teacher.html:112
 #: src/project/templates/admin/people/edit_teacher.html:124
-#: src/project/templates/index.html:735
+#: src/project/templates/index.html:844
 msgid "Асан Асанов"
 msgstr "Asan Asanov"
 
-#: src/project/templates/index.html:752
+#: src/project/templates/index.html:861
 msgid "16 лет"
 msgstr "16 years"
 
-#: src/project/templates/index.html:764
+#: src/project/templates/index.html:876
 msgid "Оставить заявку"
 msgstr "Leave a request"
 
-#: src/project/templates/index.html:768
+#: src/project/templates/index.html:880
 msgid "Что дальше?"
 msgstr "What's next?"
 
-#: src/project/templates/index.html:770
+#: src/project/templates/index.html:882
 msgid "Ждите от нас звонка! Наш менеджер свяжется с Вами и проконсультирует."
 msgstr "Wait for a call from us! Our manager will contact you and advise you."
 
-#: src/project/templates/index.html:784
+#: src/project/templates/index.html:916
 msgid "Запись на клуб"
 msgstr "Course enrollment"
 
-#: src/project/templates/index.html:804
-#: src/project/templates/toefl_register.html:305
+#: src/project/templates/index.html:936
+#: src/project/templates/toefl_register.html:312
 msgid "Имя"
 msgstr "Name"
 
-#: src/project/templates/index.html:817
+#: src/project/templates/index.html:949
 msgid "Возраст"
 msgstr "Age"
 
-#: src/project/templates/index.html:822
-#: src/project/templates/toefl_register.html:343
+#: src/project/templates/index.html:954
+#: src/project/templates/toefl_register.html:350
 msgid "Номер телефона"
 msgstr "Phone number"
 
-#: src/project/templates/index.html:835
+#: src/project/templates/index.html:967
 msgid "Клуб"
 msgstr "Club"
 
-#: src/project/templates/layout.html:15 src/project/templates/layout.html:85
+#: src/project/templates/layout.html:43 src/project/templates/layout.html:172
 #: src/project/templates/teachers.html:8 src/project/templates/teachers.html:9
 #: src/project/templates/teachers.html:10
 #: src/project/templates/teachers.html:11
 msgid "Учителя"
 msgstr "Teachers"
 
-#: src/project/templates/layout.html:16 src/project/templates/layout.html:91
+#: src/project/templates/layout.html:50 src/project/templates/layout.html:192
 msgid "Связаться с нами"
 msgstr "Contact us"
 
-#: src/project/templates/layout.html:134
+#: src/project/templates/layout.html:234
+#, fuzzy
+msgid "Контактная информация"
+msgstr "Information"
+
+#: src/project/templates/layout.html:328
 msgid "Мейкерспейс"
 msgstr "Makerspace"
 
-#: src/project/templates/layout.html:139
+#: src/project/templates/layout.html:339
 msgid "Программирования"
 msgstr "Coding"
 
-#: src/project/templates/layout.html:144
+#: src/project/templates/layout.html:350
 msgid "Детская Академия Роста"
 msgstr "Children’s Growth Academy"
 
-#: src/project/templates/layout.html:149
+#: src/project/templates/layout.html:361
 msgid "Языки"
 msgstr "Languages"
 
-#: src/project/templates/layout.html:153
+#: src/project/templates/layout.html:372
 msgid "Бизнес"
 msgstr "Business"
 
-#: src/project/templates/layout.html:157
+#: src/project/templates/layout.html:383
 msgid "Подготовительные Курсы"
 msgstr "Preparatory courses"
 
-#: src/project/templates/layout.html:163
+#: src/project/templates/layout.html:403
 msgid "Информация"
 msgstr "Information"
 
-#: src/project/templates/layout.html:166
+#: src/project/templates/layout.html:414
 msgid "АУЦА"
 msgstr "AUCA"
 
-#: src/project/templates/layout.html:176
+#: src/project/templates/layout.html:447
 msgid "Компания"
 msgstr "Company"
 
-#: src/project/templates/layout.html:185
+#: src/project/templates/layout.html:480
 msgid "Преподаватели"
 msgstr "Teachers"
 
-#: src/project/templates/layout.html:190
+#: src/project/templates/layout.html:500
 msgid "Язык"
 msgstr "Language"
 
-#: src/project/templates/layout.html:193
+#: src/project/templates/layout.html:511
 msgid "Русский"
 msgstr "Russian"
 
-#: src/project/templates/layout.html:196
+#: src/project/templates/layout.html:522
 msgid "Английский"
 msgstr "English"
 
-#: src/project/templates/layout.html:203
-msgid "© 2024 Мейкерспейс АУЦА. Все права защищены"
-msgstr "© 2024 Makerspace AUCA. All right reserved"
+#: src/project/templates/layout.html:531
+msgid "© 2025 Мейкерспейс АУЦА. Все права защищены"
+msgstr "© 2025 Makerspace AUCA. All right reserved"
 
 #: src/project/templates/login.html:8 src/project/templates/login.html:9
 #: src/project/templates/login.html:10 src/project/templates/login.html:11
 msgid "Войти"
 msgstr "Login"
 
-#: src/project/templates/teachers.html:60
+#: src/project/templates/teachers.html:63
 msgid "О преподавателях"
 msgstr "About teachers"
 
-#: src/project/templates/teachers.html:62
+#: src/project/templates/teachers.html:66
 msgid ""
 "Наши преподаватели - это люди, которые имеют большой опыт в преподавании "
 "английского языка, а также\n"
@@ -705,23 +714,27 @@ msgstr ""
 msgid "Вы можете найти результаты пробного TOEFL тут"
 msgstr "You can find your TOEFL practice results here"
 
-#: src/project/templates/toefl.html:76 src/project/templates/toefl.html:85
+#: src/project/templates/toefl.html:80 src/project/templates/toefl.html:89
 msgid "Предыдущая"
 msgstr "Previous"
 
-#: src/project/templates/toefl.html:92 src/project/templates/toefl.html:101
+#: src/project/templates/toefl.html:96 src/project/templates/toefl.html:105
 msgid "Следующая"
 msgstr "Next"
 
-#: src/project/templates/toefl.html:137
+#: src/project/templates/toefl.html:150
 msgid "Нет результатов"
 msgstr "No results"
 
-#: src/project/templates/toefl.html:143
+#: src/project/templates/toefl.html:161
 msgid "Хотите сдать тест?"
 msgstr "Do you want to take the test?"
 
-#: src/project/templates/toefl.html:147
+#: src/project/templates/toefl.html:163
+msgid "Зарегистрируйтесь на пробный TOEFL тест"
+msgstr ""
+
+#: src/project/templates/toefl.html:168
 msgid "Регистрация тут"
 msgstr "Registration here"
 
@@ -759,23 +772,23 @@ msgstr "An error occurred while registering for a practice test. Try again."
 msgid "Если Вы не можете зарегистрироваться, позвоните по номеру +996 312 915 022"
 msgstr "If you cannot register, call 996 312 915 022"
 
-#: src/project/templates/toefl_register.html:216
+#: src/project/templates/toefl_register.html:219
 msgid "Пробный TOEFL PBT"
 msgstr "TOEFL PBT Trial"
 
-#: src/project/templates/toefl_register.html:233
+#: src/project/templates/toefl_register.html:237
 msgid "500 Сом"
 msgstr "500 KGS"
 
-#: src/project/templates/toefl_register.html:250
+#: src/project/templates/toefl_register.html:254
 msgid "Часа"
 msgstr "Hours"
 
-#: src/project/templates/toefl_register.html:267
+#: src/project/templates/toefl_register.html:271
 msgid "Пн/Чт 14:10"
 msgstr "Mon/Thu 14:10"
 
-#: src/project/templates/toefl_register.html:272
+#: src/project/templates/toefl_register.html:276
 msgid ""
 "На пробный тест необходимо регистрироваться заранее через наш сайт с "
 "указанием желаемой даты\n"
@@ -791,7 +804,7 @@ msgstr ""
 "                     list, i.e. There is no response email or "
 "notification."
 
-#: src/project/templates/toefl_register.html:278
+#: src/project/templates/toefl_register.html:281
 msgid ""
 "P.S. Если лимит превышает максимально-допустимое количество участников, с"
 " Вами свяжутся и\n"
@@ -800,34 +813,35 @@ msgstr ""
 "P.S. If the limit exceeds the maximum allowed number of participants, you"
 " will be contacted and will offer another date for taking the test."
 
-#: src/project/templates/toefl_register.html:282
+#: src/project/templates/toefl_register.html:286
 msgid "Для прохождения теста с собой необходимо иметь:"
 msgstr "To take the test you must have with you:"
 
-#: src/project/templates/toefl_register.html:284
+#: src/project/templates/toefl_register.html:289
 msgid "- Паспорт (для несовершеннолетних - свидетельство о рождении)"
 msgstr "- Passport (for minors - birth certificate)"
 
-#: src/project/templates/toefl_register.html:285
+#: src/project/templates/toefl_register.html:290
 msgid "- Ручку"
 msgstr "- Pen"
 
-#: src/project/templates/toefl_register.html:286
+#: src/project/templates/toefl_register.html:291
 msgid "- 500 сомов без сдачи"
 msgstr "- 500 soms without change"
 
-#: src/project/templates/toefl_register.html:290
+#: src/project/templates/toefl_register.html:295
+#, fuzzy
 msgid ""
 "После регистрации в день сдачи тестирования необходимо прийти к нам в "
-"аудиторию - кабинет S4, чтобы\n"
-"                    узнать место проведения тестирования, так как "
+"аудиторию - кабинет S4,\n"
+"                    чтобы узнать место проведения тестирования, так как "
 "аудитории меняются."
 msgstr ""
 "After registration, on the day of testing, you must come to our "
 "auditorium - room S4, to find out where the testing will take place, as "
 "the auditoriums change."
 
-#: src/project/templates/toefl_register.html:294
+#: src/project/templates/toefl_register.html:299
 msgid ""
 "Пробный тест состоит из 3 частей (аудирование, грамматический тест, "
 "чтение) и длится ~ 2 часа.\n"
@@ -837,25 +851,36 @@ msgstr ""
 " lasts ~ 2 hours.\n"
 " The maximum score is 677. The minimum is 200."
 
-#: src/project/templates/toefl_register.html:318
+#: src/project/templates/toefl_register.html:309
+#, fuzzy
+msgid "Регистрация на тест"
+msgstr "Registration here"
+
+#: src/project/templates/toefl_register.html:325
 msgid "Фамилия"
 msgstr "Last name"
 
-#: src/project/templates/toefl_register.html:356
+#: src/project/templates/toefl_register.html:363
 msgid "День"
 msgstr "Day"
 
-#: src/project/templates/toefl_register.html:358
+#: src/project/templates/toefl_register.html:370
 msgid "Выберите день"
 msgstr "Select a day"
 
-#: src/project/templates/toefl_register.html:372
+#: src/project/templates/toefl_register.html:389
 msgid "Ищете результаты?"
 msgstr "Looking for results?"
 
-#: src/project/templates/toefl_register.html:376
-msgid "Смотреть тут"
-msgstr "See here"
+#: src/project/templates/toefl_register.html:391
+#, fuzzy
+msgid "Проверьте свои результаты тестирования TOEFL"
+msgstr "You can find your TOEFL practice results here"
+
+#: src/project/templates/toefl_register.html:396
+#, fuzzy
+msgid "Смотреть результаты"
+msgstr "Looking for results?"
 
 #~ msgid ""
 #~ "Наша миссия: предоставлять высококачественные "
@@ -969,4 +994,7 @@ msgstr "See here"
 
 #~ msgid "Курсы · MLDC"
 #~ msgstr "Courses · MLDC"
+
+#~ msgid "Смотреть тут"
+#~ msgstr "See here"
 

@@ -2,32 +2,76 @@
 <html lang="ru">
     {% block head %}{% endblock %}
     <body class="w-full">
-        <nav class="fixed top-0 flex h-24 w-full items-center justify-center bg-[#1f3058] text-white z-20 shadow-xl">
+        <nav
+            class="fixed top-0 flex h-24 w-full items-center justify-center bg-gradient-to-r from-[#1f3058] via-[#2a4470] to-[#1f3058] text-white z-20 shadow-2xl backdrop-blur-sm border-b border-white/10"
+        >
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
-                <div>
-                    <a href="/"><img class="hidden w-40 sm:block" src="/static/elements/logo_light.png" /></a>
-                    <a href="/"><img class="block w-11 sm:hidden" src="/static/elements/icon_light.svg" /></a>
+                <div class="flex items-center">
+                    <a href="/" class="hover:scale-105 transition-transform duration-300">
+                        <img class="hidden w-40 sm:block drop-shadow-lg" src="/static/elements/logo_light.png" />
+                    </a>
+                    <a href="/" class="hover:scale-105 transition-transform duration-300">
+                        <img class="block w-11 sm:hidden drop-shadow-lg" src="/static/elements/icon_light.svg" />
+                    </a>
                 </div>
-                <ul class="hidden gap-7 font-medium *:transition-colors *:ease-in-out hover:*:text-slate-200 md:flex">
-                    <a href="/courses">{{_('Курсы')}}</a>
-                    <a href="/about">{{_('О нас')}}</a>
-                    <a href="/toefl/register">TOEFL</a>
-                    <a href="/teachers">{{_('Учителя')}}</a>
-                    <a href="/about#contacts">{{_('Связаться с нами')}}</a>
+                <ul class="hidden gap-8 font-semibold md:flex">
+                    <li>
+                        <a
+                            href="/courses"
+                            class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
+                            >{{_('Курсы')}}</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/about"
+                            class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
+                            >{{_('О нас')}}</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/toefl/register"
+                            class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold shadow-lg"
+                            >TOEFL</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/teachers"
+                            class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
+                            >{{_('Учителя')}}</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/about#contacts"
+                            class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
+                            >{{_('Связаться с нами')}}</a
+                        >
+                    </li>
                 </ul>
-                <a href="https://auca.kg" target="_blank"
-                    ><img
-                        class="hidden h-11 lg:block"
+                <a
+                    href="https://auca.kg"
+                    target="_blank"
+                    class="hidden lg:block hover:scale-110 transition-transform duration-300"
+                >
+                    <img
+                        class="h-11 drop-shadow-lg"
                         src="{{ url_for('static', filename='elements/logo_tr2.png')}}"
                         alt="AUCA"
-                /></a>
+                    />
+                </a>
             </div>
-            <button class="mr-9 block md:hidden" onclick="openMenu()">
+            <button
+                class="mr-6 block md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-300"
+                onclick="openMenu()"
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke-width="1.5"
+                    stroke-width="2"
                     stroke="currentColor"
                     class="h-7 w-7"
                 >
@@ -40,20 +84,25 @@
             </button>
         </nav>
         <div id="menu" class="hidden md:hidden" role="dialog" aria-modal="true">
+            <div class="fixed inset-0 bg-black/50 backdrop-blur-sm"></div>
             <div
-                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-4 md:max-w-md md:ring-gray-900/10"
+                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-gradient-to-br from-white to-gray-50 px-6 py-6 md:max-w-md shadow-2xl border-l border-gray-200"
             >
-                <div class="flex items-center justify-between">
-                    <a href="#">
-                        <img class="w-40" src="/static/elements/logo.png" alt="" />
+                <div class="flex items-center justify-between mb-6">
+                    <a href="#" class="hover:scale-105 transition-transform duration-300">
+                        <img class="w-40 drop-shadow-sm" src="/static/elements/logo.png" alt="" />
                     </a>
-                    <button type="button" class="mr-3 rounded-md text-gray-700" onclick="closeMenu()">
+                    <button
+                        type="button"
+                        class="p-2 rounded-full text-gray-600 hover:bg-gray-100 transition-colors duration-300"
+                        onclick="closeMenu()"
+                    >
                         <span class="sr-only">Close menu</span>
                         <svg
                             class="h-6 w-6"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            stroke-width="2"
                             stroke="currentColor"
                             aria-hidden="true"
                         >
@@ -61,60 +110,184 @@
                         </svg>
                     </button>
                 </div>
-                <div class="mt-6 flow-root">
-                    <div class="-my-6 divide-y divide-gray-500/10">
-                        <div class="space-y-2 py-4">
+                <div class="flow-root">
+                    <div class="divide-y divide-gray-200">
+                        <div class="space-y-3 py-6">
                             <a
                                 href="/courses"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >{{_('Курсы')}}</a
+                                class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                             >
+                                {{_('Курсы')}}
+                                <svg
+                                    class="w-5 h-5 text-gray-400 group-hover:text-sky-500 transition-colors"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5l7 7-7 7"
+                                    ></path>
+                                </svg>
+                            </a>
                             <a
                                 href="/about"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >{{_('О нас')}}</a
+                                class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                             >
+                                {{_('О нас')}}
+                                <svg
+                                    class="w-5 h-5 text-gray-400 group-hover:text-sky-500 transition-colors"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5l7 7-7 7"
+                                    ></path>
+                                </svg>
+                            </a>
                             <a
                                 href="/toefl/register"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >TOEFL</a
+                                class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 transition-all duration-300 shadow-lg"
                             >
+                                TOEFL
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5l7 7-7 7"
+                                    ></path>
+                                </svg>
+                            </a>
                             <a
                                 href="/teachers"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
-                                >{{_('Учителя')}}</a
+                                class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                             >
+                                {{_('Учителя')}}
+                                <svg
+                                    class="w-5 h-5 text-gray-400 group-hover:text-sky-500 transition-colors"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5l7 7-7 7"
+                                    ></path>
+                                </svg>
+                            </a>
                             <a
                                 href="/about#contacts"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-slate-100"
+                                class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                                 onclick="closeMenu()"
-                                >{{_('Связаться с нами')}}</a
                             >
+                                {{_('Связаться с нами')}}
+                                <svg
+                                    class="w-5 h-5 text-gray-400 group-hover:text-sky-500 transition-colors"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 5l7 7-7 7"
+                                    ></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         {% block content %} {% endblock %}
-        <footer class="bg-gray-50 text-sm text-slate-900" aria-labelledby="footer-heading">
+        <footer
+            class="bg-gradient-to-br from-gray-50 via-white to-blue-50 text-sm text-slate-900 border-t border-gray-200"
+            aria-labelledby="footer-heading"
+        >
             <h2 id="footer-heading" class="sr-only">Footer</h2>
             <div class="mx-auto max-w-7xl px-6 pb-8 pt-24 lg:pt-32">
-                <div class="grid xl:grid-cols-3 xl:gap-8">
+                <div class="grid xl:grid-cols-3 xl:gap-12">
                     <div class="space-y-8">
-                        <img
-                            class="h-16"
-                            src="{{ url_for('static', filename='elements/logo.png')}}"
-                            alt="Мейкерспейс АУЦА"
-                        />
-                        <img class="h-12" src="{{ url_for('static', filename='elements/logo_tr2.png')}}" alt="AUCA" />
-                        <p>
-                            7/6 Aaly Tokombaev Street Bishkek, <br />Kyrgyz Republic 720060 <br />Тел.: +996 550 915 022
-                            <br />Тел.: +996 502 915 022 <br />Тел.: +996 312 915 022
-                        </p>
+                        <div class="space-y-4">
+                            <img
+                                class="h-16 drop-shadow-sm hover:scale-105 transition-transform duration-300"
+                                src="{{ url_for('static', filename='elements/logo.png')}}"
+                                alt="Мейкерспейс АУЦА"
+                            />
+                            <img
+                                class="h-12 drop-shadow-sm hover:scale-105 transition-transform duration-300"
+                                src="{{ url_for('static', filename='elements/logo_tr2.png')}}"
+                                alt="AUCA"
+                            />
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-900 mb-3 text-lg">{{_('Контактная информация')}}</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                7/6 Aaly Tokombaev Street Bishkek, <br />Kyrgyz Republic 720060
+                            </p>
+                            <div class="mt-4 space-y-2">
+                                <a
+                                    href="tel:+996550915022"
+                                    class="flex items-center gap-2 text-sky-600 hover:text-sky-800 transition-colors"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                        ></path>
+                                    </svg>
+                                    +996 550 915 022
+                                </a>
+                                <a
+                                    href="tel:+996502915022"
+                                    class="flex items-center gap-2 text-sky-600 hover:text-sky-800 transition-colors"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                        ></path>
+                                    </svg>
+                                    +996 502 915 022
+                                </a>
+                                <a
+                                    href="tel:+996312915022"
+                                    class="flex items-center gap-2 text-sky-600 hover:text-sky-800 transition-colors"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                        ></path>
+                                    </svg>
+                                    +996 312 915 022
+                                </a>
+                            </div>
+                        </div>
                         <div class="flex space-x-6">
-                            <a href="https://www.instagram.com/mldc.auca.kg" target="_blank" class="">
+                            <a
+                                href="https://www.instagram.com/mldc.auca.kg"
+                                target="_blank"
+                                class="p-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-400 hover:to-rose-400 transition-all duration-300 hover:scale-110 shadow-lg"
+                            >
                                 <span class="sr-only">Instagram</span>
-                                <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6" aria-hidden="true">
+                                <svg fill="currentColor" viewBox="0 0 24 24" class="h-5 w-5" aria-hidden="true">
                                     <path
                                         fill-rule="evenodd"
                                         d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
@@ -127,80 +300,236 @@
                     <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
                         <div class="md:grid md:grid-cols-2 md:gap-8">
                             <div>
-                                <h3 class="font-semibold text-slate-900">{{_("Курсы")}}</h3>
-                                <ul role="list" class="mt-6 space-y-4">
+                                <h3 class="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                                    <svg
+                                        class="w-5 h-5 text-sky-600"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                        ></path>
+                                    </svg>
+                                    {{_("Курсы")}}
+                                </h3>
+                                <ul role="list" class="space-y-3">
                                     <li>
-                                        <a href="/courses/inzhenernye-kursy" class="hover:text-slate-900"
-                                            >{{_('Мейкерспейс')}}</a
+                                        <a
+                                            href="/courses/inzhenernye-kursy"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
                                         >
+                                            <span
+                                                class="w-2 h-2 bg-sky-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_('Мейкерспейс')}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/courses/it-kursy" class="hover:text-slate-900"
-                                            >{{_('Программирования')}}</a
+                                        <a
+                                            href="/courses/it-kursy"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
                                         >
+                                            <span
+                                                class="w-2 h-2 bg-emerald-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_('Программирования')}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/courses/detskaia-akademiia-rosta" class="hover:text-slate-900"
-                                            >{{_('Детская Академия Роста')}}</a
+                                        <a
+                                            href="/courses/detskaia-akademiia-rosta"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
                                         >
+                                            <span
+                                                class="w-2 h-2 bg-purple-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_('Детская Академия Роста')}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/courses/iazykovye-kursy" class="hover:text-slate-900"
-                                            >{{_("Языки")}}</a
+                                        <a
+                                            href="/courses/iazykovye-kursy"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
                                         >
+                                            <span
+                                                class="w-2 h-2 bg-orange-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Языки")}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/courses/biznes-kursy" class="hover:text-slate-900">{{_('Бизнес')}}</a>
+                                        <a
+                                            href="/courses/biznes-kursy"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_('Бизнес')}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/courses/podgotovitelnye-kursy" class="hover:text-slate-900"
-                                            >{{_("Подготовительные Курсы")}}</a
+                                        <a
+                                            href="/courses/podgotovitelnye-kursy"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
                                         >
+                                            <span
+                                                class="w-2 h-2 bg-rose-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Подготовительные Курсы")}}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="mt-10 md:mt-0">
-                                <h3 class="font-semibold text-slate-900">{{_("Информация")}}</h3>
-                                <ul role="list" class="mt-6 space-y-4">
+                                <h3 class="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                                    <svg
+                                        class="w-5 h-5 text-sky-600"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        ></path>
+                                    </svg>
+                                    {{_("Информация")}}
+                                </h3>
+                                <ul role="list" class="space-y-3">
                                     <li>
-                                        <a href="https://auca.kg" class="hover:text-slate-900">{{_("АУЦА")}}</a>
+                                        <a
+                                            href="https://auca.kg"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-sky-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("АУЦА")}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/about#contacts" class="hover:text-slate-900">{{_("Контакты")}}</a>
+                                        <a
+                                            href="/about#contacts"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-emerald-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Контакты")}}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="md:grid md:grid-cols-2 md:gap-8">
                             <div>
-                                <h3 class="font-semibold text-slate-900">{{_("Компания")}}</h3>
-                                <ul role="list" class="mt-6 space-y-4">
+                                <h3 class="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                                    <svg
+                                        class="w-5 h-5 text-sky-600"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                                        ></path>
+                                    </svg>
+                                    {{_("Компания")}}
+                                </h3>
+                                <ul role="list" class="space-y-3">
                                     <li>
-                                        <a href="/about" class="hover:text-slate-900">{{_("О нас")}}</a>
+                                        <a
+                                            href="/about"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-sky-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("О нас")}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/about#contacts" class="hover:text-slate-900">{{_("Контакты")}}</a>
+                                        <a
+                                            href="/about#contacts"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-emerald-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Контакты")}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="/teachers" class="hover:text-slate-900">{{_("Преподаватели")}}</a>
+                                        <a
+                                            href="/teachers"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-purple-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Преподаватели")}}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="mt-10 md:mt-0">
-                                <h3 class="font-semibold text-slate-900">{{_("Язык")}}</h3>
-                                <ul role="list" class="mt-6 space-y-4">
+                                <h3 class="font-bold text-gray-900 mb-4 text-lg flex items-center gap-2">
+                                    <svg
+                                        class="w-5 h-5 text-sky-600"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
+                                        ></path>
+                                    </svg>
+                                    {{_("Язык")}}
+                                </h3>
+                                <ul role="list" class="space-y-3">
                                     <li>
-                                        <a href="{{ url_for('main.set_lang', lang='ru') }}">{{_("Русский")}}</a>
+                                        <a
+                                            href="{{ url_for('main.set_lang', lang='ru') }}"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-red-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Русский")}}
+                                        </a>
                                     </li>
                                     <li>
-                                        <a href="{{ url_for('main.set_lang', lang='en') }}">{{_("Английский")}}</a>
+                                        <a
+                                            href="{{ url_for('main.set_lang', lang='en') }}"
+                                            class="text-gray-600 hover:text-sky-600 transition-colors duration-300 flex items-center gap-2 group"
+                                        >
+                                            <span
+                                                class="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-125 transition-transform"
+                                            ></span>
+                                            {{_("Английский")}}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 lg:mt-24">
-                        <p class="text-xs leading-5">{{_('© 2024 Мейкерспейс АУЦА. Все права защищены')}}</p>
+                    <div class="mt-16 border-t border-gray-200 pt-8 sm:mt-20 lg:mt-24">
+                        <p class="text-sm leading-6 text-gray-600 text-center">
+                            {{_('© 2025 Мейкерспейс АУЦА. Все права защищены')}}
+                        </p>
                     </div>
                 </div>
             </div>
