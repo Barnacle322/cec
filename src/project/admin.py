@@ -369,6 +369,97 @@ def toggle_handle(type, id):
     return jsonify({"error": None, "handled": handled})
 
 
+@admin.post("/applications/bulk_archive")
+@admin_required
+def bulk_archive():
+    data = request.get_json()
+    if not data or "items" not in data:
+        return jsonify({"error": "Invalid request data"}), 400
+
+    items = data.get("items", [])
+    archived_count = 0
+    errors = []
+
+    for item in items:
+        item_type = item.get("type")
+        item_id = item.get("id")
+
+        if not item_type or not item_id:
+            continue
+
+        try:
+            if item_type == "toefl":
+                application = ToeflRegistration.get_by_id(int(item_id))
+                if application:
+                    application.handled = True
+                    application.handled_at = datetime.datetime.now(
+                        tz=datetime.timezone.utc
+                    )
+                    archived_count += 1
+            elif item_type == "registration":
+                application = Registration.get_by_id(int(item_id))
+                if application:
+                    application.handled = True
+                    application.handled_at = datetime.datetime.now(
+                        tz=datetime.timezone.utc
+                    )
+                    archived_count += 1
+        except Exception as e:
+            errors.append({"type": item_type, "id": item_id, "error": str(e)})
+
+    db.session.commit()
+
+    return jsonify(
+        {"success": True, "archived_count": archived_count, "errors": errors}
+    )
+
+
+@admin.post("/applications/archive_old")
+@admin_required
+def archive_old_applications():
+    # Archive applications older than 30 days
+    cutoff_date = datetime.datetime.now(tz=datetime.timezone.utc) - datetime.timedelta(
+        days=30
+    )
+
+    # Get old unhandled registration applications
+    old_registrations = (
+        db.session.query(Registration)
+        .filter(Registration.handled.is_(False), Registration.created_at < cutoff_date)
+        .all()
+    )
+
+    # Get old unhandled TOEFL applications
+    old_toefl = (
+        db.session.query(ToeflRegistration)
+        .filter(
+            ToeflRegistration.handled.is_(False),
+            ToeflRegistration.created_at < cutoff_date,
+        )
+        .all()
+    )
+
+    # Archive them
+    for app in old_registrations:
+        app.handled = True
+        app.handled_at = datetime.datetime.now(tz=datetime.timezone.utc)
+
+    for app in old_toefl:
+        app.handled = True
+        app.handled_at = datetime.datetime.now(tz=datetime.timezone.utc)
+
+    db.session.commit()
+
+    return jsonify(
+        {
+            "success": True,
+            "archived_count": len(old_registrations) + len(old_toefl),
+            "registrations": len(old_registrations),
+            "toefl": len(old_toefl),
+        }
+    )
+
+
 @admin.get("/applications/old/<type>/<int:page>")
 @admin_required
 def applications_old(type, page):

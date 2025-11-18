@@ -2,6 +2,7 @@
 {% extends "admin/layout.html" %} 
 {% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
+<script src="/static/scripts/applications.js" defer></script>
 <!-- prettier-ignore -->
 {% endblock %} 
 {% block title %}Заявки{% endblock %} 
@@ -11,124 +12,262 @@
 <main
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
-    <section
-        class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
-    >
-        <h2 class="mb-5 flex w-full items-end gap-2 text-4xl font-medium sm:text-5xl">
-            Заявки
-            <a
-                href="/admin/applications/old/registration/1"
-                class="mb-1 rounded-lg bg-sky-500 px-2 py-1 text-sm text-white hover:bg-sky-400"
-                >Скрытые</a
-            >
-        </h2>
+    <!-- Stats Dashboard -->
+    <section class="mt-10 w-full max-w-7xl px-6 sm:mt-16">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white shadow-lg">
+                <div class="text-sm font-medium opacity-90">Заявки на курсы</div>
+                <div class="mt-2 text-3xl font-bold" id="registration-table-count">{{ applications|length }}</div>
+            </div>
+            <div class="rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 p-6 text-white shadow-lg">
+                <div class="text-sm font-medium opacity-90">TOEFL заявки</div>
+                <div class="mt-2 text-3xl font-bold" id="toefl-table-count">{{ toefl|length }}</div>
+            </div>
+            <div class="rounded-lg bg-gradient-to-br from-green-500 to-green-600 p-6 text-white shadow-lg">
+                <div class="text-sm font-medium opacity-90">Всего заявок</div>
+                <div class="mt-2 text-3xl font-bold">{{ (applications|length) + (toefl|length) }}</div>
+            </div>
+            <div class="rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 p-6 text-white shadow-lg">
+                <div class="text-sm font-medium opacity-90">Выбрано</div>
+                <div class="mt-2 text-3xl font-bold" id="selected-count">0</div>
+            </div>
+        </div>
+    </section>
 
-        <div class="relative w-full overflow-auto">
-            <table class="w-full overflow-hidden rounded-lg bg-white text-sm">
-                <thead class="bg-blue-500 text-white">
-                    <tr class="h-12 border-b *:px-4 *:text-left">
+    <!-- Course Applications Section -->
+    <section class="mb-10 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-4 px-6 pb-3">
+        <div class="flex w-full flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <h2 class="flex items-end gap-2 text-3xl font-bold sm:text-4xl">
+                Заявки на курсы
+                <a
+                    href="/admin/applications/old/registration/1"
+                    class="mb-1 rounded-lg bg-gray-500 px-3 py-1 text-sm font-medium text-white transition hover:bg-gray-600"
+                    >Архив</a
+                >
+            </h2>
+            <div class="flex w-full gap-2 sm:w-auto">
+                <input
+                    type="text"
+                    data-search="registration-table"
+                    placeholder="Поиск..."
+                    class="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200 sm:flex-initial sm:w-64"
+                />
+                <button
+                    id="archive-old-btn"
+                    class="rounded-lg bg-amber-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-amber-600"
+                    title="Архивировать заявки старше 30 дней"
+                >
+                    🗃️ Архивировать старые
+                </button>
+            </div>
+        </div>
+
+        <!-- Course Filters -->
+        <div class="flex w-full flex-wrap items-center gap-2 rounded-lg bg-blue-50 p-3">
+            <span class="text-sm font-medium text-gray-700">Фильтр по курсу:</span>
+            <div id="course-filters" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <!-- Bulk Actions -->
+        <div class="flex w-full items-center gap-2 rounded-lg bg-blue-50 p-3">
+            <span class="text-sm font-medium text-gray-700">Групповые действия:</span>
+            <button
+                data-bulk-action="archive"
+                disabled
+                class="cursor-not-allowed rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white opacity-50 transition hover:bg-sky-600 disabled:hover:bg-sky-500"
+            >
+                Архивировать выбранные
+            </button>
+        </div>
+
+        <div class="relative w-full overflow-auto rounded-lg shadow-lg">
+            <table id="registration-table" class="w-full bg-white text-sm">
+                <thead class="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+                    <tr class="*:px-4 *:py-3 *:text-left">
+                        <th class="w-12">
+                            <input
+                                type="checkbox"
+                                data-select-all="registration-table"
+                                class="size-4 cursor-pointer rounded border-gray-300"
+                            />
+                        </th>
                         <th>Имя</th>
                         <th>Возраст</th>
                         <th>Телефон</th>
                         <th>Курс</th>
                         <th>Дата подачи</th>
-                        <th>Действие</th>
+                        <th class="text-center">Действие</th>
                     </tr>
                 </thead>
-                <tbody class="">
-                    {% for application in applications %}
-                    <tr class="border-b *:p-4 even:bg-gray-100">
-                        <td class="font-medium">{{ application.name }}</td>
-                        <td>{{ application.age }}</td>
-                        <td>{{ application.phone }}</td>
-                        <td>{{ application.course_info }}</td>
-                        <td>{{ application.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+                <tbody>
+                    {% if applications|length > 0 %} {% for application in applications %}
+                    <tr class="border-b transition-colors hover:bg-blue-50 *:px-4 *:py-3 even:bg-gray-50">
                         <td>
+                            <input
+                                type="checkbox"
+                                data-item-id="{{ application.id }}"
+                                data-item-type="registration"
+                                class="size-4 cursor-pointer rounded border-gray-300"
+                            />
+                        </td>
+                        <td class="font-medium text-gray-900">{{ application.name }}</td>
+                        <td class="text-gray-700">{{ application.age }}</td>
+                        <td class="font-mono text-sm text-gray-700">{{ application.phone }}</td>
+                        <td data-course="{{ application.course_info }}">
+                            <span
+                                class="inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-800"
+                            >
+                                {{ application.course_info }}
+                            </span>
+                        </td>
+                        <td class="text-gray-600">{{ application.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+                        <td class="text-center">
                             <button
                                 onclick="toggleApplication(this, 'registration', '{{ application.id }}')"
-                                class="rounded-md bg-sky-500 px-2 py-2 text-white hover:bg-sky-400"
+                                class="rounded-lg bg-sky-500 px-4 py-2 text-xs font-medium text-white shadow transition hover:bg-sky-600 hover:shadow-md"
                             >
                                 Скрыть
                             </button>
                         </td>
                     </tr>
-                    {% endfor %}
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan="7" class="py-8 text-center text-gray-500">
+                            <div class="flex flex-col items-center gap-2">
+                                <svg
+                                    class="size-12 text-gray-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                    ></path>
+                                </svg>
+                                <p class="font-medium">Нет новых заявок</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
     </section>
-    <section
-        class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 overflow-auto px-6 pb-3 sm:mt-20"
-    >
-        <h2 class="mb-5 flex w-full items-end gap-2 text-4xl font-medium sm:text-5xl">
-            TOEFL Заявки
-            <a
-                href="/admin/applications/old/toefl/1"
-                class="mb-1 rounded-lg bg-sky-500 px-2 py-1 text-sm text-white hover:bg-sky-400"
-                >Скрытые</a
-            >
-        </h2>
 
-        <div class="relative w-full overflow-auto">
-            <table class="w-full overflow-hidden rounded-lg bg-white text-sm">
-                <thead class="bg-blue-500 text-white">
-                    <tr class="h-12 border-b *:px-4 *:text-left">
+    <!-- TOEFL Applications Section -->
+    <section class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-4 px-6 pb-3">
+        <div class="flex w-full flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+            <h2 class="flex items-end gap-2 text-3xl font-bold sm:text-4xl">
+                TOEFL Заявки
+                <a
+                    href="/admin/applications/old/toefl/1"
+                    class="mb-1 rounded-lg bg-gray-500 px-3 py-1 text-sm font-medium text-white transition hover:bg-gray-600"
+                    >Архив</a
+                >
+            </h2>
+            <div class="flex w-full gap-2 sm:w-auto">
+                <input
+                    type="text"
+                    data-search="toefl-table"
+                    placeholder="Поиск..."
+                    class="flex-1 rounded-lg border border-gray-300 px-4 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-200 sm:flex-initial sm:w-64"
+                />
+            </div>
+        </div>
+
+        <!-- Bulk Actions -->
+        <div class="flex w-full items-center gap-2 rounded-lg bg-purple-50 p-3">
+            <span class="text-sm font-medium text-gray-700">Групповые действия:</span>
+            <button
+                data-bulk-action="archive"
+                disabled
+                class="cursor-not-allowed rounded-lg bg-sky-500 px-4 py-2 text-sm font-medium text-white opacity-50 transition hover:bg-sky-600 disabled:hover:bg-sky-500"
+            >
+                Архивировать выбранные
+            </button>
+        </div>
+
+        <div class="relative w-full overflow-auto rounded-lg shadow-lg">
+            <table id="toefl-table" class="w-full bg-white text-sm">
+                <thead class="bg-gradient-to-r from-purple-600 to-purple-500 text-white">
+                    <tr class="*:px-4 *:py-3 *:text-left">
+                        <th class="w-12">
+                            <input
+                                type="checkbox"
+                                data-select-all="toefl-table"
+                                class="size-4 cursor-pointer rounded border-gray-300"
+                            />
+                        </th>
                         <th>Имя</th>
                         <th>Фамилия</th>
                         <th>Почта</th>
                         <th>Телефон</th>
                         <th>Дата подачи</th>
                         <th>День сдачи</th>
-                        <th>Действие</th>
+                        <th class="text-center">Действие</th>
                     </tr>
                 </thead>
-                <tbody class="">
-                    {% for application in toefl %}
-                    <tr class="border-b *:p-4 even:bg-gray-100">
-                        <td class="font-medium">{{ application.first_name }}</td>
-                        <td>{{ application.last_name }}</td>
-                        <td>{{ application.email }}</td>
-                        <td>{{ application.phone }}</td>
-                        <td>{{ application.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
-                        <td class="font-bold text-blue-500">{{ application.date.strftime("%d.%m.%Y") }}</td>
+                <tbody>
+                    {% if toefl|length > 0 %} {% for application in toefl %}
+                    <tr class="border-b transition-colors hover:bg-purple-50 *:px-4 *:py-3 even:bg-gray-50">
                         <td>
+                            <input
+                                type="checkbox"
+                                data-item-id="{{ application.id }}"
+                                data-item-type="toefl"
+                                class="size-4 cursor-pointer rounded border-gray-300"
+                            />
+                        </td>
+                        <td class="font-medium text-gray-900">{{ application.first_name }}</td>
+                        <td class="font-medium text-gray-900">{{ application.last_name }}</td>
+                        <td class="text-sm text-gray-700">{{ application.email }}</td>
+                        <td class="font-mono text-sm text-gray-700">{{ application.phone }}</td>
+                        <td class="text-gray-600">{{ application.created_at.strftime("%d.%m.%Y %H:%M") }}</td>
+                        <td>
+                            <span
+                                class="inline-block rounded-full bg-purple-100 px-3 py-1 text-xs font-bold text-purple-800"
+                            >
+                                📅 {{ application.date.strftime("%d.%m.%Y") }}
+                            </span>
+                        </td>
+                        <td class="text-center">
                             <button
                                 onclick="toggleApplication(this, 'toefl', '{{ application.id }}')"
-                                class="rounded-md bg-sky-500 px-2 py-2 text-white hover:bg-sky-400"
+                                class="rounded-lg bg-sky-500 px-4 py-2 text-xs font-medium text-white shadow transition hover:bg-sky-600 hover:shadow-md"
                             >
                                 Скрыть
                             </button>
                         </td>
                     </tr>
-                    {% endfor %}
+                    {% endfor %} {% else %}
+                    <tr>
+                        <td colspan="8" class="py-8 text-center text-gray-500">
+                            <div class="flex flex-col items-center gap-2">
+                                <svg
+                                    class="size-12 text-gray-400"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                    ></path>
+                                </svg>
+                                <p class="font-medium">Нет новых заявок на TOEFL</p>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endif %}
                 </tbody>
             </table>
         </div>
     </section>
 </main>
-<script>
-    function toggleApplication(element, type, id) {
-        fetch(`/admin/applications/toggle_handle/${type}/${id}`, {
-            method: "POST",
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.error) {
-                    console.error(data.error);
-                    // Optionally, show an error message to the user
-                } else {
-                    if (data.handled) {
-                        element.parentNode.parentNode.classList.add("opacity-50");
-                        element.innerText = "Вернуть";
-                    } else {
-                        element.innerText = "Скрыть";
-                        element.parentNode.parentNode.classList.remove("opacity-50");
-                    }
-                    console.log("Handled state:", data.handled);
-                    // Optionally, update the UI based on the new handled state
-                }
-            });
-    }
-</script>
 
 {% endblock %}
