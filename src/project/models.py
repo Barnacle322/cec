@@ -835,7 +835,9 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_all_unhandled() -> Sequence[ToeflRegistration]:
         return db.session.scalars(
-            select(ToeflRegistration).where(ToeflRegistration.handled.is_(False))
+            select(ToeflRegistration)
+            .where(ToeflRegistration.handled.is_(False))
+            .order_by(ToeflRegistration.created_at.desc())
         ).all()
 
     @staticmethod
@@ -886,7 +888,7 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
         return db.session.scalars(
             select(Registration)
             .where(Registration.handled.is_(False))
-            .order_by(Registration.course_info)
+            .order_by(Registration.created_at.desc())
         ).all()
 
     @staticmethod
