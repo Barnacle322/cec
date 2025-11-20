@@ -1,112 +1,225 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}Добавить событие{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
-content %}
-<main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
->
-    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
-        <article class="text-start">
-            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Событие</h1>
-            <p class="text-xl sm:text-2xl">Здесь вы можете добавить событие</p>
-        </article>
-    </section>
-    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3">
-        <form class="flex w-full flex-col gap-4" method="POST" action="/admin/event/add">
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ru"
-                    id="name_ru"
-                    placeholder="Мастер класс"
-                    required
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название на английском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_en"
-                    id="name_en"
-                    placeholder="Мастер класс"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название на кыргызском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ky"
-                    id="name_ky"
-                    placeholder="Мастер класс"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ru"
-                    id="description_ru"
-                    placeholder="{{_('Асан Асанов')}}"
-                    required
-                ></textarea>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на английском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_en"
-                    id="description_en"
-                    placeholder="{{_('Асан Асанов')}}"
-                ></textarea>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на кыргызском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ky"
-                    id="description_ky"
-                    placeholder="{{_('Асан Асанов')}}"
-                ></textarea>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Тип события</label>
-                <select
-                    id="event_type_id"
-                    name="event_type_id"
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    required
-                >
-                    <option value="{{ event_type.id }}">{{ event_type.name }}</option>
-                    {% for event_type in event_types %}
-                    <option value="{{ event_type.id }}">{{ event_type.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Дата</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="date"
-                    name="date"
-                    id="date"
-                    placeholder=""
-                    required
-                />
-            </div>
-            <button
-                class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
-                type="submit"
+{% endblock %} 
+{% block title %}Добавить событие{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+<main class="flex w-full flex-1 flex-col items-center justify-center p-4 sm:px-6 sm:py-8 lg:px-8">
+    <div class="w-full max-w-3xl">
+        <div class="mb-8 text-center">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Добавить событие</h1>
+            <p class="mt-2 text-lg text-gray-600">Заполните форму ниже, чтобы создать новое событие.</p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            <form
+                class="flex flex-col gap-6"
+                method="POST"
+                action="/admin/event/add"
             >
-                Добавить
-            </button>
-        </form>
-    </section>
+                <!-- Name Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="name_ru">Название (Русский)</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="text"
+                            name="name_ru"
+                            id="name_ru"
+                            placeholder="Мастер класс"
+                            required
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="name_en">Название (English)</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="text"
+                            name="name_en"
+                            id="name_en"
+                            placeholder="Master Class"
+                        />
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="description_ru">Описание (Русский)</label>
+                        <textarea
+                            class="h-32 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="description_ru"
+                            id="description_ru"
+                            placeholder="Описание события..."
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="description_en">Описание (English)</label>
+                        <textarea
+                            class="h-32 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="description_en"
+                            id="description_en"
+                            placeholder="Event description..."
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Event Details -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                    <div class="sm:col-span-2">
+                        <label for="event_type_id" class="block text-sm font-medium text-gray-700">
+                            Тип события
+                            <span class="group relative ml-1 inline-block cursor-help text-gray-400 hover:text-gray-500">
+                                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="absolute bottom-full left-1/2 mb-2 hidden w-48 -translate-x-1/2 rounded-md bg-gray-900 p-2 text-xs text-white shadow-lg group-hover:block">
+                                    Категория события (например, Воркшоп, Лекция). Помогает пользователям фильтровать мероприятия.
+                                </span>
+                            </span>
+                        </label>
+                        <div class="mt-1 flex gap-2">
+                            <select id="event_type_id" name="event_type_id" required class="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                <option value="" disabled selected>Выберите тип события</option>
+                                {% if event_type %}
+                                <option value="{{ event_type.id }}" selected>{{ event_type.name }}</option>
+                                {% endif %}
+                                {% for type in event_types %}
+                                <option value="{{ type.id }}">{{ type.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="button" onclick="openModal()" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="date">Дата</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="date"
+                            name="date"
+                            id="date"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-4 flex items-center justify-end gap-3">
+                    <a
+                        href="/admin/events"
+                        class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                    >
+                        Отмена
+                    </a>
+                    <button
+                        class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                        type="submit"
+                    >
+                        Добавить событие
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
+
+<!-- Create Event Type Modal -->
+<div id="createTypeModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+        <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>
+        <div class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
+            <form id="createTypeForm" onsubmit="submitEventType(event)">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 w-full text-center sm:ml-4 sm:mt-0 sm:text-left">
+                            <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">Создать новый тип события</h3>
+                            <div class="mt-4 space-y-4">
+                                <div>
+                                    <label for="new_type_name_ru" class="block text-sm font-medium text-gray-700">Название (RU)</label>
+                                    <input type="text" name="name_ru" id="new_type_name_ru" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                </div>
+                                <div>
+                                    <label for="new_type_description_ru" class="block text-sm font-medium text-gray-700">Описание (RU)</label>
+                                    <textarea name="description_ru" id="new_type_description_ru" rows="2" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Цвет</label>
+                                    <div class="mt-2 grid grid-cols-6 gap-2">
+                                        {% for color in ['neutral-300', 'red-300', 'orange-300', 'amber-300', 'yellow-300', 'lime-300', 'green-300', 'emerald-300', 'teal-300', 'cyan-300', 'sky-300', 'blue-300', 'indigo-300', 'violet-300', 'purple-300', 'fuchsia-300', 'pink-300', 'rose-300'] %}
+                                        <label class="relative cursor-pointer">
+                                            <input type="radio" name="color" value="{{ color }}" class="peer sr-only" required>
+                                            <div class="h-8 w-8 rounded-full bg-{{ color }} ring-2 ring-transparent ring-offset-2 peer-checked:ring-blue-500 hover:scale-110 transition-transform"></div>
+                                        </label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="submit" class="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Создать</button>
+                    <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById('createTypeModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('createTypeModal').classList.add('hidden');
+        document.getElementById('createTypeForm').reset();
+    }
+
+    async function submitEventType(event) {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        
+        // Convert FormData to JSON
+        const data = {};
+        formData.forEach((value, key) => data[key] = value);
+
+        try {
+            const response = await fetch('/admin/event_type/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // Add new option to select
+                const select = document.getElementById('event_type_id');
+                const option = new Option(result.name, result.id);
+                select.add(option);
+                select.value = result.id;
+                
+                closeModal();
+                // Optional: Show success message
+            } else {
+                alert(result.message || 'Ошибка при создании типа события');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Произошла ошибка при отправке запроса');
+        }
+    }
+</script>
 {% endblock %}

@@ -1,35 +1,78 @@
-[tool.poetry]
+[project]
 name = "cec"
 version = "0.1.0"
 description = ""
-authors = ["Barnacle322 <arstan.usenov@gmail.com>"]
+authors = [{ name = "Barnacle322", email = "arstan.usenov@gmail.com" }]
+requires-python = ">=3.12,<4"
 readme = "README.md"
+dependencies = [
+    "flask>=3.0.2,<4",
+    "flask-sqlalchemy>=3.1.1,<4",
+    "flask-login>=0.6.3,<0.7",
+    "google-cloud-storage>=2.16.0,<3",
+    "pillow>=10.3.0,<11",
+    "xlsx2csv>=0.8.2,<0.9",
+    "requests>=2.31.0,<3",
+    "granian[reload]>=1.2.1,<2",
+    "flask-debugtoolbar>=0.14.1,<0.15",
+    "flask-babel>=4.0.0,<5",
+    "babel>=2.14.0,<3",
+    "python-slugify>=8.0.4,<9",
+    "psycopg>=3.1.19,<4",
+    "psycopg-binary>=3.1.19,<4",
+    "flask-migrate>=4.0.7,<5",
+    "lxml>=5.3.0,<6",
+    "boto3>=1.40.69,<2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-flask = "^3.0.2"
-flask-sqlalchemy = "^3.1.1"
-flask-login = "^0.6.3"
-google-cloud-storage = "^2.16.0"
-pillow = "^10.3.0"
-xlsx2csv = "^0.8.2"
-requests = "^2.31.0"
-granian = { extras = ["reload"], version = "^1.2.1" }
-flask-debugtoolbar = "^0.14.1"
-flask-babel = "^4.0.0"
-babel = "^2.14.0"
-python-slugify = "^8.0.4"
-psycopg = "^3.1.19"
-psycopg-binary = "^3.1.19"
-flask-migrate = "^4.0.7"
-lxml = "^5.3.0"
-boto3 = "^1.40.69"
+[dependency-groups]
+dev = ["ruff>=0.3.5,<0.4", "pre-commit>=3.7.0,<4"]
 
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    ".venv",
+    ".old_venv",
+    "migrations",
+    "instance",
+    "typesense-stubs",
+]
 
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.3.5"
-pre-commit = "^3.7.0"
+# Same as Black.
+line-length = 120
+indent-width = 4
 
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "Q", "I", "N", "UP"]
+ignore = ["E501"]
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"

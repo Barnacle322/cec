@@ -1,209 +1,190 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}Люди{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
-<main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
->
-    <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
-        {% if status_type %} {% if status_type == '3' %}
-        <div class="w-full rounded-xl text-red-500">{{ msg }}</div>
-        {% endif %} {% if status_type == '2' %}
-        <div class="w-full rounded-xl text-orange-400">{{ msg }}</div>
-        {% endif %} {% if status_type == '1' %}
-        <div class="w-full rounded-xl text-lime-500">{{ msg }}</div>
-        {% endif %} {% endif %}
-        <h2 class="w-full text-2xl font-medium sm:text-4xl">Учителя</h2>
-        <div class="mt-5 grid w-full gap-5 md:grid-cols-2">
+{% endblock %} 
+{% block title %}Люди{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+<main class="flex w-full flex-1 flex-col gap-8 p-4 sm:px-6 sm:py-8 md:gap-10 lg:px-8 xl:px-10">
+    <!-- Status Messages -->
+    {% if status_type %}
+    <div class="mx-auto w-full max-w-3xl animate-fade-in">
+        {% if status_type == '3' %}
+        <div class="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-red-800">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 shrink-0">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 10a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-sm font-medium">{{ msg }}</p>
+        </div>
+        {% endif %}
+        {% if status_type == '2' %}
+        <div class="flex items-center gap-3 rounded-lg border border-orange-200 bg-orange-50 p-4 text-orange-800">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 shrink-0">
+                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-sm font-medium">{{ msg }}</p>
+        </div>
+        {% endif %}
+        {% if status_type == '1' %}
+        <div class="flex items-center gap-3 rounded-lg border border-green-200 bg-green-50 p-4 text-green-800">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 shrink-0">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-sm font-medium">{{ msg }}</p>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- Teachers Section -->
+    <section class="mx-auto w-full max-w-7xl">
+        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Учителя</h2>
+                <p class="mt-1 text-sm text-gray-500">Управляйте списком преподавателей</p>
+            </div>
             <a
                 href="/admin/teacher/add"
-                class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-3 py-5 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-500 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
-                Добавить учителя
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="h-6 w-6"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    ></path>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                 </svg>
+                Добавить учителя
             </a>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {% for teacher in teachers %}
-            <article class="flex justify-center gap-3 rounded-xl border bg-white p-5">
-                <img
-                    class="aspect-[4/5] max-h-32 rounded-xl bg-gray-200 object-cover"
-                    loading="lazy"
-                    src="{{ teacher.picture_url }}"
-                    alt=""
-                />
-                <div class="flex w-full flex-col gap-1">
-                    <h3 class="text-2xl font-medium sm:text-3xl">{{ teacher.name }}</h3>
+            <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:border-blue-200 hover:shadow-md">
+                <div class="aspect-[4/5] w-full overflow-hidden bg-gray-100">
+                    <img
+                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        src="{{ teacher.picture_url }}"
+                        alt="{{ teacher.name }}"
+                    />
                 </div>
-                <form
-                    action="/admin/teacher/delete/{{ teacher.id }}"
-                    method="POST"
-                    onsubmit="return confirm('Вы уверены, что хотите удалить этот элемент?');"
-                    class="ml-auto flex flex-col items-center gap-2"
-                >
-                    <a class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200" href="/admin/teacher/edit/{{ teacher.id }}"
-                        ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
+                <div class="flex flex-1 flex-col p-5">
+                    <h3 class="text-lg font-bold text-gray-900">{{ teacher.name }}</h3>
+                    
+                    <div class="mt-auto flex items-center justify-end gap-2 pt-4">
+                        <a 
+                            href="/admin/teacher/edit/{{ teacher.id }}"
+                            class="rounded-lg bg-gray-50 p-2 text-gray-600 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                            title="Редактировать"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                            ></path>
-                        </svg>
-                    </a>
-                    <button
-                        type="submit"
-                        class="rounded-lg bg-gray-100 p-2 text-red-500 hover:bg-gray-200 hover:text-red-600"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                        </a>
+                        <form
+                            action="/admin/teacher/delete/{{ teacher.id }}"
+                            method="POST"
+                            onsubmit="return confirm('Вы уверены, что хотите удалить этого учителя?');"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                            />
-                        </svg>
-                    </button>
-                </form>
+                            <button
+                                type="submit"
+                                class="rounded-lg bg-gray-50 p-2 text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
+                                title="Удалить"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </article>
             {% endfor %}
+            
+            <!-- Add New Card (Visual Cue) -->
+            <a href="/admin/teacher/add" class="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50/50 p-6 text-center transition-all hover:border-blue-400 hover:bg-blue-50">
+                <div class="rounded-full bg-white p-4 shadow-sm transition-transform group-hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-blue-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </div>
+                <span class="mt-4 font-medium text-gray-900">Добавить учителя</span>
+            </a>
         </div>
     </section>
-    <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
-        <h2 class="w-full text-2xl font-medium sm:text-4xl">Стафф</h2>
-        <div class="mt-5 grid w-full gap-5 md:grid-cols-2">
+
+    <hr class="mx-auto w-full max-w-7xl border-gray-200">
+
+    <!-- Staff Section -->
+    <section class="mx-auto w-full max-w-7xl">
+        <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Сотрудники</h2>
+                <p class="mt-1 text-sm text-gray-500">Управляйте списком сотрудников</p>
+            </div>
             <a
                 href="/admin/staff/add"
-                class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-3 py-5 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
+                class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-500 hover:shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
             >
-                Добавить стафф
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="h-6 w-6"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    ></path>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
                 </svg>
+                Добавить сотрудника
             </a>
-            {% for member in staff %}
+        </div>
 
-            <article class="flex justify-center gap-3 rounded-xl border bg-white p-5">
-                <img
-                    class="aspect-[4/5] max-h-32 rounded-xl bg-gray-200 object-cover"
-                    src="{{ member.picture_url }}"
-                    alt=""
-                />
-                <div class="flex w-full flex-col gap-1">
-                    <h3 class="text-2xl font-medium sm:text-3xl">{{ member.name }}</h3>
-                    <p class="text-gray-700">{{ member.description }}</p>
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {% for member in staff %}
+            <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all hover:border-blue-200 hover:shadow-md">
+                <div class="aspect-[4/5] w-full overflow-hidden bg-gray-100">
+                    <img
+                        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        src="{{ member.picture_url }}"
+                        alt="{{ member.name }}"
+                    />
                 </div>
-                <form
-                    action="/admin/staff/delete/{{ member.id }}"
-                    method="POST"
-                    onsubmit="return confirm('Вы уверены, что хотите удалить этот элемент?');"
-                    class="ml-auto flex flex-col items-center gap-2"
-                >
-                    <a class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200" href="/admin/staff/edit/{{ member.id }}"
-                        ><svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
+                <div class="flex flex-1 flex-col p-5">
+                    <h3 class="text-lg font-bold text-gray-900">{{ member.name }}</h3>
+                    <p class="mt-2 line-clamp-2 text-sm text-gray-500">{{ member.description }}</p>
+                    
+                    <div class="mt-auto flex items-center justify-end gap-2 pt-4">
+                        <a 
+                            href="/admin/staff/edit/{{ member.id }}"
+                            class="rounded-lg bg-gray-50 p-2 text-gray-600 transition-colors hover:bg-blue-50 hover:text-blue-600"
+                            title="Редактировать"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                            ></path>
-                        </svg>
-                    </a>
-                    <button
-                        type="submit"
-                        class="rounded-lg bg-gray-100 p-2 text-red-500 hover:bg-gray-200 hover:text-red-600"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="size-4"
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                            </svg>
+                        </a>
+                        <form
+                            action="/admin/staff/delete/{{ member.id }}"
+                            method="POST"
+                            onsubmit="return confirm('Вы уверены, что хотите удалить этого сотрудника?');"
                         >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                            />
-                        </svg>
-                    </button>
-                </form>
+                            <button
+                                type="submit"
+                                class="rounded-lg bg-gray-50 p-2 text-gray-600 transition-colors hover:bg-red-50 hover:text-red-600"
+                                title="Удалить"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </article>
             {% endfor %}
+
+            <!-- Add New Card (Visual Cue) -->
+            <a href="/admin/staff/add" class="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50/50 p-6 text-center transition-all hover:border-blue-400 hover:bg-blue-50">
+                <div class="rounded-full bg-white p-4 shadow-sm transition-transform group-hover:scale-110">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 text-blue-600">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                </div>
+                <span class="mt-4 font-medium text-gray-900">Добавить сотрудника</span>
+            </a>
         </div>
     </section>
-    <!-- <section class="mb-36 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
-        <h2 class="mb-5 flex w-full items-center justify-start gap-5 text-xl font-medium sm:text-2xl">
-            Стафф
-            <a class="rounded-lg bg-sky-500 px-3 py-2 text-sm text-white hover:bg-sky-400" href="/admin/staff/add"
-                >Добавить +</a
-            >
-        </h2>
-
-        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {% for member in staff %}
-            <article class="flex flex-col items-center justify-center gap-3 rounded-xl bg-gray-200 p-9">
-                <img class="rounded-xl bg-gray-200 object-cover" src="{{ member.picture_url }}" alt="" />
-                <div class="flex w-full flex-col gap-1">
-                    <h3 class="text-2xl font-semibold sm:text-3xl">{{ member.name }}</h3>
-                    <p class="text-lg">{{ member.description }}</p>
-                </div>
-                <form
-                    action="/admin/staff/delete/{{ member.id }}"
-                    method="POST"
-                    onsubmit="return confirm('Вы уверены, что хотите удалить этого человека?');"
-                    class="flex w-full items-center justify-evenly"
-                >
-                    <a
-                        class="rounded-lg bg-sky-500 px-5 py-2 text-white hover:bg-sky-400"
-                        href="/admin/staff/edit/{{ member.id }}"
-                        >Редактировать</a
-                    >
-                    <button type="submit" class="text-red-500 hover:text-red-600">Удалить</button>
-                </form>
-            </article>
-            {% endfor %}
-        </div>
-    </section> -->
 </main>
 {% endblock %}

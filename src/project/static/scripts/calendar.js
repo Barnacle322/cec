@@ -79,7 +79,7 @@ function renderDay(day, data, weekDiv) {
     button.type = "button";
     button.id = `${data.year}-${data.month}-${day.day}`;
     button.className =
-        "sm:m-2 m-px sm:size-12 size-10 flex flex-col justify-center items-center border border-transparent sm:text-xl text-sm text-gray-800 hover:bg-gray-200 rounded-xl";
+        "sm:m-1 m-px flex-1 aspect-square flex flex-col justify-center items-center border border-transparent sm:text-xl text-sm text-gray-800 hover:bg-gray-200 rounded-xl";
     button.onclick = function () {
         handleDayClick(this);
     };

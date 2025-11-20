@@ -38,23 +38,26 @@ class AddEventTypeView(MethodView):
 
     @admin_required
     def post(self):
-        form_data = request.form
+        if request.is_json:
+            form_data = request.get_json()
+        else:
+            form_data = request.form
+
         name_ru = form_data.get("name_ru")
         name_en = form_data.get("name_en")
-        name_ky = form_data.get("name_ky")
-        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+        name = {"ru": name_ru, "en": name_en or name_ru}
 
         description_ru = form_data.get("description_ru")
         description_en = form_data.get("description_en")
-        description_ky = form_data.get("description_ky")
         description = {
             "ru": description_ru,
             "en": description_en or description_ru,
-            "ky": description_ky or description_ru,
         }
-        color = request.form.get("color")
+        color = form_data.get("color")
 
         if not name or not description or not color:
+            if request.is_json:
+                return {"status": "error", "message": "Пожалуйста заполните все поля"}, 400
             status = Status(
                 StatusType.ERROR, "Пожалуйста заполните все поля"
             ).get_status()
@@ -66,10 +69,15 @@ class AddEventTypeView(MethodView):
             db.session.add(event_type)
             db.session.commit()
         except Exception as e:
+            if request.is_json:
+                return {"status": "error", "message": f"Ошибка при создании типа события: {e}"}, 500
             status = Status(
                 StatusType.ERROR, f"Ошибка при создании типа события: {e}"
             ).get_status()
             return redirect(url_for("admin.add_event_type", _external=False, **status))
+
+        if request.is_json:
+            return {"status": "success", "message": "Тип события добавлен успешно", "id": event_type.id, "name": event_type.name}, 200
 
         status = Status(StatusType.SUCCESS, "Тип события добавлен успешно").get_status()
         return redirect(url_for("admin.events", _external=False, **status))
@@ -114,16 +122,13 @@ class EditEventTypeView(MethodView):
         form_data = request.form
         name_ru = form_data.get("name_ru")
         name_en = form_data.get("name_en")
-        name_ky = form_data.get("name_ky")
-        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+        name = {"ru": name_ru, "en": name_en or name_ru}
 
         description_ru = form_data.get("description_ru")
         description_en = form_data.get("description_en")
-        description_ky = form_data.get("description_ky")
         description = {
             "ru": description_ru,
             "en": description_en or description_ru,
-            "ky": description_ky or description_ru,
         }
         color = request.form.get("color")
 
@@ -204,16 +209,13 @@ class AddEventView(MethodView):
         form_data = request.form
         name_ru = form_data.get("name_ru")
         name_en = form_data.get("name_en")
-        name_ky = form_data.get("name_ky")
-        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+        name = {"ru": name_ru, "en": name_en or name_ru}
 
         description_ru = form_data.get("description_ru")
         description_en = form_data.get("description_en")
-        description_ky = form_data.get("description_ky")
         description = {
             "ru": description_ru,
             "en": description_en or description_ru,
-            "ky": description_ky or description_ru,
         }
 
         event_type_id = request.form.get("event_type_id", type=int)
@@ -266,16 +268,13 @@ class EditEventView(MethodView):
         form_data = request.form
         name_ru = form_data.get("name_ru")
         name_en = form_data.get("name_en")
-        name_ky = form_data.get("name_ky")
-        name = {"ru": name_ru, "en": name_en or name_ru, "ky": name_ky or name_ru}
+        name = {"ru": name_ru, "en": name_en or name_ru}
 
         description_ru = form_data.get("description_ru")
         description_en = form_data.get("description_en")
-        description_ky = form_data.get("description_ky")
         description = {
             "ru": description_ru,
             "en": description_en or description_ru,
-            "ky": description_ky or description_ru,
         }
         event_type_id = request.form.get("event_type_id", type=int)
         date_str = request.form.get("date")

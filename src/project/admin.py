@@ -114,9 +114,14 @@ def events():
         status_type = query.get("type")
         msg = query.get("msg")
 
-    events = Event.get_all_with_types()
+    upcoming_events = Event.get_upcoming()
+    past_events = Event.get_past()
     return render_template(
-        "admin/events.html", event_dict=events, status_type=status_type, msg=msg
+        "admin/events.html",
+        upcoming_events=upcoming_events,
+        past_events=past_events,
+        status_type=status_type,
+        msg=msg,
     )
 
 

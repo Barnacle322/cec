@@ -1,248 +1,290 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
 <script src="/static/scripts/calendar.js" defer></script>
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}События{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
-<main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
->
-    <section class="mt-10 flex w-full max-w-7xl flex-col justify-center px-6">
-        <div class="flex flex-col items-start justify-center">
-            <h1 class="w-full text-4xl font-medium">События</h1>
-            {% if status_type %} {% if status_type == '3' %}
-            <div class="mt-3 w-full rounded-xl text-red-500">{{ msg }}</div>
-            {% endif %} {% if status_type == '2' %}
-            <div class="mt-3 w-full rounded-xl text-orange-400">{{ msg }}</div>
-            {% endif %} {% if status_type == '1' %}
-            <div class="mt-3 w-full rounded-xl text-lime-500">{{ msg }}</div>
-            {% endif %} {% endif %}
-
-            <div class="mt-5 grid w-full gap-3 md:grid-cols-2">
-                {% for event_type in event_dict %}
-                <article class="w-full divide-y rounded-3xl border bg-white">
-                    <div class="flex p-5">
-                        <div class="flex flex-col">
-                            <span class="text-2xl font-bold">{{ event_type.name }}</span>
-                            <p class="text-gray-500">{{ event_type.description }}</p>
-                        </div>
-                        <div class="ml-auto flex h-fit">
-                            <a
-                                class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200"
-                                href="/admin/event_type/edit/{{ event_type.id }}"
-                                ><svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="size-4"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                                    ></path>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-3 p-4">
-                        {% for event in event_type.events %}
-                        <div class="flex rounded-xl border p-3 border-l-8 border-l-{{ event_type.color }} ">
-                            <div class="flex flex-col">
-                                <span>
-                                    <span class="hyphens-auto break-words font-medium">{{ event.name }}</span>
-                                    <span class="text-sm text-gray-400">{{ event.date }}</span>
-                                </span>
-
-                                <p class="text-sm text-gray-600">{{ event.description }}</p>
-                            </div>
-                            <form
-                                action="/admin/event/delete/{{ event.id }}"
-                                method="POST"
-                                onsubmit="return confirm('Вы уверены, что хотите удалить этот элемент?');"
-                                class="ml-auto flex flex-col items-center gap-2"
-                            >
-                                <a
-                                    class="rounded-lg bg-gray-100 p-2 hover:bg-gray-200"
-                                    href="/admin/event/edit/{{ event.id }}"
-                                    ><svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="size-4"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-                                        ></path>
-                                    </svg>
-                                </a>
-                                <button
-                                    type="submit"
-                                    class="rounded-lg bg-gray-100 p-2 text-red-500 hover:bg-gray-200 hover:text-red-600"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="size-4"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                                        />
-                                    </svg>
-                                </button>
-                            </form>
-                        </div>
-                        {% endfor %}
-                        <a
-                            href="/admin/event/add?event_type_id={{ event_type.id }}"
-                            class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-3 py-4 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
-                        >
-                            Создать событие
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="h-6 w-6"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                                ></path>
-                            </svg>
-                        </a>
-                    </div>
-                </article>
-                {% endfor %}
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-link");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("border-blue-500", "text-blue-600");
+            tablinks[i].classList.add("border-transparent", "text-gray-500", "hover:text-gray-700", "hover:border-gray-300");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.classList.remove("border-transparent", "text-gray-500", "hover:text-gray-700", "hover:border-gray-300");
+        evt.currentTarget.classList.add("border-blue-500", "text-blue-600");
+    }
+</script>
+{% endblock %} 
+{% block title %}События{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+<main class="flex w-full flex-1 flex-col p-4 sm:px-6 sm:py-8 lg:px-8">
+    <div class="mx-auto w-full max-w-7xl">
+        <!-- Header -->
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">События</h1>
+                <p class="mt-2 text-lg text-gray-600">Управление событиями и расписанием.</p>
+            </div>
+            <div class="flex gap-3">
                 <a
                     href="/admin/event_type/add"
-                    class="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white p-3 py-8 text-sm font-medium transition-shadow ease-in-out hover:shadow-md sm:text-base"
+                    class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-100"
                 >
-                    Создать тип события
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="h-6 w-6"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                        ></path>
+                    <svg class="-ml-1 mr-2 h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
                     </svg>
+                    Тип события
+                </a>
+                <a
+                    href="/admin/event/add"
+                    class="inline-flex items-center justify-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                >
+                    <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Добавить событие
                 </a>
             </div>
         </div>
-    </section>
 
-    <section class="mb-20 mt-10 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
-        <h1 class="w-full text-4xl font-medium">Календарь</h1>
-        <div class="mt-1 flex w-full flex-wrap-reverse justify-center lg:justify-between">
-            <!-- Events -->
-            <div class="flex w-[430px] flex-col gap-7 lg:w-1/2">
-                <h3 class="text-lg font-semibold text-gray-700">Предстоящие события</h3>
-                <ul id="events" class="flex flex-col gap-3">
-                    <div class="hidden border-emerald-300 bg-emerald-300"></div>
-                    <div class="hidden border-indigo-300 bg-indigo-300"></div>
-                    <div class="hidden border-fuchsia-300 bg-fuchsia-300"></div>
-                    <div class="hidden border-rose-300 bg-rose-300"></div>
-                    <div class="hidden border-amber-300 bg-amber-300"></div>
-                </ul>
-            </div>
-            <!-- End Events -->
-
-            <!-- Calendar -->
-            <div class="mb-4 space-y-1">
-                <!-- Months -->
-                <div class="mx-1.5 grid grid-cols-5 items-center gap-x-3 pb-3">
-                    <!-- Prev Button -->
-                    <div class="col-span-1">
-                        <button
-                            type="button"
-                            class="flex h-8 w-8 items-center justify-center rounded-full text-gray-800 hover:bg-gray-100"
-                            onclick="prevMonth()"
-                        >
-                            <svg
-                                class="h-4 w-4 flex-shrink-0"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="m15 18-6-6 6-6" />
-                            </svg>
-                        </button>
-                    </div>
-                    <!-- End Prev Button -->
-
-                    <!-- Month -->
-                    <div
-                        id="month-name"
-                        class="col-span-3 flex items-center justify-center gap-x-1 text-base sm:text-2xl"
-                    ></div>
-                    <!-- End Month -->
-
-                    <!-- Next Button -->
-                    <div class="col-span-1 flex justify-end">
-                        <button
-                            type="button"
-                            class="flex h-8 w-8 items-center justify-center rounded-full text-gray-800 hover:bg-gray-100"
-                            onclick="nextMonth()"
-                        >
-                            <svg
-                                class="h-4 w-4 flex-shrink-0"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
-                    </div>
-                    <!-- End Next Button -->
+        <!-- Status Messages -->
+        {% if status_type %}
+        <div class="mb-6 animate-fade-in rounded-lg p-4 {% if status_type == '3' %}bg-red-50 text-red-800{% elif status_type == '2' %}bg-yellow-50 text-yellow-800{% elif status_type == '1' %}bg-green-50 text-green-800{% endif %}">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    {% if status_type == '3' %}
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif status_type == '2' %}
+                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif status_type == '1' %}
+                    <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% endif %}
                 </div>
-                <!-- Months -->
-
-                <!-- Weeks -->
-                <div class="flex pb-1.5">
-                    {% for weekday in ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс") %}
-                    <span class="m-px block w-10 text-center text-sm text-gray-500 sm:m-3 sm:text-xl">
-                        {{ weekday }}
-                    </span>
-                    {% endfor %}
+                <div class="ml-3">
+                    <p class="text-sm font-medium">{{ msg }}</p>
                 </div>
-                <!-- Weeks -->
-
-                <!-- Days -->
-                <div id="month-matrix"></div>
-                <!-- Days -->
             </div>
-            <!-- End Calendar -->
         </div>
-    </section>
+        {% endif %}
+
+        <div class="flex flex-col gap-8 lg:flex-row">
+            <!-- Main Content (Event Lists) -->
+            <div class="flex-1">
+                <!-- Tabs -->
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+                        <button
+                            onclick="openTab(event, 'upcoming')"
+                            class="tab-link whitespace-nowrap border-b-2 border-blue-500 px-1 py-4 text-sm font-medium text-blue-600"
+                            aria-current="page"
+                        >
+                            Предстоящие события
+                        </button>
+                        <button
+                            onclick="openTab(event, 'past')"
+                            class="tab-link whitespace-nowrap border-b-2 border-transparent px-1 py-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                        >
+                            Прошедшие события
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Upcoming Events Tab -->
+                <div id="upcoming" class="tab-content block">
+                    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                        <ul role="list" class="divide-y divide-gray-100">
+                            {% for event in upcoming_events %}
+                            <li class="group flex items-center justify-between gap-x-6 p-5 hover:bg-gray-50">
+                                <div class="min-w-0">
+                                    <div class="flex items-start gap-x-3">
+                                        <p class="text-sm font-semibold leading-6 text-gray-900">{{ event.name }}</p>
+                                        <span class="inline-flex items-center rounded-md bg-{{ event.event_type.color if event.event_type else 'gray-100' }} px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-500/10">
+                                            {{ event.event_type.name if event.event_type else 'Без типа' }}
+                                        </span>
+                                    </div>
+                                    <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                                        <p class="whitespace-nowrap">
+                                            <time datetime="{{ event.date }}">{{ event.date_string }}</time>
+                                        </p>
+                                        <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+                                            <circle cx="1" cy="1" r="1" />
+                                        </svg>
+                                        <p class="truncate max-w-xs sm:max-w-md md:max-w-lg">{{ event.description }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-none items-center gap-x-4">
+                                    <a
+                                        href="/admin/event/edit/{{ event.id }}"
+                                        class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+                                    >
+                                        Редактировать
+                                    </a>
+                                    <div class="relative flex-none">
+                                        <form action="/admin/event/delete/{{ event.id }}" method="POST" onsubmit="return confirm('Вы уверены?');">
+                                            <button type="submit" class="block rounded-md px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50">
+                                                <span class="sr-only">Удалить</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="flex flex-col items-center justify-center py-12 text-center">
+                                <div class="rounded-full bg-gray-50 p-3">
+                                    <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <h3 class="mt-2 text-sm font-semibold text-gray-900">Нет предстоящих событий</h3>
+                                <p class="mt-1 text-sm text-gray-500">Начните с создания нового события.</p>
+                                <div class="mt-6">
+                                    <a href="/admin/event/add" class="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                                        <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                                        </svg>
+                                        Добавить событие
+                                    </a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Past Events Tab -->
+                <div id="past" class="tab-content hidden">
+                    <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                        <ul role="list" class="divide-y divide-gray-100">
+                            {% for event in past_events %}
+                            <li class="group flex items-center justify-between gap-x-6 p-5 hover:bg-gray-50">
+                                <div class="min-w-0">
+                                    <div class="flex items-start gap-x-3">
+                                        <p class="text-sm font-semibold leading-6 text-gray-900">{{ event.name }}</p>
+                                        <span class="inline-flex items-center rounded-md bg-{{ event.event_type.color if event.event_type else 'gray-100' }} px-2 py-1 text-xs font-medium text-gray-700 ring-1 ring-inset ring-gray-500/10">
+                                            {{ event.event_type.name if event.event_type else 'Без типа' }}
+                                        </span>
+                                    </div>
+                                    <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+                                        <p class="whitespace-nowrap">
+                                            <time datetime="{{ event.date }}">{{ event.date_string }}</time>
+                                        </p>
+                                        <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+                                            <circle cx="1" cy="1" r="1" />
+                                        </svg>
+                                        <p class="truncate max-w-xs sm:max-w-md md:max-w-lg">{{ event.description }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-none items-center gap-x-4">
+                                    <a
+                                        href="/admin/event/edit/{{ event.id }}"
+                                        class="hidden rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+                                    >
+                                        Редактировать
+                                    </a>
+                                    <div class="relative flex-none">
+                                        <form action="/admin/event/delete/{{ event.id }}" method="POST" onsubmit="return confirm('Вы уверены?');">
+                                            <button type="submit" class="block rounded-md px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50">
+                                                <span class="sr-only">Удалить</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="flex flex-col items-center justify-center py-12 text-center">
+                                <p class="text-sm text-gray-500">Нет прошедших событий</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Sidebar -->
+            <div class="w-full lg:w-96">
+                <div class="sticky top-8 flex flex-col gap-6">
+                    <!-- Calendar Widget -->
+                    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                        <div class="mb-6 flex items-center justify-between">
+                            <button
+                                type="button"
+                                class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onclick="prevMonth()"
+                            >
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m15 18-6-6 6-6" />
+                                </svg>
+                            </button>
+                            
+                            <div id="month-name" class="text-lg font-bold text-gray-900 capitalize"></div>
+                            
+                            <button
+                                type="button"
+                                class="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                onclick="nextMonth()"
+                            >
+                                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mb-2 grid grid-cols-7 text-center">
+                            {% for weekday in ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс") %}
+                            <div class="text-xs font-medium text-gray-500 py-2">{{ weekday }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div id="month-matrix" class="flex flex-col gap-1 text-sm"></div>
+                    </div>
+
+                    <!-- Selected Day Events -->
+                    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                        <h3 class="mb-4 text-sm font-semibold text-gray-900 uppercase tracking-wider">События дня</h3>
+                        <ul id="events" class="flex flex-col gap-3 min-h-[100px]">
+                            <!-- Hidden color classes for dynamic JS usage -->
+                            <div class="hidden border-emerald-300 bg-emerald-300"></div>
+                            <div class="hidden border-indigo-300 bg-indigo-300"></div>
+                            <div class="hidden border-fuchsia-300 bg-fuchsia-300"></div>
+                            <div class="hidden border-rose-300 bg-rose-300"></div>
+                            <div class="hidden border-amber-300 bg-amber-300"></div>
+                            <div class="hidden border-neutral-300 bg-neutral-300"></div>
+                            <div class="hidden border-red-300 bg-red-300"></div>
+                            <div class="hidden border-orange-300 bg-orange-300"></div>
+                            <div class="hidden border-yellow-300 bg-yellow-300"></div>
+                            <div class="hidden border-lime-300 bg-lime-300"></div>
+                            <div class="hidden border-green-300 bg-green-300"></div>
+                            <div class="hidden border-teal-300 bg-teal-300"></div>
+                            <div class="hidden border-cyan-300 bg-cyan-300"></div>
+                            <div class="hidden border-sky-300 bg-sky-300"></div>
+                            <div class="hidden border-blue-300 bg-blue-300"></div>
+                            <div class="hidden border-violet-300 bg-violet-300"></div>
+                            <div class="hidden border-purple-300 bg-purple-300"></div>
+                            <div class="hidden border-pink-300 bg-pink-300"></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 {% endblock %}

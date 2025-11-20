@@ -1,268 +1,206 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+{% extends "admin/layout.html" %}
+{% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}Расписание{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content
-%}
-<main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
->
-    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
-        <article class="text-start">
-            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Расписание</h1>
-            <p class="text-xl sm:text-2xl">Здесь вы можете добавить расписание для курса</p>
-        </article>
-    </section>
-    <section class="mb-20 mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
-        <form
-            class="flex w-full flex-col gap-4"
-            method="POST"
-            enctype="multipart/form-data"
-            action="/admin/course/timetable/edit/{{ timetable.id }}"
-        >
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ru"
-                    id="name_ru"
-                    value="{{ timetable._name.get('ru') }}"
-                    placeholder="Программирование"
-                    required
-                />
+{% endblock %}
+{% block title %}Редактировать расписание{% endblock %}
+{% block head %} {{ super() }} {% endblock %}
+{% block content %}
+
+<main class="relative mx-auto mt-24 w-full max-w-3xl px-6 py-12">
+    <!-- Header -->
+    <div class="mb-10 text-center sm:text-left">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Редактирование расписания</h1>
+        <p class="mt-2 text-lg text-gray-600">Измените информацию о расписании ниже.</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+        <form class="flex flex-col gap-6" method="POST" enctype="multipart/form-data" action="/admin/course/timetable/edit/{{ timetable.id }}">
+            
+            <!-- Name Section -->
+            <div class="grid gap-6 sm:grid-cols-2">
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-gray-900" for="name_ru">Название (RU) <span class="text-red-500">*</span></label>
+                    <input
+                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        type="text"
+                        name="name_ru"
+                        id="name_ru"
+                        value="{{ timetable._name.get('ru') }}"
+                        placeholder="Название расписания"
+                        required
+                    />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-gray-900" for="name_en">Название (EN)</label>
+                    <input
+                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        type="text"
+                        name="name_en"
+                        id="name_en"
+                        value="{{ timetable._name.get('en') }}"
+                        placeholder="Timetable name"
+                    />
+                </div>
             </div>
+
+            <!-- Description Section -->
             <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название на английском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_en"
-                    id="name_en"
-                    value="{{ timetable._name.get('en') }}"
-                    placeholder="Программирование"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название на кыргызском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ky"
-                    id="name_ky"
-                    value="{{ timetable._name.get('ky') }}"
-                    placeholder="Программирование"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание</label>
+                <label class="text-sm font-semibold text-gray-900" for="description_ru">Описание (RU) <span class="text-red-500">*</span></label>
                 <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
+                    class="h-32 rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     name="description_ru"
                     id="description_ru"
-                    placeholder="Описание группы курсов"
+                    placeholder="Описание расписания..."
                     required
-                >
-{{ timetable._description.get("ru") }}</textarea
-                >
+                >{{ timetable._description.get("ru") }}</textarea>
             </div>
             <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на английском</label>
+                <label class="text-sm font-semibold text-gray-900" for="description_en">Описание (EN)</label>
                 <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
+                    class="h-32 rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     name="description_en"
                     id="description_en"
-                    placeholder="Описание группы курсов"
-                >
-{{ timetable._description.get("en") }}</textarea
-                >
+                    placeholder="Timetable description..."
+                >{{ timetable._description.get("en") }}</textarea>
             </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на кыргызском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ky"
-                    id="description_ky"
-                    placeholder="Описание группы курсов"
-                >
-{{ timetable._description.get("ky") }}</textarea
-                >
+
+            <!-- Duration Section -->
+            <div class="grid gap-6 sm:grid-cols-2">
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-gray-900" for="duration_ru">Длительность (RU) <span class="text-red-500">*</span></label>
+                    <input
+                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        type="text"
+                        name="duration_ru"
+                        id="duration_ru"
+                        value="{{ timetable._duration.get('ru') }}"
+                        placeholder="Например: 3 месяца"
+                        required
+                    />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-gray-900" for="duration_en">Длительность (EN)</label>
+                    <input
+                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        type="text"
+                        name="duration_en"
+                        id="duration_en"
+                        value="{{ timetable._duration.get('en') }}"
+                        placeholder="e.g. 3 months"
+                    />
+                </div>
             </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Длительность</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="duration_ru"
-                    id="duration_ru"
-                    value="{{ timetable._duration.get('ru') }}"
-                    placeholder="3 месяца"
-                    required
-                />
+
+            <!-- Price Section -->
+            <div class="grid gap-6 sm:grid-cols-2">
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-gray-900" for="price_ru">Цена (RU) <span class="text-red-500">*</span></label>
+                    <input
+                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        type="text"
+                        name="price_ru"
+                        id="price_ru"
+                        value="{{ timetable._price.get('ru') }}"
+                        placeholder="Например: 5000 сом"
+                        required
+                    />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-gray-900" for="price_en">Цена (EN)</label>
+                    <input
+                        class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        type="text"
+                        name="price_en"
+                        id="price_en"
+                        value="{{ timetable._price.get('en') }}"
+                        placeholder="e.g. 5000 som"
+                    />
+                </div>
             </div>
+
+            <!-- Course Selection -->
             <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Длительность на английском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="duration_en"
-                    id="duration_en"
-                    value="{{ timetable._duration.get('en') }}"
-                    placeholder="3 месяца"
-                />
+                <label class="text-sm font-semibold text-gray-900" for="course_id">Курс <span class="text-red-500">*</span></label>
+                <div class="relative">
+                    <select
+                        class="w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        name="course_id"
+                        id="course_id"
+                        required
+                    >
+                        {% for course_group in course_groups %}
+                        <optgroup label="{{ course_group.name }}">
+                            {% for course in course_group.courses %}
+                            <option value="{{ course.id }}" {% if course.id == timetable.course_id %}selected{% endif %}>
+                                {{ course.name }}
+                            </option>
+                            {% endfor %}
+                        </optgroup>
+                        {% endfor %}
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                </div>
             </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Длительность на кыргызском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="duration_ky"
-                    id="duration_ky"
-                    value="{{ timetable._duration.get('ky') }}"
-                    placeholder="3 месяца"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Цена</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="price_ru"
-                    id="price_ru"
-                    value="{{ timetable._price.get('ru') }}"
-                    placeholder="5000 сом + 1500 сом за учебник"
-                    required
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Цена на английском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="price_en"
-                    id="price_en"
-                    value="{{ timetable._price.get('en') }}"
-                    placeholder="5000 сом + 1500 сом за учебник"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Цена на кыргызском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="price_ky"
-                    id="price_ky"
-                    value="{{ timetable._price.get('ky') }}"
-                    placeholder="5000 сом + 1500 сом за учебник"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Курс</label>
-                <select
-                    class="rounded-xl border border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="course_id"
-                    id="course_id"
-                    required
-                >
-                    {% for course_group in course_groups %}
-                    <optgroup label="{{ course_group.name }}">
-                        {% for course in course_group.courses %} {% if course.id == timetable.course_id %}
-                        <option selected value="{{ course.id }}">{{ course.name }}</option>
-                        {% else %}
-                        <option value="{{ course.id }}">{{ course.name }}</option>
-                        {% endif %} {% endfor %}
-                    </optgroup>
+
+            <!-- Schedule Grid -->
+            <div class="flex flex-col gap-4">
+                <label class="text-sm font-semibold text-gray-900">Расписание по дням</label>
+                <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-7">
+                    {% set days = [
+                        ('monday', 'ПН', '1'),
+                        ('tuesday', 'ВТ', '2'),
+                        ('wednesday', 'СР', '3'),
+                        ('thursday', 'ЧТ', '4'),
+                        ('friday', 'ПТ', '5'),
+                        ('saturday', 'СБ', '6'),
+                        ('sunday', 'ВС', '7')
+                    ] %}
+                    {% for day_id, day_label, day_key in days %}
+                    <div class="flex flex-col items-center gap-1">
+                        <label class="text-xs font-medium text-gray-500" for="{{ day_id }}">{{ day_label }}</label>
+                        <input
+                            class="w-full rounded-lg border border-gray-300 px-2 py-2 text-center text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            type="time"
+                            name="{{ day_id }}"
+                            id="{{ day_id }}"
+                            value="{{ timetable.json_data[day_key].time }}"
+                        />
+                    </div>
                     {% endfor %}
-                </select>
-            </div>
-            <div class="flex flex-wrap items-center justify-center gap-2">
-                <div class="flex flex-col items-center justify-center">
-                    <label for="monday">ПН</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['1'].time}}"
-                        type="time"
-                        name="monday"
-                        id="monday"
-                        placeholder="19:00"
-                    />
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <label for="tuesday">ВТ</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['2'].time}}"
-                        type="time"
-                        name="tuesday"
-                        id="tuesday"
-                        placeholder="19:00"
-                    />
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <label for="wednesday">СР</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['3'].time}}"
-                        type="time"
-                        name="wednesday"
-                        id="wednesday"
-                        placeholder="19:00"
-                    />
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <label for="thursday">ЧТ</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['4'].time}}"
-                        type="time"
-                        name="thursday"
-                        id="thursday"
-                        placeholder="19:00"
-                    />
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <label for="friday">ПТ</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['5'].time}}"
-                        type="time"
-                        name="friday"
-                        id="friday"
-                        placeholder="19:00"
-                    />
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <label for="saturday">СБ</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['6'].time}}"
-                        type="time"
-                        name="saturday"
-                        id="saturday"
-                        placeholder="19:00"
-                    />
-                </div>
-                <div class="flex flex-col items-center justify-center">
-                    <label for="sunday">ВС</label>
-                    <input
-                        class="rounded-lg border-2 p-1"
-                        value="{{ timetable.json_data['7'].time}}"
-                        type="time"
-                        name="sunday"
-                        id="sunday"
-                        placeholder="19:00"
-                    />
                 </div>
             </div>
-            <button
-                class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
-                type="submit"
-            >
-                Сохранить
-            </button>
+
+            <!-- Actions -->
+            <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-6">
+                <button
+                    type="button"
+                    onclick="if(confirm('Вы уверены, что хотите удалить это расписание?')) document.getElementById('delete-form').submit();"
+                    class="rounded-lg px-4 py-2.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
+                >
+                    Удалить расписание
+                </button>
+                <div class="flex items-center gap-3">
+                    <a
+                        href="/admin/courses"
+                        class="rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
+                    >
+                        Отмена
+                    </a>
+                    <button
+                        class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-500 hover:shadow focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        type="submit"
+                    >
+                        Сохранить изменения
+                    </button>
+                </div>
+            </div>
         </form>
-    </section>
+        
+        <!-- Hidden Delete Form -->
+        <form id="delete-form" action="/admin/course/timetable/delete/{{ timetable.id }}" method="POST" class="hidden"></form>
+    </div>
 </main>
 {% endblock %}

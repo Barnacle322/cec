@@ -16,6 +16,8 @@ from sqlalchemy import (
     DateTime,
     Integer,
     String,
+    asc,
+    desc,
     event,
     extract,
     func,
@@ -476,12 +478,22 @@ class Event(MappedAsDataclass, db.Model, unsafe_hash=True):
         return db.session.scalars(select(Event)).all()
 
     @staticmethod
-    def get_all_with_types():
-        return (
-            db.session.scalars(select(EventType).options(joinedload(EventType.events)))
-            .unique()
-            .all()
-        )
+    def get_upcoming() -> Sequence[Event]:
+        return db.session.scalars(
+            select(Event)
+            .options(joinedload(Event.event_type))
+            .where(Event.date >= datetime.date.today())
+            .order_by(Event.date.asc())
+        ).all()
+
+    @staticmethod
+    def get_past() -> Sequence[Event]:
+        return db.session.scalars(
+            select(Event)
+            .options(joinedload(Event.event_type))
+            .where(Event.date < datetime.date.today())
+            .order_by(Event.date.desc())
+        ).all()
 
     @staticmethod
     def get_this_month() -> Sequence[Event]:

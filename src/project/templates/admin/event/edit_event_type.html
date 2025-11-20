@@ -1,131 +1,135 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}Добавить тип события{% endblock %} {% block head %} {{ super() }} {% endblock %} {%
-block content %}
-<main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
->
-    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
-        <article class="text-start">
-            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Тип события</h1>
-            <p class="text-xl sm:text-2xl">Здесь вы можете изменить тип события</p>
-        </article>
-    </section>
-    <section class="mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3">
-        <form class="flex w-full flex-col gap-4" method="POST" action="/admin/event_type/edit/{{ event_type.id }}">
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ru"
-                    id="name_ru"
-                    placeholder="Мастер класс"
-                    value="{{ event_type._name.get('ru') }}"
-                    required
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название на английском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_en"
-                    id="name_en"
-                    placeholder="Мастер класс"
-                    value="{{ event_type._name.get('en') }}"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Название на кыргызском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ky"
-                    id="name_ky"
-                    placeholder="Мастер класс"
-                    value="{{ event_type._name.get('ky') }}"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ru"
-                    id="description_ru"
-                    placeholder="{{_('Асан Асанов')}}"
-                    required
-                >
-{{ event_type._description.get("ru") }}</textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на английском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_en"
-                    id="description_en"
-                    placeholder="{{_('Асан Асанов')}}"
-                >
-{{ event_type._description.get("en") }}</textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на кыргызском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ky"
-                    id="description_ky"
-                    placeholder="{{_('Асан Асанов')}}"
-                >
-{{ event_type._description.get("ky") }}</textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Цвет</label>
-                <div class="flex flex-wrap items-center justify-evenly gap-3">
-                    <input
-                        class="size-6 bg-{{ event_type.color }} text-{{ event_type.color }}"
-                        type="radio"
-                        name="color"
-                        value="{{ event_type.color }}"
-                        id="{{ event_type.color }}"
-                        checked="checked"
-                    />
-                    {% for color in colors %}
-                    <input
-                        class="size-6 bg-{{ color }} text-{{ color }}"
-                        type="radio"
-                        name="color"
-                        value="{{ color }}"
-                        id="{{ color }}"
-                    />
-                    {% endfor %}
+{% endblock %} 
+{% block title %}Редактировать тип события{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+<main class="flex w-full flex-1 flex-col items-center justify-center p-4 sm:px-6 sm:py-8 lg:px-8">
+    <div class="w-full max-w-3xl">
+        <div class="mb-8 text-center">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Редактировать тип события</h1>
+            <p class="mt-2 text-lg text-gray-600">Измените информацию о типе события ниже.</p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            <form
+                class="flex flex-col gap-6"
+                method="POST"
+                action="/admin/event_type/edit/{{ event_type.id }}"
+            >
+                <!-- Name Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="name_ru">Название (Русский)</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="text"
+                            name="name_ru"
+                            id="name_ru"
+                            value="{{ event_type._name.get('ru') }}"
+                            placeholder="Лекция"
+                            required
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="name_en">Название (English)</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="text"
+                            name="name_en"
+                            id="name_en"
+                            value="{{ event_type._name.get('en') }}"
+                            placeholder="Lecture"
+                        />
+                    </div>
                 </div>
-            </div>
-            <button
-                class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
-                type="submit"
-            >
-                Сохранить
-            </button>
-        </form>
-        <form
-            class="flex w-full flex-col gap-4"
-            method="POST"
-            action="/admin/event_type/delete/{{ event_type.id }}"
-            onsubmit="return confirm('Вы уверены, что хотите удалить этот тип события?');"
-        >
-            <button
-                class="mt-5 flex items-center justify-center rounded-lg bg-red-500 py-2 text-white hover:bg-red-400"
-                type="submit"
-            >
-                Удалить
-            </button>
-        </form>
-    </section>
+
+                <!-- Description Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="description_ru">Описание (Русский)</label>
+                        <textarea
+                            class="h-32 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="description_ru"
+                            id="description_ru"
+                            placeholder="Описание типа события..."
+                            required
+                        >{{ event_type._description.get("ru") }}</textarea>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="description_en">Описание (English)</label>
+                        <textarea
+                            class="h-32 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="description_en"
+                            id="description_en"
+                            placeholder="Event type description..."
+                        >{{ event_type._description.get("en") }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Color Selection -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-medium text-gray-900">Цвет метки</label>
+                    <div class="grid grid-cols-6 gap-3 sm:grid-cols-9">
+                        <!-- Current Color -->
+                        <label class="relative flex cursor-pointer items-center justify-center">
+                            <input
+                                type="radio"
+                                name="color"
+                                value="{{ event_type.color }}"
+                                class="peer sr-only"
+                                checked
+                                required
+                            />
+                            <span class="h-8 w-8 rounded-full bg-{{ event_type.color }} ring-2 ring-transparent ring-offset-2 transition-all hover:scale-110 peer-checked:ring-blue-500 peer-checked:scale-110"></span>
+                        </label>
+                        
+                        <!-- Other Colors -->
+                        {% for color in colors %}
+                        <label class="relative flex cursor-pointer items-center justify-center">
+                            <input
+                                type="radio"
+                                name="color"
+                                value="{{ color }}"
+                                class="peer sr-only"
+                                required
+                            />
+                            <span class="h-8 w-8 rounded-full bg-{{ color }} ring-2 ring-transparent ring-offset-2 transition-all hover:scale-110 peer-checked:ring-blue-500 peer-checked:scale-110"></span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                    <p class="mt-1 text-xs text-gray-500">Выберите цвет для отображения в календаре.</p>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-6">
+                    <button
+                        type="submit"
+                        formaction="/admin/event_type/delete/{{ event_type.id }}"
+                        onclick="return confirm('Вы уверены, что хотите удалить этот тип события? Все связанные события также будут удалены.');"
+                        class="rounded-lg border border-red-200 bg-red-50 px-5 py-2.5 text-sm font-medium text-red-600 hover:bg-red-100 focus:outline-none focus:ring-4 focus:ring-red-100"
+                    >
+                        Удалить тип
+                    </button>
+                    
+                    <div class="flex items-center gap-3">
+                        <a
+                            href="/admin/events"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                        >
+                            Отмена
+                        </a>
+                        <button
+                            class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                            type="submit"
+                        >
+                            Сохранить изменения
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
 {% endblock %}

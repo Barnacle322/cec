@@ -1,159 +1,156 @@
-{% extends "admin/layout.html" %} {% block additional_scripts %}
+{% extends "admin/layout.html" %} 
+{% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %} {% block title %}Редактировать Учителя{% endblock %} {% block head %} {{ super() }} {% endblock %} {%
-block content %}
-<main
-    class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
->
-    <section class="mt-8 flex w-full max-w-3xl flex-col justify-center px-6 sm:mt-32">
-        <article class="text-start">
-            <h1 class="mb-5 w-full text-6xl font-medium sm:w-3/4 sm:text-7xl">Учитель</h1>
-            <p class="text-xl sm:text-2xl">Здесь вы можете добавить учителя</p>
-        </article>
-    </section>
-    <section class="mb-20 mt-5 flex w-full max-w-3xl flex-col items-center justify-center gap-2 px-6 pb-3 sm:mt-20">
-        <form
-            class="flex w-full flex-col gap-4"
-            method="POST"
-            enctype="multipart/form-data"
-            action="/admin/teacher/edit/{{ teacher.id }}"
-        >
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Имя</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ru"
-                    id="name_ru"
-                    value="{{ teacher._name.get('ru') }}"
-                    placeholder="{{_('Асан Асанов')}}"
-                    required
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Имя на английском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_en"
-                    id="name_en"
-                    value="{{ teacher._name.get('en') }}"
-                    placeholder="{{_('Асан Асанов')}}"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Имя на кыргызском</label>
-                <input
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="name_ky"
-                    id="name_ky"
-                    value="{{ teacher._name.get('ky') }}"
-                    placeholder="{{_('Асан Асанов')}}"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ru"
-                    id="description_ru"
-                    placeholder="{{_('Асан Асанов')}}"
-                    required
-                >
-{{ teacher._description.get("ru") }}</textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на английском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_en"
-                    id="description_en"
-                    placeholder="{{_('Асан Асанов')}}"
-                >
-{{ teacher._description.get("en") }}</textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Описание на кыргызском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="description_ky"
-                    id="description_ky"
-                    placeholder="{{_('Асан Асанов')}}"
-                >
-{{ teacher._description.get("ky") }}</textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Биография</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="bio_ru"
-                    id="bio_ru"
-                    placeholder="{{_('Асан Асанов')}}"
-                    required
-                >
-{{ teacher._bio.get("ru") }} </textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Биография на английском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="bio_en"
-                    id="bio_en"
-                    placeholder="{{_('Асан Асанов')}}"
-                >
-{{ teacher._bio.get("en") }} </textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Биография на кыргызском</label>
-                <textarea
-                    class="rounded-xl border-2 border-gray-200 py-3 text-lg"
-                    type="text"
-                    name="bio_ky"
-                    id="bio_ky"
-                    placeholder="{{_('Асан Асанов')}}"
-                >
-{{ teacher._bio.get("ky") }} </textarea
-                >
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Фотография</label>
-                <input
-                    class="h-12 w-full cursor-pointer rounded-xl border-2 border-gray-200 bg-transparent pr-2 file:mr-4 file:h-full file:cursor-pointer file:rounded-md file:border-0 file:bg-sky-500 file:text-sm file:font-semibold file:text-white file:transition-colors file:ease-in-out file:hover:bg-sky-400"
-                    type="file"
-                    accept="image/png, image/jpeg, image/jpg, image/webp"
-                    name="picture"
-                    id="picture"
-                />
-            </div>
-            <div class="flex flex-col gap-2">
-                <label class="font-medium" for="">Текущая фотография</label>
+{% endblock %} 
+{% block title %}Редактировать Учителя{% endblock %} 
+{% block head %} {{ super() }} {% endblock %} 
+{% block content %}
+<main class="flex w-full flex-1 flex-col items-center justify-center p-4 sm:px-6 sm:py-8 lg:px-8">
+    <div class="w-full max-w-3xl">
+        <div class="mb-8 text-center">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Редактировать учителя</h1>
+            <p class="mt-2 text-lg text-gray-600">Измените информацию о преподавателе ниже.</p>
+        </div>
 
-                <img
-                    class="max-w-80"
-                    class="rounded-xl bg-gray-200 object-cover"
-                    src="{{ teacher.picture_url }}"
-                    alt=""
-                />
-            </div>
-
-            <button
-                class="mt-5 flex items-center justify-center rounded-lg bg-sky-500 py-2 text-white hover:bg-sky-400"
-                type="submit"
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            <form
+                class="flex flex-col gap-6"
+                method="POST"
+                enctype="multipart/form-data"
+                action="/admin/teacher/edit/{{ teacher.id }}"
             >
-                Сохранить
-            </button>
-        </form>
-    </section>
+                <!-- Name Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="name_ru">Имя (Русский)</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="text"
+                            name="name_ru"
+                            id="name_ru"
+                            value="{{ teacher._name.get('ru') }}"
+                            placeholder="Асан Асанов"
+                            required
+                        />
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="name_en">Имя (English)</label>
+                        <input
+                            class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            type="text"
+                            name="name_en"
+                            id="name_en"
+                            value="{{ teacher._name.get('en') }}"
+                            placeholder="Asan Asanov"
+                        />
+                    </div>
+                </div>
+
+                <!-- Description Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="description_ru">Описание (Русский)</label>
+                        <textarea
+                            class="h-32 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="description_ru"
+                            id="description_ru"
+                            placeholder="Краткое описание..."
+                            required
+                        >{{ teacher._description.get("ru") }}</textarea>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="description_en">Описание (English)</label>
+                        <textarea
+                            class="h-32 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="description_en"
+                            id="description_en"
+                            placeholder="Short description..."
+                        >{{ teacher._description.get("en") }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Bio Section -->
+                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="bio_ru">Биография (Русский)</label>
+                        <textarea
+                            class="h-48 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="bio_ru"
+                            id="bio_ru"
+                            placeholder="Полная биография..."
+                            required
+                        >{{ teacher._bio.get("ru") }}</textarea>
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-medium text-gray-900" for="bio_en">Биография (English)</label>
+                        <textarea
+                            class="h-48 resize-y rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder:text-gray-400 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                            name="bio_en"
+                            id="bio_en"
+                            placeholder="Full biography..."
+                        >{{ teacher._bio.get("en") }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="flex flex-col gap-4">
+                    <label class="text-sm font-medium text-gray-900">Фотография</label>
+                    
+                    <div class="flex items-start gap-6">
+                        <div class="relative h-32 w-32 shrink-0 overflow-hidden rounded-lg border border-gray-200 bg-gray-100">
+                            <img
+                                class="h-full w-full object-cover"
+                                src="{{ teacher.picture_url }}"
+                                alt="Current photo"
+                            />
+                        </div>
+                        
+                        <div class="flex w-full flex-col gap-2">
+                            <label
+                                for="picture"
+                                class="flex h-32 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100"
+                            >
+                                <div class="flex flex-col items-center justify-center pb-6 pt-5">
+                                    <svg class="mb-4 h-8 w-8 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Нажмите для загрузки</span> чтобы изменить</p>
+                                    <p class="text-xs text-gray-500">PNG, JPG or WEBP</p>
+                                </div>
+                                <input id="picture" name="picture" type="file" class="hidden" accept="image/png, image/jpeg, image/jpg, image/webp" />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-6">
+                    <button
+                        type="submit"
+                        formaction="/admin/teacher/delete/{{ teacher.id }}"
+                        onclick="return confirm('Вы уверены, что хотите удалить этого учителя?');"
+                        class="rounded-lg border border-red-200 bg-red-50 px-5 py-2.5 text-sm font-medium text-red-600 hover:bg-red-100 focus:outline-none focus:ring-4 focus:ring-red-100"
+                    >
+                        Удалить учителя
+                    </button>
+                    
+                    <div class="flex items-center gap-3">
+                        <a
+                            href="/admin/people"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                        >
+                            Отмена
+                        </a>
+                        <button
+                            class="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                            type="submit"
+                        >
+                            Сохранить изменения
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
 {% endblock %}

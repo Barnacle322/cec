@@ -37,17 +37,16 @@ ENV LC_ALL ru_RU.UTF-8
 
 COPY src/ app/
 COPY pyproject.toml /app
-COPY poetry.lock /app
+COPY uv.lock /app
 
 WORKDIR /app
 
-RUN pip install poetry
-RUN poetry config virtualenvs.create false
-RUN poetry install --without dev --no-root --no-cache
-RUN pip install granian
+RUN pip install uv
+RUN uv sync --frozen --no-install-project
+RUN uv pip install granian
 RUN rm -rf /root/.cache/pip/*
 
 ENV PORT 80
 
-RUN exec poetry run pybabel compile -d ./project/translations
-CMD exec poetry run granian --interface wsgi --port $PORT --host 0.0.0.0 --workers 5 --threads 8 project:application
+RUN exec uv run pybabel compile -d ./project/translations
+CMD exec uv run granian --interface wsgi --port $PORT --host 0.0.0.0 --workers 3 project:application
