@@ -1,12 +1,9 @@
-{% extends "admin/layout.html" %}
-{% block additional_scripts %}
+{% extends "admin/layout.html" %} {% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %}
-{% block title %}Добавить курс{% endblock %}
-{% block head %} {{ super() }} {% endblock %}
-{% block content %}
+{% endblock %} {% block title %}Добавить курс{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
 
-<main class="relative mx-auto mt-24 w-full max-w-3xl px-6 py-12">
+<main class="relative mx-auto w-full max-w-3xl px-6 py-12">
     <!-- Header -->
     <div class="mb-10 text-center sm:text-left">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Новый курс</h1>
@@ -16,11 +13,12 @@
     <!-- Form Card -->
     <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
         <form class="flex flex-col gap-6" method="POST" enctype="multipart/form-data" action="/admin/course/add">
-            
             <!-- Name Section -->
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                    <label class="text-sm font-semibold text-gray-900" for="name_ru">Название (RU) <span class="text-red-500">*</span></label>
+                    <label class="text-sm font-semibold text-gray-900" for="name_ru"
+                        >Название (RU) <span class="text-red-500">*</span></label
+                    >
                     <input
                         class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         type="text"
@@ -44,7 +42,9 @@
 
             <!-- Description Section -->
             <div class="flex flex-col gap-2">
-                <label class="text-sm font-semibold text-gray-900" for="description_ru">Описание (RU) <span class="text-red-500">*</span></label>
+                <label class="text-sm font-semibold text-gray-900" for="description_ru"
+                    >Описание (RU) <span class="text-red-500">*</span></label
+                >
                 <textarea
                     class="h-32 rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     name="description_ru"
@@ -66,7 +66,9 @@
             <!-- Group & Image Section -->
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                    <label class="text-sm font-semibold text-gray-900" for="course_group_id">Группа <span class="text-red-500">*</span></label>
+                    <label class="text-sm font-semibold text-gray-900" for="course_group_id"
+                        >Группа <span class="text-red-500">*</span></label
+                    >
                     <div class="relative">
                         <select
                             class="w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -76,20 +78,39 @@
                         >
                             {% if selected_course_group_id == None %}
                             <option disabled selected value="">Выберите группу</option>
-                            {% endif %}
-                            {% for course_group in course_groups %}
-                            <option value="{{ course_group.id }}" {% if course_group.id == selected_course_group_id %}selected{% endif %}>
+                            {% endif %} {% for course_group in course_groups %}
+                            <option
+                                value="{{ course_group.id }}"
+                                {%
+                                if
+                                course_group.id=""
+                                ="selected_course_group_id"
+                                %}selected{%
+                                endif
+                                %}
+                            >
                                 {{ course_group.name }}
                             </option>
                             {% endfor %}
                         </select>
-                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
+                        >
+                            <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <label class="text-sm font-semibold text-gray-900" for="picture">Изображение <span class="text-red-500">*</span></label>
+                    <label class="text-sm font-semibold text-gray-900" for="picture"
+                        >Изображение <span class="text-red-500">*</span></label
+                    >
                     <input
                         class="block w-full cursor-pointer rounded-lg border border-gray-300 text-sm text-gray-500 file:mr-4 file:cursor-pointer file:border-0 file:bg-blue-50 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100 focus:outline-none"
                         type="file"

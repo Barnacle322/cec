@@ -1,12 +1,9 @@
-{% extends "admin/layout.html" %}
-{% block additional_scripts %}
+{% extends "admin/layout.html" %} {% block additional_scripts %}
 <script src="/static/scripts/idempotency.js" defer></script>
-{% endblock %}
-{% block title %}Добавить расписание{% endblock %}
-{% block head %} {{ super() }} {% endblock %}
-{% block content %}
+{% endblock %} {% block title %}Добавить расписание{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block
+content %}
 
-<main class="relative mx-auto mt-24 w-full max-w-3xl px-6 py-12">
+<main class="relative mx-auto w-full max-w-3xl px-6 py-12">
     <!-- Header -->
     <div class="mb-10 text-center sm:text-left">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Новое расписание</h1>
@@ -15,12 +12,18 @@
 
     <!-- Form Card -->
     <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-        <form class="flex flex-col gap-6" method="POST" enctype="multipart/form-data" action="/admin/course/timetable/add">
-            
+        <form
+            class="flex flex-col gap-6"
+            method="POST"
+            enctype="multipart/form-data"
+            action="/admin/course/timetable/add"
+        >
             <!-- Name Section -->
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                    <label class="text-sm font-semibold text-gray-900" for="name_ru">Название (RU) <span class="text-red-500">*</span></label>
+                    <label class="text-sm font-semibold text-gray-900" for="name_ru"
+                        >Название (RU) <span class="text-red-500">*</span></label
+                    >
                     <input
                         class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         type="text"
@@ -44,7 +47,9 @@
 
             <!-- Description Section -->
             <div class="flex flex-col gap-2">
-                <label class="text-sm font-semibold text-gray-900" for="description_ru">Описание (RU) <span class="text-red-500">*</span></label>
+                <label class="text-sm font-semibold text-gray-900" for="description_ru"
+                    >Описание (RU) <span class="text-red-500">*</span></label
+                >
                 <textarea
                     class="h-32 rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     name="description_ru"
@@ -66,7 +71,9 @@
             <!-- Duration Section -->
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                    <label class="text-sm font-semibold text-gray-900" for="duration_ru">Длительность (RU) <span class="text-red-500">*</span></label>
+                    <label class="text-sm font-semibold text-gray-900" for="duration_ru"
+                        >Длительность (RU) <span class="text-red-500">*</span></label
+                    >
                     <input
                         class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         type="text"
@@ -91,7 +98,9 @@
             <!-- Price Section -->
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="flex flex-col gap-2">
-                    <label class="text-sm font-semibold text-gray-900" for="price_ru">Цена (RU) <span class="text-red-500">*</span></label>
+                    <label class="text-sm font-semibold text-gray-900" for="price_ru"
+                        >Цена (RU) <span class="text-red-500">*</span></label
+                    >
                     <input
                         class="rounded-lg border border-gray-300 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         type="text"
@@ -115,7 +124,9 @@
 
             <!-- Course Selection -->
             <div class="flex flex-col gap-2">
-                <label class="text-sm font-semibold text-gray-900" for="course_id">Курс <span class="text-red-500">*</span></label>
+                <label class="text-sm font-semibold text-gray-900" for="course_id"
+                    >Курс <span class="text-red-500">*</span></label
+                >
                 <div class="relative">
                     <select
                         class="w-full appearance-none rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -125,11 +136,19 @@
                     >
                         {% if selected_course_id == None %}
                         <option disabled selected value="">Выберите курс</option>
-                        {% endif %}
-                        {% for course_group in course_groups %}
+                        {% endif %} {% for course_group in course_groups %}
                         <optgroup label="{{ course_group.name }}">
                             {% for course in course_group.courses %}
-                            <option value="{{ course.id }}" {% if course.id == selected_course_id %}selected{% endif %}>
+                            <option
+                                value="{{ course.id }}"
+                                {%
+                                if
+                                course.id=""
+                                ="selected_course_id"
+                                %}selected{%
+                                endif
+                                %}
+                            >
                                 {{ course.name }}
                             </option>
                             {% endfor %}
@@ -137,7 +156,14 @@
                         {% endfor %}
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 9l-7 7-7-7"
+                            ></path>
+                        </svg>
                     </div>
                 </div>
             </div>
@@ -146,16 +172,8 @@
             <div class="flex flex-col gap-4">
                 <label class="text-sm font-semibold text-gray-900">Расписание по дням</label>
                 <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 md:grid-cols-7">
-                    {% set days = [
-                        ('monday', 'ПН'),
-                        ('tuesday', 'ВТ'),
-                        ('wednesday', 'СР'),
-                        ('thursday', 'ЧТ'),
-                        ('friday', 'ПТ'),
-                        ('saturday', 'СБ'),
-                        ('sunday', 'ВС')
-                    ] %}
-                    {% for day_id, day_label in days %}
+                    {% set days = [ ('monday', 'ПН'), ('tuesday', 'ВТ'), ('wednesday', 'СР'), ('thursday', 'ЧТ'),
+                    ('friday', 'ПТ'), ('saturday', 'СБ'), ('sunday', 'ВС') ] %} {% for day_id, day_label in days %}
                     <div class="flex flex-col items-center gap-1">
                         <label class="text-xs font-medium text-gray-500" for="{{ day_id }}">{{ day_label }}</label>
                         <input
