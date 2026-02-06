@@ -139,15 +139,12 @@ content %}
                         {% endif %} {% for course_group in course_groups %}
                         <optgroup label="{{ course_group.name }}">
                             {% for course in course_group.courses %}
+                            <!-- prettier-ignore -->
                             <option
                                 value="{{ course.id }}"
-                                {%
-                                if
-                                course.id=""
-                                ="selected_course_id"
-                                %}selected{%
-                                endif
-                                %}
+                                {% if course.id=selected_course_id %}
+                                selected
+                                {% endif %}
                             >
                                 {{ course.name }}
                             </option>

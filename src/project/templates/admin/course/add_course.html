@@ -79,15 +79,12 @@ content %}
                             {% if selected_course_group_id == None %}
                             <option disabled selected value="">Выберите группу</option>
                             {% endif %} {% for course_group in course_groups %}
+                            <!-- prettier-ignore -->
                             <option
                                 value="{{ course_group.id }}"
-                                {%
-                                if
-                                course_group.id=""
-                                ="selected_course_group_id"
-                                %}selected{%
-                                endif
-                                %}
+                                {% if course_group.id==selected_course_group_id %}
+                                selected
+                                {%endif%}
                             >
                                 {{ course_group.name }}
                             </option>
