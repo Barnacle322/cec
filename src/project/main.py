@@ -1,7 +1,9 @@
 import calendar
 import datetime
 import random
+import re
 import xml.etree.ElementTree as ElementTree
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from flask import (
     Blueprint,
@@ -16,7 +18,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user
 
-from .extenstions import db, login_manager
+from .extenstions import cache, db, login_manager
 from .models import (
     Blog,
     Course,
@@ -33,6 +35,37 @@ from .models import (
 )
 
 main = Blueprint("main", __name__)
+
+_PHONE_RE = re.compile(r"^[\d\s\+\-\(\)\.]{7,20}$")
+_EMAIL_RE = re.compile(r"^[a-zA-Z0-9._%+\-]{1,64}@[a-zA-Z0-9.\-]{1,253}\.[a-zA-Z]{2,}$")
+# Letters (including Unicode/Cyrillic), digits, spaces, hyphens, apostrophes, periods
+_NAME_RE = re.compile(r"^[\w\s\'\-\.]{1,100}$", re.UNICODE)
+# Same as name but also allows commas and parentheses for course names like "English (Beginner)"
+_COURSE_RE = re.compile(r"^[\w\s\'\-\.,()]{1,200}$", re.UNICODE)
+
+
+def _valid_phone(phone: str) -> bool:
+    return bool(phone and _PHONE_RE.match(phone))
+
+
+def _valid_email(email: str) -> bool:
+    return bool(email and len(email) <= 254 and _EMAIL_RE.match(email))
+
+
+def _valid_name(value: str) -> bool:
+    return bool(value and _NAME_RE.match(value))
+
+
+def _valid_course(value: str) -> bool:
+    return bool(value and _COURSE_RE.match(value))
+
+
+def _referrer_base() -> str:
+    """Return the referrer URL with any existing 'success' param stripped."""
+    parsed = urlparse(request.referrer or "/")
+    params = parse_qs(parsed.query)
+    params.pop("success", None)
+    return urlunparse(parsed._replace(query=urlencode(params, doseq=True)))
 
 
 def parse_editorjs(json_data):
@@ -71,7 +104,9 @@ def parse_editorjs(json_data):
                     with_border = block.get("data").get("withBorder")
                     with_background = block.get("data").get("withBackground")
                     stretched = block.get("data").get("stretched")
-                    consolidated_styles = f"{'border border-solid' if with_border else ''} {'w-full' if stretched else ''}"
+                    consolidated_styles = (
+                        f"{'border border-solid' if with_border else ''} {'w-full' if stretched else ''}"
+                    )
                     block_html = f"<figure {'class=bg-auto bg-slate-500' if with_background else ''}> <img class='{consolidated_styles} rounded-md' src='{picture_url}'><figcaption class='text-center'>{caption}</figcaption></figure>"
                 except Exception as e:
                     print(e)
@@ -99,13 +134,7 @@ def generate_month_matrix(month: int, year: int) -> dict:
                 week_matrix.append({"day": "", "events": []})
             else:
                 date = datetime.date(year, month, day)
-                event_colors = list(
-                    {
-                        event_color
-                        for event, event_color in all_events
-                        if event.date == date
-                    }
-                )[0:3]
+                event_colors = list({event_color for event, event_color in all_events if event.date == date})[0:3]
                 week_matrix.append({"day": day, "events": event_colors})
         month_data["matrix"].append(week_matrix)
     return month_data
@@ -126,7 +155,12 @@ def set_lang(lang=None):
     return redirect(url_for("main.index"))
 
 
+def _index_cache_key():
+    return f"index_{session.get('lang', 'ru')}"
+
+
 @main.route("/")
+@cache.cached(key_prefix=_index_cache_key, unless=lambda: "success" in request.args)  # type: ignore
 def index():
     success = None
     if args := request.args:
@@ -180,9 +214,7 @@ def courses():
 
 @main.route("/courses/<course_group_slug>")
 def course_group(course_group_slug: str):
-    course_group = (
-        CourseGroup.get_by_slug(course_group_slug) if course_group_slug else None
-    )
+    course_group = CourseGroup.get_by_slug(course_group_slug) if course_group_slug else None
     courses = Course.get_by_course_group_id(course_group.id if course_group else None)
 
     return render_template(
@@ -264,9 +296,7 @@ def toefl():
         human_date = date.strftime("%d %B, %Y")
 
     pagination = Toefl.get_pagination_dates(date)
-    return render_template(
-        "toefl.html", human_date=human_date, results=results, pagination=pagination
-    )
+    return render_template("toefl.html", human_date=human_date, results=results, pagination=pagination)
 
 
 def get_available_dates():
@@ -326,9 +356,7 @@ def toefl_register():
 
     available_dates = get_available_dates()
 
-    return render_template(
-        "toefl_register.html", success=success, available_dates=available_dates
-    )
+    return render_template("toefl_register.html", success=success, available_dates=available_dates)
 
 
 @main.post("/toefl/register")
@@ -342,6 +370,9 @@ def toefl_register_post():
     if not first_name or not last_name or not email or not phone or not day:
         return redirect(url_for("main.toefl_register", success="false"))
 
+    if not _valid_name(first_name) or not _valid_name(last_name) or not _valid_email(email) or not _valid_phone(phone):
+        return redirect(url_for("main.toefl_register", success="true"))
+
     day = datetime.datetime.strptime(day, "%Y-%m-%d").date()
 
     try:
@@ -351,9 +382,7 @@ def toefl_register_post():
             email=email,
             phone=phone,
             date=day,
-            created_at=datetime.datetime.now(
-                tz=datetime.timezone(datetime.timedelta(hours=6))
-            ),
+            created_at=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=6))),
         )
         db.session.add(registration)
         db.session.commit()
@@ -372,9 +401,10 @@ def register():
     course_info = request.form.get("course_info")
 
     if not name or not phone or not age or not course_info:
-        return redirect(
-            url_for("main.index", _anchor="registration-form", success="false")
-        )
+        return redirect(url_for("main.index", _anchor="registration-form", success="false"))
+
+    if not _valid_name(name) or not _valid_phone(phone) or not (5 <= age <= 100) or not _valid_course(course_info):
+        return redirect(url_for("main.index", _anchor="registration-form", success="true"))
 
     try:
         registration = Registration(
@@ -382,17 +412,13 @@ def register():
             phone=phone,
             age=age,
             course_info=course_info,
-            created_at=datetime.datetime.now(
-                tz=datetime.timezone(datetime.timedelta(hours=6))
-            ),
+            created_at=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=6))),
         )
         db.session.add(registration)
         db.session.commit()
     except Exception as e:
         print(e)
-        return redirect(
-            url_for("main.index", _anchor="registration-form", success="false")
-        )
+        return redirect(url_for("main.index", _anchor="registration-form", success="false"))
 
     return redirect(url_for("main.index", _anchor="registration-form", success="true"))
 
@@ -404,8 +430,13 @@ def register_course():
     age = request.form.get("age", type=int)
     course_info = request.form.get("course_info")
 
+    base = _referrer_base()
+
     if not name or not phone or not age or not course_info:
-        return redirect(f"{request.referrer}?success=false")
+        return redirect(f"{base}?success=false")
+
+    if not _valid_name(name) or not _valid_phone(phone) or not (5 <= age <= 100) or not _valid_course(course_info):
+        return redirect(f"{base}?success=true")
 
     try:
         registration = Registration(
@@ -413,17 +444,15 @@ def register_course():
             phone=phone,
             age=age,
             course_info=course_info,
-            created_at=datetime.datetime.now(
-                tz=datetime.timezone(datetime.timedelta(hours=6))
-            ),
+            created_at=datetime.datetime.now(tz=datetime.timezone(datetime.timedelta(hours=6))),
         )
         db.session.add(registration)
         db.session.commit()
     except Exception as e:
         print(e)
-        return redirect(f"{request.referrer}?success=false")
+        return redirect(f"{base}?success=false")
 
-    return redirect(f"{request.referrer}?success=true")
+    return redirect(f"{base}?success=true")
 
 
 @main.get("/blogs")
@@ -467,9 +496,7 @@ def logout():
 @main.route("/sitemap.xml")
 def sitemap():
     pages = []
-    one_day_ago = (
-        (datetime.datetime.now() - datetime.timedelta(days=1)).date().isoformat()
-    )
+    one_day_ago = (datetime.datetime.now() - datetime.timedelta(days=1)).date().isoformat()
 
     # Add static pages
     for rule in current_app.url_map.iter_rules():
@@ -502,9 +529,7 @@ def sitemap():
     for blog in blogs:
         pages.append([f"/blogs/{blog.slug}", one_day_ago])
 
-    root = ElementTree.Element(
-        "urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-    )
+    root = ElementTree.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     for page in pages:
         url = ElementTree.SubElement(root, "url")
         loc = ElementTree.SubElement(url, "loc")

@@ -6,7 +6,7 @@ from flask import Flask, session
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .admin import admin
-from .extenstions import babel, db, login_manager, migrate
+from .extenstions import babel, cache, csrf, db, login_manager, migrate
 from .main import main
 
 
@@ -17,9 +17,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app.config["SQLALCHEMY_RECORD_QUERIES"] = True
     app.config["SQLALCHEMY_POOL_SIZE"] = int(os.getenv("SQLALCHEMY_POOL_SIZE", 5))
-    app.config["SQLALCHEMY_POOL_RECYCLE"] = int(
-        os.getenv("SQLALCHEMY_POOL_RECYCLE", 1800)
-    )
+    app.config["SQLALCHEMY_POOL_RECYCLE"] = int(os.getenv("SQLALCHEMY_POOL_RECYCLE", 1800))
     app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
     app.config["BABEL_TRANSLATION_DIRECTORIES"] = "translations"
 
@@ -30,9 +28,14 @@ def create_app(database_url="sqlite:///db.sqlite"):
     app.register_blueprint(main)
     app.register_blueprint(admin, url_prefix="/admin")
 
+    app.config["CACHE_TYPE"] = "SimpleCache"
+    app.config["CACHE_DEFAULT_TIMEOUT"] = 3600
+
     db.init_app(app)
     login_manager.init_app(app)
     migrate.init_app(app, db)
+    csrf.init_app(app)
+    cache.init_app(app)
 
     def get_locale():
         return session.get("lang", "ru")
@@ -51,7 +54,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
             locale.setlocale(locale.LC_ALL, "en_US.UTF-8")
 
     # Reverse proxy support
-    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)  # type: ignore
 
     return app
 

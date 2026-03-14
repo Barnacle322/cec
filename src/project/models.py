@@ -16,8 +16,6 @@ from sqlalchemy import (
     DateTime,
     Integer,
     String,
-    asc,
-    desc,
     event,
     extract,
     func,
@@ -74,9 +72,7 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
     picture_url: Mapped[str] = mapped_column(String, nullable=False)
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
-    courses: Mapped[list[Course]] = relationship(
-        "Course", uselist=True, init=False, backref="course_group"
-    )
+    courses: Mapped[list[Course]] = relationship("Course", uselist=True, init=False, backref="course_group")
 
     @property
     def name(self):
@@ -98,17 +94,13 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all() -> Sequence[CourseGroup]:
-        return db.session.scalars(
-            select(CourseGroup).order_by(CourseGroup.position)
-        ).all()
+        return db.session.scalars(select(CourseGroup).order_by(CourseGroup.position)).all()
 
     @staticmethod
     def get_all_with_courses():
         return (
             db.session.scalars(
-                select(CourseGroup)
-                .options(joinedload(CourseGroup.courses))
-                .order_by(CourseGroup.position)
+                select(CourseGroup).options(joinedload(CourseGroup.courses)).order_by(CourseGroup.position)
             )
             .unique()
             .all()
@@ -124,9 +116,7 @@ class CourseGroup(MappedAsDataclass, db.Model, unsafe_hash=True):
             try:
                 delete_blob_from_url(course_group.picture_url)
             except Exception:
-                current_app.logger.warning(
-                    f"Failed to delete blob from URL {course_group.picture_url}"
-                )
+                current_app.logger.warning(f"Failed to delete blob from URL {course_group.picture_url}")
             db.session.delete(course_group)
             db.session.commit()
         else:
@@ -143,9 +133,7 @@ class Course(MappedAsDataclass, db.Model, unsafe_hash=True):
     _description: Mapped[dict] = mapped_column(JSON, nullable=False)
     slug: Mapped[str] = mapped_column(String, nullable=False, unique=True)
     picture_url: Mapped[str] = mapped_column(String, nullable=False)
-    course_group_id: Mapped[int] = mapped_column(
-        Integer, db.ForeignKey("course_group.id")
-    )
+    course_group_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("course_group.id"))
 
     @property
     def name(self):
@@ -179,9 +167,7 @@ class Course(MappedAsDataclass, db.Model, unsafe_hash=True):
             try:
                 delete_blob_from_url(course.picture_url)
             except Exception:
-                current_app.logger.warning(
-                    f"Failed to delete blob from URL {course.picture_url}"
-                )
+                current_app.logger.warning(f"Failed to delete blob from URL {course.picture_url}")
             db.session.delete(course)
             db.session.commit()
         else:
@@ -191,9 +177,7 @@ class Course(MappedAsDataclass, db.Model, unsafe_hash=True):
     def get_by_course_group_id(course_group_id: int | None) -> Sequence[Course]:
         if not course_group_id:
             return Course.get_all()
-        return db.session.scalars(
-            select(Course).where(Course.course_group_id == course_group_id)
-        ).all()
+        return db.session.scalars(select(Course).where(Course.course_group_id == course_group_id)).all()
 
     @staticmethod
     def get_by_slug(slug: str) -> Course | None:
@@ -207,12 +191,8 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     _duration: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     _price: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
     json_data: Mapped[dict] = mapped_column(JSON, nullable=False, init=True)
-    course_position: Mapped[int] = mapped_column(
-        Integer, nullable=False, init=True, autoincrement=True
-    )
-    course_id: Mapped[int] = mapped_column(
-        Integer, db.ForeignKey("course.id"), init=True, nullable=False
-    )
+    course_position: Mapped[int] = mapped_column(Integer, nullable=False, init=True, autoincrement=True)
+    course_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("course.id"), init=True, nullable=False)
 
     course: Mapped[Course] = relationship(Course, backref="timetables", init=False)
 
@@ -254,9 +234,7 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all() -> Sequence[Timetable]:
-        return db.session.scalars(
-            select(Timetable).order_by(Timetable.course_position)
-        ).all()
+        return db.session.scalars(select(Timetable).order_by(Timetable.course_position)).all()
 
     @staticmethod
     def get_by_id(id: int) -> Timetable | None:
@@ -265,9 +243,7 @@ class Timetable(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_by_course_id(course_id: int):
         return db.session.scalars(
-            select(Timetable)
-            .where(Timetable.course_id == course_id)
-            .order_by(Timetable.course_position)
+            select(Timetable).where(Timetable.course_id == course_id).order_by(Timetable.course_position)
         ).all()
 
     @staticmethod
@@ -327,9 +303,7 @@ class Teacher(MappedAsDataclass, db.Model, unsafe_hash=True):
             try:
                 delete_blob_from_url(teacher.picture_url)
             except Exception:
-                current_app.logger.warning(
-                    f"Failed to delete blob from URL {teacher.picture_url}"
-                )
+                current_app.logger.warning(f"Failed to delete blob from URL {teacher.picture_url}")
             db.session.delete(teacher)
             db.session.commit()
         else:
@@ -374,9 +348,7 @@ class Staff(MappedAsDataclass, db.Model, unsafe_hash=True):
             try:
                 delete_blob_from_url(staff.picture_url)
             except Exception:
-                current_app.logger.warning(
-                    f"Failed to delete blob from URL {staff.picture_url}"
-                )
+                current_app.logger.warning(f"Failed to delete blob from URL {staff.picture_url}")
             db.session.delete(staff)
             db.session.commit()
         else:
@@ -389,9 +361,7 @@ class EventType(MappedAsDataclass, db.Model, unsafe_hash=True):
     _description: Mapped[dict] = mapped_column(JSON, nullable=True)
     color: Mapped[str] = mapped_column(String, nullable=False)
 
-    events: Mapped[list[Event]] = relationship(
-        "Event", uselist=True, init=False, backref="event_type"
-    )
+    events: Mapped[list[Event]] = relationship("Event", uselist=True, init=False, backref="event_type")
 
     @property
     def name(self):
@@ -557,9 +527,7 @@ class Feedback(MappedAsDataclass, db.Model, unsafe_hash=True):
     number: Mapped[str] = mapped_column(String, nullable=True, init=False)
     picture_url: Mapped[str] = mapped_column(String, nullable=True, init=False)
     course: Mapped[str] = mapped_column(String, nullable=True, init=False)
-    is_verified: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, default=False, init=False
-    )
+    is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, init=False)
 
     @staticmethod
     def get_all() -> Sequence[Feedback]:
@@ -759,14 +727,7 @@ class Toefl(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @property
     def total(self) -> int:
-        return round(
-            (
-                self.calculate_grammar()
-                + self.calculate_listening()
-                + self.calculate_reading()
-            )
-            / 3
-        )
+        return round((self.calculate_grammar() + self.calculate_listening() + self.calculate_reading()) / 3)
 
     @property
     def auca_total(self) -> int:
@@ -783,9 +744,7 @@ class Toefl(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_all_by_date(date: datetime.date) -> Sequence[Toefl]:
         return db.session.scalars(
-            select(Toefl)
-            .where(Toefl.date == date)
-            .order_by(Toefl.is_published, Toefl.test_taker_id)
+            select(Toefl).where(Toefl.date == date).order_by(Toefl.is_published, Toefl.test_taker_id)
         ).all()
 
     @staticmethod
@@ -800,14 +759,9 @@ class Toefl(MappedAsDataclass, db.Model, unsafe_hash=True):
     def get_pagination_dates(
         date: datetime.date,
     ):
-        next_date = db.session.scalar(
-            select(Toefl.date).where(Toefl.date > date).order_by(Toefl.date).limit(1)
-        )
+        next_date = db.session.scalar(select(Toefl.date).where(Toefl.date > date).order_by(Toefl.date).limit(1))
         previous_date = db.session.scalar(
-            select(Toefl.date)
-            .where(Toefl.date < date)
-            .order_by(Toefl.date.desc())
-            .limit(1)
+            select(Toefl.date).where(Toefl.date < date).order_by(Toefl.date.desc()).limit(1)
         )
         return previous_date, next_date
 
@@ -833,12 +787,8 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
     phone: Mapped[str] = mapped_column(String, nullable=False)
     date: Mapped[datetime.date] = mapped_column(Date, nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
-    handled_at: Mapped[datetime.datetime | None] = mapped_column(
-        DateTime, nullable=True, init=False
-    )
-    handled: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, default=False, init=False
-    )
+    handled_at: Mapped[datetime.datetime | None] = mapped_column(DateTime, nullable=True, init=False)
+    handled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, init=False)
 
     @staticmethod
     def get_all() -> Sequence[ToeflRegistration]:
@@ -854,16 +804,12 @@ class ToeflRegistration(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_by_id(id: int) -> ToeflRegistration | None:
-        return db.session.scalar(
-            select(ToeflRegistration).where(ToeflRegistration.id == int(id))
-        )
+        return db.session.scalar(select(ToeflRegistration).where(ToeflRegistration.id == int(id)))
 
     @staticmethod
     def get_all_by_date(date: datetime.date) -> Sequence[ToeflRegistration]:
         return db.session.scalars(
-            select(ToeflRegistration).where(
-                func.date(ToeflRegistration.created_at) == date
-            )
+            select(ToeflRegistration).where(func.date(ToeflRegistration.created_at) == date)
         ).all()
 
     @staticmethod
@@ -884,12 +830,8 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
     age: Mapped[int] = mapped_column(Integer, nullable=False)
     course_info: Mapped[str] = mapped_column(String, nullable=False)
     created_at: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=False)
-    handled_at: Mapped[datetime.datetime | None] = mapped_column(
-        DateTime, nullable=True, init=False
-    )
-    handled: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, default=False, init=False
-    )
+    handled_at: Mapped[datetime.datetime | None] = mapped_column(DateTime, nullable=True, init=False)
+    handled: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, init=False)
 
     @staticmethod
     def get_all() -> Sequence[Registration]:
@@ -898,9 +840,7 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_all_unhandled() -> Sequence[Registration]:
         return db.session.scalars(
-            select(Registration)
-            .where(Registration.handled.is_(False))
-            .order_by(Registration.created_at.desc())
+            select(Registration).where(Registration.handled.is_(False)).order_by(Registration.created_at.desc())
         ).all()
 
     @staticmethod
@@ -909,44 +849,26 @@ class Registration(MappedAsDataclass, db.Model, unsafe_hash=True):
 
     @staticmethod
     def get_all_by_date(date: datetime.date) -> Sequence[Registration]:
-        return db.session.scalars(
-            select(Registration).where(func.date(Registration.created_at) == date)
-        ).all()
+        return db.session.scalars(select(Registration).where(func.date(Registration.created_at) == date)).all()
 
     @staticmethod
     def get_pagination(page: int, per_page: int = 20) -> Pagination:
-        query = (
-            select(Registration)
-            .where(Registration.handled.is_(True))
-            .order_by(Registration.handled_at.desc())
-        )
+        query = select(Registration).where(Registration.handled.is_(True)).order_by(Registration.handled_at.desc())
         pagination = db.paginate(select=query, page=page, per_page=per_page)
         return pagination
 
 
 class Blog(MappedAsDataclass, db.Model, unsafe_hash=True):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, init=False)
-    title: Mapped[str | None] = mapped_column(
-        String, index=True, nullable=True, init=False
-    )
-    slug: Mapped[str | None] = mapped_column(
-        String, index=True, unique=True, nullable=True, init=False
-    )
+    title: Mapped[str | None] = mapped_column(String, index=True, nullable=True, init=False)
+    slug: Mapped[str | None] = mapped_column(String, index=True, unique=True, nullable=True, init=False)
     _json: Mapped[dict | None] = mapped_column(JSON, nullable=True, init=False)
-    is_draft: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, default=True, init=False
-    )
+    is_draft: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True, init=False)
     preview_url: Mapped[str | None] = mapped_column(String, nullable=True, init=False)
-    published: Mapped[datetime.datetime] = mapped_column(
-        DateTime, nullable=True, init=False, server_default=func.now()
-    )
+    published: Mapped[datetime.datetime] = mapped_column(DateTime, nullable=True, init=False, server_default=func.now())
 
-    is_deleted: Mapped[bool] = mapped_column(
-        Boolean, nullable=False, server_default=text("false"), init=False
-    )
-    deleted_at: Mapped[datetime.datetime | None] = mapped_column(
-        DateTime, nullable=True, init=False
-    )
+    is_deleted: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=text("false"), init=False)
+    deleted_at: Mapped[datetime.datetime | None] = mapped_column(DateTime, nullable=True, init=False)
 
     def set_title(self, value: str) -> None:
         self.title = value
@@ -987,16 +909,12 @@ class Blog(MappedAsDataclass, db.Model, unsafe_hash=True):
     @staticmethod
     def get_all_published() -> Sequence[Blog]:
         return db.session.scalars(
-            select(Blog)
-            .where(Blog.is_draft.is_(False), Blog.is_deleted.is_(False))
-            .order_by(Blog.published.desc())
+            select(Blog).where(Blog.is_draft.is_(False), Blog.is_deleted.is_(False)).order_by(Blog.published.desc())
         ).all()
 
     @staticmethod
     def get_by_slug(slug: str) -> Blog | None:
-        return db.session.scalar(
-            select(Blog).where(Blog.slug == slug, Blog.is_deleted.is_(False))
-        )
+        return db.session.scalar(select(Blog).where(Blog.slug == slug, Blog.is_deleted.is_(False)))
 
     @staticmethod
     def get_by_id(id: int) -> Blog | None:

@@ -33,7 +33,7 @@
     <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
     <meta property="twitter:card" content="summary_large_image" />
 
-    <meta name="robots" content="index" />
+    <meta name="robots" content="index, follow" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/static/elements/favicon/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
@@ -59,14 +59,14 @@
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section
-        id="toelf_banner"
-        class="flex h-16 w-full items-center justify-center gap-3 bg-gradient-to-r from-[#08559a] to-[#1e85bf] px-6 shadow-lg"
+        id="toefl_banner"
+        class="flex h-16 w-full items-center justify-center gap-3 bg-gradient-to-r from-sky-700 to-sky-500 px-6 shadow-lg"
     >
         <span class="fade-in text-xl font-bold text-white drop-shadow-sm" style="animation-delay: 1.8s"
             >{{_('Результаты TOEFL')}}</span
         >
         <a
-            class="fade-in rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#08559a] transition-all ease-in-out hover:bg-gray-100 hover:scale-105 shadow-md"
+            class="fade-in rounded-full bg-white px-4 py-2 text-sm font-semibold text-sky-700 transition-all ease-in-out hover:bg-gray-100 hover:scale-105 shadow-md"
             href="/toefl"
             style="animation-delay: 1.8s"
             >{{_('Смотреть')}}</a
@@ -155,7 +155,7 @@
     </section>
     <section class="mt-20 flex max-w-7xl flex-col items-center justify-center px-6">
         <h2
-            class="move-up text-center text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="move-up text-center text-4xl font-bold sm:text-5xl text-gray-900"
             style="animation-delay: 1s"
         >
             {{_('Что такое Мейкерспейс АУЦА?')}}
@@ -166,7 +166,7 @@
         >
             <div class="text-center group">
                 <h3
-                    class="text-5xl font-bold bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300 pb-0.5"
+                    class="text-5xl font-bold text-blue-600 group-hover:scale-110 transition-transform duration-300"
                 >
                     {{_('18 лет')}}
                 </h3>
@@ -174,15 +174,15 @@
             </div>
             <div class="text-center group">
                 <h3
-                    class="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300"
+                    class="text-5xl font-bold text-blue-600 group-hover:scale-110 transition-transform duration-300"
                 >
-                    50 000+
+                    60 000+
                 </h3>
                 <span class="text-gray-600 font-medium mt-2 block">{{_('Довольных учеников')}}</span>
             </div>
             <div class="text-center group">
                 <h3
-                    class="text-5xl font-bold bg-gradient-to-r from-purple-600 to-violet-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300"
+                    class="text-5xl font-bold text-blue-600 group-hover:scale-110 transition-transform duration-300"
                 >
                     65
                 </h3>
@@ -190,7 +190,7 @@
             </div>
             <div class="text-center group">
                 <h3
-                    class="text-5xl font-bold bg-gradient-to-r from-orange-600 to-amber-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300"
+                    class="text-5xl font-bold text-blue-600 group-hover:scale-110 transition-transform duration-300"
                 >
                     97%
                 </h3>
@@ -200,7 +200,7 @@
     </section>
     <section class="mt-32 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2
-            class="move-up mb-8 w-full text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="move-up mb-8 w-full text-4xl font-bold sm:text-5xl text-gray-900"
             style="animation-delay: 1.5s"
         >
             {{_('Курсы')}}
@@ -217,7 +217,9 @@
                     <img
                         class="aspect-video w-full object-cover group-hover:scale-110 transition-transform ease-in-out duration-700"
                         loading="lazy"
+                        decoding="async"
                         src="{{ course_group.picture_url }}"
+                        alt="{{ course_group.name }}"
                     />
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -243,7 +245,7 @@
     </section>
     <section class="mt-24 flex w-full max-w-7xl flex-col items-center justify-center gap-8 px-6 pb-3">
         <h2
-            class="w-full text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="w-full text-4xl font-bold sm:text-5xl text-gray-900"
         >
             {{_('Клубы')}}
         </h2>
@@ -254,7 +256,9 @@
                 <img
                     class="aspect-video object-cover hover:scale-105 transition-transform ease-in-out duration-700"
                     loading="lazy"
+                    decoding="async"
                     src="/static/elements/chess.jpg"
+                    alt="{{_('Шахматный клуб')}}"
                 />
             </div>
             <div class="flex w-full flex-wrap">
@@ -266,10 +270,10 @@
                             >{{_('Бесплатно')}}</span
                         >
                     </h3>
-                    <article class="mb-8 mt-3 text-gray-600 leading-relaxed">
+                    <p class="mb-8 mt-3 text-gray-600 leading-relaxed">
                         {{_('Шахматы - игра, которая точно прошла тест на время. Подходит как и взрослым, так и
                         детям.')}}
-                    </article>
+                    </p>
                     <button
                         class="ml-auto mt-auto rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition-all ease-in-out hover:from-sky-400 hover:to-blue-500 hover:scale-105 shadow-lg sm:text-base"
                         onclick="openModal('Клуб Шахмат')"
@@ -291,10 +295,10 @@
                             >{{_('Бесплатно')}}</span
                         >
                     </h3>
-                    <article class="mb-8 mt-3 text-gray-600 leading-relaxed">
+                    <p class="mb-8 mt-3 text-gray-600 leading-relaxed">
                         {{_('Repair Cafe - Нидерландская инициатива по организации мероприятий, на которых участники
                         учатся чинить вещи. Это помогает сократить количество мусора и продлить срок службы вещей.')}}
-                    </article>
+                    </p>
                     <button
                         class="ml-auto mt-auto rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition-all ease-in-out hover:from-sky-400 hover:to-blue-500 hover:scale-105 shadow-lg sm:text-base"
                         onclick="openModal('Клуб Repair Cafe')"
@@ -307,14 +311,16 @@
                 <img
                     class="aspect-video object-cover hover:scale-105 transition-transform ease-in-out duration-700"
                     loading="lazy"
+                    decoding="async"
                     src="/static/elements/repair_cafe.jpeg"
+                    alt="{{_('Клуб Repair Cafe')}}"
                 />
             </div>
         </div>
     </section>
     <section class="mt-24 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2
-            class="mb-8 w-full text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="mb-8 w-full text-4xl font-bold sm:text-5xl text-gray-900"
         >
             {{_('Календарь')}}
         </h2>
@@ -337,81 +343,55 @@
             <!-- End Events -->
 
             <!-- Calendar -->
-            <div class="mb-4 space-y-2 bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
-                <!-- Months -->
-                <div class="mx-1.5 grid grid-cols-5 items-center gap-x-3 pb-4">
-                    <!-- Prev Button -->
-                    <div class="col-span-1">
-                        <button
-                            type="button"
-                            class="flex h-10 w-10 items-center justify-center rounded-full text-gray-800 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200"
-                            onclick="prevMonth()"
-                        >
-                            <svg
-                                class="h-5 w-5 flex-shrink-0"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <path d="m15 18-6-6 6-6" />
-                            </svg>
-                        </button>
+            <details class="mb-4 w-full lg:w-auto">
+                <summary class="cursor-pointer list-none">
+                    <div class="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-semibold text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-800 transition-colors duration-200 w-fit">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {{_('Показать календарь')}}
                     </div>
-                    <!-- End Prev Button -->
-
-                    <!-- Month -->
-                    <div
-                        id="month-name"
-                        class="col-span-3 flex items-center justify-center gap-x-1 text-lg font-bold text-gray-800 sm:text-2xl"
-                    ></div>
-                    <!-- End Month -->
-
-                    <!-- Next Button -->
-                    <div class="col-span-1 flex justify-end">
-                        <button
-                            type="button"
-                            class="flex h-10 w-10 items-center justify-center rounded-full text-gray-800 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200"
-                            onclick="nextMonth()"
-                        >
-                            <svg
-                                class="h-5 w-5 flex-shrink-0"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                </summary>
+                <div class="mt-3 space-y-2 bg-white rounded-2xl shadow-lg p-6 border border-gray-200">
+                    <!-- Months -->
+                    <div class="mx-1.5 grid grid-cols-5 items-center gap-x-3 pb-4">
+                        <!-- Prev Button -->
+                        <div class="col-span-1">
+                            <button
+                                type="button"
+                                class="flex h-10 w-10 items-center justify-center rounded-full text-gray-800 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200"
+                                onclick="prevMonth()"
                             >
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
+                                <svg class="h-5 w-5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m15 18-6-6 6-6" />
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- Month -->
+                        <div id="month-name" class="col-span-3 flex items-center justify-center gap-x-1 text-lg font-bold text-gray-800 sm:text-2xl"></div>
+                        <!-- Next Button -->
+                        <div class="col-span-1 flex justify-end">
+                            <button
+                                type="button"
+                                class="flex h-10 w-10 items-center justify-center rounded-full text-gray-800 hover:bg-sky-100 hover:text-sky-600 transition-colors duration-200"
+                                onclick="nextMonth()"
+                            >
+                                <svg class="h-5 w-5 flex-shrink-0" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="m9 18 6-6-6-6" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <!-- End Next Button -->
+                    <!-- Weeks -->
+                    <div class="flex pb-2">
+                        {% for weekday in ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс") %}
+                        <span class="m-px block w-12 text-center text-sm font-semibold text-gray-600 sm:m-3 sm:text-base">{{ weekday }}</span>
+                        {% endfor %}
+                    </div>
+                    <!-- Days -->
+                    <div id="month-matrix"></div>
                 </div>
-                <!-- Months -->
-
-                <!-- Weeks -->
-                <div class="flex pb-2">
-                    {% for weekday in ("Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс") %}
-                    <span class="m-px block w-12 text-center text-sm font-semibold text-gray-600 sm:m-3 sm:text-base">
-                        {{ weekday }}
-                    </span>
-                    {% endfor %}
-                </div>
-                <!-- Weeks -->
-
-                <!-- Days -->
-                <div id="month-matrix"></div>
-                <!-- Days -->
-            </div>
+            </details>
             <!-- End Calendar -->
         </div>
     </section>
@@ -488,12 +468,12 @@
                     </ul>
                 </div>
                 <div class="flex flex-col">
-                    <h3 class="text-base font-semibold text-[#b2b5b6]">Silver</h3>
+                    <h3 class="text-base font-semibold text-gray-400">Silver</h3>
                     <span class="mt-4 text-5xl font-bold tracking-tight">$50</span>
                     <ul role="list" class="mt-6 space-y-3 leading-6 sm:mt-10">
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -509,7 +489,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -525,7 +505,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -541,7 +521,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -558,12 +538,12 @@
                     </ul>
                 </div>
                 <div class="flex flex-col">
-                    <h3 class="text-base font-semibold text-[#FFD700]">Gold</h3>
+                    <h3 class="text-base font-semibold text-yellow-400">Gold</h3>
                     <span class="mt-4 text-5xl font-bold tracking-tight">$70</span>
                     <ul role="list" class="mt-6 space-y-3 leading-6 sm:mt-10">
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -579,7 +559,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -595,7 +575,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -611,7 +591,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -627,7 +607,7 @@
                         </li>
                         <li class="flex gap-x-3">
                             <svg
-                                class="h-6 w-5 flex-none"
+                                class="h-6 w-5 flex-none text-green-400"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
                                 aria-hidden="true"
@@ -648,7 +628,7 @@
     </section>
     <section class="mt-24 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2
-            class="mb-8 w-full text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="mb-8 w-full text-4xl font-bold sm:text-5xl text-gray-900"
         >
             {{_('Отзывы')}}
         </h2>
@@ -662,8 +642,9 @@
                     <img
                         class="flex aspect-square h-14 w-14 items-center justify-center rounded-full bg-gray-300 object-cover ring-2 ring-sky-100"
                         loading="lazy"
+                        decoding="async"
                         src="{{ feedback.picture_url }}"
-                        alt=""
+                        alt="{{ feedback.name }}"
                     />
                     {% else %}
                     <div
@@ -704,7 +685,7 @@
     </section>
     <section class="mt-24 flex w-full max-w-7xl flex-col items-center justify-center gap-2 px-6 pb-3">
         <h2
-            class="mb-8 w-full text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="mb-8 w-full text-4xl font-bold sm:text-5xl text-gray-900"
         >
             {{_('Частые вопросы')}}
         </h2>
@@ -735,7 +716,12 @@
                 <h3 class="text-lg font-bold text-sky-700 mb-3">
                     {{_('Как я могу записаться на пробное тестирование TOEFL?')}}
                 </h3>
-                <p class="text-gray-600 leading-relaxed">{{_('Вы можете записаться')}}</p>
+                <p class="text-gray-600 leading-relaxed">
+                    {{_('Вы можете записаться')}}
+                    <a class="underline text-sky-600 hover:text-sky-800 font-medium" href="/toefl/register"
+                        >{{_('здесь')}}</a
+                    >.
+                </p>
             </div>
             <!-- End Col -->
 
@@ -769,7 +755,7 @@
 
     <section class="mx-auto mt-24 w-full max-w-7xl px-6">
         <h2
-            class="w-full text-4xl font-bold sm:text-5xl bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent"
+            class="w-full text-4xl font-bold sm:text-5xl text-gray-900"
         >
             {{_('Блог')}}
         </h2>
@@ -783,8 +769,9 @@
                         <img
                             class="aspect-[3/2] w-full object-cover group-hover:scale-110 transition-transform duration-700"
                             loading="lazy"
+                            decoding="async"
                             src="{{ blog.preview_url }}"
-                            alt=""
+                            alt="{{ blog.title }}"
                         />
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -822,16 +809,18 @@
 
     <section
         id="registration-form"
-        class="mt-24 flex w-full flex-col items-center justify-center rounded-t-3xl bg-gradient-to-br from-gray-50 to-blue-50 px-6 py-20"
+        class="mt-24 flex w-full flex-col items-center justify-center rounded-t-3xl bg-gradient-to-br from-gray-50 to-blue-50 sm:px-6 py-20"
     >
         <div
-            class="flex w-full max-w-6xl flex-col gap-12 rounded-3xl bg-gradient-to-br from-[#1fbbff] to-[#0ea5e9] p-12 shadow-2xl"
+            class="flex w-full max-w-6xl flex-col gap-12 rounded-3xl bg-gradient-to-br from-sky-400 to-sky-500 p-12 shadow-2xl"
         >
             <h2 class="text-4xl font-bold text-white sm:w-2/3 leading-tight drop-shadow-lg">
                 {{_('Самое сложное - это начать. Оставьте заявку и мы поможем вам со всем!')}}
             </h2>
             <div class="flex flex-col gap-12 sm:flex-row">
                 <form class="flex w-full flex-col gap-4 sm:w-1/2" action="/register" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <label for="name" class="sr-only">{{_('Имя и фамилия')}}</label>
                     <input
                         class="rounded-xl border-0 py-4 px-4 text-lg shadow-md focus:ring-2 focus:ring-blue-200 transition-all"
                         name="name"
@@ -841,6 +830,7 @@
                         placeholder="{{_('Асан Асанов')}}"
                         required
                     />
+                    <label for="phone" class="sr-only">{{_('Номер телефона')}}</label>
                     <input
                         class="rounded-xl border-0 py-4 px-4 text-lg shadow-md focus:ring-2 focus:ring-blue-200 transition-all"
                         name="phone"
@@ -850,6 +840,7 @@
                         placeholder="+996 996 99 69 96"
                         required
                     />
+                    <label for="age" class="sr-only">{{_('Возраст')}}</label>
                     <input
                         class="rounded-xl border-0 py-4 px-4 text-lg shadow-md focus:ring-2 focus:ring-blue-200 transition-all"
                         name="age"
@@ -858,6 +849,7 @@
                         placeholder="{{_('16 лет')}}"
                         required
                     />
+                    <label for="course_info" class="sr-only">{{_('Название курса')}}</label>
                     <input
                         class="rounded-xl border-0 py-4 px-4 text-lg shadow-md focus:ring-2 focus:ring-blue-200 transition-all"
                         name="course_info"
@@ -867,7 +859,7 @@
                         required
                     />
                     <button
-                        class="rounded-xl bg-gradient-to-r from-[#fad800] to-[#f59e0b] py-4 text-lg font-bold hover:from-[#ffe22e] hover:to-[#fbbf24] transition-all shadow-lg hover:shadow-xl hover:scale-105"
+                        class="rounded-xl bg-gradient-to-r from-yellow-400 to-amber-500 py-4 text-lg font-bold hover:from-yellow-300 hover:to-amber-400 transition-all shadow-lg hover:shadow-xl hover:scale-105"
                         type="submit"
                     >
                         {{_('Оставить заявку')}}
@@ -883,19 +875,19 @@
                             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                                 <span class="text-white font-bold text-sm">1</span>
                             </div>
-                            <span class="text-blue-50">Заполните форму</span>
+                            <span class="text-blue-50">{{_('Заполните форму')}}</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                                 <span class="text-white font-bold text-sm">2</span>
                             </div>
-                            <span class="text-blue-50">Получите звонок от менеджера</span>
+                            <span class="text-blue-50">{{_('Получите звонок от менеджера')}}</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                                 <span class="text-white font-bold text-sm">3</span>
                             </div>
-                            <span class="text-blue-50">Начните обучение</span>
+                            <span class="text-blue-50">{{_('Начните обучение')}}</span>
                         </div>
                     </div>
                 </div>
@@ -911,7 +903,7 @@
             >
                 <div class="flex justify-between border-b bg-gray-50 px-4 py-3 sm:px-6">
                     <h2 class="text-lg font-medium">{{_('Запись на клуб')}}</h2>
-                    <button onclick="closeModal()">
+                    <button onclick="closeModal()" aria-label="{{_('Закрыть')}}" type="button">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -929,6 +921,7 @@
                     method="POST"
                     class="grid grid-cols-4 gap-x-2 gap-y-5 bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
                 >
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     <div class="col-span-2 flex flex-col gap-1">
                         <label for="name">{{_('Имя')}}</label>
                         <input
@@ -986,7 +979,7 @@
     <section id="toast">
         {% if success == True %}
         <div
-            class="fixed bottom-5 right-1/2 mx-4 flex w-[calc(100%-32px)] max-w-3xl translate-x-[calc(50%+16px)] items-center gap-3 rounded-lg border bg-white p-5 shadow-xl"
+            class="fixed bottom-5 right-1/2 mx-4 flex w-[calc(100%-32px)] max-w-3xl translate-x-[calc(50%+16px)] items-center gap-3 rounded-lg border bg-white p-5 shadow-xl z-50"
         >
             <div class="flex size-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100">
                 <svg
@@ -1015,7 +1008,7 @@
         </div>
         {% elif success == False %}
         <div
-            class="fixed bottom-5 right-1/2 mx-4 flex w-[calc(100%-32px)] max-w-3xl translate-x-[calc(50%+16px)] items-center gap-3 rounded-lg border bg-white p-5 shadow-xl"
+            class="fixed bottom-5 right-1/2 mx-4 flex w-[calc(100%-32px)] max-w-3xl translate-x-[calc(50%+16px)] items-center gap-3 rounded-lg border bg-white p-5 shadow-xl z-50"
         >
             <div class="flex size-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100">
                 <svg

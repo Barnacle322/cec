@@ -33,7 +33,7 @@
     <meta property="og:site_name" content="{{_('Мейкерспейс АУЦА')}}" />
     <meta property="twitter:card" content="summary_large_image" />
 
-    <meta name="robots" content="index" />
+    <meta name="robots" content="index, follow" />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/static/elements/favicon/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/static/elements/favicon/favicon-32x32.png" />
@@ -56,17 +56,15 @@
     class="relative mt-24 flex w-full flex-col items-center justify-center overflow-x-hidden leading-normal tracking-tight"
 >
     <section class="mt-10 flex w-full max-w-7xl flex-col items-center justify-center px-6 sm:mt-20">
-        <article class="text-start">
-            <h2
-                class="mb-8 w-full text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent sm:text-5xl"
+        <div class="text-start">
+            <h1
+                class="mb-8 pb-1 w-full text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent sm:text-5xl"
             >
                 {{_('Немного о нас')}}
-            </h2>
-            <div class="grid gap-12 text-justify text-lg sm:text-xl leading-relaxed">
-                <div class="flex flex-col gap-10 sm:flex-row">
-                    <p
-                        class="bg-gradient-to-br from-white/80 to-blue-50/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-white/40"
-                    >
+            </h1>
+            <div class="grid gap-10 text-lg sm:text-xl leading-relaxed text-gray-700">
+                <div class="flex flex-col gap-8 sm:flex-row">
+                    <p class="sm:w-1/2">
                         {{_('Одна из самых больших ценностей в мире – это знания. Необходимость адаптироваться к
                         изменяющейся действительности требует от каждого постоянную готовность учиться и приобретать
                         новые навыки. Это соответствует миссии и задачам АУЦА: поддержка гражданской активности,
@@ -74,9 +72,7 @@
                         местном, региональном и глобальном уровнях. Для решения этой задачи в АУЦА был создан Центр
                         дополнительного образования.')}}
                     </p>
-                    <p
-                        class="bg-gradient-to-br from-white/80 to-purple-50/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-white/40"
-                    >
+                    <p class="sm:w-1/2">
                         {{_('За время своей работы ЦДО зарекомендовал себя как эффективный способ повышения
                         квалификации, изучения языков. Здесь действовали и действуют различные программы, рассчитанные
                         на самые разные возрастные и социальные группы: «Академия роста для детей», подготовительные
@@ -87,17 +83,16 @@
                 </div>
                 <div class="relative">
                     <img
-                        class="h-40 w-full rounded-2xl object-cover object-center sm:h-96 border-4 border-white/50"
-                        loading="lazy"
+                        class="h-40 w-full rounded-2xl object-cover object-center sm:h-96 shadow-xl border border-white/20"
+                        fetchpriority="high"
+                        decoding="async"
                         src="/static/elements/about-hero.jpg"
                         alt=""
                     />
                     <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
                 </div>
-                <div class="flex flex-col gap-10 sm:flex-row">
-                    <p
-                        class="bg-gradient-to-br from-white/80 to-indigo-50/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-white/40"
-                    >
+                <div class="flex flex-col gap-8 sm:flex-row">
+                    <p class="sm:w-1/2">
                         {{_('Накоплен громадный опыт, но новый день ставит иные задачи и требует более совершенные формы
                         обучения. Начинается следующая глава в истории образовательных проектов АУЦА, и называется она
                         Makerspace Learning Center (MLC). Мейкерспейс – уникальное образовательное, творческое и
@@ -105,9 +100,7 @@
                         навыки, развиваться, но и реализовывать проекты, работать на высокотехнологичном
                         оборудовании.')}}
                     </p>
-                    <p
-                        class="bg-gradient-to-br from-white/80 to-green-50/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-white/40"
-                    >
+                    <p class="sm:w-1/2">
                         {{_('Термин makerspace стал использоваться с 2005 года для обозначения пространства, где высокие
                         технологии стали доступны для самых широких слоёв населения. Со временем понятие «мейкерспейс»
                         стало обозначать общественное движение, которое стремится популяризировать технологические
@@ -118,25 +111,25 @@
                     </p>
                 </div>
             </div>
-        </article>
+        </div>
     </section>
 
     <section class="flex w-full max-w-7xl flex-col items-center justify-center px-6 pt-16 sm:pt-24">
         <h2
-            class="w-full text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-12 sm:text-5xl"
+            class="w-full pb-1 text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-12 sm:text-5xl"
         >
             {{_('Команда')}}
         </h2>
 
         <div class="grid grid-cols-1 justify-center gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {% for member in staff %}
-            <div class="group flex max-w-[280px] flex-col gap-4">
+            <div class="flex w-full flex-col gap-4">
                 <div class="relative overflow-hidden rounded-xl">
-                    <img class="h-[220px] w-full object-cover" loading="lazy" src="{{ member.picture_url }}" alt="" />
+                    <img class="h-[220px] w-full object-cover" loading="lazy" decoding="async" src="{{ member.picture_url }}" alt="{{ member.name }}" />
                 </div>
                 <div class="flex flex-col gap-2">
-                    <span class="text-xl font-bold text-gray-800">{{ member.name }}</span>
-                    <span class="text-gray-600 font-medium">{{ member.description }}</span>
+                    <span class="text-xl font-bold text-gray-800 break-words">{{ member.name }}</span>
+                    <span class="text-gray-600 font-medium line-clamp-3">{{ member.description }}</span>
                 </div>
             </div>
             {% endfor %}
@@ -145,105 +138,30 @@
     <section
         class="flex w-full flex-col items-center justify-center gap-8 bg-gradient-to-br rounded-t-[3rem] mt-12 from-slate-900 via-blue-900 to-indigo-900 px-6 pt-16 pb-20 relative overflow-hidden"
     >
-        <article class="w-full max-w-7xl px-6 text-start relative z-10">
+        <div class="w-full max-w-7xl text-start relative z-10">
             <h2 class="mb-6 w-full text-4xl font-bold text-white sm:text-5xl">{{_('Наши партнёры')}}</h2>
             <p class="text-lg text-gray-200 leading-relaxed sm:w-2/3 sm:text-xl">
                 {{_('Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, KICB и другие.')}}
             </p>
-        </article>
+        </div>
 
         <div class="flex w-full flex-col items-center justify-center relative z-10 rounded-3xl bg-white">
-            <div class="flex w-full max-w-7xl flex-wrap items-center justify-center gap-8 px-8 py-16 mx-6">
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/who.png"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/undp.svg"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-16"
-                    loading="lazy"
-                    src="/static/elements/logos/embassy.png"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/usaid.svg"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/kicb.svg"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/beeline.webp"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-16"
-                    loading="lazy"
-                    src="/static/elements/logos/cc.png"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-12"
-                    loading="lazy"
-                    src="/static/elements/logos/hyatt.svg"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-18"
-                    loading="lazy"
-                    src="/static/elements/logos/msdsp.webp"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-10"
-                    loading="lazy"
-                    src="/static/elements/logos/mega.png"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/jti.webp"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-16"
-                    loading="lazy"
-                    src="/static/elements/logos/ab.svg"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/gazprom.svg"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/nato.png"
-                    alt=""
-                />
-                <img
-                    class="h-10 grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14"
-                    loading="lazy"
-                    src="/static/elements/logos/svetofor.webp"
-                    alt=""
-                />
+            <div class="flex w-full max-w-7xl flex-wrap items-center justify-center gap-8 px-8 py-16">
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/who.png" alt="WHO" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/undp.svg" alt="UNDP" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/embassy.png" alt="Посольство США" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/usaid.svg" alt="USAID" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/kicb.svg" alt="KICB" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/beeline.webp" alt="Beeline" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/cc.png" alt="Caritas" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/hyatt.svg" alt="Hyatt" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/msdsp.webp" alt="MSDSP" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/mega.png" alt="Megacom" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/jti.webp" alt="JTI" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/ab.svg" alt="Альфа-Банк" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/gazprom.svg" alt="Газпром" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/nato.png" alt="NATO" />
+                <img class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110 sm:h-14" loading="lazy" decoding="async" src="/static/elements/logos/svetofor.webp" alt="Светофор" />
             </div>
         </div>
         <div class="flex w-full max-w-7xl flex-col items-center justify-between gap-8 relative z-10 mt-5" id="contacts">
@@ -279,7 +197,7 @@
                     class="select-all text-2xl font-bold text-white group-hover:text-blue-300 transition-colors duration-300"
                     >+996 502 915 022</a
                 >
-                <span class="text-sm text-gray-300 font-medium">{{_('Телефон')}}</span>
+                <span class="text-sm text-gray-300 font-medium">{{_('Мобильный телефон')}}</span>
             </div>
 
             <div
@@ -302,7 +220,7 @@
                     class="select-all text-2xl font-bold text-white group-hover:text-purple-300 transition-colors duration-300"
                     >+996 550 915 022</a
                 >
-                <span class="text-sm text-gray-300 font-medium">{{_('Телефон')}}</span>
+                <span class="text-sm text-gray-300 font-medium">{{_('Мобильный телефон')}}</span>
             </div>
 
             <div
@@ -344,33 +262,30 @@
                     </svg>
                 </div>
                 <a
-                    href="tel:+996772915022"
+                    href="tel:+996312915022"
                     class="select-all text-xl font-bold text-white group-hover:text-green-300 transition-colors duration-300 text-center"
-                    >+996 312 915 02</a
+                    >+996 312 915 022</a
                 >
                 <span class="text-sm text-gray-300 font-medium">{{_('Городской телефон')}}</span>
             </div>
         </div>
 
-        <div class="flex w-full max-w-7xl flex-col items-center justify-center relative z-10">
-            <div
-                class="flex w-full flex-col items-center justify-center gap-6 rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 p-8 shadow-2xl"
-            >
-                <div class="flex w-full flex-col text-center">
-                    <span class="text-3xl font-bold text-white mb-2 sm:text-4xl">{{_('Как к нам добраться?')}}</span>
-                    <span class="text-lg text-gray-200">{{_('Мы находимся в отдельном здании возле АУЦА ')}}</span>
-                </div>
-                <iframe
-                    class="w-full rounded-2xl border-0 shadow-xl"
-                    height="450"
-                    loading="lazy"
-                    allowfullscreen
-                    allow="fullscreen"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB35Ebq8gL0lrddfrsSzRiTe2YRhWI2tmY&q=AUCA"
-                >
-                </iframe>
+        <div class="flex w-full max-w-7xl flex-col items-center justify-center gap-4 relative z-10">
+            <div class="flex w-full flex-col text-center gap-1">
+                <span class="text-3xl font-bold text-white sm:text-4xl">{{_('Как к нам добраться?')}}</span>
+                <span class="text-lg text-gray-300">{{_('Мы находимся в отдельном здании возле АУЦА')}}</span>
             </div>
+            <iframe
+                class="w-full rounded-2xl border-0 shadow-xl"
+                height="450"
+                title="{{_('Карта — расположение МЛДЦ АУЦА')}}"
+                loading="lazy"
+                allowfullscreen
+                allow="fullscreen"
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB35Ebq8gL0lrddfrsSzRiTe2YRhWI2tmY&q=AUCA"
+            >
+            </iframe>
         </div>
     </section>
 </main>

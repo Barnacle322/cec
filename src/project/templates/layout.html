@@ -8,16 +8,17 @@
             <div class="flex w-full max-w-7xl items-center justify-between gap-7 px-6">
                 <div class="flex items-center">
                     <a href="/" class="hover:scale-105 transition-transform duration-300">
-                        <img class="hidden w-40 sm:block drop-shadow-lg" src="/static/elements/logo_light.png" />
+                        <img class="hidden w-40 sm:block drop-shadow-lg" fetchpriority="high" decoding="async" src="/static/elements/logo_light.png" alt="Мейкерспейс АУЦА" />
                     </a>
                     <a href="/" class="hover:scale-105 transition-transform duration-300">
-                        <img class="block w-11 sm:hidden drop-shadow-lg" src="/static/elements/icon_light.svg" />
+                        <img class="block w-11 sm:hidden drop-shadow-lg" fetchpriority="high" decoding="async" src="/static/elements/icon_light.svg" alt="Мейкерспейс АУЦА" />
                     </a>
                 </div>
                 <ul class="hidden gap-8 font-semibold md:flex">
                     <li>
                         <a
                             href="/courses"
+                            {% if request.path.startswith('/course') %}aria-current="page"{% endif %}
                             class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
                             >{{_('Курсы')}}</a
                         >
@@ -25,6 +26,7 @@
                     <li>
                         <a
                             href="/about"
+                            {% if request.path == '/about' %}aria-current="page"{% endif %}
                             class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
                             >{{_('О нас')}}</a
                         >
@@ -32,6 +34,7 @@
                     <li>
                         <a
                             href="/toefl/register"
+                            {% if request.path.startswith('/toefl') %}aria-current="page"{% endif %}
                             class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold shadow-lg"
                             >TOEFL</a
                         >
@@ -39,6 +42,7 @@
                     <li>
                         <a
                             href="/teachers"
+                            {% if request.path == '/teachers' %}aria-current="page"{% endif %}
                             class="relative px-3 py-2 rounded-lg transition-all duration-300 hover:bg-white/10 hover:text-blue-200 hover:scale-105"
                             >{{_('Учителя')}}</a
                         >
@@ -64,7 +68,11 @@
                 </a>
             </div>
             <button
+                id="menu-button"
                 class="mr-6 block md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors duration-300"
+                aria-label="{{_('Открыть меню')}}"
+                aria-expanded="false"
+                aria-controls="menu"
                 onclick="openMenu()"
             >
                 <svg
@@ -115,6 +123,7 @@
                         <div class="space-y-3 py-6">
                             <a
                                 href="/courses"
+                                {% if request.path.startswith('/course') %}aria-current="page"{% endif %}
                                 class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                             >
                                 {{_('Курсы')}}
@@ -134,6 +143,7 @@
                             </a>
                             <a
                                 href="/about"
+                                {% if request.path == '/about' %}aria-current="page"{% endif %}
                                 class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                             >
                                 {{_('О нас')}}
@@ -153,6 +163,7 @@
                             </a>
                             <a
                                 href="/toefl/register"
+                                {% if request.path.startswith('/toefl') %}aria-current="page"{% endif %}
                                 class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-white bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 transition-all duration-300 shadow-lg"
                             >
                                 TOEFL
@@ -167,6 +178,7 @@
                             </a>
                             <a
                                 href="/teachers"
+                                {% if request.path == '/teachers' %}aria-current="page"{% endif %}
                                 class="flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold leading-7 text-gray-900 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-700 transition-all duration-300 group"
                             >
                                 {{_('Учителя')}}
@@ -221,11 +233,15 @@
                         <div class="space-y-4">
                             <img
                                 class="h-16 drop-shadow-sm hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                                decoding="async"
                                 src="{{ url_for('static', filename='elements/logo.png')}}"
                                 alt="Мейкерспейс АУЦА"
                             />
                             <img
                                 class="h-12 drop-shadow-sm hover:scale-105 transition-transform duration-300"
+                                loading="lazy"
+                                decoding="async"
                                 src="{{ url_for('static', filename='elements/logo_tr2.png')}}"
                                 alt="AUCA"
                             />
