@@ -1,18 +1,39 @@
-FROM python:3.12-alpine
+FROM python:3.12.0-alpine
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+# Install necessary packages for locales and timezone configuration
+RUN apk update && apk add --no-cache \
+    bash \
+    gcc \
+    musl-dev \
+    libc-dev \
+    libintl \
+    gettext \
     tzdata \
-    locales \
-    && ln -sf /usr/share/zoneinfo/Asia/Bishkek /etc/localtime \
+    && apk add --no-cache --virtual .build-deps \
+    build-base \
+    && cp /usr/share/zoneinfo/Asia/Bishkek /etc/localtime \
     && echo "Asia/Bishkek" > /etc/timezone \
-    && sed -i 's/^# *\(ru_RU.UTF-8\)/\1/' /etc/locale.gen \
-    && sed -i 's/^# *\(en_US.UTF-8\)/\1/' /etc/locale.gen \
-    && locale-gen \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del .build-deps
 
-ENV LANG=ru_RU.UTF-8
-ENV LANGUAGE=ru_RU:ru
-ENV LC_ALL=ru_RU.UTF-8
+# Install glibc and generate the required locales
+RUN apk --no-cache add ca-certificates wget && \
+    wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-2.35-r0.apk && \
+    apk add --force-overwrite glibc-2.35-r0.apk && \
+    rm glibc-2.35-r0.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-bin-2.35-r0.apk && \
+    apk add --force-overwrite glibc-bin-2.35-r0.apk && \
+    rm glibc-bin-2.35-r0.apk && \
+    wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.35-r0/glibc-i18n-2.35-r0.apk && \
+    apk add --force-overwrite glibc-i18n-2.35-r0.apk && \
+    rm glibc-i18n-2.35-r0.apk && \
+    /usr/glibc-compat/bin/localedef -i ru_RU -f UTF-8 ru_RU.UTF-8 && \
+    /usr/glibc-compat/bin/localedef -i en_US -f UTF-8 en_US.UTF-8
+
+# Set environment variables for locale
+ENV LANG ru_RU.UTF-8
+ENV LANGUAGE ru_RU:ru
+ENV LC_ALL ru_RU.UTF-8
 
 COPY src/ app/
 COPY pyproject.toml /app
@@ -25,7 +46,7 @@ RUN uv sync --frozen --no-install-project
 RUN uv pip install granian
 RUN rm -rf /root/.cache/pip/*
 
-ENV PORT=80
+ENV PORT 80
 
-RUN uv run pybabel compile -d ./project/translations
-CMD ["uv", "run", "granian", "--interface", "wsgi", "--port", "80", "--host", "0.0.0.0", "--workers", "3", "project:application"]
+RUN exec uv run pybabel compile -d ./project/translations
+CMD exec uv run granian --interface wsgi --port $PORT --host 0.0.0.0 --workers 3 project:application
