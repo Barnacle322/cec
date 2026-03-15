@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-15 00:23+0600\n"
+"POT-Creation-Date: 2026-03-15 12:26+0600\n"
 "PO-Revision-Date: 2024-04-29 02:04+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ky\n"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Мейкерспейс АУЦА · Курсы в Бишкеке"
 msgstr ""
 
-#: src/project/templates/blogs.html:60 src/project/templates/index.html:760
+#: src/project/templates/blogs.html:60 src/project/templates/index.html:761
 msgid "Блог"
 msgstr ""
 
@@ -218,8 +218,8 @@ msgstr "Жабуу"
 msgid "Английский Pre-Intermediate"
 msgstr "English Pre-Intermediate"
 
-#: src/project/templates/course.html:212 src/project/templates/index.html:281
-#: src/project/templates/index.html:306 src/project/templates/index.html:972
+#: src/project/templates/course.html:212 src/project/templates/index.html:263
+#: src/project/templates/index.html:288 src/project/templates/index.html:972
 #: src/project/templates/toefl_register.html:381
 msgid "Зарегистрироваться"
 msgstr "Каттоо"
@@ -268,11 +268,9 @@ msgstr "Баары"
 #: src/project/templates/index.html:15 src/project/templates/index.html:19
 #: src/project/templates/index.html:23
 msgid ""
-"Мейкерспейс – уникальное образовательное, творческое и "
-"предпринимательское пространство, в котором можно будет не только "
-"получать новые знания и навыки, развиваться, но и реализовывать проекты, "
-"работать на высокотехнологичном оборудовании. Лучшие курсы в Бишкек по "
-"всем направлениям!"
+"Языковые и инженерные курсы в Бишкеке — Мейкерспейс АУЦА. Английский, IT,"
+" робототехника, бизнес и детские курсы. 18 лет опыта, 60 000+ учеников. "
+"Запишитесь!"
 msgstr ""
 
 #: src/project/templates/index.html:66 src/project/templates/toefl.html:70
@@ -283,69 +281,69 @@ msgstr "TOEFL натыйжалары"
 msgid "Смотреть"
 msgstr "Карагыла"
 
-#: src/project/templates/index.html:161
+#: src/project/templates/index.html:158
 msgid "Что такое Мейкерспейс АУЦА?"
 msgstr ""
 
-#: src/project/templates/index.html:171
+#: src/project/templates/index.html:166
 msgid "18 лет"
 msgstr "18 жыл"
 
-#: src/project/templates/index.html:173
+#: src/project/templates/index.html:168
 msgid "На рынке образования "
 msgstr ""
 
-#: src/project/templates/index.html:181
+#: src/project/templates/index.html:174
 msgid "Довольных учеников"
 msgstr "Канааттанган студенттер"
 
-#: src/project/templates/index.html:189
+#: src/project/templates/index.html:180
 #, fuzzy
 msgid "Опытных преподавателей"
 msgstr "Мугалимдер жөнүндө"
 
-#: src/project/templates/index.html:197
+#: src/project/templates/index.html:186
 msgid "Довольных клиентов"
 msgstr "канааттандырылган кардарлар"
 
-#: src/project/templates/index.html:206 src/project/templates/layout.html:23
+#: src/project/templates/index.html:192 src/project/templates/layout.html:23
 #: src/project/templates/layout.html:129 src/project/templates/layout.html:333
 msgid "Курсы"
 msgstr "Курстар"
 
-#: src/project/templates/index.html:240
+#: src/project/templates/index.html:226
 msgid "Подробнее"
 msgstr "Көбүрөөк маалымат"
 
-#: src/project/templates/index.html:250
+#: src/project/templates/index.html:233
 msgid "Клубы"
 msgstr "Клубтар"
 
-#: src/project/templates/index.html:261
+#: src/project/templates/index.html:243
 #, fuzzy
 msgid "Шахматный клуб"
 msgstr "Шахмат"
 
-#: src/project/templates/index.html:267
+#: src/project/templates/index.html:249
 msgid "Шахматы"
 msgstr "Шахмат"
 
-#: src/project/templates/index.html:270 src/project/templates/index.html:295
+#: src/project/templates/index.html:252 src/project/templates/index.html:277
 msgid "Бесплатно"
 msgstr "Бекер"
 
-#: src/project/templates/index.html:274
+#: src/project/templates/index.html:256
 msgid ""
 "Шахматы - игра, которая точно прошла тест на время. Подходит как и "
 "взрослым, так и\n"
 "                        детям."
 msgstr "Шахмат - бул убакыт сынагынан өткөн оюн. "
 
-#: src/project/templates/index.html:292
+#: src/project/templates/index.html:274
 msgid "Repair Cafe"
 msgstr ""
 
-#: src/project/templates/index.html:299
+#: src/project/templates/index.html:281
 msgid ""
 "Repair Cafe - Нидерландская инициатива по организации мероприятий, на "
 "которых участники\n"
@@ -353,70 +351,70 @@ msgid ""
 "количество мусора и продлить срок службы вещей."
 msgstr ""
 
-#: src/project/templates/index.html:316
+#: src/project/templates/index.html:298
 msgid "Клуб Repair Cafe"
 msgstr ""
 
-#: src/project/templates/index.html:325
+#: src/project/templates/index.html:304
 msgid "Календарь"
 msgstr "Календарь"
 
-#: src/project/templates/index.html:333
+#: src/project/templates/index.html:311
 msgid "Предстоящие события"
 msgstr "Алдыдагы окуялар"
 
-#: src/project/templates/index.html:352
+#: src/project/templates/index.html:337
 #, fuzzy
 msgid "Показать календарь"
 msgstr "Календарь"
 
-#: src/project/templates/index.html:407
+#: src/project/templates/index.html:419
 msgid "Вступайте в сообщество"
 msgstr ""
 
-#: src/project/templates/index.html:434 src/project/templates/index.html:488
-#: src/project/templates/index.html:558
+#: src/project/templates/index.html:446 src/project/templates/index.html:500
+#: src/project/templates/index.html:570
 msgid "Доступ ко всем сервисам"
 msgstr ""
 
-#: src/project/templates/index.html:450
+#: src/project/templates/index.html:462
 msgid "1 бесплатный мастеркласс в год"
 msgstr ""
 
-#: src/project/templates/index.html:466 src/project/templates/index.html:520
-#: src/project/templates/index.html:590
+#: src/project/templates/index.html:478 src/project/templates/index.html:532
+#: src/project/templates/index.html:602
 msgid "скидка на языковые курсы"
 msgstr ""
 
-#: src/project/templates/index.html:504
+#: src/project/templates/index.html:516
 msgid "2 бесплатных мастеркласса в год"
 msgstr ""
 
-#: src/project/templates/index.html:536 src/project/templates/index.html:606
+#: src/project/templates/index.html:548 src/project/templates/index.html:618
 msgid "скидка на инженерные мастерклассы"
 msgstr ""
 
-#: src/project/templates/index.html:574
+#: src/project/templates/index.html:586
 msgid "4 бесплатных мастеркласса в год"
 msgstr ""
 
-#: src/project/templates/index.html:622
+#: src/project/templates/index.html:634
 msgid "скидка на IT курсы"
 msgstr ""
 
-#: src/project/templates/index.html:633
+#: src/project/templates/index.html:642
 msgid "Отзывы"
 msgstr "Обзор"
 
-#: src/project/templates/index.html:690
+#: src/project/templates/index.html:695
 msgid "Частые вопросы"
 msgstr "Көп берилүүчү суроолор"
 
-#: src/project/templates/index.html:696
+#: src/project/templates/index.html:700
 msgid "Как я могу узнать, какой курс мне подходит?"
 msgstr "Кайсы курс мага туура келерин кантип биле алам?"
 
-#: src/project/templates/index.html:699
+#: src/project/templates/index.html:703
 msgid ""
 "Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы"
 " можете связаться с\n"
@@ -425,42 +423,42 @@ msgid ""
 "                    соответствует вашим целям и уровню подготовки."
 msgstr "Ар бир курстун сүрөттөлүшүн биздин веб-сайттан окуй аласыз. "
 
-#: src/project/templates/index.html:707
+#: src/project/templates/index.html:711
 msgid "Как я могу записаться на курс?"
 msgstr "Кантип курска жазылсам болот?"
 
-#: src/project/templates/index.html:709
+#: src/project/templates/index.html:713
 msgid ""
 "Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также"
 " вы можете связаться с\n"
 "                    нами по телефону или прийти к нам в офис."
 msgstr "Сиз анкета толтуруу менен биздин веб-сайтта курска каттала аласыз. "
 
-#: src/project/templates/index.html:717
+#: src/project/templates/index.html:721
 msgid "Как я могу записаться на пробное тестирование TOEFL?"
 msgstr "TOEFL практикалык тестине кантип жазылсам болот?"
 
-#: src/project/templates/index.html:720
+#: src/project/templates/index.html:724
 msgid "Вы можете записаться"
 msgstr "Сиз катталсаңыз болот"
 
-#: src/project/templates/index.html:722 src/project/templates/index.html:734
+#: src/project/templates/index.html:726 src/project/templates/index.html:738
 msgid "здесь"
 msgstr "бул жерде"
 
-#: src/project/templates/index.html:730
+#: src/project/templates/index.html:734
 msgid "Я сдал пробное тестирование, где я могу узнать свой результат?"
 msgstr "Мен практикалык тесттен өттүм, натыйжамды кайдан билсем болот?"
 
-#: src/project/templates/index.html:733
+#: src/project/templates/index.html:737
 msgid "Также Результаты пробного тестирования можете найти"
 msgstr "Сиз ошондой эле сыноонун жыйынтыгын таба аласыз"
 
-#: src/project/templates/index.html:740
+#: src/project/templates/index.html:744
 msgid "Нужен ли мне компьютер для обучения?"
 msgstr "Окуу үчүн мага компьютер керекпи?"
 
-#: src/project/templates/index.html:742
+#: src/project/templates/index.html:746
 msgid ""
 "Мы предоставляем всю нужную информацию и материалы для обучения. Вам не "
 "нужен компьютер, но он\n"
@@ -470,11 +468,11 @@ msgstr ""
 "Биз окутуу үчүн бардык зарыл болгон маалыматтарды жана материалдарды "
 "камсыз кылат. "
 
-#: src/project/templates/index.html:749
+#: src/project/templates/index.html:753
 msgid "Есть ли у вас индивидуальный занятия?"
 msgstr "Жеке сабактарыңыз барбы?"
 
-#: src/project/templates/index.html:750
+#: src/project/templates/index.html:754
 msgid "Да, есть!"
 msgstr "Ооба, бар!"
 
@@ -950,4 +948,15 @@ msgstr "TOEFL натыйжалары"
 
 #~ msgid "Подробнее..."
 #~ msgstr "Кененирээк..."
+
+#~ msgid ""
+#~ "Мейкерспейс – уникальное образовательное, "
+#~ "творческое и предпринимательское пространство, "
+#~ "в котором можно будет не только "
+#~ "получать новые знания и навыки, "
+#~ "развиваться, но и реализовывать проекты, "
+#~ "работать на высокотехнологичном оборудовании. "
+#~ "Лучшие курсы в Бишкек по всем "
+#~ "направлениям!"
+#~ msgstr ""
 

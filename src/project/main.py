@@ -251,12 +251,14 @@ def send_calendar(month, year):
 
 
 @main.route("/about")
+@cache.cached(key_prefix=_index_cache_key, unless=lambda: "success" in request.args)  # type: ignore
 def about():
     staff = Staff.get_all()
     return render_template("about.html", staff=staff)
 
 
 @main.route("/teachers")
+@cache.cached(key_prefix=_index_cache_key, unless=lambda: "success" in request.args)  # type: ignore
 def teachers():
     teachers = Teacher.get_all()
     return render_template("teachers.html", teachers=teachers)

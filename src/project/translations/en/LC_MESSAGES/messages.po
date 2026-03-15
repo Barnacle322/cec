@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-15 00:23+0600\n"
-"PO-Revision-Date: 2025-01-08 02:47+0530\n"
+"POT-Creation-Date: 2026-03-15 12:26+0600\n"
+"PO-Revision-Date: 2026-03-15 12:28+0600\n"
 "Last-Translator: \n"
-"Language: en\n"
 "Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.17.0\n"
+"X-Generator: Poedit 3.9\n"
 
 #: src/project/templates/about.html:8 src/project/templates/about.html:9
 #: src/project/templates/about.html:10 src/project/templates/about.html:11
@@ -32,17 +33,16 @@ msgstr "About us"
 #: src/project/templates/blogs.html:23 src/project/templates/courses.html:16
 #: src/project/templates/login.html:15 src/project/templates/login.html:19
 #: src/project/templates/login.html:23 src/project/templates/teachers.html:15
-#: src/project/templates/teachers.html:19
-#: src/project/templates/teachers.html:23
+#: src/project/templates/teachers.html:19 src/project/templates/teachers.html:23
 msgid ""
-"Мейкерспейс – уникальное образовательное, творческое и "
-"предпринимательское пространство, в котором можно будет не только "
-"получать новые знания и навыки, развиваться, но и реализовывать проекты, "
-"работать на высокотехнологичном оборудовании."
+"Мейкерспейс – уникальное образовательное, творческое и предпринимательское "
+"пространство, в котором можно будет не только получать новые знания и навыки, "
+"развиваться, но и реализовывать проекты, работать на высокотехнологичном "
+"оборудовании."
 msgstr ""
-"Makerspace is a unique educational, creative and entrepreneurial space "
-"where you can not only gain new knowledge and skills, develop, but also "
-"implement projects and work on high-tech equipment."
+"Makerspace is a unique educational, creative and entrepreneurial space where "
+"you can not only gain new knowledge and skills, develop, but also implement "
+"projects and work on high-tech equipment."
 
 #: src/project/templates/about.html:33 src/project/templates/blog.html:8
 #: src/project/templates/blog.html:9 src/project/templates/blog.html:10
@@ -65,92 +65,89 @@ msgid ""
 "адаптироваться к\n"
 "                        изменяющейся действительности требует от каждого "
 "постоянную готовность учиться и приобретать\n"
-"                        новые навыки. Это соответствует миссии и задачам "
-"АУЦА: поддержка гражданской активности,\n"
-"                        обучение на уровне сообществ и активное "
-"исследование, способствующее развитию сообществ на\n"
-"                        местном, региональном и глобальном уровнях. Для "
-"решения этой задачи в АУЦА был создан Центр\n"
+"                        новые навыки. Это соответствует миссии и задачам АУЦА: "
+"поддержка гражданской активности,\n"
+"                        обучение на уровне сообществ и активное исследование, "
+"способствующее развитию сообществ на\n"
+"                        местном, региональном и глобальном уровнях. Для решения "
+"этой задачи в АУЦА был создан Центр\n"
 "                        дополнительного образования."
 msgstr ""
-"One of the greatest values ​​in the world is knowledge. The need to adapt"
-" to changing reality requires everyone to be constantly ready to learn "
-"and acquire new skills. This is in line with the mission and objectives "
-"of AUCA: supporting civic engagement, community-based learning, and "
-"active research that contributes to the development of communities at the"
-" local, regional, and global levels. To address this issue, AUCA created "
-"the Center for Continuing Education."
+"One of the greatest values ​​in the world is knowledge. The need to adapt to "
+"changing reality requires everyone to be constantly ready to learn and acquire "
+"new skills. This is in line with the mission and objectives of AUCA: supporting "
+"civic engagement, community-based learning, and active research that "
+"contributes to the development of communities at the local, regional, and "
+"global levels. To address this issue, AUCA created the Center for Continuing "
+"Education."
 
 #: src/project/templates/about.html:76
 msgid ""
-"За время своей работы ЦДО зарекомендовал себя как эффективный способ "
-"повышения\n"
-"                        квалификации, изучения языков. Здесь действовали "
-"и действуют различные программы, рассчитанные\n"
+"За время своей работы ЦДО зарекомендовал себя как эффективный способ повышения\n"
+"                        квалификации, изучения языков. Здесь действовали и "
+"действуют различные программы, рассчитанные\n"
 "                        на самые разные возрастные и социальные группы: "
 "«Академия роста для детей», подготовительные\n"
-"                        курсы для абитуриентов, бизнес-курсы и тренинги, "
-"IT- курсы и языковые курсы для всех желающих.\n"
-"                        За эти годы было осуществлено множество проектов,"
-" большое количество студентов центра приобрели\n"
-"                        знания, усовершенствовали языковые навыки, "
-"исполнили свои мечты."
+"                        курсы для абитуриентов, бизнес-курсы и тренинги, IT- "
+"курсы и языковые курсы для всех желающих.\n"
+"                        За эти годы было осуществлено множество проектов, "
+"большое количество студентов центра приобрели\n"
+"                        знания, усовершенствовали языковые навыки, исполнили "
+"свои мечты."
 msgstr ""
 "During its work, CEC has proven itself as an effective way to improve "
-"qualifications and learn languages. Various programs have been and are "
-"being implemented here, designed for a variety of age and social groups: "
-"“Growth Academy for Children”, preparatory courses for applicants, "
-"business courses and trainings, IT courses and language courses for "
-"everyone. Over the years, many projects have been implemented, a large "
-"number of students of the center have acquired knowledge, improved their "
-"language skills, and fulfilled their dreams."
+"qualifications and learn languages. Various programs have been and are being "
+"implemented here, designed for a variety of age and social groups: “Growth "
+"Academy for Children”, preparatory courses for applicants, business courses and "
+"trainings, IT courses and language courses for everyone. Over the years, many "
+"projects have been implemented, a large number of students of the center have "
+"acquired knowledge, improved their language skills, and fulfilled their dreams."
 
 #: src/project/templates/about.html:96
 msgid ""
-"Накоплен громадный опыт, но новый день ставит иные задачи и требует более"
-" совершенные формы\n"
+"Накоплен громадный опыт, но новый день ставит иные задачи и требует более "
+"совершенные формы\n"
 "                        обучения. Начинается следующая глава в истории "
 "образовательных проектов АУЦА, и называется она\n"
 "                        Makerspace Learning Center (MLC). Мейкерспейс – "
 "уникальное образовательное, творческое и\n"
-"                        предпринимательское пространство, в котором можно"
-" будет не только получать новые знания и\n"
+"                        предпринимательское пространство, в котором можно будет "
+"не только получать новые знания и\n"
 "                        навыки, развиваться, но и реализовывать проекты, "
 "работать на высокотехнологичном\n"
 "                        оборудовании."
 msgstr ""
-"A huge amount of experience has been accumulated, but a new day poses "
-"other challenges and requires more advanced forms of training. The next "
-"chapter in the history of AUCA educational projects begins, and it is "
-"called Makerspace Learning Center (MLC). Makerspace is a unique "
-"educational, creative and entrepreneurial space, where you can not only "
-"gain new knowledge and skills, develop, but also implement projects, work"
-" on high-tech equipment."
+"A huge amount of experience has been accumulated, but a new day poses other "
+"challenges and requires more advanced forms of training. The next chapter in "
+"the history of AUCA educational projects begins, and it is called Makerspace "
+"Learning Center (MLC). Makerspace is a unique educational, creative and "
+"entrepreneurial space, where you can not only gain new knowledge and skills, "
+"develop, but also implement projects, work on high-tech equipment."
 
 #: src/project/templates/about.html:104
 msgid ""
-"Термин makerspace стал использоваться с 2005 года для обозначения "
-"пространства, где высокие\n"
-"                        технологии стали доступны для самых широких слоёв"
-" населения. Со временем понятие «мейкерспейс»\n"
+"Термин makerspace стал использоваться с 2005 года для обозначения пространства, "
+"где высокие\n"
+"                        технологии стали доступны для самых широких слоёв "
+"населения. Со временем понятие «мейкерспейс»\n"
 "                        стало обозначать общественное движение, которое "
 "стремится популяризировать технологические\n"
-"                        инновации, сделать их более доступными для "
-"широкого круга людей и тем самым позволить им\n"
-"                        попробовать себя в роли инноваторов и "
-"предпринимателей. «Мейкерспейс АУЦА» станет частью этого\n"
-"                        процесса, будет проводником для формирования "
-"движения «высокотехнологического сделай сам» в\n"
+"                        инновации, сделать их более доступными для широкого "
+"круга людей и тем самым позволить им\n"
+"                        попробовать себя в роли инноваторов и предпринимателей. "
+"«Мейкерспейс АУЦА» станет частью этого\n"
+"                        процесса, будет проводником для формирования движения "
+"«высокотехнологического сделай сам» в\n"
 "                        Кыргызстане."
 msgstr ""
-"The term makerspace has been used since 2005 to designate a space where "
-"high technologies have become accessible to the broadest layers of the "
-"population. Over time, the concept of “makerspace” has come to denote a "
-"social movement that seeks to popularize technological innovations, make "
-"them more accessible to a wide range of people and thereby allow them to "
-"try themselves as innovators and entrepreneurs. “AUCA Makerspace” will "
-"become part of this process, will be a guide for the formation of the "
-"“high-tech DIY” movement in Kyrgyzstan."
+"The term makerspace has been used since 2005 to designate a space where high "
+"technologies have become accessible to the broadest layers of the population. "
+"Over time, the concept of “makerspace” has come to denote a social movement "
+"that seeks to popularize technological innovations, make them more accessible "
+"to a wide range of people and thereby allow them to try themselves as "
+"innovators and entrepreneurs. “AUCA Makerspace” will become part of this "
+"process, will be a guide for the formation of the “high-tech DIY” movement in "
+"Kyrgyzstan."
 
 #: src/project/templates/about.html:121
 msgid "Команда"
@@ -162,11 +159,11 @@ msgstr "Our partners"
 
 #: src/project/templates/about.html:144
 msgid ""
-"Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, "
-"KICB и другие."
+"Нам доверяют крупные компании и организации, такие как WHO, UNDP, USAID, KICB и "
+"другие."
 msgstr ""
-"We are trusted by large companies and organizations such as WHO, UNDP, "
-"USAID, KICB and others."
+"We are trusted by large companies and organizations such as WHO, UNDP, USAID, "
+"KICB and others."
 
 #: src/project/templates/about.html:169 src/project/templates/layout.html:441
 #: src/project/templates/layout.html:485
@@ -194,7 +191,7 @@ msgstr "If you have questions, please, contact us."
 
 #: src/project/templates/about.html:200 src/project/templates/about.html:223
 msgid "Мобильный телефон"
-msgstr ""
+msgstr "Mobile Phone"
 
 #: src/project/templates/about.html:246
 #: src/project/templates/toefl_register.html:339
@@ -210,13 +207,12 @@ msgid "Как к нам добраться?"
 msgstr "How to get to us?"
 
 #: src/project/templates/about.html:276
-#, fuzzy
 msgid "Мы находимся в отдельном здании возле АУЦА"
-msgstr "We are located in a separate building near AUCA "
+msgstr "We are located in a separate building near AUCA"
 
 #: src/project/templates/about.html:281
 msgid "Карта — расположение МЛДЦ АУЦА"
-msgstr ""
+msgstr "Map - locations of MLDC AUCA"
 
 #: src/project/templates/blogs.html:8 src/project/templates/blogs.html:9
 #: src/project/templates/blogs.html:10 src/project/templates/blogs.html:11
@@ -225,7 +221,7 @@ msgstr ""
 msgid "Мейкерспейс АУЦА · Курсы в Бишкеке"
 msgstr "Makerspace AUCA · Courses in Bishkek"
 
-#: src/project/templates/blogs.html:60 src/project/templates/index.html:760
+#: src/project/templates/blogs.html:60 src/project/templates/index.html:761
 msgid "Блог"
 msgstr "Blog"
 
@@ -252,8 +248,8 @@ msgstr "Close"
 msgid "Английский Pre-Intermediate"
 msgstr "English Pre-Intermediate"
 
-#: src/project/templates/course.html:212 src/project/templates/index.html:281
-#: src/project/templates/index.html:306 src/project/templates/index.html:972
+#: src/project/templates/course.html:212 src/project/templates/index.html:263
+#: src/project/templates/index.html:288 src/project/templates/index.html:972
 #: src/project/templates/toefl_register.html:381
 msgid "Зарегистрироваться"
 msgstr "Register"
@@ -287,12 +283,12 @@ msgstr "Courses of your choice, tailored to your goals"
 #: src/project/templates/courses.html:71
 #, fuzzy
 msgid ""
-"Предоставим программу обучения, исходя из ваших запросов, поможем достичь"
-" цели, используя уроки по\n"
+"Предоставим программу обучения, исходя из ваших запросов, поможем достичь цели, "
+"используя уроки по\n"
 "            самым актуальным темам."
 msgstr ""
-"We will provide a training program based on your requests and help you "
-"achieve your goal using lessons on the most current topics."
+"We will provide a training program based on your requests and help you achieve "
+"your goal using lessons on the most current topics."
 
 #: src/project/templates/courses.html:81
 msgid "Все"
@@ -301,16 +297,13 @@ msgstr "All"
 #: src/project/templates/index.html:15 src/project/templates/index.html:19
 #: src/project/templates/index.html:23
 msgid ""
-"Мейкерспейс – уникальное образовательное, творческое и "
-"предпринимательское пространство, в котором можно будет не только "
-"получать новые знания и навыки, развиваться, но и реализовывать проекты, "
-"работать на высокотехнологичном оборудовании. Лучшие курсы в Бишкек по "
-"всем направлениям!"
+"Языковые и инженерные курсы в Бишкеке — Мейкерспейс АУЦА. Английский, IT, "
+"робототехника, бизнес и детские курсы. 18 лет опыта, 60 000+ учеников. "
+"Запишитесь!"
 msgstr ""
-"Makerspace is a unique educational, creative and entrepreneurial space "
-"where you can not only gain new knowledge and skills, develop, but also "
-"implement projects, work on high-tech equipment. The best courses in "
-"Bishkek in all areas!"
+"Языковые и инженерные курсы в Бишкеке — Мейкерспейс АУЦА. Английский, IT, "
+"робототехника, бизнес и детские курсы. 18 лет опыта, 60 000+ учеников. "
+"Запишитесь!"
 
 #: src/project/templates/index.html:66 src/project/templates/toefl.html:70
 msgid "Результаты TOEFL"
@@ -320,213 +313,208 @@ msgstr "TOEFL Results"
 msgid "Смотреть"
 msgstr "See"
 
-#: src/project/templates/index.html:161
+#: src/project/templates/index.html:158
 msgid "Что такое Мейкерспейс АУЦА?"
 msgstr "What is AUCA Makerspace?"
 
-#: src/project/templates/index.html:171
+#: src/project/templates/index.html:166
 msgid "18 лет"
 msgstr "18 years"
 
-#: src/project/templates/index.html:173
+#: src/project/templates/index.html:168
 msgid "На рынке образования "
 msgstr "On the education market "
 
-#: src/project/templates/index.html:181
+#: src/project/templates/index.html:174
 msgid "Довольных учеников"
 msgstr "Satisfied students"
 
-#: src/project/templates/index.html:189
+#: src/project/templates/index.html:180
 msgid "Опытных преподавателей"
 msgstr "Experienced teachers"
 
-#: src/project/templates/index.html:197
+#: src/project/templates/index.html:186
 msgid "Довольных клиентов"
 msgstr "Satisfied customers"
 
-#: src/project/templates/index.html:206 src/project/templates/layout.html:23
+#: src/project/templates/index.html:192 src/project/templates/layout.html:23
 #: src/project/templates/layout.html:129 src/project/templates/layout.html:333
 msgid "Курсы"
 msgstr "Courses"
 
-#: src/project/templates/index.html:240
+#: src/project/templates/index.html:226
 msgid "Подробнее"
 msgstr "More details"
 
-#: src/project/templates/index.html:250
+#: src/project/templates/index.html:233
 msgid "Клубы"
 msgstr "Clubs"
 
-#: src/project/templates/index.html:261
-#, fuzzy
+#: src/project/templates/index.html:243
 msgid "Шахматный клуб"
-msgstr "Chess"
+msgstr "Chess Club"
 
-#: src/project/templates/index.html:267
+#: src/project/templates/index.html:249
 msgid "Шахматы"
 msgstr "Chess"
 
-#: src/project/templates/index.html:270 src/project/templates/index.html:295
+#: src/project/templates/index.html:252 src/project/templates/index.html:277
 msgid "Бесплатно"
 msgstr "Free"
 
-#: src/project/templates/index.html:274
+#: src/project/templates/index.html:256
 msgid ""
-"Шахматы - игра, которая точно прошла тест на время. Подходит как и "
-"взрослым, так и\n"
+"Шахматы - игра, которая точно прошла тест на время. Подходит как и взрослым, "
+"так и\n"
 "                        детям."
 msgstr ""
-"Chess is a game that definitely stood the passage of time. It is fit for "
-"both kids and adults."
+"Chess is a game that definitely stood the passage of time. It is fit for both "
+"kids and adults."
 
-#: src/project/templates/index.html:292
+#: src/project/templates/index.html:274
 msgid "Repair Cafe"
 msgstr "Repair Cafe"
 
-#: src/project/templates/index.html:299
+#: src/project/templates/index.html:281
 msgid ""
-"Repair Cafe - Нидерландская инициатива по организации мероприятий, на "
-"которых участники\n"
-"                        учатся чинить вещи. Это помогает сократить "
-"количество мусора и продлить срок службы вещей."
+"Repair Cafe - Нидерландская инициатива по организации мероприятий, на которых "
+"участники\n"
+"                        учатся чинить вещи. Это помогает сократить количество "
+"мусора и продлить срок службы вещей."
 msgstr ""
-"Repair Cafe - A Dutch initiative that organizes events where participants"
-" learn to repair things. This helps reduce waste and extend the life of "
-"things."
+"Repair Cafe - A Dutch initiative that organizes events where participants learn "
+"to repair things. This helps reduce waste and extend the life of things."
 
-#: src/project/templates/index.html:316
-#, fuzzy
+#: src/project/templates/index.html:298
 msgid "Клуб Repair Cafe"
-msgstr "Repair Cafe"
+msgstr "Repair Cafe Club"
 
-#: src/project/templates/index.html:325
+#: src/project/templates/index.html:304
 msgid "Календарь"
 msgstr "Calendar"
 
-#: src/project/templates/index.html:333
+#: src/project/templates/index.html:311
 msgid "Предстоящие события"
 msgstr "Upcoming Events"
 
-#: src/project/templates/index.html:352
-#, fuzzy
+#: src/project/templates/index.html:337
 msgid "Показать календарь"
-msgstr "Calendar"
+msgstr "Show Calendar"
 
-#: src/project/templates/index.html:407
+#: src/project/templates/index.html:419
 msgid "Вступайте в сообщество"
 msgstr "Join community"
 
-#: src/project/templates/index.html:434 src/project/templates/index.html:488
-#: src/project/templates/index.html:558
+#: src/project/templates/index.html:446 src/project/templates/index.html:500
+#: src/project/templates/index.html:570
 msgid "Доступ ко всем сервисам"
 msgstr "Access to all services"
 
-#: src/project/templates/index.html:450
+#: src/project/templates/index.html:462
 msgid "1 бесплатный мастеркласс в год"
 msgstr "1 free workshop per year"
 
-#: src/project/templates/index.html:466 src/project/templates/index.html:520
-#: src/project/templates/index.html:590
+#: src/project/templates/index.html:478 src/project/templates/index.html:532
+#: src/project/templates/index.html:602
 msgid "скидка на языковые курсы"
 msgstr "discount on language courses"
 
-#: src/project/templates/index.html:504
+#: src/project/templates/index.html:516
 msgid "2 бесплатных мастеркласса в год"
 msgstr "2 free workshops per year"
 
-#: src/project/templates/index.html:536 src/project/templates/index.html:606
+#: src/project/templates/index.html:548 src/project/templates/index.html:618
 msgid "скидка на инженерные мастерклассы"
 msgstr "discount on engineering workshops"
 
-#: src/project/templates/index.html:574
+#: src/project/templates/index.html:586
 msgid "4 бесплатных мастеркласса в год"
 msgstr "4 free workshops per year"
 
-#: src/project/templates/index.html:622
+#: src/project/templates/index.html:634
 msgid "скидка на IT курсы"
 msgstr "discount on IT courses"
 
-#: src/project/templates/index.html:633
+#: src/project/templates/index.html:642
 msgid "Отзывы"
 msgstr "Reviews"
 
-#: src/project/templates/index.html:690
+#: src/project/templates/index.html:695
 msgid "Частые вопросы"
 msgstr "Frequently asked questions"
 
-#: src/project/templates/index.html:696
+#: src/project/templates/index.html:700
 msgid "Как я могу узнать, какой курс мне подходит?"
 msgstr "How can I know which course is right for me?"
 
-#: src/project/templates/index.html:699
+#: src/project/templates/index.html:703
 msgid ""
-"Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы"
-" можете связаться с\n"
-"                    нами по телефону или электронной почте, и наши "
-"консультанты помогут вам выбрать курс, который\n"
+"Вы можете ознакомиться с описанием каждого курса на нашем сайте. Также вы "
+"можете связаться с\n"
+"                    нами по телефону или электронной почте, и наши консультанты "
+"помогут вам выбрать курс, который\n"
 "                    соответствует вашим целям и уровню подготовки."
 msgstr ""
 "You can read the description of each course on our website. You can also "
 "contact\n"
-"                    us by phone or email and our consultants will help "
-"you choose the course that best suits your goals and training level\n"
+"                    us by phone or email and our consultants will help you "
+"choose the course that best suits your goals and training level\n"
 "                    that suits your goals and level of training."
 
-#: src/project/templates/index.html:707
+#: src/project/templates/index.html:711
 msgid "Как я могу записаться на курс?"
 msgstr "How can I enroll in a course?"
 
-#: src/project/templates/index.html:709
+#: src/project/templates/index.html:713
 msgid ""
-"Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также"
-" вы можете связаться с\n"
+"Вы можете записаться на курс на нашем сайте, заполнив форму заявки. Также вы "
+"можете связаться с\n"
 "                    нами по телефону или прийти к нам в офис."
 msgstr ""
-"You can sign up for a course on our website by filling out the "
-"application form. You can also contact\n"
+"You can sign up for a course on our website by filling out the application "
+"form. You can also contact\n"
 "                    us by phone or come to our office."
 
-#: src/project/templates/index.html:717
+#: src/project/templates/index.html:721
 msgid "Как я могу записаться на пробное тестирование TOEFL?"
 msgstr "How can I sign up for a TOEFL practice test?"
 
-#: src/project/templates/index.html:720
+#: src/project/templates/index.html:724
 msgid "Вы можете записаться"
 msgstr "You can sign up"
 
-#: src/project/templates/index.html:722 src/project/templates/index.html:734
+#: src/project/templates/index.html:726 src/project/templates/index.html:738
 msgid "здесь"
 msgstr "here"
 
-#: src/project/templates/index.html:730
+#: src/project/templates/index.html:734
 msgid "Я сдал пробное тестирование, где я могу узнать свой результат?"
 msgstr "I took the practice test, where can I find out my result?"
 
-#: src/project/templates/index.html:733
+#: src/project/templates/index.html:737
 msgid "Также Результаты пробного тестирования можете найти"
 msgstr "You can also find the results of trial testing"
 
-#: src/project/templates/index.html:740
+#: src/project/templates/index.html:744
 msgid "Нужен ли мне компьютер для обучения?"
 msgstr "Do I need a computer for studying?"
 
-#: src/project/templates/index.html:742
+#: src/project/templates/index.html:746
 msgid ""
-"Мы предоставляем всю нужную информацию и материалы для обучения. Вам не "
-"нужен компьютер, но он\n"
-"                    может быть полезен для самостоятельного изучения "
-"материала."
+"Мы предоставляем всю нужную информацию и материалы для обучения. Вам не нужен "
+"компьютер, но он\n"
+"                    может быть полезен для самостоятельного изучения материала."
 msgstr ""
-"We provide all the information and materials you need to learn. You don't"
-" need a computer, but it\n"
-"                    you don't need a computer, but it can be useful for "
-"self-study."
+"We provide all the information and materials you need to learn. You don't need "
+"a computer, but it\n"
+"                    you don't need a computer, but it can be useful for self-"
+"study."
 
-#: src/project/templates/index.html:749
+#: src/project/templates/index.html:753
 msgid "Есть ли у вас индивидуальный занятия?"
 msgstr "Do you have individual lessons?"
 
-#: src/project/templates/index.html:750
+#: src/project/templates/index.html:754
 msgid "Да, есть!"
 msgstr "Yes, there is!"
 
@@ -537,13 +525,12 @@ msgstr "Read more"
 #: src/project/templates/index.html:818
 msgid "Самое сложное - это начать. Оставьте заявку и мы поможем вам со всем!"
 msgstr ""
-"The hardest part is getting started. Leave a request and we will help you"
-" with everything!"
+"The hardest part is getting started. Leave a request and we will help you with "
+"everything!"
 
 #: src/project/templates/index.html:823
-#, fuzzy
 msgid "Имя и фамилия"
-msgstr "Last name"
+msgstr "Full Name"
 
 #: src/project/templates/admin/feedback/add_feedback.html:32
 #: src/project/templates/admin/feedback/edit_feedback.html:32
@@ -566,7 +553,7 @@ msgstr "16 years"
 
 #: src/project/templates/index.html:852
 msgid "Название курса"
-msgstr ""
+msgstr "Name of the course"
 
 #: src/project/templates/index.html:865
 msgid "Оставить заявку"
@@ -582,15 +569,15 @@ msgstr "Wait for a call from us! Our manager will contact you and advise you."
 
 #: src/project/templates/index.html:878
 msgid "Заполните форму"
-msgstr ""
+msgstr "Fill out the form"
 
 #: src/project/templates/index.html:884
 msgid "Получите звонок от менеджера"
-msgstr ""
+msgstr "Receive a call from a manager"
 
 #: src/project/templates/index.html:890
 msgid "Начните обучение"
-msgstr ""
+msgstr "Start the learning"
 
 #: src/project/templates/index.html:905
 msgid "Запись на клуб"
@@ -607,8 +594,7 @@ msgstr "Club"
 
 #: src/project/templates/layout.html:47 src/project/templates/layout.html:184
 #: src/project/templates/teachers.html:8 src/project/templates/teachers.html:9
-#: src/project/templates/teachers.html:10
-#: src/project/templates/teachers.html:11
+#: src/project/templates/teachers.html:10 src/project/templates/teachers.html:11
 msgid "Учителя"
 msgstr "Teachers"
 
@@ -618,12 +604,11 @@ msgstr "Contact us"
 
 #: src/project/templates/layout.html:73
 msgid "Открыть меню"
-msgstr ""
+msgstr "Open the menu"
 
 #: src/project/templates/layout.html:250
-#, fuzzy
 msgid "Контактная информация"
-msgstr "Information"
+msgstr "Contact Information"
 
 #: src/project/templates/layout.html:344
 msgid "Мейкерспейс"
@@ -694,15 +679,14 @@ msgstr "About teachers"
 msgid ""
 "Наши преподаватели - это люди, которые имеют большой опыт в преподавании "
 "английского языка, а также\n"
-"                подготовке к экзаменам TOEFL и IELTS. Они помогут вам "
-"достичь ваших целей и дадут много полезных советов\n"
+"                подготовке к экзаменам TOEFL и IELTS. Они помогут вам достичь "
+"ваших целей и дадут много полезных советов\n"
 "                по изучению английского языка."
 msgstr ""
-"Our teachers are people who have extensive experience in teaching "
-"English, as well as in preparing for TOEFL and IELTS exams\n"
-"                tOEFL and IELTS exam preparation. They will help you "
-"achieve your goals and give you lots of useful advice on how to learn "
-"English\n"
+"Our teachers are people who have extensive experience in teaching English, as "
+"well as in preparing for TOEFL and IELTS exams\n"
+"                tOEFL and IELTS exam preparation. They will help you achieve "
+"your goals and give you lots of useful advice on how to learn English\n"
 "                on learning English."
 
 #: src/project/templates/toefl.html:13 src/project/templates/toefl.html:14
@@ -728,7 +712,7 @@ msgstr "Do you want to take the test?"
 
 #: src/project/templates/toefl.html:163
 msgid "Зарегистрируйтесь на пробный TOEFL тест"
-msgstr ""
+msgstr "Register for a mock TOEFL test"
 
 #: src/project/templates/toefl.html:168
 msgid "Регистрация тут"
@@ -742,14 +726,12 @@ msgstr "Take a practice TOEFL at AUCA Makerspace"
 
 #: src/project/templates/toefl_register.html:143
 msgid ""
-"Мы получили вашу заявку на пробный тест. Приходите в указанное время и "
-"день.\n"
-"                                    Если у вас есть вопросы позвоните по "
-"номеру +996 312 915 022"
+"Мы получили вашу заявку на пробный тест. Приходите в указанное время и день.\n"
+"                                    Если у вас есть вопросы позвоните по номеру "
+"+996 312 915 022"
 msgstr ""
-"We have received your application for a practice test. Come at the "
-"designated time and day. If you have any questions, call us at +996 312 "
-"915 022"
+"We have received your application for a practice test. Come at the designated "
+"time and day. If you have any questions, call us at +996 312 915 022"
 
 #: src/project/templates/toefl_register.html:189
 msgid "Ошибка при регистрации"
@@ -781,28 +763,26 @@ msgstr "Mon/Thu 14:10"
 
 #: src/project/templates/toefl_register.html:276
 msgid ""
-"На пробный тест необходимо регистрироваться заранее через наш сайт с "
-"указанием желаемой даты\n"
-"                    сдачи пробного тестирования. После регистрации через "
-"наш сайт Вы будете автоматически внесены в\n"
-"                    список, т.е. ответного письма на почту или "
-"уведомления нет."
+"На пробный тест необходимо регистрироваться заранее через наш сайт с указанием "
+"желаемой даты\n"
+"                    сдачи пробного тестирования. После регистрации через наш "
+"сайт Вы будете автоматически внесены в\n"
+"                    список, т.е. ответного письма на почту или уведомления нет."
 msgstr ""
-"You must register for the trial test in advance through our website "
-"indicating the desired date.\n"
-"                     passing the trial test. After registering through "
-"our website, you will be automatically entered into\n"
-"                     list, i.e. There is no response email or "
-"notification."
+"You must register for the trial test in advance through our website indicating "
+"the desired date.\n"
+"                     passing the trial test. After registering through our "
+"website, you will be automatically entered into\n"
+"                     list, i.e. There is no response email or notification."
 
 #: src/project/templates/toefl_register.html:281
 msgid ""
-"P.S. Если лимит превышает максимально-допустимое количество участников, с"
-" Вами свяжутся и\n"
+"P.S. Если лимит превышает максимально-допустимое количество участников, с Вами "
+"свяжутся и\n"
 "                    предложат другую дату сдачи тестирования."
 msgstr ""
-"P.S. If the limit exceeds the maximum allowed number of participants, you"
-" will be contacted and will offer another date for taking the test."
+"P.S. If the limit exceeds the maximum allowed number of participants, you will "
+"be contacted and will offer another date for taking the test."
 
 #: src/project/templates/toefl_register.html:286
 msgid "Для прохождения теста с собой необходимо иметь:"
@@ -821,31 +801,29 @@ msgid "- 500 сомов без сдачи"
 msgstr "- 500 soms without change"
 
 #: src/project/templates/toefl_register.html:295
-#, fuzzy
 msgid ""
-"После регистрации в день сдачи тестирования необходимо прийти к нам в "
-"аудиторию - кабинет S4,\n"
+"После регистрации в день сдачи тестирования необходимо прийти к нам в аудиторию "
+"- кабинет S4,\n"
 "                    чтобы узнать место проведения тестирования, так как "
 "аудитории меняются."
 msgstr ""
-"After registration, on the day of testing, you must come to our "
-"auditorium - room S4, to find out where the testing will take place, as "
-"the auditoriums change."
+"After registration, on the day of testing, you must come to our auditorium - "
+"room S4, to find out where the testing will take place, as the auditoriums "
+"change."
 
 #: src/project/templates/toefl_register.html:299
 msgid ""
-"Пробный тест состоит из 3 частей (аудирование, грамматический тест, "
-"чтение) и длится ~ 2 часа.\n"
+"Пробный тест состоит из 3 частей (аудирование, грамматический тест, чтение) и "
+"длится ~ 2 часа.\n"
 "                    Максимальный балл - 677. Минимальный - 200."
 msgstr ""
-"The trial test consists of 3 parts (listening, grammar test, reading) and"
-" lasts ~ 2 hours.\n"
+"The trial test consists of 3 parts (listening, grammar test, reading) and lasts "
+"~ 2 hours.\n"
 " The maximum score is 677. The minimum is 200."
 
 #: src/project/templates/toefl_register.html:310
-#, fuzzy
 msgid "Регистрация на тест"
-msgstr "Registration here"
+msgstr "Registration for the test"
 
 #: src/project/templates/toefl_register.html:326
 msgid "Фамилия"
@@ -864,50 +842,39 @@ msgid "Ищете результаты?"
 msgstr "Looking for results?"
 
 #: src/project/templates/toefl_register.html:392
-#, fuzzy
 msgid "Проверьте свои результаты тестирования TOEFL"
 msgstr "You can find your TOEFL practice results here"
 
 #: src/project/templates/toefl_register.html:397
-#, fuzzy
 msgid "Смотреть результаты"
 msgstr "Looking for results?"
 
 #~ msgid ""
-#~ "Наша миссия: предоставлять высококачественные "
-#~ "образовательные услуги, ориентированные на\n"
-#~ "                профессиональное и личностное "
-#~ "развитие для разнообразных целевых групп, "
-#~ "включая школьников, студентов и\n"
+#~ "Наша миссия: предоставлять высококачественные образовательные услуги, "
+#~ "ориентированные на\n"
+#~ "                профессиональное и личностное развитие для разнообразных "
+#~ "целевых групп, включая школьников, студентов и\n"
 #~ "                профессионалов."
 #~ msgstr ""
-#~ "Our mission: to provide high-quality "
-#~ "educational services focused on professional"
-#~ " and personal development for a "
-#~ "variety of target groups, including "
-#~ "schoolchildren, students and professionals."
+#~ "Our mission: to provide high-quality educational services focused on "
+#~ "professional and personal development for a variety of target groups, "
+#~ "including schoolchildren, students and professionals."
 
 #~ msgid ""
-#~ "За 18 лет работы прошли обучение "
-#~ "более 50 000 человек, включая "
-#~ "корпоративных заказчиков из более 50\n"
-#~ "                компаний и организаций "
-#~ "Кыргызстана, Казахстана и Таджикистана."
+#~ "За 18 лет работы прошли обучение более 50 000 человек, включая корпоративных "
+#~ "заказчиков из более 50\n"
+#~ "                компаний и организаций Кыргызстана, Казахстана и "
+#~ "Таджикистана."
 #~ msgstr ""
-#~ "Over 18 years of work, more than"
-#~ " 50,000 people have been trained, "
-#~ "including corporate customers from more "
-#~ "than 50\n"
+#~ "Over 18 years of work, more than 50,000 people have been trained, including "
+#~ "corporate customers from more than 50\n"
 #~ " companies and organizations in Kyrgyzstan, Kazakhstan and Tajikistan."
 
 #~ msgid ""
-#~ "Мы находимся на втором этаже в 209"
-#~ " кабинете здания АУЦА. Возле кофейни "
-#~ "Sierra"
+#~ "Мы находимся на втором этаже в 209 кабинете здания АУЦА. Возле кофейни Sierra"
 #~ msgstr ""
-#~ "We are located on the second floor"
-#~ " in room 209 of the AUCA "
-#~ "building. Near Sierra cafe"
+#~ "We are located on the second floor in room 209 of the AUCA building. Near "
+#~ "Sierra cafe"
 
 #~ msgid "MLDC"
 #~ msgstr "MLDC"
@@ -919,14 +886,12 @@ msgstr "Looking for results?"
 #~ msgstr "TOEFL"
 
 #~ msgid ""
-#~ "Мы работаем с понедельника по пятницу"
-#~ " с 10:00 до 19:00. Если у вас"
-#~ " есть вопросы, пожалуйста,\n"
+#~ "Мы работаем с понедельника по пятницу с 10:00 до 19:00. Если у вас есть "
+#~ "вопросы, пожалуйста,\n"
 #~ "                    свяжитесь с нами."
 #~ msgstr ""
-#~ "We are open Monday through Friday "
-#~ "from 10:00 am to 7:00 pm. If "
-#~ "you have any questions, please\n"
+#~ "We are open Monday through Friday from 10:00 am to 7:00 pm. If you have any "
+#~ "questions, please\n"
 #~ "                    contact us."
 
 #~ msgid "15% скидка на языковые курсы"
@@ -995,3 +960,13 @@ msgstr "Looking for results?"
 #~ msgid "Подробнее..."
 #~ msgstr "More details..."
 
+#~ msgid ""
+#~ "Мейкерспейс – уникальное образовательное, творческое и предпринимательское "
+#~ "пространство, в котором можно будет не только получать новые знания и "
+#~ "навыки, развиваться, но и реализовывать проекты, работать на "
+#~ "высокотехнологичном оборудовании. Лучшие курсы в Бишкек по всем направлениям!"
+#~ msgstr ""
+#~ "Makerspace is a unique educational, creative and entrepreneurial space where "
+#~ "you can not only gain new knowledge and skills, develop, but also implement "
+#~ "projects, work on high-tech equipment. The best courses in Bishkek in all "
+#~ "areas!"
