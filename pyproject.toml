@@ -20,6 +20,8 @@ dependencies = [
   "flask-migrate>=4.0.7,<5",
   "lxml>=5.3.0,<6",
   "boto3>=1.40.69,<2",
+  "meilisearch>=0.31.0,<1",
+  "sentence-transformers>=3.0.0,<4",
 ]
 description = ""
 name = "cec"

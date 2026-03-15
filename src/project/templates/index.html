@@ -151,6 +151,40 @@
                     <img class="h-4" src="/static/elements/russia.png" alt="RU" /> RU
                 </a>
             </span>
+
+            <!-- Hero Search -->
+            <div class="fade-in relative mt-8 w-full max-w-xl" style="animation-delay: 1.8s">
+                <div class="relative">
+                    <div class="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+                        <svg id="hero-search-icon" class="size-5 text-white/60" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+                        </svg>
+                        <svg id="hero-search-spinner" class="size-5 text-white/80 hidden animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                        </svg>
+                    </div>
+                    <input
+                        id="hero-search"
+                        type="search"
+                        placeholder="{{_('Найти курс...')}}"
+                        autocomplete="off"
+                        class="w-full rounded-2xl border border-white/25 bg-white/15 backdrop-blur-md py-4 pl-12 pr-4 text-lg text-white shadow-none outline-none transition-all duration-300 placeholder:text-white/50 focus:border-white/40 focus:bg-white/20 focus:ring-2 focus:ring-white/15"
+                    />
+                </div>
+                <!-- Dropdown results -->
+                <div id="hero-results" class="absolute left-0 right-0 top-full z-50 mt-2 hidden overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl">
+                    <ul id="hero-results-list" class="max-h-80 overflow-y-auto divide-y divide-gray-100"></ul>
+                    <div id="hero-results-empty" class="hidden px-6 py-8 text-center text-gray-400">
+                        <p class="font-medium">{{_('Ничего не найдено')}}</p>
+                    </div>
+                    <div id="hero-results-footer" class="hidden border-t border-gray-100 px-4 py-2.5">
+                        <a id="hero-results-link" href="/courses" class="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors duration-200">
+                            {{_('Смотреть все курсы')}} →
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <section class="mt-20 flex max-w-7xl flex-col items-center justify-center px-6">
@@ -1038,6 +1072,70 @@
         {% endif %}
     </section>
 </main>
+<script>
+    (function () {
+        const input = document.getElementById('hero-search');
+        const dropdown = document.getElementById('hero-results');
+        const list = document.getElementById('hero-results-list');
+        const empty = document.getElementById('hero-results-empty');
+        const footer = document.getElementById('hero-results-footer');
+        const icon = document.getElementById('hero-search-icon');
+        const spinner = document.getElementById('hero-search-spinner');
+        let timer;
+
+        function resultItem(course) {
+            return `<li>
+                <a href="${course.url}" class="flex items-center gap-4 px-4 py-3 hover:bg-gray-50 transition-colors">
+                    <img src="${course.picture_url}" alt="${course.name}" class="h-12 w-20 rounded-lg object-cover shrink-0" />
+                    <div class="min-w-0">
+                        <p class="font-semibold text-gray-900 truncate">${course.name}</p>
+                        <p class="text-sm text-gray-500 truncate">${course.description}</p>
+                    </div>
+                </a>
+            </li>`;
+        }
+
+        async function search(q) {
+            icon.classList.add('hidden');
+            spinner.classList.remove('hidden');
+            try {
+                const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&hybrid=1`);
+                const data = await res.json();
+                dropdown.classList.remove('hidden');
+                if (data.hits === 0) {
+                    list.innerHTML = '';
+                    empty.classList.remove('hidden');
+                    footer.classList.add('hidden');
+                } else {
+                    empty.classList.add('hidden');
+                    list.innerHTML = data.results.map(resultItem).join('');
+                    footer.classList.remove('hidden');
+                    document.getElementById('hero-results-link').href = `/courses?q=${encodeURIComponent(q)}`;
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                icon.classList.remove('hidden');
+                spinner.classList.add('hidden');
+            }
+        }
+
+        input.addEventListener('input', () => {
+            clearTimeout(timer);
+            const q = input.value.trim();
+            if (!q) { dropdown.classList.add('hidden'); return; }
+            timer = setTimeout(() => search(q), 350);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!input.closest('div').contains(e.target)) dropdown.classList.add('hidden');
+        });
+
+        input.addEventListener('focus', () => {
+            if (input.value.trim() && list.children.length) dropdown.classList.remove('hidden');
+        });
+    })();
+</script>
 <script>
     function closeModal() {
         document.getElementById("modal").classList.add("opacity-0", "pointer-events-none");

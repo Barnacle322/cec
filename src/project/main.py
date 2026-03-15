@@ -562,3 +562,70 @@ def robots():
 @main.get("/health")
 def health():
     return "OK"
+
+
+@main.get("/api/search")
+def search():
+    q = request.args.get("q", "").strip()
+    if not q:
+        return jsonify({"results": [], "query": "", "hits": 0})
+
+    lang = request.args.get("lang", session.get("lang", "ru"))
+    if lang not in ("ru", "en"):
+        lang = "ru"
+    group_id = request.args.get("group", type=int)
+    use_hybrid = request.args.get("hybrid", "0") == "1"
+
+    from .extenstions import meili
+    from .utils.search import INDEX_NAME, _get_embedding
+
+    search_params: dict = {
+        "limit": 10,
+        "attributesToRetrieve": [
+            "id",
+            "slug",
+            "picture_url",
+            "course_group_slug",
+            f"name_{lang}",
+            f"description_{lang}",
+        ],
+    }
+
+    if group_id:
+        search_params["filter"] = f"course_group_id = {group_id}"
+
+    if use_hybrid:
+        try:
+            vector = _get_embedding(q)
+            search_params["vector"] = vector
+            search_params["hybrid"] = {"semanticRatio": 0.5, "embedder": "course_embedder"}
+        except Exception:
+            current_app.logger.warning("[search] Failed to compute query embedding", exc_info=True)
+
+    try:
+        results = meili.client.index(INDEX_NAME).search(q, search_params)
+    except Exception:
+        current_app.logger.warning("[search] Search request failed", exc_info=True)
+        return jsonify({"results": [], "query": q, "hits": 0})
+
+    hits = results.get("hits", [])
+    response_items = [
+        {
+            "id": h["id"],
+            "slug": h["slug"],
+            "picture_url": h.get("picture_url"),
+            "name": h.get(f"name_{lang}", ""),
+            "description": h.get(f"description_{lang}", ""),
+            "url": url_for("main.course", course_name=h["slug"], _external=False),
+            "course_group_url": url_for(
+                "main.course_group",
+                course_group_slug=h.get("course_group_slug", ""),
+                _external=False,
+            )
+            if h.get("course_group_slug")
+            else None,
+        }
+        for h in hits
+    ]
+
+    return jsonify({"results": response_items, "query": q, "hits": len(response_items)})

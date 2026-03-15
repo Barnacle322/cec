@@ -701,3 +701,15 @@ admin.add_url_rule(
 admin.add_url_rule(
     "/blog/edit/<int:blog_id>", view_func=EditBlogView.as_view("edit_blog")
 )
+
+
+@admin.post("/search/reindex")
+@admin_required
+def reindex_search():
+    from .utils.search import reindex_all_courses
+
+    try:
+        count = reindex_all_courses()
+        return jsonify({"success": True, "indexed": count})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500

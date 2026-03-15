@@ -6,7 +6,7 @@ from flask import Flask, session
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .admin import admin
-from .extenstions import babel, cache, csrf, db, login_manager, migrate
+from .extenstions import babel, cache, csrf, db, login_manager, meili, migrate
 from .main import main
 
 
@@ -30,6 +30,8 @@ def create_app(database_url="sqlite:///db.sqlite"):
 
     app.config["CACHE_TYPE"] = "SimpleCache"
     app.config["CACHE_DEFAULT_TIMEOUT"] = 3600
+    app.config["MEILI_URL"] = os.getenv("MEILI_URL", "https://search.arstan.page")
+    app.config["MEILI_MASTER_KEY"] = os.getenv("MEILI_MASTER_KEY", "")
 
     db.init_app(app)
     login_manager.init_app(app)
@@ -37,6 +39,12 @@ def create_app(database_url="sqlite:///db.sqlite"):
     csrf.init_app(app)
     csrf.exempt(admin)
     cache.init_app(app)
+    meili.init_app(app)
+
+    from .utils.search import configure_index
+
+    with app.app_context():
+        configure_index()
 
     def get_locale():
         return session.get("lang", "ru")

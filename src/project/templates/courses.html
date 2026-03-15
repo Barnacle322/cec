@@ -74,7 +74,37 @@
         {% endif %}
     </section>
     <section class="my-8 flex w-full max-w-7xl flex-col items-start justify-start px-6">
-        <div class="flex flex-wrap gap-3 mb-10">
+        <!-- Search -->
+        <div class="relative w-full max-w-2xl mb-8">
+            <div class="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+                <svg id="search-icon" class="size-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+                </svg>
+                <svg id="search-spinner" class="size-5 text-blue-500 hidden animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+                </svg>
+            </div>
+            <input
+                id="course-search"
+                type="search"
+                placeholder="{{_('Поиск курсов...')}}"
+                autocomplete="off"
+                class="w-full rounded-2xl border border-gray-200 bg-white py-4 pl-12 pr-12 text-lg text-gray-900 shadow-sm outline-none transition-all duration-300 placeholder:text-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            />
+            <button
+                id="search-clear"
+                onclick="clearSearch()"
+                class="absolute inset-y-0 right-4 hidden items-center text-gray-400 hover:text-gray-600"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5">
+                    <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Filter tabs (hidden while searching) -->
+        <div id="filter-tabs" class="flex flex-wrap gap-3 mb-10">
             <a
                 class="{{ 'bg-blue-600 text-white shadow-md' if course_group_name == None else 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:shadow-sm' }} w-max rounded-xl px-4 py-3 text-lg font-semibold transition-all duration-200"
                 href="/courses"
@@ -89,7 +119,8 @@
             {% endfor %}
         </div>
 
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Default course grid -->
+        <div id="courses-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 w-full">
             {% for course in courses %}
             <article
                 class="group flex flex-col rounded-2xl bg-white border border-gray-100 shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden"
@@ -121,6 +152,94 @@
             </article>
             {% endfor %}
         </div>
+
+        <!-- Search results grid (hidden by default) -->
+        <div id="search-results" class="hidden w-full">
+            <div id="search-results-grid" class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"></div>
+            <div id="search-empty" class="hidden py-20 text-center">
+                <p class="text-2xl font-semibold text-gray-400">{{_('Ничего не найдено')}}</p>
+                <p class="mt-2 text-gray-400">{{_('Попробуйте другой запрос')}}</p>
+            </div>
+        </div>
     </section>
+
+    <script>
+        const input = document.getElementById('course-search');
+        const clearBtn = document.getElementById('search-clear');
+        const filterTabs = document.getElementById('filter-tabs');
+        const coursesGrid = document.getElementById('courses-grid');
+        const searchResults = document.getElementById('search-results');
+        const searchResultsGrid = document.getElementById('search-results-grid');
+        const searchEmpty = document.getElementById('search-empty');
+        const searchIcon = document.getElementById('search-icon');
+        const searchSpinner = document.getElementById('search-spinner');
+
+        let debounceTimer;
+
+        function courseCard(course) {
+            return `<article class="group flex flex-col rounded-2xl bg-white border border-gray-100 shadow-md transition-all duration-300 hover:shadow-xl overflow-hidden">
+                <a class="overflow-hidden aspect-video w-full block" href="${course.url}" tabindex="-1" aria-hidden="true">
+                    <img class="aspect-video w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" src="${course.picture_url}" alt="${course.name}" loading="lazy" decoding="async" />
+                </a>
+                <div class="flex flex-col gap-4 p-6 sm:p-8">
+                    <a href="${course.url}">
+                        <h2 class="text-3xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">${course.name}</h2>
+                    </a>
+                    <p class="text-lg text-gray-600 line-clamp-5 leading-relaxed">${course.description}</p>
+                </div>
+            </article>`;
+        }
+
+        function showDefault() {
+            filterTabs.classList.remove('hidden');
+            coursesGrid.classList.remove('hidden');
+            searchResults.classList.add('hidden');
+            clearBtn.classList.remove('flex');
+            clearBtn.classList.add('hidden');
+        }
+
+        function clearSearch() {
+            input.value = '';
+            input.focus();
+            showDefault();
+        }
+
+        async function doSearch(q) {
+            searchIcon.classList.add('hidden');
+            searchSpinner.classList.remove('hidden');
+            try {
+                const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&hybrid=1`);
+                const data = await res.json();
+
+                filterTabs.classList.add('hidden');
+                coursesGrid.classList.add('hidden');
+                searchResults.classList.remove('hidden');
+
+                if (data.hits === 0) {
+                    searchResultsGrid.innerHTML = '';
+                    searchEmpty.classList.remove('hidden');
+                    searchResultsGrid.classList.add('hidden');
+                } else {
+                    searchEmpty.classList.add('hidden');
+                    searchResultsGrid.classList.remove('hidden');
+                    searchResultsGrid.innerHTML = data.results.map(courseCard).join('');
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                searchIcon.classList.remove('hidden');
+                searchSpinner.classList.add('hidden');
+            }
+        }
+
+        input.addEventListener('input', () => {
+            const q = input.value.trim();
+            clearBtn.classList.toggle('hidden', q === '');
+            clearBtn.classList.toggle('flex', q !== '');
+            clearTimeout(debounceTimer);
+            if (!q) { showDefault(); return; }
+            debounceTimer = setTimeout(() => doSearch(q), 350);
+        });
+    </script>
 </main>
 {% endblock %}

@@ -260,6 +260,10 @@ class AddCourseView(MethodView):
                 )
             )
 
+        from ..utils.search import index_course
+
+        index_course(course)
+
         status = Status(StatusType.SUCCESS, "Курс добавлен успешно").get_status()
         return redirect(url_for("admin.courses", _external=False, **status))
 
@@ -341,6 +345,10 @@ class EditCourseView(MethodView):
                 )
             )
 
+        from ..utils.search import index_course
+
+        index_course(course)
+
         status = Status(StatusType.SUCCESS, "Курс отредактирован успешно").get_status()
         return redirect(url_for("admin.courses", _external=False, **status))
 
@@ -355,6 +363,10 @@ class DeleteCourseView(MethodView):
         except Exception as e:
             flash(f"Error deleting course: {e}", "danger")
             return redirect(url_for("admin.courses"))
+
+        from ..utils.search import delete_course
+
+        delete_course(course_id)
 
         flash("Course deleted successfully", "success")
         return redirect(url_for("admin.courses"))
@@ -530,6 +542,12 @@ class AddTimetable(MethodView):
             ).get_status()
             return redirect(url_for("admin.courses", _external=False, **status))
 
+        if course_id:
+            from ..utils.search import index_course
+
+            if parent_course := Course.get_by_id(course_id):
+                index_course(parent_course)
+
         return redirect(url_for("admin.courses"))
 
 
@@ -605,6 +623,12 @@ class EditTimetable(MethodView):
             ).get_status()
             return redirect(url_for("admin.edit_timetable", _external=False, **status))
 
+        if course_id:
+            from ..utils.search import index_course
+
+            if parent_course := Course.get_by_id(course_id):
+                index_course(parent_course)
+
         return redirect(url_for("admin.courses"))
 
 
@@ -613,11 +637,20 @@ class DeleteTimetable(MethodView):
 
     @admin_required
     def post(self, timetable_id):
+        timetable = Timetable.get_by_id(timetable_id)
+        parent_course_id = timetable.course_id if timetable else None
+
         try:
             Timetable.delete_by_id(timetable_id)
         except Exception as e:
             flash(f"Error deleting timetable: {e}", "danger")
             return redirect(url_for("admin.courses"))
+
+        if parent_course_id:
+            from ..utils.search import index_course
+
+            if parent_course := Course.get_by_id(parent_course_id):
+                index_course(parent_course)
 
         flash("Timetable deleted successfully", "success")
         return redirect(url_for("admin.courses"))
