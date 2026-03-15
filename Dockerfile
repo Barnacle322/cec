@@ -49,4 +49,4 @@ RUN rm -rf /root/.cache/pip/*
 ENV PORT 80
 
 RUN exec uv run pybabel compile -d ./project/translations
-CMD exec uv run granian --interface wsgi --port $PORT --host 0.0.0.0 --workers 3 project:application
+CMD exec uv run granian --interface wsgi --port $PORT --host 0.0.0.0 --workers 1 project:application
