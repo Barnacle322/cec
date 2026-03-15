@@ -5,19 +5,6 @@ from flask import current_app
 from ..extenstions import meili
 
 INDEX_NAME = "courses"
-_EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
-_EMBEDDING_DIMS = 384
-
-_model = None
-
-
-def _get_embedding(text: str) -> list[float]:
-    global _model
-    if _model is None:
-        from sentence_transformers import SentenceTransformer
-
-        _model = SentenceTransformer(_EMBEDDING_MODEL)
-    return _model.encode(text).tolist()
 
 
 def build_document(course) -> dict:
@@ -32,7 +19,7 @@ def build_document(course) -> dict:
 
     group_slug = course.course_group.slug if course.course_group else ""
 
-    doc = {
+    return {
         "id": course.id,
         "slug": course.slug,
         "picture_url": course.picture_url,
@@ -46,31 +33,12 @@ def build_document(course) -> dict:
         "timetable_names_en": " ".join(t._name.get("en", "") for t in timetables if t._name),
     }
 
-    embedding_text = f"{name_ru} {name_en} {desc_ru}".strip()
-    vector = _get_embedding(embedding_text)
-    doc["_vectors"] = {"course_embedder": vector}
-
-    return doc
-
 
 def configure_index() -> None:
     try:
         meili.client.create_index(INDEX_NAME, {"primaryKey": "id"})
     except Exception:
         pass  # index already exists
-
-    try:
-        import requests as _requests
-
-        cfg = meili.client.config
-        _requests.patch(
-            f"{cfg.url}/experimental-features",
-            json={"vectorStore": True},
-            headers={"Authorization": f"Bearer {cfg.api_key}"},
-            timeout=5,
-        ).raise_for_status()
-    except Exception:
-        current_app.logger.warning("[search] Failed to enable vector store experimental feature", exc_info=True)
 
     try:
         idx = meili.client.index(INDEX_NAME)
@@ -80,12 +48,6 @@ def configure_index() -> None:
             "timetable_names_ru", "timetable_names_en",
         ])
         idx.update_filterable_attributes(["course_group_id", "course_group_slug"])
-        idx.update_embedders({
-            "course_embedder": {
-                "source": "userProvided",
-                "dimensions": _EMBEDDING_DIMS,
-            }
-        })
     except Exception:
         current_app.logger.warning("[search] Failed to configure Meilisearch index", exc_info=True)
 

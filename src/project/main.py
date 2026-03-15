@@ -574,10 +574,9 @@ def search():
     if lang not in ("ru", "en"):
         lang = "ru"
     group_id = request.args.get("group", type=int)
-    use_hybrid = request.args.get("hybrid", "0") == "1"
 
     from .extenstions import meili
-    from .utils.search import INDEX_NAME, _get_embedding
+    from .utils.search import INDEX_NAME
 
     search_params: dict = {
         "limit": 10,
@@ -593,14 +592,6 @@ def search():
 
     if group_id:
         search_params["filter"] = f"course_group_id = {group_id}"
-
-    if use_hybrid:
-        try:
-            vector = _get_embedding(q)
-            search_params["vector"] = vector
-            search_params["hybrid"] = {"semanticRatio": 0.5, "embedder": "course_embedder"}
-        except Exception:
-            current_app.logger.warning("[search] Failed to compute query embedding", exc_info=True)
 
     try:
         results = meili.client.index(INDEX_NAME).search(q, search_params)

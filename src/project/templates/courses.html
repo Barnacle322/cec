@@ -208,7 +208,7 @@
             searchIcon.classList.add('hidden');
             searchSpinner.classList.remove('hidden');
             try {
-                const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&hybrid=1`);
+                const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
                 const data = await res.json();
 
                 filterTabs.classList.add('hidden');
