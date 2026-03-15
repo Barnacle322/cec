@@ -35,6 +35,7 @@ def create_app(database_url="sqlite:///db.sqlite"):
     login_manager.init_app(app)
     migrate.init_app(app, db)
     csrf.init_app(app)
+    csrf.exempt(admin)
     cache.init_app(app)
 
     def get_locale():
