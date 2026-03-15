@@ -18,7 +18,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user
 
-from .extenstions import cache, db, login_manager
+from .extenstions import cache, csrf, db, login_manager
 from .models import (
     Blog,
     Course,
@@ -478,6 +478,7 @@ def login():
 
 
 @main.post("/login")
+@csrf.exempt
 def login_post():
     username = request.form.get("username", "")
     password = request.form.get("password", "")
