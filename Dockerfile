@@ -1,4 +1,4 @@
-FROM python:3.12.0-alpine
+FROM python:3.12.0-slim-bookworm
 
 # Install necessary packages for locales and timezone configuration
 RUN apk update && apk add --no-cache \
