@@ -1,28 +1,41 @@
 import base64
 import io
+import os
 from uuid import UUID, uuid4
 
 import boto3
+from botocore.config import Config
 from PIL import Image
 
 HD_WIDTH = 1280
 HD_HEIGHT = 720
 BUCKET_NAME = "mldc-pictures"
-SPACES_REGION = "fra1"
-SPACES_ENDPOINT = f"https://{SPACES_REGION}.digitaloceanspaces.com"
+
+# Cloudflare R2 exposes an S3-compatible API. Objects are served publicly through
+# the custom domain bound to the bucket root (R2_PUBLIC_URL), so no per-object ACL
+# is needed and the public base URL does not include the bucket name in the path.
+R2_ENDPOINT_URL = os.environ.get(
+    "R2_ENDPOINT_URL",
+    "https://5fe66f60be1a70f66ed5d2f37d2657d3.r2.cloudflarestorage.com",
+)
+R2_PUBLIC_URL = os.environ.get("R2_PUBLIC_URL", "https://mldc.assets.arstan.page").rstrip("/")
 
 
 def _get_s3_client() -> boto3.client:
-    # DigitalOcean Spaces offers an S3-compatible API; boto3 handles authentication via AWS env vars
+    # R2 requires region "auto" and SigV4; credentials come from R2_* env vars.
     return boto3.client(
         "s3",
-        region_name=SPACES_REGION,
-        endpoint_url=SPACES_ENDPOINT,
+        region_name="auto",
+        endpoint_url=R2_ENDPOINT_URL,
+        aws_access_key_id=os.environ.get("R2_ACCESS_KEY_ID", os.environ.get("AWS_ACCESS_KEY_ID")),
+        aws_secret_access_key=os.environ.get("R2_SECRET_ACCESS_KEY", os.environ.get("AWS_SECRET_ACCESS_KEY")),
+        config=Config(signature_version="s3v4"),
     )
 
 
-def _bucket_base_url(bucket_name: str) -> str:
-    return f"https://{bucket_name}.{SPACES_REGION}.digitaloceanspaces.com"
+def _bucket_base_url(bucket_name: str = BUCKET_NAME) -> str:
+    # The R2 custom domain maps to the bucket root, so the bucket name is implicit.
+    return R2_PUBLIC_URL
 
 
 def delete_blob_from_url(blob_url: str, bucket_name: str = BUCKET_NAME) -> None:
@@ -50,7 +63,6 @@ def upload_blob(
         Key=object_key,
         Body=content,
         ContentType="image/jpeg",
-        ACL="public-read",
     )
 
     if old_blob_id:

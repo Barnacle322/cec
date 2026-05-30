@@ -1,0 +1,482 @@
+[
+  {
+    "table": "course_group",
+    "col": "picture_url",
+    "id": 4,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/33605d29-31c6-46d1-ac8b-a8e3e1add0a7.jpg"
+  },
+  {
+    "table": "course_group",
+    "col": "picture_url",
+    "id": 1,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/dd418410-95ba-49c6-aa3e-b89619022675.jpg"
+  },
+  {
+    "table": "course_group",
+    "col": "picture_url",
+    "id": 3,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/c5b7f020-5b21-42ed-97ed-edb8d6288a79.jpg"
+  },
+  {
+    "table": "course_group",
+    "col": "picture_url",
+    "id": 5,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/094e44f5-7cdf-4719-8cf7-88e2dbb35dea.jpg"
+  },
+  {
+    "table": "course_group",
+    "col": "picture_url",
+    "id": 2,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/25e71260-e320-440d-8fef-2b5db43cada0.jpg"
+  },
+  {
+    "table": "course_group",
+    "col": "picture_url",
+    "id": 6,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/891ec740-e323-4230-aebe-a99bd8016363.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 36,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/ea2edc69-1e07-471a-ae71-f9d809df154b.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 11,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/df6d53b6-a98e-4c4f-a88d-66ae3d2c6797.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 48,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/0adf376e-f4e0-4bb0-9428-23cd310ebeb6.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 18,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/c88a11f5-05de-4a8a-8c0a-7ddaa8c1e52a.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 10,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/0c275dbf-66a9-471f-ba63-945986bd435b.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 2,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/0e09cb58-5d9f-4deb-a08c-4043a23a4fa1.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 1,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/5bd7f10c-ced7-4aed-ad6f-bceae70ba33e.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 6,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/1b5d2325-21f3-4d37-b7d8-d24c1832ee38.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 8,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/9a577297-f219-45bb-b410-b849c06f796b.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 7,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/240a0a93-3755-4455-b0b9-d63b657d819e.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 9,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/c95d5588-0337-4b5f-af43-86f753a68f8e.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 12,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/7329784f-10ff-4652-a172-8a5f1ca32d29.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 13,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/00995854-1932-4945-b233-6b2b6d683e3e.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 16,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/ea78697f-1637-493f-bcce-c8f385ec2370.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 14,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/a03cec41-6151-456e-bc69-f53f62b3aa02.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 17,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/01a161eb-eb44-49a7-8618-25c9fce31b97.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 24,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/0f3eac8f-9af1-4484-8dfe-083a8b3a94e2.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 20,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/cf047d20-8adf-4b48-9b7a-642b3816d4d4.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 21,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/eb1d91c8-8d04-4809-9f47-a0a91127e30c.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 22,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/fa0da1e8-8efb-4512-acde-3a14adc9e677.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 23,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/61891ac0-ba95-4ed2-8a99-15300bce8950.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 25,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/cf4a0a2b-bcda-469b-8b53-5e4ebdfa9b48.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 26,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/dbf19f04-1097-49a4-bd00-2ac29ee84770.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 27,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/9e124a03-07ef-4945-9ddf-a011b955c758.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 31,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/8a703e0a-8875-4c79-8948-69500b36235a.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 28,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/a10ed08b-f591-470c-bf1f-ded0864d3848.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 29,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/9592460f-861b-4ec5-a2c5-a094fb5ab454.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 30,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/efb1ef82-f5ff-4dde-9844-58e6d5ec2284.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 34,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/10a6f95d-ece2-4d57-8df4-eaa1205e367e.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 32,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/7b1d9eb0-7933-4744-8a7a-4a509d42eec3.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 37,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/b58a660d-73d4-413c-94ac-7029629144c0.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 38,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/885cb863-9e36-4bb0-a162-fa14cef980ba.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 39,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/24074184-4082-498e-8580-58cf6507d693.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 40,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/e91cad15-b233-4f43-8b3c-488521e548a6.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 4,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/fedecc43-fffd-40b1-bf09-54b58e54542a.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 41,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/02ee1ae3-e8cb-44bf-b446-d13a121c309a.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 42,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/634a4231-e1b3-4321-a7ff-3f12a7dd3413.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 43,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/22e9dd3f-155a-4c4f-b8c1-c57c13282bf3.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 44,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/e3d9c165-4d71-43df-8a15-07a6ee0a1d80.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 47,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/84052c71-9126-461b-9649-bb7be0682722.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 45,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/fa9ec746-547f-4c12-ae31-7e0637cdfd3e.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 35,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/5d30d2d4-3afd-4ffc-bf5c-cf57df56ea66.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 5,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/b8dce683-027c-4326-ab78-974de2d5d4e3.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 19,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/47d60c29-c9ed-4746-9df0-999227ca48a5.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 46,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/cce86913-f1e6-4e34-96ad-be3591599e1d.jpg"
+  },
+  {
+    "table": "course",
+    "col": "picture_url",
+    "id": 33,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/a42f1c67-70bf-4f02-90d6-42055d46d833.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 10,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/878bb844-6eb6-467a-a0ee-910854fd8de3.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 4,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/66c4108b-229f-47d9-bbad-fa6b7185dfc6.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 5,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/87264d7a-5c4f-46f2-ac2c-5f7a2674485d.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 2,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/88bc80d6-91e7-4f66-8183-6dd102c3ba63.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 12,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/4ed8d67e-e579-4f82-8d51-3b0c08a2349f.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 8,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/cff00f32-5de9-4389-b61a-faa37dd01bc4.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 11,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/fc1cfd0d-aca8-484b-b942-df29c6008ab6.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 9,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/bf66f0b3-3245-40f8-92ad-5abba9227f07.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 16,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/06634e63-2ad8-4064-b14c-db884381ac8f.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 14,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/165bcc9d-da26-4741-95fd-e6ea262034f3.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 15,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/6b7d081c-d4c6-4d11-b6b3-2bc6bda33b4a.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 17,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/1c2a60b7-c0bd-4c6c-82bd-4a663032e592.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 7,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/b5f863a7-35d8-43ec-895a-303fdf0b915f.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 3,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/8ebb23f7-b6d7-4f38-9fa8-7f11749513b8.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 18,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/5730ea3d-8fbe-497a-b626-9ce6036a61d7.jpg"
+  },
+  {
+    "table": "teacher",
+    "col": "picture_url",
+    "id": 19,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/8bc52b5a-31ca-46ca-b462-a2a91f4b2ead.jpg"
+  },
+  {
+    "table": "staff",
+    "col": "picture_url",
+    "id": 1,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/41510c06-b821-4a8c-b2c4-d43962dbab7f.jpg"
+  },
+  {
+    "table": "staff",
+    "col": "picture_url",
+    "id": 4,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/bb6a62bb-7e2a-484f-8479-f03ae3811369.jpg"
+  },
+  {
+    "table": "staff",
+    "col": "picture_url",
+    "id": 3,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/f01c648f-8613-4efe-bc0f-98072a052f28.jpg"
+  },
+  {
+    "table": "staff",
+    "col": "picture_url",
+    "id": 2,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/f62cece4-0671-4e83-85e0-b035536af53c.jpg"
+  },
+  {
+    "table": "blog",
+    "col": "preview_url",
+    "id": 1,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/2d0c1682-6e58-4585-a39d-5f4ce1b8f4cb.jpg"
+  },
+  {
+    "table": "blog",
+    "col": "preview_url",
+    "id": 3,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/8231b94d-2f81-45b3-87e7-dda61118fe57.jpg"
+  },
+  {
+    "table": "blog",
+    "col": "preview_url",
+    "id": 4,
+    "old": "https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/afb14014-0a7d-4f37-8843-10afbf3a5612.jpg"
+  },
+  {
+    "table": "blog",
+    "col": "preview_url",
+    "id": 6,
+    "old": "https://mldc-pictures.fra1.digitaloceanspaces.com/fd86a537-e2c8-44e3-be13-048fed3468b2"
+  },
+  {
+    "table": "blog",
+    "col": "_json",
+    "id": 1,
+    "old": "{\"time\": 1735137689457, \"blocks\": [{\"id\": \"WsEHz7CheQ\", \"data\": {\"file\": {\"url\": \"https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/2d0c1682-6e58-4585-a39d-5f4ce1b8f4cb.jpg\"}, \"caption\": \"\", \"stretched\": true, \"withBorder\": false, \"withBackground\": false}, \"type\": \"image\"}, {\"id\": \"Igcb4Xu-Q_\", \"data\": {\"text\": \"30 ноября в Мейкерспейс АУЦА прошел замечательный мастер-класс, который собрал ребят из 4-х классов для настоящего праздника творчества! Этот день был полон увлекательных занятий, где дети могли попробовать себя в разных ремеслах и познакомиться с современными технологиями. В программе было: вышивка по дереву и создание новогодних наклеек на виниловом резаке.\"}, \"type\": \"paragraph\"}, {\"id\": \"KJFi_sbtOv\", \"data\": {\"text\": \"<b>Вышивка по дереву: сочетание традиций и творчества</b>\"}, \"type\": \"paragraph\"}, {\"id\": \"ahG90wq-61\", \"data\": {\"text\": \"Первым делом ребята погрузились в мир вышивки по дереву. Это занятие позволило им не только узнать о технике вышивки, но и проявить свои творческие способности. Под чутким руководством наших преподавателей дети выбрали свои дизайны — от простых узоров до забавных рисунков.\"}, \"type\": \"paragraph\"}, {\"id\": \"LrBuMqDwZy\", \"data\": {\"text\": \"Работа с нитками и иглами помогала развить мелкую моторику и терпение. Каждый создал уникальный элемент декора, который можно будет подарить или повесить дома. Улыбки на лицах детей говорили сами за себя!\"}, \"type\": \"paragraph\"}, {\"id\": \"ZMkjyMeZbr\", \"data\": {\"text\": \"<b>Виниловые наклейки: создаем новогоднее волшебство</b>\"}, \"type\": \"paragraph\"}, {\"id\": \"JbxcY_7Yb4\", \"data\": {\"text\": \"Следующим этапом стало создание новогодних наклеек на виниловом резаке. Это занятие особенно захватило внимание детей, ведь они смогли увидеть, как современные технологии могут превратить идеи в реальные вещи.\"}, \"type\": \"paragraph\"}, {\"id\": \"g5TkkwKCad\", \"data\": {\"text\": \"Ребята выбрали разные новогодние мотивы — снежинки, елочки и даже Дед Морозов. Под руководством наставника они научились работать с программами для дизайна и управлять резаком. Каждый ушел с набором наклеек, которые можно использовать для украшения подарков или оформления новогоднего настроения.\"}, \"type\": \"paragraph\"}, {\"id\": \"crpMBW6X1z\", \"data\": {\"text\": \"Мастер-класс в Мейкерспейс АУЦА стал не только возможностью для детей развить свои навыки, но и отличным способом провести время с друзьями, делясь идеями и вдохновением. Участники уходили счастливыми и готовыми к встрече Нового года.\"}, \"type\": \"paragraph\"}, {\"id\": \"T-K7feaUIx\", \"data\": {\"text\": \"Родители и дети оставили много положительных отзывов. Многие отметили, что такие мероприятия помогают развивать креативность и интерес к технологиям. Некоторые родители даже выразили желание продолжать занятия в Мейкерспейс, чтобы их дети могли еще больше узнать о мире творчества.\"}, \"type\": \"paragraph\"}, {\"id\": \"p7OWj7gw7G\", \"data\": {\"text\": \"В заключение хочется сказать, что такие мастер-классы играют важную роль в жизни детей. Они развивают практические навыки, уверенность в себе и умение работать в команде. Мы надеемся на новые встречи в Мейкерспейс АУЦА и ждем всех желающих на будущих мероприятиях!\"}, \"type\": \"paragraph\"}, {\"id\": \"c2961z58rj\", \"data\": {\"file\": {\"url\": \"https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/67d0901b-a065-42ae-9d96-735e1af4b47c.jpg\"}, \"caption\": \"\", \"stretched\": true, \"withBorder\": false, \"withBackground\": false}, \"type\": \"image\"}, {\"id\": \"vWqo9cgO4k\", \"data\": {\"file\": {\"url\": \"https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/f99e11ec-a1aa-4feb-8d66-ce27e5552bc1.jpg\"}, \"caption\": \"\", \"stretched\": true, \"withBorder\": false, \"withBackground\": false}, \"type\": \"image\"}], \"version\": \"2.30.7\"}"
+  },
+  {
+    "table": "blog",
+    "col": "_json",
+    "id": 3,
+    "old": "{\"time\": 1743506404628, \"blocks\": [{\"id\": \"jKAhv1bU0Q\", \"data\": {\"file\": {\"url\": \"https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/8231b94d-2f81-45b3-87e7-dda61118fe57.jpg\"}, \"caption\": \"\", \"stretched\": false, \"withBorder\": false, \"withBackground\": false}, \"type\": \"image\"}, {\"id\": \"HysqxdSJBm\", \"data\": {\"text\": \"На этом мероприятии вы сможете:\"}, \"type\": \"paragraph\"}, {\"id\": \"5r2NuWhJCZ\", \"data\": {\"text\": \"✨ Ознакомиться с нашим оборудованием и технологиями: 3D-принтеры, лазерные резаки, электроника и многое другое.\"}, \"type\": \"paragraph\"}, {\"id\": \"OmxCpdOE_3\", \"data\": {\"text\": \"✨ Пообщаться с нашими наставниками и экспертами.\"}, \"type\": \"paragraph\"}, {\"id\": \"e_QZFqVjgw\", \"data\": {\"text\": \"✨ Принять участие в мастер-классах и маленьких проектах.\"}, \"type\": \"paragraph\"}, {\"id\": \"L2FwpafMWd\", \"data\": {\"text\": \"✨ Узнать, как стать частью сообщества и использовать MakerSpace для реализации своих идей.\"}, \"type\": \"paragraph\"}, {\"id\": \"B1gjCSctUL\", \"data\": {\"text\": \"Мы открыты для всех, независимо от уровня подготовки — будь вы новичок или опытный разработчик.\"}, \"type\": \"paragraph\"}, {\"id\": \"h_EHb8QQbX\", \"data\": {\"text\": \"Не пропустите шанс увидеть, как технологии меняют мир, и вдохновитесь на новые достижения!\"}, \"type\": \"paragraph\"}, {\"id\": \"kbYAPMkRFM\", \"data\": {\"text\": \"Вход свободный.\"}, \"type\": \"paragraph\"}], \"version\": \"2.31.0-rc.7\"}"
+  },
+  {
+    "table": "blog",
+    "col": "_json",
+    "id": 4,
+    "old": "{\"time\": 1758600566412, \"blocks\": [{\"id\": \"QUECJIbfqW\", \"data\": {\"text\": \"Maker Fest 2025 в Мейкерспейс АУЦА\", \"level\": 2}, \"type\": \"header\"}, {\"id\": \"y1gcm9ORtl\", \"data\": {\"file\": {\"url\": \"https://mldc-pictures.fra1.cdn.digitaloceanspaces.com/afb14014-0a7d-4f37-8843-10afbf3a5612.jpg\"}, \"caption\": \"\", \"stretched\": false, \"withBorder\": false, \"withBackground\": false}, \"type\": \"image\"}, {\"id\": \"8pg3lCn_aL\", \"data\": {\"text\": \"<b>&nbsp;Maker Fest 2025: территория идей и вдохновения&nbsp;</b>\"}, \"type\": \"paragraph\"}, {\"id\": \"ggNiaOV1Pf\", \"data\": {\"text\": \"28 сентября в Makerspace Learning &amp; Design Center снова оживёт настоящий праздник креатива — Maker Fest.\"}, \"type\": \"paragraph\"}, {\"id\": \"s-vNj4lz8T\", \"data\": {\"text\": \"В этот день в одном пространстве соберутся студенты, мастера и новаторы, чтобы показать свои проекты, поделиться опытом и вдохновить друг друга. Атмосфера будет кипеть от энергии: 3D-принтеры, необычные мастер-классы, интерактивные активности, креативные решения и море общения.\"}, \"type\": \"paragraph\"}, {\"id\": \"h9J2PKPLMj\", \"data\": {\"text\": \"Maker Fest — это не просто выставка или занятие, это возможность почувствовать себя частью сообщества, где ценят смелые идеи и поддержку. Здесь рождаются проекты, которые способны менять будущее, а новые знакомства перерастают в дружбу и партнёрства.\"}, \"type\": \"paragraph\"}, {\"id\": \"nZvkDHzP4g\", \"data\": {\"text\": \"📍 Адрес: Аалы Токомбаева 7/7А\\n⏰ Дата: 28 сентября\"}, \"type\": \"paragraph\"}, {\"id\": \"dZpsBDORK3\", \"data\": {\"text\": \"Если ты любишь создавать и творить своими руками — приходи. Maker Fest ждёт именно тебя!\"}, \"type\": \"paragraph\"}], \"version\": \"2.31.0\"}"
+  },
+  {
+    "table": "blog",
+    "col": "_json",
+    "id": 6,
+    "old": "{\"time\": 1774510981996, \"blocks\": [{\"id\": \"OwS-3gHkLW\", \"type\": \"paragraph\", \"data\": {\"text\": \"\\u041f\\u0440\\u043e\\u0441\\u0442\\u043e\\u0440\\u043d\\u044b\\u0439 \\u0438 \\u0443\\u0434\\u043e\\u0431\\u043d\\u044b\\u0439 \\u043a\\u043e\\u043d\\u0444\\u0435\\u0440\\u0435\\u043d\\u0446-\\u0437\\u0430\\u043b \\u0434\\u043b\\u044f \\u043f\\u0440\\u043e\\u0432\\u0435\\u0434\\u0435\\u043d\\u0438\\u044f \\u043c\\u0435\\u0440\\u043e\\u043f\\u0440\\u0438\\u044f\\u0442\\u0438\\u0439 \\u043b\\u044e\\u0431\\u043e\\u0433\\u043e \\u0444\\u043e\\u0440\\u043c\\u0430\\u0442\\u0430: \\u0442\\u0440\\u0435\\u043d\\u0438\\u043d\\u0433\\u043e\\u0432, \\u0441\\u0435\\u043c\\u0438\\u043d\\u0430\\u0440\\u043e\\u0432, \\u0432\\u0441\\u0442\\u0440\\u0435\\u0447 \\u0438 \\u043f\\u0440\\u0435\\u0437\\u0435\\u043d\\u0442\\u0430\\u0446\\u0438\\u0439.\"}}, {\"id\": \"-yQ3EfI1jd\", \"type\": \"image\", \"data\": {\"caption\": \"\", \"withBorder\": false, \"withBackground\": false, \"stretched\": false, \"file\": {\"url\": \"https://mldc-pictures.fra1.digitaloceanspaces.com/fd86a537-e2c8-44e3-be13-048fed3468b2\"}}}, {\"id\": \"qujA2pXU5k\", \"type\": \"paragraph\", \"data\": {\"text\": \"\\u0412\\u043c\\u0435\\u0441\\u0442\\u0438\\u043c\\u043e\\u0441\\u0442\\u044c \\u0437\\u0430\\u043b\\u0430 - \\u043e\\u0442 100 \\u0434\\u043e 230 \\u0447\\u0435\\u043b\\u043e\\u0432\\u0435\\u043a.\"}}, {\"id\": \"XnB_ksM3hf\", \"type\": \"paragraph\", \"data\": {\"text\": \"\\u0414\\u043b\\u044f \\u0431\\u0440\\u043e\\u043d\\u0438\\u0440\\u043e\\u0432\\u0430\\u043d\\u0438\\u044f \\u0438 \\u043f\\u043e\\u0434\\u0440\\u043e\\u0431\\u043d\\u043e\\u0439 \\u0438\\u043d\\u0444\\u043e\\u0440\\u043c\\u0430\\u0446\\u0438\\u0438:\\n0709 863 709\"}}, {\"id\": \"AbhtxepcV1\", \"type\": \"paragraph\", \"data\": {\"text\": \"\\u0412\\u0438\\u0434\\u0435\\u043e \\u0437\\u0430\\u043b\\u0430:\\n<a href=\\\"https://www.instagram.com/reel/DAdf32FNwTS/?igsh=c3Btc2M2emU4YTdz\\\">https://www.instagram.com/reel/DAdf32FNwTS/?igsh=c3Btc2M2emU4YTdz</a>\"}}], \"version\": \"2.31.5\"}"
+  }
+]
