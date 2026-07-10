@@ -163,8 +163,8 @@ def _index_cache_key():
 @cache.cached(key_prefix=_index_cache_key, unless=lambda: "success" in request.args)  # type: ignore
 def index():
     success = None
-    if args := request.args:
-        success = True if args.get("success") == "true" else False
+    if "success" in request.args:
+        success = request.args.get("success") == "true"
 
     course_groups = CourseGroup.get_all()
     feedbacks = Feedback.get_all_verified()
@@ -229,8 +229,8 @@ def course_group(course_group_slug: str):
 @main.route("/course/<course_name>")
 def course(course_name):
     success = None
-    if args := request.args:
-        success = True if args.get("success") == "true" else False
+    if "success" in request.args:
+        success = request.args.get("success") == "true"
 
     course = Course.get_by_slug(course_name)
     if not course:
@@ -353,8 +353,8 @@ def get_available_dates():
 @main.get("/toefl/register")
 def toefl_register():
     success = None
-    if args := request.args:
-        success = True if args.get("success") == "true" else False
+    if "success" in request.args:
+        success = request.args.get("success") == "true"
 
     available_dates = get_available_dates()
 
