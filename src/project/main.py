@@ -17,6 +17,7 @@ from flask import (
     url_for,
 )
 from flask_login import login_user, logout_user
+from flask_wtf.csrf import generate_csrf
 
 from .extenstions import cache, csrf, db, login_manager
 from .models import (
@@ -562,6 +563,15 @@ def robots():
 @main.get("/health")
 def health():
     return "OK"
+
+
+@main.get("/api/csrf-token")
+def csrf_token():
+    # Cached pages (e.g. the index) bake in another session's token, so forms
+    # refresh their hidden field from this endpoint, which must never be cached.
+    response = jsonify({"csrf_token": generate_csrf()})
+    response.headers["Cache-Control"] = "no-store, max-age=0"
+    return response
 
 
 @main.get("/api/search")

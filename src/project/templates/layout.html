@@ -550,5 +550,26 @@
                 </div>
             </div>
         </footer>
+        <script>
+            // Pages can be served from the server-side cache, so the CSRF token
+            // rendered into hidden fields may belong to another session. Replace
+            // it with a token bound to this visitor's session before submission.
+            document.addEventListener("DOMContentLoaded", function () {
+                var fields = document.querySelectorAll('input[name="csrf_token"]');
+                if (!fields.length) return;
+                fetch("/api/csrf-token", { cache: "no-store", credentials: "same-origin" })
+                    .then(function (response) {
+                        return response.ok ? response.json() : null;
+                    })
+                    .then(function (data) {
+                        if (data && data.csrf_token) {
+                            fields.forEach(function (field) {
+                                field.value = data.csrf_token;
+                            });
+                        }
+                    })
+                    .catch(function () {});
+            });
+        </script>
     </body>
 </html>
