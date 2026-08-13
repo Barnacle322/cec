@@ -854,6 +854,8 @@
             <div class="flex flex-col gap-12 sm:flex-row">
                 <form class="flex w-full flex-col gap-4 sm:w-1/2" action="/register" method="POST">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" name="form_ts" value="{{ form_ts() }}" />
+                    <input type="text" name="website" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
                     <label for="name" class="sr-only">{{_('Имя и фамилия')}}</label>
                     <input
                         class="rounded-xl border-0 py-4 px-4 text-lg shadow-md focus:ring-2 focus:ring-blue-200 transition-all"
@@ -956,6 +958,8 @@
                     class="grid grid-cols-4 gap-x-2 gap-y-5 bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4"
                 >
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <input type="hidden" name="form_ts" value="{{ form_ts() }}" />
+                    <input type="text" name="website" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0" />
                     <div class="col-span-2 flex flex-col gap-1">
                         <label for="name">{{_('Имя')}}</label>
                         <input

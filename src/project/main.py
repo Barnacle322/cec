@@ -18,6 +18,7 @@ from flask import (
 )
 from flask_login import login_user, logout_user
 from flask_wtf.csrf import generate_csrf
+from itsdangerous import BadSignature, TimestampSigner
 
 from .extenstions import cache, csrf, db, login_manager
 from .models import (
@@ -59,6 +60,33 @@ def _valid_name(value: str) -> bool:
 
 def _valid_course(value: str) -> bool:
     return bool(value and _COURSE_RE.match(value))
+
+
+def _form_signer() -> TimestampSigner:
+    return TimestampSigner(current_app.secret_key, salt="public-form-ts")
+
+
+@main.app_template_global("form_ts")
+def form_ts() -> str:
+    return _form_signer().sign("t").decode()
+
+
+def _is_spam_submission(min_age_seconds: int = 3) -> bool:
+    """Honeypot + minimum fill time for the public forms.
+
+    The 'website' field is invisible to humans, so any value there means a bot.
+    'form_ts' is a signed render timestamp; submissions faster than a human
+    could fill the form (or missing/forged timestamps) are rejected. No maximum
+    age is enforced because the index page is served from the server-side cache.
+    """
+    if request.form.get("website"):
+        return True
+    try:
+        _, timestamp = _form_signer().unsign(request.form.get("form_ts", ""), return_timestamp=True)
+    except BadSignature:
+        return True
+    age = datetime.datetime.now(tz=datetime.UTC) - timestamp
+    return age.total_seconds() < min_age_seconds
 
 
 def _referrer_base() -> str:
@@ -364,6 +392,9 @@ def toefl_register():
 
 @main.post("/toefl/register")
 def toefl_register_post():
+    if _is_spam_submission():
+        return redirect(url_for("main.toefl_register", success="true"))
+
     first_name = request.form.get("first_name")
     last_name = request.form.get("last_name")
     email = request.form.get("email")
@@ -398,6 +429,9 @@ def toefl_register_post():
 
 @main.post("/register")
 def register():
+    if _is_spam_submission():
+        return redirect(url_for("main.index", _anchor="registration-form", success="true"))
+
     name = request.form.get("name")
     phone = request.form.get("phone")
     age = request.form.get("age", type=int)
@@ -428,12 +462,15 @@ def register():
 
 @main.post("/register-course")
 def register_course():
+    base = _referrer_base()
+
+    if _is_spam_submission():
+        return redirect(f"{base}?success=true")
+
     name = request.form.get("name")
     phone = request.form.get("phone")
     age = request.form.get("age", type=int)
     course_info = request.form.get("course_info")
-
-    base = _referrer_base()
 
     if not name or not phone or not age or not course_info:
         return redirect(f"{base}?success=false")
