@@ -707,12 +707,16 @@ msgid "Пробный TOEFL PBT"
 msgstr "TOEFL PBT сыноо"
 
 #: src/project/templates/toefl_register.html:237
-msgid "500 Сом"
-msgstr "500 сом"
+msgid "800 Сом"
+msgstr "800 сом"
 
 #: src/project/templates/toefl_register.html:254
 msgid "Часа"
 msgstr "Саат"
+
+#: src/project/templates/toefl_register.html:288
+msgid "Справка с результатами - 1000 Сом"
+msgstr "Жыйынтыктар жөнүндө маалымкат - 1000 сом"
 
 #: src/project/templates/toefl_register.html:271
 msgid "Пн/Чт 14:10"
@@ -749,10 +753,9 @@ msgstr "- Паспорт (жашы жете электерге - туулган�
 msgid "- Ручку"
 msgstr "- Калем"
 
-#: src/project/templates/toefl_register.html:291
-#, fuzzy
-msgid "- 500 сомов без сдачи"
-msgstr "- 400 сом өзгөртүүсүз"
+#: src/project/templates/toefl_register.html:308
+msgid "- Оплата принимается только безналичным расчетом"
+msgstr "- Төлөм накталай эмес эсептешүү аркылуу гана кабыл алынат"
 
 #: src/project/templates/toefl_register.html:295
 #, fuzzy
