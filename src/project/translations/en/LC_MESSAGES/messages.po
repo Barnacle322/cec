@@ -750,12 +750,16 @@ msgid "Пробный TOEFL PBT"
 msgstr "TOEFL PBT Trial"
 
 #: src/project/templates/toefl_register.html:237
-msgid "500 Сом"
-msgstr "500 KGS"
+msgid "800 Сом"
+msgstr "800 KGS"
 
 #: src/project/templates/toefl_register.html:254
 msgid "Часа"
 msgstr "Hours"
+
+#: src/project/templates/toefl_register.html:288
+msgid "Справка с результатами - 1000 Сом"
+msgstr "Results certificate - 1000 KGS"
 
 #: src/project/templates/toefl_register.html:271
 msgid "Пн/Чт 14:10"
@@ -796,9 +800,9 @@ msgstr "- Passport (for minors - birth certificate)"
 msgid "- Ручку"
 msgstr "- Pen"
 
-#: src/project/templates/toefl_register.html:291
-msgid "- 500 сомов без сдачи"
-msgstr "- 500 soms without change"
+#: src/project/templates/toefl_register.html:308
+msgid "- Оплата принимается только безналичным расчетом"
+msgstr "- Payment is accepted by bank transfer (cashless) only"
 
 #: src/project/templates/toefl_register.html:295
 msgid ""
